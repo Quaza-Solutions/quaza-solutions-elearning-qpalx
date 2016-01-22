@@ -171,4 +171,52 @@ public class EPaymentTransaction {
                 .append("qPalXUser", qPalXUser)
                 .toString();
     }
+
+    public static final Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        
+        private EPaymentTransaction ePaymentTransaction = new EPaymentTransaction();
+
+        public Builder addPaymentQPalXUser(QPalXUser qPalXUser) {
+            ePaymentTransaction.setQPalXUser(qPalXUser);
+            return this;
+        }
+
+        public Builder addTransactionID(String transactionID) {
+            ePaymentTransaction.setTransactionID(transactionID);
+            return this;
+        }
+
+        public Builder addPaymentServiceProvider(PaymentServiceProviderE paymentServiceProviderE) {
+            ePaymentTransaction.setPaymentServiceProviderE(paymentServiceProviderE);
+            return this;
+        }
+
+        public Builder addEPaymentServiceMethodE(EPaymentServiceMethodE ePaymentServiceMethodE) {
+            ePaymentTransaction.setEPaymentServiceMethod(ePaymentServiceMethodE);
+            return this;
+        }
+
+        public Builder addPaymentStatus(PaymentStatusE paymentStatusE) {
+            ePaymentTransaction.setPaymentStatus(paymentStatusE);
+            return this;
+        }
+
+        public Builder addPaymentQPalXSubscription(QPalXSubscription qPalXSubscription) {
+            ePaymentTransaction.setQPalXSubscription(qPalXSubscription);
+            return this;
+        }
+
+        public Builder addPaymentEntryDateTime(DateTime paymentEntryDateTime) {
+            ePaymentTransaction.setPaymentEntryDateTime(paymentEntryDateTime);
+            return this;
+        }
+
+        public EPaymentTransaction build() {
+            return ePaymentTransaction;
+        }
+    }
 }
