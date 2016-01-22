@@ -12,5 +12,170 @@
     <artifactId>qpalx-elearning-domain</artifactId>
     <version>1.0.0.-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+        <hibernate.connection.charSet>UTF-8</hibernate.connection.charSet>
+        <hibernate.export.schema.delimiter>;</hibernate.export.schema.delimiter>
+        <project.build.outputDirectory>{project.build.outputDirectory}</project.build.outputDirectory>
+        <hibernate.export.schema.filename>${project.build.directory}/QPalx-db-schema.sql</hibernate.export.schema.filename>
+    </properties>
+
+    <dependencies>
+
+        <!-- Spring Dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Google Guava API -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
+        <!-- Apache Commons -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6</version>
+        </dependency>
+
+        <!-- Joda Date API -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+        </dependency>
+
+        <!-- Jackson for REST and JSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+
+        <!-- Testing dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <!--
+                Using De Juplo plugin, we generate Hibernate Schema DLL's.
+                Note that this will scan all annotated classes  as defined in our persitence.xml file and generate DLL's for them.
+                As long as classes are properly annotated in the scan packaged defined in persistence.xml there will be a dll.
+
+                Plugin documentation is available at http://juplo.de/hibernate4-maven-plugin/
+        -->
+        <plugins>
+            <plugin>
+                <groupId>de.juplo</groupId>
+                <artifactId>hibernate4-maven-plugin</artifactId>
+                <version>1.0.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>export</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <target>SCRIPT</target>
+                </configuration>
+            </plugin>
+
+            <!-- This plugin generates projects javadocs as well as UML diagrams  y1jL_EkPL2oC
+              <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-site-plugin</artifactId>
+                  <configuration>
+                      <reportPlugins>
+                          <plugin>
+                              <groupId>org.apache.maven.plugins</groupId>
+                              <artifactId>maven-project-info-reports-plugin</artifactId>
+                          </plugin>
+                          <plugin>
+                              <groupId>org.apache.maven.plugins</groupId>
+                              <artifactId>maven-javadoc-plugin</artifactId>
+                              <version>2.8.1</version>
+                              <configuration>
+                                  <doclet>ydoc.doclets.YStandard</doclet>
+                                  <docletPath>${yDoc.path}/lib/ydoc.jar:${yDoc.path}/lib/styleed.jar:${yDoc.path}/resources</docletPath>
+                                  <additionalparam>-umlautogen</additionalparam>
+                              </configuration>
+                          </plugin>
+                      </reportPlugins>
+                  </configuration>
+              </plugin>
+              -->
+
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>de.juplo</groupId>
+                                        <artifactId>
+                                            hibernate4-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.0.3,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>export</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>
