@@ -1,7 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.payment.electronic;
 
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
-import com.quaza.solutions.qpalx.elearning.domain.user.QPalXUser;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
