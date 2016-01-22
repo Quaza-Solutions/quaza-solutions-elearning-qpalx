@@ -1,7 +1,8 @@
-package com.quaza.solutions.qpalx.elearning.domain.user.profile.repository;
+package com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.repository;
 
-import com.quaza.solutions.qpalx.elearning.domain.user.QPalXUser;
-import com.quaza.solutions.qpalx.elearning.domain.user.profile.UserSubscriptionProfile;
+
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfile;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
