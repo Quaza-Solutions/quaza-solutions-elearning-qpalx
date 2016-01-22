@@ -1,7 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning;
 
 import com.google.common.collect.ImmutableSet;
-import com.quaza.solutions.qpalx.elearning.domain.user.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
