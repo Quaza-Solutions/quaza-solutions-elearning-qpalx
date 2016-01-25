@@ -12,6 +12,9 @@ import org.springframework.data.repository.CrudRepository;
 public interface IAdaptiveLearningProfileRepository extends CrudRepository<AdaptiveLearningProfile, Long> {
 
 
-    @Query("Select adaptiveLearningProfile From AdaptiveLearningProfile adaptiveLearningProfile JOIN FETCH adaptiveLearningProfile.qpalxUser = ?1")
+    @Query("Select              adaptiveLearningProfile From AdaptiveLearningProfile adaptiveLearningProfile "+
+           "INNER JOIN FETCH    adaptiveLearningProfile.qpalxUser qpalxUser " +
+           "Where               qpalxUser =?1"
+    )
     public AdaptiveLearningProfile findAdaptiveLearningProfileForQPalxUser(final QPalXUser qPalXUser);
 }

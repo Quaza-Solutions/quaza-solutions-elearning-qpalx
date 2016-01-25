@@ -39,13 +39,13 @@ public class ELearningCourse {
 
 	// Ceiling ProficiencyRankingScale should always be specified for each ELearningCourse.
 	// Students can only take ElearningCourse's inclusive between the specified ceiling and floor ProficiencyRanking
-	@Column(name="ProficiencyRankingScale", nullable=false, length=10)
+	@Column(name="ProficiencyRankingScaleCeiling", nullable=false, length=10)
 	@Enumerated(EnumType.STRING)
 	private ProficiencyRankingScaleE proficiencyRankingScaleCeiling;
 
     // Floor ProficiencyRankingScale should always be specified for each ELearningCourse.
     // Students can only take ElearningCourse's inclusive between the specified ceiling and floor ProficiencyRanking
-    @Column(name="ProficiencyRankingScale", nullable=false, length=10)
+    @Column(name="ProficiencyRankingScaleFloor", nullable=false, length=10)
     @Enumerated(EnumType.STRING)
     private ProficiencyRankingScaleE proficiencyRankingScaleFloor;
 
@@ -57,7 +57,7 @@ public class ELearningCourse {
     // Optional QPalXEducationalInstitution, IF this is set this ELearningCourse should only be accessible by QPalXUser's
     // matriculated/attending that specific Educational Institution.
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ELearningCurriculumID", nullable = true)
+    @JoinColumn(name = "QPalXEducationalInstitutionID", nullable = true)
     private QPalXEducationalInstitution qPalXEducationalInstitution;
 
     // DateTime that the Course was uploaded into the QPalX platform.

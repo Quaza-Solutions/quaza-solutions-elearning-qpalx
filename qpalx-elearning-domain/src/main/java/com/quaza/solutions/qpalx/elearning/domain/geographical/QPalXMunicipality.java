@@ -123,27 +123,27 @@ public class QPalXMunicipality {
 
         private final QPalXMunicipality qPalXMunicipality = new QPalXMunicipality();
 
-        public Builder addName(String name) {
+        public Builder name(String name) {
             qPalXMunicipality.setName(name);
             return this;
         }
 
-        public Builder addCode(String code) {
+        public Builder code(String code) {
             qPalXMunicipality.setCode(code);
             return this;
         }
 
-        public Builder addTimeZone(String timeZone) {
+        public Builder timeZone(String timeZone) {
             qPalXMunicipality.setTimeZone(timeZone);
             return this;
         }
 
-        public Builder addQPalXCountry(QPalXCountry qPalXCountry) {
+        public Builder qPalXCountry(QPalXCountry qPalXCountry) {
             qPalXMunicipality.setQPalXCountry(qPalXCountry);
             return this;
         }
 
-        public QPalXMunicipality get() {
+        public QPalXMunicipality build() {
             return qPalXMunicipality;
         }
     }

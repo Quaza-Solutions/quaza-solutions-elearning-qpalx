@@ -5,20 +5,21 @@
     <parent>
         <artifactId>quaza-solutions-elearning-qpalx</artifactId>
         <groupId>com.quaza.solutions.qpalx.elearning</groupId>
-        <version>1.0.0.-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>qpalx-elearning-service</artifactId>
-    <version>1.0.0.-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <dependencies>
 
         <!-- QPalX dependencies -->
         <dependency>
-            <groupId>com.quaza.solutions.qpalx</groupId>
+            <groupId>com.quaza.solutions.qpalx.elearning</groupId>
             <artifactId>qpalx-elearning-domain</artifactId>
-            <version>1.0.0.-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <!-- Spring Boot dependencies -->

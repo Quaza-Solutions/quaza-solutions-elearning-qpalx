@@ -23,12 +23,14 @@ public interface IAdaptiveLearningExperienceRepository extends CrudRepository<Ad
      * @return List<AdaptiveLearningExperience>
      */
     @Query(
-            "Select adaptiveLearningExperience "+
-            "From   AdaptiveLearningExperience adaptiveLearningExperience "+
-            "JOIN   FETCH adaptiveLearningExperience.adaptiveLearningProfile.qpalxUser "+
-            "JOIN   FETCH adaptiveLearningExperience.eLearningCourseActivity.eLearningCourse.eLearningCurriculum "+
-            "Where  adaptiveLearningExperience.adaptiveLearningProfile.qpalxUser = ?1 "+
-            "And    adaptiveLearningExperience.eLearningCourseActivity.eLearningCourse.eLearningCurriculum =?2"
+            "Select         adaptiveLearningExperience "+
+            "From           AdaptiveLearningExperience adaptiveLearningExperience "+
+            "INNER  JOIN    FETCH adaptiveLearningExperience.qpalxUser qpalxUser "+
+            "INNER  JOIN    FETCH adaptiveLearningExperience.eLearningCourseActivity as eLearningCourseActivity "+
+            "INNER  JOIN    FETCH eLearningCourseActivity.eLearningCourse as eLearningCourse "+
+            "INNER  JOIN    FETCH eLearningCourse.eLearningCurriculum as eLearningCurriculum "+
+            "Where          qpalxUser = ?1 "+
+            "And            eLearningCurriculum =?2"
     )
     public List<AdaptiveLearningExperience> findAllQPalxUserCurriculumLearningExperiences(final QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum);
 

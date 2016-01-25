@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyScoreRangeE;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -25,6 +26,11 @@ public class AdaptiveLearningExperience {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID", nullable=false)
     private Long id;
+
+    // Link back to QPalXUser.  For Optimization reasons this will prevent the need to join back to AdaptiveLearningProfile to find User.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "QPalxUserID", nullable = false)
+    private QPalXUser qpalxUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AdaptiveLearningProfileID", nullable = false)
@@ -51,7 +57,7 @@ public class AdaptiveLearningExperience {
 
     // DateTime that the learning experience was completed.  With this information we may be able to factor this
     // metric into the final algorithm that figures out how well a Student did on any AdaptiveLearningExperience
-    @Column(name="LearningExperienceStartDate", nullable=true)
+    @Column(name="LearningExperienceCompletedDate", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime learningExperienceCompletedDate;
 
@@ -64,6 +70,14 @@ public class AdaptiveLearningExperience {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public QPalXUser getQpalxUser() {
+        return qpalxUser;
+    }
+
+    public void setQpalxUser(QPalXUser qpalxUser) {
+        this.qpalxUser = qpalxUser;
     }
 
     public AdaptiveLearningProfile getAdaptiveLearningProfile() {

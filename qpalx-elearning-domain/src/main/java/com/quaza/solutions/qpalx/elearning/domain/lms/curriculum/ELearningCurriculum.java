@@ -35,7 +35,7 @@ public class ELearningCurriculum {
 
     // The QPalXTutorialLevel that this ELearning Curriculum has been designed for.
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "GeographicalRegionID", nullable = false)
+    @JoinColumn(name = "QPalXTutorialLevelID", nullable = false)
     private QPalXTutorialLevel qPalXTutorialLevel;
 
     @ManyToOne(fetch = FetchType.EAGER)
