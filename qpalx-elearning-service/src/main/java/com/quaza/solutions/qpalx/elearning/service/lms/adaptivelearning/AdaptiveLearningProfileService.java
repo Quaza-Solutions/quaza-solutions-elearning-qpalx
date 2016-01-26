@@ -4,12 +4,14 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveL
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.repository.IAdaptiveLearningProfileRepository;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 /**
  *
  * @author manyce400
  */
+@Service("quaza.solutions.qpalx.elearning.services.AdaptiveLearningProfileService")
 public class AdaptiveLearningProfileService implements IAdaptiveLearningProfileService {
 
 
