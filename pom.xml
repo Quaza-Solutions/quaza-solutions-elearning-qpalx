@@ -16,6 +16,7 @@
   <modules>
     <module>qpalx-elearning-domain</module>
     <module>qpalx-elearning-service</module>
+    <module>qpalx-elearning-ci</module>
   </modules>
 
 

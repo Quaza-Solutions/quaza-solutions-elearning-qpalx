@@ -32,7 +32,7 @@ public class AdaptiveLearningProfile {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "QPalxUserID", nullable = false)
+    @JoinColumn(name = "QPalxUserID", nullable = false, unique = true)
     private QPalXUser qpalxUser;
 
     // DateTime that the Adaptive Learning profile started getting recorded.
@@ -125,7 +125,6 @@ public class AdaptiveLearningProfile {
                 .append("id", id)
                 .append("qpalxUser", qpalxUser)
                 .append("learningProfileStartDate", learningProfileStartDate)
-                .append("adaptiveLearningExperiences", adaptiveLearningExperiences)
                 .toString();
     }
 

@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author manyce400
  */
 @SpringBootApplication
-//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 public class QPalXServiceApplicationBootstrapper {
 
     public static void main(String[] args) {
