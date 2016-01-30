@@ -128,9 +128,6 @@ public class AdaptiveLearningProfile {
                 .toString();
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
 
     public static final class Builder {
 
@@ -162,5 +159,9 @@ public class AdaptiveLearningProfile {
         public AdaptiveLearningProfile build() {
             return adaptiveLearningProfile;
         }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

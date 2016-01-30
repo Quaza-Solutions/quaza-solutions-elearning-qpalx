@@ -6,10 +6,13 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning;
  */
 public enum LearningActivityE {
 
-    INTERACTIVE_EXERCISE,
+    Quiz,
 
-    ASSESSEMENT,
+    Assesment,
 
-    ASSIGNMENT
+    Assignment,
+
+    Interactive_Excersise
+
     ;
 }

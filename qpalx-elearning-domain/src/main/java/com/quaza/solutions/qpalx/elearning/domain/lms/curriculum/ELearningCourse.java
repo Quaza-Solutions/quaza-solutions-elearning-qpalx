@@ -210,4 +210,61 @@ public class ELearningCourse {
                 .append("courseActive", courseActive)
                 .toString();
     }
+
+
+    public static final class Builder {
+
+        private final ELearningCourse eLearningCourse = new ELearningCourse();
+
+        public Builder() {
+        }
+
+        public Builder courseName(String courseName) {
+            eLearningCourse.courseName = courseName;
+            return this;
+        }
+
+        public Builder courseDescription(String courseDescription) {
+            eLearningCourse.courseDescription =courseDescription;
+            return this;
+        }
+
+        public Builder courseActive(boolean courseActive) {
+            eLearningCourse.courseActive = courseActive;
+            return this;
+        }
+
+        public Builder proficiencyRankingScaleCeiling(ProficiencyRankingScaleE proficiencyRankingScaleCeiling) {
+            eLearningCourse.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
+            return this;
+        }
+
+        public Builder proficiencyRankingScaleFloor(ProficiencyRankingScaleE proficiencyRankingScaleFloor) {
+            eLearningCourse.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
+            return this;
+        }
+
+        public Builder eLearningCurriculum(ELearningCurriculum eLearningCurriculum) {
+            eLearningCourse.eLearningCurriculum = eLearningCurriculum;
+            return this;
+        }
+
+        public Builder qPalXEducationalInstitution( QPalXEducationalInstitution qPalXEducationalInstitution) {
+            eLearningCourse.qPalXEducationalInstitution = qPalXEducationalInstitution;
+            return  this;
+        }
+
+        public Builder entryDate(DateTime entryDate) {
+            eLearningCourse.entryDate = entryDate;
+            return this;
+        }
+
+        public ELearningCourse build() {
+            return eLearningCourse;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

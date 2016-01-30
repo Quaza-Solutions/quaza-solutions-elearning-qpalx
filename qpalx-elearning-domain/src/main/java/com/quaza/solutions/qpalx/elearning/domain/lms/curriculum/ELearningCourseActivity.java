@@ -43,7 +43,8 @@ public class ELearningCourseActivity {
     @Embedded
     private ELearningMediaContent eLearningMediaContent;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    // Always fetch this Eager as we always need the course readily available to use.
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ELearningCourseID", nullable = false)
     private ELearningCourse eLearningCourse;
 
@@ -172,5 +173,54 @@ public class ELearningCourseActivity {
                 .append("entryDate", entryDate)
                 .append("activityActive", activityActive)
                 .toString();
+    }
+
+    public static final class Builder {
+
+        private final ELearningCourseActivity eLearningCourseActivity = new ELearningCourseActivity();
+
+        public Builder activityName(String activityName) {
+            eLearningCourseActivity.activityName = activityName;
+            return this;
+        }
+
+        public Builder activityDescription(String activityDescription) {
+            eLearningCourseActivity.activityDescription = activityDescription;
+            return this;
+        }
+
+        public Builder learningActivityE(LearningActivityE learningActivityE) {
+            eLearningCourseActivity.learningActivityE = learningActivityE;
+            return this;
+        }
+
+        public Builder eLearningMediaContent(ELearningMediaContent eLearningMediaContent) {
+            eLearningCourseActivity.eLearningMediaContent = eLearningMediaContent;
+            return this;
+        }
+
+        public Builder eLearningCourse(ELearningCourse eLearningCourse) {
+            eLearningCourseActivity.eLearningCourse = eLearningCourse;
+            return this;
+        }
+
+        public Builder entryDate(DateTime entryDate) {
+            eLearningCourseActivity.entryDate = entryDate;
+            return this;
+        }
+
+        public Builder activityActive(boolean activityActive) {
+            eLearningCourseActivity.activityActive = activityActive;
+            return this;
+        }
+
+        public ELearningCourseActivity build() {
+            return eLearningCourseActivity;
+        }
+
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

@@ -77,4 +77,27 @@ public class ELearningMediaContent {
                 .append("eLearningMediaFile", eLearningMediaFile)
                 .toString();
     }
+
+    public static final class Builder {
+
+        private final ELearningMediaContent eLearningMediaContent = new ELearningMediaContent();
+
+        public Builder eLearningMediaType(String eLearningMediaType) {
+            eLearningMediaContent.eLearningMediaType = eLearningMediaType;
+            return this;
+        }
+
+        public Builder eLearningMediaFile(String eLearningMediaFile) {
+            eLearningMediaContent.eLearningMediaFile = eLearningMediaFile;
+            return this;
+        }
+
+        public ELearningMediaContent build() {
+            return eLearningMediaContent;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
