@@ -46,7 +46,7 @@ public class AdaptiveLearningExperience {
     private Double proficiencyScore;
 
     // Each completed AdaptiveLearningExperience will have a proficiency ranking associated with it derived from proficiencyScore
-    @Column(name="ProficiencyScoreRange", nullable=false, length=10)
+    @Column(name="ProficiencyScoreRange", nullable=false, length=100)
     @Enumerated(EnumType.STRING)
     private ProficiencyScoreRangeE proficiencyScoreRangeE;
 
@@ -175,10 +175,6 @@ public class AdaptiveLearningExperience {
                 .toString();
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     public static final class Builder {
 
         private final AdaptiveLearningExperience instance = new AdaptiveLearningExperience();
@@ -197,7 +193,7 @@ public class AdaptiveLearningExperience {
         }
 
         public Builder proficiencyScore(final Double proficiencyScore) {
-            instance.proficiencyScore = proficiencyScore;
+            instance.setProficiencyScore(proficiencyScore);
             return this;
         }
 
@@ -211,9 +207,18 @@ public class AdaptiveLearningExperience {
             return this;
         }
 
+        public Builder qpalxUser(QPalXUser qpalxUser) {
+            instance.qpalxUser = qpalxUser;
+            return this;
+        }
+
         public AdaptiveLearningExperience build() {
             return instance;
         }
 
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }
