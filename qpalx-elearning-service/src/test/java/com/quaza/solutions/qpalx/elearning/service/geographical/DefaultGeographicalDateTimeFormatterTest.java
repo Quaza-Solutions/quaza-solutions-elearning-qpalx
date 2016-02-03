@@ -23,7 +23,7 @@ public class DefaultGeographicalDateTimeFormatterTest {
 
 
     @Autowired
-    @Qualifier("quaza.solutions.qpalx.elearning.services.DefaultGeographicalDateTimeFormatter")
+    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultGeographicalDateTimeFormatter")
     private IGeographicalDateTimeFormatter iGeographicalDateTimeFormatter;
 
     @Test

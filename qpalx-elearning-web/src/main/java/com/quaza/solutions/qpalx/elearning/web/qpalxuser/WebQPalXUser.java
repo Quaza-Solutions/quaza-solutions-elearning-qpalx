@@ -58,6 +58,10 @@ public class WebQPalXUser implements UserDetails {
         return iGeographicalDateTimeFormatter.getDisplayDateTimeWithTimeZone(expiryDate, studentMunicipality);
     }
 
+    public QPalXUser getQPalXUser() {
+        return qPalXUser;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return AuthorityUtils.createAuthorityList(qPalXUser.getUserType().toString());

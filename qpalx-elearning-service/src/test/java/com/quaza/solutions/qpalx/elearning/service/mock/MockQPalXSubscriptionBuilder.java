@@ -1,5 +1,9 @@
 package com.quaza.solutions.qpalx.elearning.service.mock;
 
+import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
+import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
+import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionTypeE;
+
 /**
  *
  * @author manyce400
@@ -7,12 +11,13 @@ package com.quaza.solutions.qpalx.elearning.service.mock;
 public class MockQPalXSubscriptionBuilder {
 
 
-//    public static QPalXSubscriptionBuilder buildMockTestQPalXSubscription(final QPalXCountry subscriptionCountry) {
-//        QPalXSubscriptionBuilder qPalXSubscriptionBuilder = new QPalXSubscriptionBuilder()
-//                .addSubscriptionQPalXCountry(subscriptionCountry)
-//                .addSubscriptionName("Test Susbscription For Five Days")
-//                .addSubscriptionCost(10.00)
-//                .addSubscriptionType(SubscriptionTypeE.FIVE_DAYS);
-//        return qPalXSubscriptionBuilder;
-//    }
+    public static QPalXSubscription buildMockTestQPalXSubscription(final QPalXCountry subscriptionCountry) {
+        QPalXSubscription qPalXSubscription = QPalXSubscription.builder()
+                .subscriptionQPalXCountry(subscriptionCountry)
+                .subscriptionName("Test Susbscription For Five Days")
+                .subscriptionCost(10.00)
+                .subscriptionType(SubscriptionTypeE.FIVE_DAYS)
+                .build();
+        return qPalXSubscription;
+    }
 }

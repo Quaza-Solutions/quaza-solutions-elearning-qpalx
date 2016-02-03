@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
  *
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.services.DefaultGeographicalDateTimeFormatter")
+@Service("quaza.solutions.qpalx.elearning.service.DefaultGeographicalDateTimeFormatter")
 public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTimeFormatter  {
 
 

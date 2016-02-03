@@ -35,7 +35,7 @@ public class DefaultQPalxUserService implements IQPalxUserService {
     private IUserSubscriptionProfileRepository iUserSubscriptionProfileRepository;
 
     @Autowired
-    @Qualifier("quaza.solutions.qpalx.elearning.services.CacheEnabledQPalXMunicipalityService")
+    @Qualifier("quaza.solutions.qpalx.elearning.service.CacheEnabledQPalXMunicipalityService")
     private IQPalXMunicipalityService iqPalXMunicipalityService;
 
     @Autowired

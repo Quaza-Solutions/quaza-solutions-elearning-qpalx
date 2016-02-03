@@ -19,7 +19,7 @@ import java.util.List;
  *
  * Created by manyce400 on 12/6/15.
  */
-@Service("quaza.solutions.qpalx.elearning.services.CacheEnabledQPalXMunicipalityService")
+@Service("quaza.solutions.qpalx.elearning.service.CacheEnabledQPalXMunicipalityService")
 public class CacheEnabledQPalXMunicipalityService implements IQPalXMunicipalityService {
 
 

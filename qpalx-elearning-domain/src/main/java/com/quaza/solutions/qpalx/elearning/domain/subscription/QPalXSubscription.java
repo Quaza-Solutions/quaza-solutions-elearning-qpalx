@@ -121,10 +121,6 @@ public class QPalXSubscription {
 				.toString();
 	}
 
-	public static final Builder builder() {
-		return new Builder();
-	}
-
 	public static final class Builder {
 
 		private final QPalXSubscription qPalXSubscription = new QPalXSubscription();
@@ -144,8 +140,17 @@ public class QPalXSubscription {
 			return this;
 		}
 
+        public Builder subscriptionName(String subscriptionName) {
+            qPalXSubscription.subscriptionName = subscriptionName;
+            return this;
+        }
+
 		public QPalXSubscription build() {
 			return qPalXSubscription;
 		}
+	}
+
+	public static final Builder builder() {
+		return new Builder();
 	}
 }
