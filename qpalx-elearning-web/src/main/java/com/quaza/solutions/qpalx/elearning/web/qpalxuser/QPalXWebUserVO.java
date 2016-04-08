@@ -54,6 +54,8 @@ public class QPalXWebUserVO implements IQPalXUserVO {
     //@NotNull
     private String mPowerAuthorizationToken;
 
+    private String studentPhotoFile;
+
     public QPalXWebUserVO() {
 
     }
@@ -158,6 +160,14 @@ public class QPalXWebUserVO implements IQPalXUserVO {
         this.mPowerAuthorizationToken = mPowerAuthorizationToken;
     }
 
+    public String getStudentPhotoFile() {
+        return studentPhotoFile;
+    }
+
+    public void setStudentPhotoFile(String studentPhotoFile) {
+        this.studentPhotoFile = studentPhotoFile;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -172,6 +182,82 @@ public class QPalXWebUserVO implements IQPalXUserVO {
                 .append("mobileMoneySystem", mobileMoneySystem)
                 .append("mPowerAccountAlias", mPowerAccountAlias)
                 .append("mPowerAuthorizationToken", mPowerAuthorizationToken)
+                .append("studentPhotoFile", studentPhotoFile)
                 .toString();
+    }
+
+
+    public static final class Builder {
+
+        private final QPalXWebUserVO qPalXWebUserVO = new QPalXWebUserVO();
+
+        public Builder firstName(String firstName) {
+            qPalXWebUserVO.setFirstName(firstName);
+            return this;
+        }
+
+        public Builder lastName(String lastName) {
+            qPalXWebUserVO.setLastName(lastName);
+            return this;
+        }
+
+        public Builder email(String email) {
+            qPalXWebUserVO.setEmail(email);
+            return this;
+        }
+
+        public Builder password(String password) {
+            qPalXWebUserVO.setPassword(password);
+            return this;
+        }
+
+        public Builder municipalityID(Long municipalityID) {
+            qPalXWebUserVO.setMunicipalityID(municipalityID);
+            return this;
+        }
+
+        public Builder subscriptionID(Long subscriptionID) {
+            qPalXWebUserVO.setSubscriptionID(subscriptionID);
+            return this;
+        }
+
+        public Builder tutorialLevelID(Long tutorialLevelID) {
+            qPalXWebUserVO.setTutorialLevelID(tutorialLevelID);
+            return this;
+        }
+
+        public Builder educationalInstitutionID(Long educationalInstitutionID) {
+            qPalXWebUserVO.setEducationalInstitutionID(educationalInstitutionID);
+            return this;
+        }
+
+        public Builder mobileMoneySystem(String mobileMoneySystem) {
+            qPalXWebUserVO.setMobileMoneySystem(mobileMoneySystem);
+            return this;
+        }
+
+        public Builder mPowerAccountAlias(String mPowerAccountAlias) {
+            qPalXWebUserVO.setMPowerAccountAlias(mPowerAccountAlias);
+            return this;
+        }
+
+        public Builder mPowerAuthorizationToken(String mPowerAuthorizationToken) {
+            qPalXWebUserVO.setmPowerAuthorizationToken(mPowerAuthorizationToken);
+            return this;
+        }
+
+        public Builder studentPhotoFile(String studentPhotoFile) {
+            qPalXWebUserVO.setStudentPhotoFile(studentPhotoFile);
+            return this;
+        }
+
+        public QPalXWebUserVO build() {
+            return qPalXWebUserVO;
+        }
+    }
+
+
+    public static final Builder builder() {
+        return new Builder();
     }
 }

@@ -2,14 +2,12 @@ package com.quaza.solutions.qpalx.elearning.reporting.charting.line;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * Defines QPalX Line chart row and column properties
+ * Defines QPalX Line chart row and column properties based exclusively on Google Charts API.
  *
  * @author manyce400
  */
@@ -63,16 +61,4 @@ class LineChartAttribute {
                 .toString();
     }
 
-    public static void main(String [] args) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        LineChartAttribute studentPerformanceSnapshot = new LineChartAttribute();
-        studentPerformanceSnapshot.setName("string");
-
-        try {
-            String json = objectMapper.writeValueAsString(studentPerformanceSnapshot);
-            System.out.println("json = " + json);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-    }
 }

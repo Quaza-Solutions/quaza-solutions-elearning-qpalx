@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionValidationResult;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IGeographicalDateTimeFormatter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -97,7 +98,20 @@ public class WebQPalXUser implements UserDetails {
         return !qPalXUser.isAccountLocked(); // Return inverse since isAccountLocked will return false if not locked
     }
 
+    public SubscriptionValidationResult getSubscriptionValidationResult() {
+        return subscriptionValidationResult;
+    }
+
     public void setIGeographicalDateTimeFormatter(IGeographicalDateTimeFormatter iGeographicalDateTimeFormatter) {
         this.iGeographicalDateTimeFormatter = iGeographicalDateTimeFormatter;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("qPalXUser", qPalXUser)
+                .append("subscriptionValidationResult", subscriptionValidationResult)
+                .append("iGeographicalDateTimeFormatter", iGeographicalDateTimeFormatter)
+                .toString();
     }
 }

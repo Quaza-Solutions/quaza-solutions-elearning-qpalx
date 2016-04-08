@@ -24,6 +24,13 @@ public class CacheEnabledELearningCurriculumService implements IELearningCurricu
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(CacheEnabledELearningCurriculumService.class);
 
     @Override
+    public ELearningCurriculum findByELearningCurriculumID(Long curriculumID) {
+        Assert.notNull(curriculumID, "curriculumID cannot be null");
+        LOGGER.debug("Finding curriculum by ID: {}", curriculumID);
+        return null;
+    }
+
+    @Override
     public ELearningCurriculum findByELearningCurriculumName(String curriculumName) {
         Assert.notNull(curriculumName, "curriculumName cannot be null");
         LOGGER.debug("Finding ELearningCurriculum with curriculumName: {}", curriculumName);

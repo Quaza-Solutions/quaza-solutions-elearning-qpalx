@@ -9,6 +9,8 @@ import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserSexE;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfile;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfileBuilder;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.repository.IUserSubscriptionProfileRepository;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.repository.IQPalxUserRepository;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatusE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
@@ -19,6 +21,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Optional;
@@ -31,6 +34,9 @@ import java.util.Optional;
 public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscriptionService {
 
 
+
+    @Autowired
+    private IUserSubscriptionProfileRepository iUserSubscriptionProfileRepository;
 
 
     @Autowired
@@ -48,6 +54,10 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxUserService")
     private IQPalxUserService iqPalxUserService;
+
+    @Autowired
+    private IQPalxUserRepository iqPalxUserRepository;
+
 
     @Autowired
     private IEPaymentServiceTransactionRepository iePaymentServiceTransactionRepository;
@@ -98,6 +108,31 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
     }
 
     @Override
+    @Transactional
+    public boolean renewQPalXUserSubscription(QPalXUser qPalXUser, QPalXSubscription subscription) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(subscription, "subscription cannot be null");
+
+        System.out.println("\ndamn it");
+
+        // Need to reload this user and get the UserSubscriptionProfile collection which is lazily loaded
+        //qPalXUser = iqPalxUserRepository.findQPalxUserBySuccessIDAndFetchUserSubscriptionProfile(qPalXUser.getSuccessID());
+
+        LOGGER.info("Renewing subscription for Student: {} with new subscription: {}", qPalXUser.getEmail(), subscription.getSubscriptionName());
+
+        Optional<UserSubscriptionProfile> userSubscriptionProfile = addQPalXUserTutorialSubscriptionProfile(subscription.getId(), qPalXUser);
+        if(userSubscriptionProfile.isPresent()) {
+            // Add new subscription details to QPalXUser Subscription profile and save
+            LOGGER.info("Saving QPalX User: {} new subscription information", qPalXUser.getEmail(), subscription.getSubscriptionName());
+            iUserSubscriptionProfileRepository.save(userSubscriptionProfile.get());
+            return true;
+        } else {
+            LOGGER.warn("Failed to renew subscription for User: {} with Subscription: {}", qPalXUser.getEmail(), subscription.getSubscriptionName());
+            return false;
+        }
+    }
+
+    @Override
     public Optional<UserSubscriptionProfile> addQPalXUserTutorialSubscriptionProfile(Long subscriptionID, QPalXUser qPalXUser) {
         Assert.notNull(subscriptionID, "subscriptionID cannot be null");
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
@@ -125,6 +160,7 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
 
             // calculate subscription expiry date
             DateTime subscriptionExpiryDate = iqPalxSubscriptionService.calculateSubscriptionExpiryDateFromToday(subscription);
+            LOGGER.info("New subscription for user: {} will expire on: {}", qPalXUser.getEmail(), subscriptionExpiryDate);
 
             // Build UserSubscriptionProfile
             UserSubscriptionProfileBuilder userSubscriptionProfileBuilder = new UserSubscriptionProfileBuilder()

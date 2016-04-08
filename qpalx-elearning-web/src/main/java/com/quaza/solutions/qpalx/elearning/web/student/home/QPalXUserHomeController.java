@@ -29,6 +29,7 @@ public class QPalXUserHomeController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultGeographicalDateTimeFormatter")
     private IGeographicalDateTimeFormatter iGeographicalDateTimeFormatter;
 
+
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXUserHomeController.class);
 
 
@@ -59,5 +60,7 @@ public class QPalXUserHomeController {
             return "qpalx-student/home/student-home";
         }
     }
+
+
 
 }

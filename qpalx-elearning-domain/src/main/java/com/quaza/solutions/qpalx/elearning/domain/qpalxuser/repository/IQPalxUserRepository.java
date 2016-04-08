@@ -61,6 +61,8 @@ public interface IQPalxUserRepository extends CrudRepository<QPalXUser, Long> {
     @Query("Select qpalxUser From QPalXUser qpalxUser JOIN FETCH qpalxUser.userSubscriptionProfiles Where qpalxUser.successID = ?1")
     public QPalXUser findQPalxUserBySuccessIDAndFetchUserSubscriptionProfile(String successID);
 
+
+
     @Query("Select qpalxUser From QPalXUser qpalxUser")
     public List<QPalXUser> findAllQPalXUsersWithPageableResults(Pageable pageable);
 

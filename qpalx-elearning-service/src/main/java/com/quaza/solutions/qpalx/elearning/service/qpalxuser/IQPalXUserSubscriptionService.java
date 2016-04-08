@@ -3,6 +3,7 @@ package com.quaza.solutions.qpalx.elearning.service.qpalxuser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.IQPalXUserVO;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfile;
+import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 
 import java.util.Optional;
 
@@ -22,6 +23,15 @@ public interface IQPalXUserSubscriptionService {
      * @return Optional object, empty if implementation is unable to create QPalXUser with registration
      */
     public Optional<QPalXUser> createNewQPalXUserWithTutorialSubscription(IQPalXUserVO iqPalXUserVO);
+
+
+    /**
+     * Renew QPalX Student user's subscription with the Subscription passed in as argument.
+     *
+     * @param qPalXUser
+     * @param subscription
+     */
+    public boolean renewQPalXUserSubscription(QPalXUser qPalXUser, QPalXSubscription subscription);
 
     /**
      * Creates a brand new UserSubscriptionProfile given a subscriptionID for a QPalXUser.

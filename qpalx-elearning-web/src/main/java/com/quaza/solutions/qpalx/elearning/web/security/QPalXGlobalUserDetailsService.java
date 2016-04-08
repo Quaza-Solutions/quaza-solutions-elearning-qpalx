@@ -53,13 +53,13 @@ public class QPalXGlobalUserDetailsService implements UserDetailsService {
 
             if (QPalxUserTypeE.STUDENT == userTypeE) {
                 SubscriptionValidationResult subscriptionValidationResult = iqPalxSubscriptionService.validateUserQPalXSubscription(qPalXUser);
+                WebQPalXUser validatedQPalXUser = getQPalXLoginEvent(qPalXUser, subscriptionValidationResult);
 
                 if(SubscriptionStatusE.ACTIVE == subscriptionValidationResult.getSubscriptionStatusE()) {
-                    //User user = new User(qPalXUser.getEmail(), qPalXUser.getPassword(), AuthorityUtils.createAuthorityList(qPalXUser.getUserType().toString()));
-                    WebQPalXUser user = getQPalXLoginEvent(qPalXUser, subscriptionValidationResult);
-                    return user;
+                    return validatedQPalXUser;
                 } else {
                     LOGGER.info("No valid or active subscription found for user with email: {}", qPalXUser.getEmail());
+                    throw new QPalXUserLoginExpiredException(validatedQPalXUser, "QPalXSubscription has currently expired");
                 }
             } else {
                 // Create login with no subscription event
@@ -68,8 +68,8 @@ public class QPalXGlobalUserDetailsService implements UserDetailsService {
             }
         }
 
-        LOGGER.info("Denying access to QPalX for User Email: {}.", userEmail);
-        throw new UsernameNotFoundException(String.format("User with emai:> =%s was not found in QPalX User Database", userEmail));
+        LOGGER.info("Denying access to QPalX for User Email: {}", userEmail);
+        throw new QPalXUserLoginExpiredException(String.format("User with emai:> =%s was not found in QPalX User Database", userEmail));
     }
 
     private WebQPalXUser getQPalXLoginEvent(final QPalXUser qPalXUser, SubscriptionValidationResult subscriptionValidationResult) {

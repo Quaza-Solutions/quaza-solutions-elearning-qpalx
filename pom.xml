@@ -18,6 +18,7 @@
     <module>qpalx-elearning-service</module>
     <module>qpalx-elearning-ci</module>
     <module>qpalx-elearning-web</module>
+    <module>qpalx-elearning-reporting</module>
   </modules>
 
 

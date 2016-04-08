@@ -78,6 +78,8 @@ public class QPalXUser {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime lastLoginDate;
 
+    @Column(name="PhotoFileLocation", nullable=true, unique = true, length = 800)
+    private String photoFileLocation;
 
     // Social Network information that Employee belongs to
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qpalxUser")
@@ -201,6 +203,14 @@ public class QPalXUser {
         this.lastLoginDate = lastLoginDate;
     }
 
+    public String getPhotoFileLocation() {
+        return photoFileLocation;
+    }
+
+    public void setPhotoFileLocation(String photoFileLocation) {
+        this.photoFileLocation = photoFileLocation;
+    }
+
     public Set<UserSocialNetwork> getSocialNetworks() {
         return ImmutableSet.copyOf(socialNetworks);
     }
@@ -282,6 +292,7 @@ public class QPalXUser {
                 .append("resetPassword", resetPassword)
                 .append("accountLocked", accountLocked)
                 .append("lastLoginDate", lastLoginDate)
+                .append("photoFileLocation", photoFileLocation)
                 .toString();
     }
 
@@ -356,6 +367,11 @@ public class QPalXUser {
 
         public Builder lastLoginDate(DateTime lastLoginDate) {
             qPalXUser.setLastLoginDate(lastLoginDate);
+            return this;
+        }
+
+        public Builder photoFileLocation(String photoFileLocation) {
+            qPalXUser.photoFileLocation = photoFileLocation;
             return this;
         }
 
