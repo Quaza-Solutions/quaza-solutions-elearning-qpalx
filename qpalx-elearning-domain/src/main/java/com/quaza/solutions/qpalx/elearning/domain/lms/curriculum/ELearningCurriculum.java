@@ -1,6 +1,5 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
-import com.quaza.solutions.qpalx.elearning.domain.geographical.GeographicalRegion;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -37,10 +36,6 @@ public class ELearningCurriculum {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QPalXTutorialLevelID", nullable = false)
     private QPalXTutorialLevel qPalXTutorialLevel;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "GeographicalRegionID", nullable = false)
-    private GeographicalRegion geographicalRegion;
 
     public ELearningCurriculum() {
     }
@@ -85,14 +80,6 @@ public class ELearningCurriculum {
         this.qPalXTutorialLevel = qPalXTutorialLevel;
     }
 
-    public GeographicalRegion getGeographicalRegion() {
-        return geographicalRegion;
-    }
-
-    public void setGeographicalRegion(GeographicalRegion geographicalRegion) {
-        this.geographicalRegion = geographicalRegion;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,7 +93,6 @@ public class ELearningCurriculum {
                 .append(curriculumType, that.curriculumType)
                 .append(curriculumName, that.curriculumName)
                 .append(curriculumDescription, that.curriculumDescription)
-                .append(geographicalRegion, that.geographicalRegion)
                 .append(qPalXTutorialLevel, that.qPalXTutorialLevel)
                 .isEquals();
     }
@@ -118,7 +104,6 @@ public class ELearningCurriculum {
                 .append(curriculumType)
                 .append(curriculumName)
                 .append(curriculumDescription)
-                .append(geographicalRegion)
                 .append(qPalXTutorialLevel)
                 .toHashCode();
     }
@@ -131,7 +116,6 @@ public class ELearningCurriculum {
                 .append("curriculumName", curriculumName)
                 .append("curriculumDescription", curriculumDescription)
                 .append("qPalXTutorialLevel", qPalXTutorialLevel)
-                .append("geographicalRegion", geographicalRegion)
                 .toString();
     }
 }

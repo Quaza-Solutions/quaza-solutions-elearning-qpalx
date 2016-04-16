@@ -3,7 +3,6 @@ package com.quaza.solutions.qpalx.elearning.domain.geographical;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 
@@ -29,6 +28,11 @@ public class QPalXCountry {
 
     @Column(name="CountryCurrency", nullable=false, length=10)
     private String countryCurrency;
+
+    // Geographical region area that Country is mapped to
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "GeographicalRegionID", nullable = false)
+    private GeographicalRegion geographicalRegion;
 
     public Long getId() {
         return id;
@@ -65,19 +69,28 @@ public class QPalXCountry {
         this.countryCurrency = countryCurrency;
     }
 
+    public GeographicalRegion getGeographicalRegion() {
+        return geographicalRegion;
+    }
+
+    public void setGeographicalRegion(GeographicalRegion geographicalRegion) {
+        this.geographicalRegion = geographicalRegion;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        QPalXCountry country = (QPalXCountry) o;
+        QPalXCountry that = (QPalXCountry) o;
 
         return new EqualsBuilder()
-                .append(id, country.id)
-                .append(countryName, country.countryName)
-                .append(countryCode, country.countryCode)
-                .append(countryCurrency, country.countryCurrency)
+                .append(id, that.id)
+                .append(countryName, that.countryName)
+                .append(countryCode, that.countryCode)
+                .append(countryCurrency, that.countryCurrency)
+                .append(geographicalRegion, that.geographicalRegion)
                 .isEquals();
     }
 
@@ -88,16 +101,18 @@ public class QPalXCountry {
                 .append(countryName)
                 .append(countryCode)
                 .append(countryCurrency)
+                .append(geographicalRegion)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+        return new ToStringBuilder(this)
                 .append("id", id)
                 .append("countryName", countryName)
                 .append("countryCode", countryCode)
                 .append("countryCurrency", countryCurrency)
+                .append("geographicalRegion", geographicalRegion)
                 .toString();
     }
 
@@ -121,6 +136,11 @@ public class QPalXCountry {
 
         public Builder countryCurrency(String countryCurrency) {
             qPalXCountry.setCountryCurrency(countryCurrency);
+            return this;
+        }
+
+        public Builder geographicalRegion(GeographicalRegion geographicalRegion) {
+            qPalXCountry.geographicalRegion = geographicalRegion;
             return this;
         }
 

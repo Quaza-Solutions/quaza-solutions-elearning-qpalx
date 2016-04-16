@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.tutoriallevel;
 
 import com.google.common.collect.ImmutableList;
+import com.quaza.solutions.qpalx.elearning.domain.geographical.GeographicalRegion;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.IQPalXTutorialLevelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,11 @@ public class CacheEnabledQPalXTutorialService implements IQPalXTutorialService {
         LOGGER.debug("Finding all QPalXTutorialLevel's....");
         Iterable<QPalXTutorialLevel> qPalXTutorialLevels = iqPalXTutorialLevelRepository.findAll();
         return ImmutableList.copyOf(qPalXTutorialLevels);
+    }
+
+    @Override
+    public List<QPalXTutorialLevel> findAllGeographicalRegionTutorialLevels(GeographicalRegion geographicalRegion) {
+        LOGGER.info("Finding all QPalXTutorialLevel's in geographicalRegion: {}", geographicalRegion);
+        return iqPalXTutorialLevelRepository.findAllGeographicalRegionTutorialLevels(geographicalRegion);
     }
 }

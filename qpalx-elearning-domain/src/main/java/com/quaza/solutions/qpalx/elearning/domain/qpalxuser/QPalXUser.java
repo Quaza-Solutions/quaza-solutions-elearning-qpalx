@@ -7,7 +7,6 @@ import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLev
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -31,7 +30,8 @@ public class QPalXUser {
     @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="SuccessID", nullable=false, length=255, unique=true)
+    // SuccessID created only for Student QPalX Users
+    @Column(name="SuccessID", nullable=true, length=255, unique=true)
     private String successID;
 
     @Column(name="FirstName", nullable=false, length = 50)
@@ -50,6 +50,13 @@ public class QPalXUser {
 
     @Column(name="Email", nullable=true, unique = true, length = 50)
     private String email;
+
+    @Column(name="MobilePhoneNumber", nullable=true, unique = true, length = 50)
+    private String mobilePhoneNumber;
+
+    // Nullable.  Existing QPalX User that was responsible for registering this user.  Null if user registered themself
+    @Column(name="RegisteredByUserID", nullable=true)
+    private Long registeredByUserID;
 
     // Specifies the QPalX TutorialLevel this is a critical component of QPalX system and must be fetched eager
     @ManyToOne(fetch = FetchType.EAGER)
@@ -155,6 +162,22 @@ public class QPalXUser {
         this.email = email;
     }
 
+    public String getMobilePhoneNumber() {
+        return mobilePhoneNumber;
+    }
+
+    public void setMobilePhoneNumber(String mobilePhoneNumber) {
+        this.mobilePhoneNumber = mobilePhoneNumber;
+    }
+
+    public Long getRegisteredByUserID() {
+        return registeredByUserID;
+    }
+
+    public void setRegisteredByUserID(Long registeredByUserID) {
+        this.registeredByUserID = registeredByUserID;
+    }
+
     public QPalXTutorialLevel getqPalXTutorialLevel() {
         return qPalXTutorialLevel;
     }
@@ -244,6 +267,8 @@ public class QPalXUser {
         QPalXUser qPalXUser = (QPalXUser) o;
 
         return new EqualsBuilder()
+                .append(resetPassword, qPalXUser.resetPassword)
+                .append(accountLocked, qPalXUser.accountLocked)
                 .append(id, qPalXUser.id)
                 .append(successID, qPalXUser.successID)
                 .append(firstName, qPalXUser.firstName)
@@ -251,11 +276,16 @@ public class QPalXUser {
                 .append(userType, qPalXUser.userType)
                 .append(userSex, qPalXUser.userSex)
                 .append(email, qPalXUser.email)
+                .append(mobilePhoneNumber, qPalXUser.mobilePhoneNumber)
+                .append(registeredByUserID, qPalXUser.registeredByUserID)
                 .append(qPalXTutorialLevel, qPalXUser.qPalXTutorialLevel)
                 .append(password, qPalXUser.password)
-                .append(qPalXMunicipality, qPalXMunicipality)
+                .append(qPalXMunicipality, qPalXUser.qPalXMunicipality)
                 .append(lastLoginDate, qPalXUser.lastLoginDate)
-                .append(accountLocked, qPalXUser.accountLocked)
+                .append(photoFileLocation, qPalXUser.photoFileLocation)
+                .append(socialNetworks, qPalXUser.socialNetworks)
+                .append(educationalInstitutions, qPalXUser.educationalInstitutions)
+                .append(userSubscriptionProfiles, qPalXUser.userSubscriptionProfiles)
                 .isEquals();
     }
 
@@ -269,33 +299,39 @@ public class QPalXUser {
                 .append(userType)
                 .append(userSex)
                 .append(email)
+                .append(mobilePhoneNumber)
+                .append(registeredByUserID)
                 .append(qPalXTutorialLevel)
                 .append(password)
+                .append(resetPassword)
+                .append(accountLocked)
                 .append(qPalXMunicipality)
                 .append(lastLoginDate)
-                .append(accountLocked)
+                .append(photoFileLocation)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("ID", id)
+        return new ToStringBuilder(this)
+                .append("photoFileLocation", photoFileLocation)
+                .append("id", id)
                 .append("successID", successID)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("userType", userType)
                 .append("userSex", userSex)
                 .append("email", email)
+                .append("mobilePhoneNumber", mobilePhoneNumber)
+                .append("registeredByUserID", registeredByUserID)
                 .append("qPalXTutorialLevel", qPalXTutorialLevel)
-                .append("qPalXMunicipality", qPalXMunicipality)
+                .append("password", password)
                 .append("resetPassword", resetPassword)
                 .append("accountLocked", accountLocked)
+                .append("qPalXMunicipality", qPalXMunicipality)
                 .append("lastLoginDate", lastLoginDate)
-                .append("photoFileLocation", photoFileLocation)
                 .toString();
     }
-
 
     public static final Builder builder() {
         return new Builder();

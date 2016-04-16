@@ -1,6 +1,5 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
-import com.quaza.solutions.qpalx.elearning.domain.geographical.GeographicalRegion;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCurriculumRepository;
@@ -27,7 +26,7 @@ public class CacheEnabledELearningCurriculumService implements IELearningCurricu
     public ELearningCurriculum findByELearningCurriculumID(Long curriculumID) {
         Assert.notNull(curriculumID, "curriculumID cannot be null");
         LOGGER.debug("Finding curriculum by ID: {}", curriculumID);
-        return null;
+        return ieLearningCurriculumRepository.findOne(curriculumID);
     }
 
     @Override
@@ -39,16 +38,24 @@ public class CacheEnabledELearningCurriculumService implements IELearningCurricu
 
     @Override
     public List<ELearningCurriculum> findAllCurriculumByType(CurriculumType curriculumType) {
-        return null;
+        Assert.notNull(curriculumType, "curriculumType cannot be null");
+        LOGGER.info("Finding all ELearningCurriculum by curriculumType: {}", curriculumType);
+        return ieLearningCurriculumRepository.findAllCurriculumByType(curriculumType);
+    }
+
+
+    @Override
+    public List<ELearningCurriculum> findAllCurriculumByTutorialLevel(final QPalXTutorialLevel qPalXTutorialLevel) {
+        Assert.notNull(qPalXTutorialLevel, "qPalXTutorialLevel cannot be null");
+        LOGGER.info("Finding all ELearningCurriculum by qPalXTutorialLevel: {}", qPalXTutorialLevel);
+        return ieLearningCurriculumRepository.findAllCurriculumByTutorialLevel(qPalXTutorialLevel);
     }
 
     @Override
-    public List<ELearningCurriculum> findAllCurriculumByRegionAndType(CurriculumType curriculumType, GeographicalRegion geographicalRegion) {
-        return null;
-    }
-
-    @Override
-    public List<ELearningCurriculum> findAllCurriculumByRegionTutorialLevelAndType(CurriculumType curriculumType, QPalXTutorialLevel qPalXTutorialLevel, GeographicalRegion geographicalRegion) {
-        return null;
+    public List<ELearningCurriculum> findAllCurriculumByTutorialLevelAndType(final CurriculumType curriculumType, final QPalXTutorialLevel qPalXTutorialLevel) {
+        Assert.notNull(curriculumType, "curriculumType cannot be null");
+        Assert.notNull(qPalXTutorialLevel, "qPalXTutorialLevel cannot be null");
+        LOGGER.info("Finding all ELearningCurriculum by curriculumType: {} and qPalXTutorialLevel: {}", curriculumType, qPalXTutorialLevel);
+        return ieLearningCurriculumRepository.findAllCurriculumByTutorialLevelAndType(curriculumType, qPalXTutorialLevel);
     }
 }
