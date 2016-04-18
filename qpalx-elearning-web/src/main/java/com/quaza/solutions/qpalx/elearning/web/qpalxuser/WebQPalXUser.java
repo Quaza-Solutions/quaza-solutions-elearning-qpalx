@@ -49,9 +49,6 @@ public class WebQPalXUser implements UserDetails {
         return qPalXUser.getSuccessID();
     }
 
-    public String getTutorialLevel() {
-        return qPalXUser.getqPalXTutorialLevel().getTutorialLevel();
-    }
 
     public String getUserSubscriptionExpiryDate() {
         DateTime expiryDate = subscriptionValidationResult.getExpirationDate();

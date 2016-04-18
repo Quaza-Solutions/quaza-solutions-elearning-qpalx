@@ -29,9 +29,13 @@ public class QPalXWebUserVO implements IQPalXUserVO {
 //            "        +\"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email account.")
     private String email;
 
+    private String mobilePhoneNumber;
+
     //    @NotNull
 //    @Size(min=2, max=10)
     private String password;
+
+    private Long registeredByUserID;
 
     //    @NotNull
     private Long municipalityID;
@@ -40,7 +44,7 @@ public class QPalXWebUserVO implements IQPalXUserVO {
     private Long subscriptionID;
 
     //    @NotNull
-    private Long tutorialLevelID;
+    private Long tutorialGradeID;
 
     //@NotNull
     private Long educationalInstitutionID;
@@ -83,6 +87,14 @@ public class QPalXWebUserVO implements IQPalXUserVO {
         return email;
     }
 
+    public String getMobilePhoneNumber() {
+        return mobilePhoneNumber;
+    }
+
+    public void setMobilePhoneNumber(String mobilePhoneNumber) {
+        this.mobilePhoneNumber = mobilePhoneNumber;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -94,6 +106,14 @@ public class QPalXWebUserVO implements IQPalXUserVO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getRegisteredByUserID() {
+        return registeredByUserID;
+    }
+
+    public void setRegisteredByUserID(Long registeredByUserID) {
+        this.registeredByUserID = registeredByUserID;
     }
 
     @Override
@@ -115,12 +135,12 @@ public class QPalXWebUserVO implements IQPalXUserVO {
     }
 
     @Override
-    public Long getTutorialLevelID() {
-        return tutorialLevelID;
+    public Long getTutorialGradeID() {
+        return null;
     }
 
-    public void setTutorialLevelID(Long tutorialLevelID) {
-        this.tutorialLevelID = tutorialLevelID;
+    public void setTutorialGradeID(Long tutorialGradeID) {
+        this.tutorialGradeID = tutorialGradeID;
     }
 
     public Long getEducationalInstitutionID() {
@@ -177,7 +197,7 @@ public class QPalXWebUserVO implements IQPalXUserVO {
                 .append("password", password)
                 .append("municipalityID", municipalityID)
                 .append("subscriptionID", subscriptionID)
-                .append("tutorialLevelID", tutorialLevelID)
+                .append("tutorialGradeID", tutorialGradeID)
                 .append("educationalInstitutionID", educationalInstitutionID)
                 .append("mobileMoneySystem", mobileMoneySystem)
                 .append("mPowerAccountAlias", mPowerAccountAlias)
@@ -221,8 +241,8 @@ public class QPalXWebUserVO implements IQPalXUserVO {
             return this;
         }
 
-        public Builder tutorialLevelID(Long tutorialLevelID) {
-            qPalXWebUserVO.setTutorialLevelID(tutorialLevelID);
+        public Builder tutorialGradeID(Long tutorialGradeID) {
+            qPalXWebUserVO.setTutorialGradeID(tutorialGradeID);
             return this;
         }
 

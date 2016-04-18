@@ -32,7 +32,7 @@ public class MockQPalXUserBuilder {
                 .lastName("Jones")
                 .email("mjones@gmail.com")
                 .password("fallon12")
-                .qPalXTutorialLevel(buildDefaultQPalXTutorialLevel())
+                .mobilePhoneNumber("9178049786")
                 .municipality(municipality)
                 .qPalxUserSexE(QPalxUserSexE.Male)
                 .qPalxUserTypeE(QPalxUserTypeE.STUDENT)

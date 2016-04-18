@@ -17,7 +17,11 @@ public interface IQPalXUserVO {
 
     public String getEmail();
 
+    public String getMobilePhoneNumber();
+
     public String getPassword();
+
+    public Long getRegisteredByUserID();
 
     /**
      * Returns User's Municipality ID.
@@ -38,7 +42,7 @@ public interface IQPalXUserVO {
     /**
      * @return The QPalXUser tutorial level.
      */
-    public Long getTutorialLevelID();
+    public Long getTutorialGradeID();
 
     public String getMPowerAccountAlias();
 

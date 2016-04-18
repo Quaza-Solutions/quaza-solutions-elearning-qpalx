@@ -7,7 +7,7 @@ import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfile;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatusE;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialGrade;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.mock.MockQPalXCountryBuilder;
 import com.quaza.solutions.qpalx.elearning.service.mock.MockQPalXMunicipalityBuilder;
@@ -46,6 +46,7 @@ public class DefaultQPalXUserSubscriptionServiceTest {
 
     @Mock
     private IQPalxUserService iqPalxUserService;
+
 
     private MockQPalXUserBuilder mockQPalXUserBuilder = new MockQPalXUserBuilder();
 
@@ -138,12 +139,16 @@ public class DefaultQPalXUserSubscriptionServiceTest {
         Mockito.when(iqPalxUserService.generateQPalXUserSuccessID(Mockito.any())).thenReturn("US-NYC-12567");
 
         // Mock out TutorialService
-        QPalXTutorialLevel tutorialLevel = new QPalXTutorialLevel();
-        tutorialLevel.setTutorialLevel("Advanced");
-        Mockito.when(iqPalXTutorialService.findQPalXTutorialLevelByID(1L)).thenReturn(tutorialLevel);
+        TutorialGrade tutorialGrade = new TutorialGrade();
+        Mockito.when(iqPalXTutorialService.findTutorialGradeByID(1L)).thenReturn(tutorialGrade);
 
         Optional<QPalXUser> user = defaultQPalXUserSubscriptionService.createNewQPalXUserWithTutorialSubscription(new MockIQPalXUserVO(newYorkBasedQPalXUserBuilder));
-        System.out.println("user = " + user);
+        Assert.assertNotNull(user.get());
+
+        // Validate all properties of user returned are as expected.
+        Assert.assertEquals(newYorkMunicipality,  user.get().getQPalXMunicipality());
+        Assert.assertEquals("US-NYC-12567", user.get().getSuccessID());
+        Assert.assertEquals(tutorialGrade, user.get().getStudentTutorialGradeLevels().iterator().next().getTutorialGrade());
     }
 
     private  class MockIQPalXUserVO implements IQPalXUserVO {
@@ -190,7 +195,7 @@ public class DefaultQPalXUserSubscriptionServiceTest {
         }
 
         @Override
-        public Long getTutorialLevelID() {
+        public Long getTutorialGradeID() {
             return 1L;
         }
 
@@ -202,6 +207,16 @@ public class DefaultQPalXUserSubscriptionServiceTest {
         @Override
         public Long getPaymentSystemID() {
             return 1L;
+        }
+
+        @Override
+        public String getMobilePhoneNumber() {
+            return qPalXUser.getMobilePhoneNumber();
+        }
+
+        @Override
+        public Long getRegisteredByUserID() {
+            return qPalXUser.getRegisteredByUserID();
         }
     }
 }

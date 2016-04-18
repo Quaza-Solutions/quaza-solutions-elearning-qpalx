@@ -3,19 +3,19 @@ package com.quaza.solutions.qpalx.elearning.domain.qpalxuser;
 import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfile;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * POJO specifying properties for a QPALX User.
+ * POJO specifying properties for a QPalXUser.
  *
  * @author manyce400
  */
@@ -58,11 +58,6 @@ public class QPalXUser {
     @Column(name="RegisteredByUserID", nullable=true)
     private Long registeredByUserID;
 
-    // Specifies the QPalX TutorialLevel this is a critical component of QPalX system and must be fetched eager
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "QPalXTutorialLevelID", nullable = false)
-    private QPalXTutorialLevel qPalXTutorialLevel;
-
     // Password setup is always required to login
     @Column(name="Password", nullable=false, length = 10)
     private String password;
@@ -87,6 +82,10 @@ public class QPalXUser {
 
     @Column(name="PhotoFileLocation", nullable=true, unique = true, length = 800)
     private String photoFileLocation;
+
+    // For Student users, contains list of all TutorialGrade levels that user has gone through
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qpalxUser")
+    private Set<QPalXStudentTutorialGrade> studentTutorialGradeLevels = new HashSet<>();
 
     // Social Network information that Employee belongs to
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qpalxUser")
@@ -178,14 +177,6 @@ public class QPalXUser {
         this.registeredByUserID = registeredByUserID;
     }
 
-    public QPalXTutorialLevel getqPalXTutorialLevel() {
-        return qPalXTutorialLevel;
-    }
-
-    public void setqPalXTutorialLevel(QPalXTutorialLevel qPalXTutorialLevel) {
-        this.qPalXTutorialLevel = qPalXTutorialLevel;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -234,6 +225,15 @@ public class QPalXUser {
         this.photoFileLocation = photoFileLocation;
     }
 
+    public Set<QPalXStudentTutorialGrade> getStudentTutorialGradeLevels() {
+        return ImmutableSet.copyOf(studentTutorialGradeLevels);
+    }
+
+    public void addStudentTutorialGradeLevel(QPalXStudentTutorialGrade qPalXStudentTutorialGrade) {
+        Assert.notNull(qPalXStudentTutorialGrade, "qPalXStudentTutorialGrade cannot be null");
+        studentTutorialGradeLevels.add(qPalXStudentTutorialGrade);
+    }
+
     public Set<UserSocialNetwork> getSocialNetworks() {
         return ImmutableSet.copyOf(socialNetworks);
     }
@@ -278,7 +278,6 @@ public class QPalXUser {
                 .append(email, qPalXUser.email)
                 .append(mobilePhoneNumber, qPalXUser.mobilePhoneNumber)
                 .append(registeredByUserID, qPalXUser.registeredByUserID)
-                .append(qPalXTutorialLevel, qPalXUser.qPalXTutorialLevel)
                 .append(password, qPalXUser.password)
                 .append(qPalXMunicipality, qPalXUser.qPalXMunicipality)
                 .append(lastLoginDate, qPalXUser.lastLoginDate)
@@ -301,7 +300,6 @@ public class QPalXUser {
                 .append(email)
                 .append(mobilePhoneNumber)
                 .append(registeredByUserID)
-                .append(qPalXTutorialLevel)
                 .append(password)
                 .append(resetPassword)
                 .append(accountLocked)
@@ -324,7 +322,6 @@ public class QPalXUser {
                 .append("email", email)
                 .append("mobilePhoneNumber", mobilePhoneNumber)
                 .append("registeredByUserID", registeredByUserID)
-                .append("qPalXTutorialLevel", qPalXTutorialLevel)
                 .append("password", password)
                 .append("resetPassword", resetPassword)
                 .append("accountLocked", accountLocked)
@@ -381,11 +378,6 @@ public class QPalXUser {
             return this;
         }
 
-        public Builder qPalXTutorialLevel(QPalXTutorialLevel qPalXTutorialLevel) {
-            qPalXUser.setqPalXTutorialLevel(qPalXTutorialLevel);
-            return this;
-        }
-
         public Builder accountLockedStatus(boolean accountLocked) {
             qPalXUser.setAccountLocked(accountLocked);
             return this;
@@ -406,8 +398,23 @@ public class QPalXUser {
             return this;
         }
 
+        public Builder mobilePhoneNumber(String mobilePhoneNumber) {
+            qPalXUser.mobilePhoneNumber = mobilePhoneNumber;
+            return this;
+        }
+
+        public Builder registeredByUserID(Long registeredByUserID) {
+            qPalXUser.registeredByUserID = registeredByUserID;
+            return this;
+        }
+
         public Builder photoFileLocation(String photoFileLocation) {
             qPalXUser.photoFileLocation = photoFileLocation;
+            return this;
+        }
+
+        public Builder qPalXStudentTutorialGrade(QPalXStudentTutorialGrade qPalXStudentTutorialGrade) {
+            qPalXUser.addStudentTutorialGradeLevel(qPalXStudentTutorialGrade);
             return this;
         }
 

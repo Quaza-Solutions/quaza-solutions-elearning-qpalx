@@ -14,6 +14,16 @@ import java.util.Optional;
 public interface IQPalXUserSubscriptionService {
 
 
+
+    /**
+     * Create a brand new QPalXUser without a Tutorial Subscription.  This is generally used to create all non Student users.
+     *
+     * @param iqPalXUserVO
+     * @return Optional object, empty if implementation is unable to create QPalXUser with registration
+     */
+    public Optional<QPalXUser> createNewQPalXUser(IQPalXUserVO iqPalXUserVO);
+
+
     /**
      * Create a brand new QPalXUser with a valid active Subscription from today given QPalXUser Value Object.
      *

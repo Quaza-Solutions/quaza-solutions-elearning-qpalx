@@ -26,6 +26,12 @@ public interface IQPalXTutorialLevelRepository extends CrudRepository<QPalXTutor
     public List<QPalXTutorialLevel> findAllGeographicalRegionTutorialLevels(final GeographicalRegion geographicalRegion);
 
 
+    /**
+     * Find all TutorialGrade for the given QPalXTutorialLevel
+     *
+     * @param qPalXTutorialLevel
+     * @return
+     */
     @Query("Select  tutorialGrade From TutorialGrade tutorialGrade Where tutorialGrade.qPalXTutorialLevel =?1")
     public List<TutorialGrade> findAllTutorialGradeForQPalXTutorialLevel(final QPalXTutorialLevel qPalXTutorialLevel);
 }

@@ -37,6 +37,7 @@ public class TutorialGrade {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime entryDateTime;
 
+    // Fetch this eager as we want to be able to actively look this up always on demand
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QPalXTutorialLevelID", nullable = false)
     private QPalXTutorialLevel qPalXTutorialLevel;
