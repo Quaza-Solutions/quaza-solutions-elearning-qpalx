@@ -10,19 +10,22 @@ import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyScoreRangeE;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
+ * @RunWith annotation will initialize all Mockito mocks ahead of all test runs
+ *
  * @author manyce400
  */
+@RunWith(MockitoJUnitRunner.class)
 public class CumulativeAdaptiveProficiencyRankingAnalyticsServiceTest {
 
 
@@ -31,12 +34,6 @@ public class CumulativeAdaptiveProficiencyRankingAnalyticsServiceTest {
 
     @Mock
     private IAdaptiveLearningExperienceRepository iAdaptiveLearningExperienceRepository;
-
-    @Before
-    public void beforeTest() {
-        // Use Mockito to initialize all mocks before any test runs
-        MockitoAnnotations.initMocks(this);
-    }
 
 
     @Test

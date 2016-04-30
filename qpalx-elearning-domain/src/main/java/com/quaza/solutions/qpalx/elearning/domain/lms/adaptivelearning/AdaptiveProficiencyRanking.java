@@ -50,10 +50,19 @@ public class AdaptiveProficiencyRanking {
     @Enumerated(EnumType.STRING)
     private ProficiencyRankingScaleE proficiencyRankingScaleE;
 
-    // DateTime that the AdaptiveProficiencyRanking was recorded.
-    @Column(name="ProficiencyRankingRecordDateTime", nullable=true)
+    // DateTime that the AdaptiveProficiencyRanking was effective from
+    @Column(name="ProficiencyRankingEffectiveDateTime", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime proficiencyRankingRecordDateTime;
+    private DateTime proficiencyRankingEffectiveDateTime;
+
+    // DateTime that the AdaptiveProficiencyRanking ended.  A new ranking will be computed at end.
+    @Column(name="ProficiencyRankingEndDateTime", nullable=true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime proficiencyRankingEndDateTime;
+
+    @Column(name="ProficiencyRankingTriggerType", nullable=false, length=20)
+    @Enumerated(EnumType.STRING)
+    private ProficiencyRankingTriggerTypeE proficiencyRankingTriggerTypeE;
 
 
     public AdaptiveProficiencyRanking() {
@@ -92,12 +101,28 @@ public class AdaptiveProficiencyRanking {
         this.proficiencyRankingScaleE = proficiencyRankingScaleE;
     }
 
-    public DateTime getProficiencyRankingRecordDateTime() {
-        return proficiencyRankingRecordDateTime;
+    public DateTime getProficiencyRankingEffectiveDateTime() {
+        return proficiencyRankingEffectiveDateTime;
     }
 
-    public void setProficiencyRankingRecordDateTime(DateTime proficiencyRankingRecordDateTime) {
-        this.proficiencyRankingRecordDateTime = proficiencyRankingRecordDateTime;
+    public void setProficiencyRankingEffectiveDateTime(DateTime proficiencyRankingEffectiveDateTime) {
+        this.proficiencyRankingEffectiveDateTime = proficiencyRankingEffectiveDateTime;
+    }
+
+    public DateTime getProficiencyRankingEndDateTime() {
+        return proficiencyRankingEndDateTime;
+    }
+
+    public void setProficiencyRankingEndDateTime(DateTime proficiencyRankingEndDateTime) {
+        this.proficiencyRankingEndDateTime = proficiencyRankingEndDateTime;
+    }
+
+    public ProficiencyRankingTriggerTypeE getProficiencyRankingTriggerTypeE() {
+        return proficiencyRankingTriggerTypeE;
+    }
+
+    public void setProficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE proficiencyRankingTriggerTypeE) {
+        this.proficiencyRankingTriggerTypeE = proficiencyRankingTriggerTypeE;
     }
 
     @Override
@@ -113,7 +138,9 @@ public class AdaptiveProficiencyRanking {
                 .append(adaptiveLearningProfile, that.adaptiveLearningProfile)
                 .append(eLearningCurriculum, that.eLearningCurriculum)
                 .append(proficiencyRankingScaleE, that.proficiencyRankingScaleE)
-                .append(proficiencyRankingRecordDateTime, that.proficiencyRankingRecordDateTime)
+                .append(proficiencyRankingEffectiveDateTime, that.proficiencyRankingEffectiveDateTime)
+                .append(proficiencyRankingEndDateTime, that.proficiencyRankingEndDateTime)
+                .append(proficiencyRankingTriggerTypeE, that.proficiencyRankingTriggerTypeE)
                 .isEquals();
     }
 
@@ -124,18 +151,22 @@ public class AdaptiveProficiencyRanking {
                 .append(adaptiveLearningProfile)
                 .append(eLearningCurriculum)
                 .append(proficiencyRankingScaleE)
-                .append(proficiencyRankingRecordDateTime)
+                .append(proficiencyRankingEffectiveDateTime)
+                .append(proficiencyRankingEndDateTime)
+                .append(proficiencyRankingTriggerTypeE)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("proficiencyRankingRecordDateTime", proficiencyRankingRecordDateTime)
+                .append("id", id)
                 .append("adaptiveLearningProfile", adaptiveLearningProfile)
                 .append("eLearningCurriculum", eLearningCurriculum)
                 .append("proficiencyRankingScaleE", proficiencyRankingScaleE)
-                .append("id", id)
+                .append("proficiencyRankingEffectiveDateTime", proficiencyRankingEffectiveDateTime)
+                .append("proficiencyRankingEndDateTime", proficiencyRankingEndDateTime)
+                .append("proficiencyRankingTriggerTypeE", proficiencyRankingTriggerTypeE)
                 .toString();
     }
 
@@ -166,8 +197,18 @@ public class AdaptiveProficiencyRanking {
             return this;
         }
 
-        public Builder proficiencyRankingRecordDateTime(final DateTime proficiencyRankingRecordDateTime) {
-            adaptiveProficiencyRanking.proficiencyRankingRecordDateTime = proficiencyRankingRecordDateTime;
+        public Builder proficiencyRankingEffectiveDateTime(final DateTime proficiencyRankingEffectiveDateTime) {
+            adaptiveProficiencyRanking.proficiencyRankingEffectiveDateTime = proficiencyRankingEffectiveDateTime;
+            return this;
+        }
+
+        public Builder proficiencyRankingEndDateTime(final DateTime proficiencyRankingEndDateTime) {
+            adaptiveProficiencyRanking.proficiencyRankingEndDateTime = proficiencyRankingEndDateTime;
+            return this;
+        }
+
+        public Builder proficiencyRankingTriggerTypeE(final ProficiencyRankingTriggerTypeE proficiencyRankingTriggerTypeE) {
+            adaptiveProficiencyRanking.proficiencyRankingTriggerTypeE = proficiencyRankingTriggerTypeE;
             return this;
         }
 

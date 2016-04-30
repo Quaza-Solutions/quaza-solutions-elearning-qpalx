@@ -1,6 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -32,10 +32,10 @@ public class ELearningCurriculum {
     private String curriculumDescription;
 
 
-    // The QPalXTutorialLevel that this ELearning Curriculum has been designed for.
+    // The StudentTutorialLevel that this ELearning Curriculum has been designed for.
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QPalXTutorialLevelID", nullable = false)
-    private QPalXTutorialLevel qPalXTutorialLevel;
+    private StudentTutorialLevel studentTutorialLevel;
 
     public ELearningCurriculum() {
     }
@@ -72,12 +72,12 @@ public class ELearningCurriculum {
         this.curriculumDescription = curriculumDescription;
     }
 
-    public QPalXTutorialLevel getQPalXTutorialLevel() {
-        return qPalXTutorialLevel;
+    public StudentTutorialLevel getQPalXTutorialLevel() {
+        return studentTutorialLevel;
     }
 
-    public void setQPalXTutorialLevel(QPalXTutorialLevel qPalXTutorialLevel) {
-        this.qPalXTutorialLevel = qPalXTutorialLevel;
+    public void setQPalXTutorialLevel(StudentTutorialLevel studentTutorialLevel) {
+        this.studentTutorialLevel = studentTutorialLevel;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class ELearningCurriculum {
                 .append(curriculumType, that.curriculumType)
                 .append(curriculumName, that.curriculumName)
                 .append(curriculumDescription, that.curriculumDescription)
-                .append(qPalXTutorialLevel, that.qPalXTutorialLevel)
+                .append(studentTutorialLevel, that.studentTutorialLevel)
                 .isEquals();
     }
 
@@ -104,7 +104,7 @@ public class ELearningCurriculum {
                 .append(curriculumType)
                 .append(curriculumName)
                 .append(curriculumDescription)
-                .append(qPalXTutorialLevel)
+                .append(studentTutorialLevel)
                 .toHashCode();
     }
 
@@ -115,7 +115,7 @@ public class ELearningCurriculum {
                 .append("curriculumType", curriculumType)
                 .append("curriculumName", curriculumName)
                 .append("curriculumDescription", curriculumDescription)
-                .append("qPalXTutorialLevel", qPalXTutorialLevel)
+                .append("studentTutorialLevel", studentTutorialLevel)
                 .toString();
     }
 }

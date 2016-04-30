@@ -4,8 +4,8 @@ import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
-import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfile;
-import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.repository.IUserSubscriptionProfileRepository;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfile;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.repository.IStudentSubscriptionProfileRepository;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.repository.IQPalxUserRepository;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
@@ -32,7 +32,7 @@ public class DefaultQPalxUserService implements IQPalxUserService {
     private IQPalxUserRepository iqPalxUserRepository;
 
     @Autowired
-    private IUserSubscriptionProfileRepository iUserSubscriptionProfileRepository;
+    private IStudentSubscriptionProfileRepository iStudentSubscriptionProfileRepository;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.CacheEnabledQPalXMunicipalityService")
@@ -89,19 +89,19 @@ public class DefaultQPalxUserService implements IQPalxUserService {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         LOGGER.info("Generating SuccessID for qPalXUser:> {}", qPalXUser);
 
-        Optional<UserSubscriptionProfile> activeUserSubscriptionProfile = Optional.empty();
+        Optional<StudentSubscriptionProfile> activeUserSubscriptionProfile = Optional.empty();
         if (qPalXUser.getId() != null) {
             LOGGER.info("QPalXUser is a persisted user, checking db for active subscription profile..");
             activeUserSubscriptionProfile = iqPalxSubscriptionService.findActiveUserSubscriptionProfile(qPalXUser);
         } else {
-            // Newly created QPalXUser as such we expect there to be only one new UserSubscriptionProfile created
+            // Newly created QPalXUser as such we expect there to be only one new StudentSubscriptionProfile created
             LOGGER.info("QPalXUser is a non persisted user, attempting to retrieve subscription profile fron QPalXUser object");
-            activeUserSubscriptionProfile = Optional.of(qPalXUser.getUserSubscriptionProfiles().iterator().next());
+            activeUserSubscriptionProfile = Optional.of(qPalXUser.getStudentSubscriptionProfiles().iterator().next());
         }
 
         if(activeUserSubscriptionProfile.isPresent()) {
             QPalXMunicipality municipality = qPalXUser.getQPalXMunicipality();
-            QPalXEducationalInstitution educationalInstitution = activeUserSubscriptionProfile.get().getEducationalInstitution();
+            QPalXEducationalInstitution educationalInstitution = null;//activeUserSubscriptionProfile.get().getEducationalInstitution();
 
             if(municipality != null && educationalInstitution != null) {
                 return generateQPalxStudentSID(municipality, educationalInstitution);

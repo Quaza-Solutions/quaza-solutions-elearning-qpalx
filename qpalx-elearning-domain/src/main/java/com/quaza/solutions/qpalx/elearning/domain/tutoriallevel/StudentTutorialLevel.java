@@ -17,8 +17,8 @@ import javax.persistence.*;
  * @author manyce400
  */
 @Entity
-@Table(name="QPalXTutorialLevel")
-public class QPalXTutorialLevel {
+@Table(name="StudentTutorialLevel")
+public class StudentTutorialLevel {
 
 
     @Id
@@ -47,7 +47,7 @@ public class QPalXTutorialLevel {
     private DateTime entryDateTime;
 
 
-    public QPalXTutorialLevel() {
+    public StudentTutorialLevel() {
     }
 
     public Long getId() {
@@ -96,7 +96,7 @@ public class QPalXTutorialLevel {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        QPalXTutorialLevel that = (QPalXTutorialLevel) o;
+        StudentTutorialLevel that = (StudentTutorialLevel) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)

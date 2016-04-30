@@ -2,7 +2,7 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -34,19 +34,19 @@ public interface IELearningCurriculumRepository extends CrudRepository<ELearning
     public List<ELearningCurriculum> findAllCurriculumByType(final CurriculumType curriculumType);
 
     /**
-     * Find all the ElearningCurriculum for a QPalXTutorialLevel
+     * Find all the ElearningCurriculum for a StudentTutorialLevel
      *
      * @return List<ELearningCurriculum>
      */
-    @Query("Select eLearningCurriculum From ELearningCurriculum eLearningCurriculum JOIN FETCH eLearningCurriculum.qPalXTutorialLevel Where eLearningCurriculum.qPalXTutorialLevel =?1")
-    public List<ELearningCurriculum> findAllCurriculumByTutorialLevel(final QPalXTutorialLevel qPalXTutorialLevel);
+    @Query("Select eLearningCurriculum From ELearningCurriculum eLearningCurriculum JOIN FETCH eLearningCurriculum.studentTutorialLevel Where eLearningCurriculum.studentTutorialLevel =?1")
+    public List<ELearningCurriculum> findAllCurriculumByTutorialLevel(final StudentTutorialLevel studentTutorialLevel);
 
     /**
-     * Find all the ElearningCurriculum of a specific CurriculumType for a QPalXTutorialLevel in a GeographicalRegion
+     * Find all the ElearningCurriculum of a specific CurriculumType for a StudentTutorialLevel in a GeographicalRegion
      *
      * @param curriculumType
      * @return
      */
-    @Query("Select eLearningCurriculum From ELearningCurriculum eLearningCurriculum JOIN FETCH eLearningCurriculum.qPalXTutorialLevel Where eLearningCurriculum.curriculumType = ?1 And eLearningCurriculum.qPalXTutorialLevel =?2")
-    public List<ELearningCurriculum> findAllCurriculumByTutorialLevelAndType(final CurriculumType curriculumType, final QPalXTutorialLevel qPalXTutorialLevel);
+    @Query("Select eLearningCurriculum From ELearningCurriculum eLearningCurriculum JOIN FETCH eLearningCurriculum.studentTutorialLevel Where eLearningCurriculum.curriculumType = ?1 And eLearningCurriculum.studentTutorialLevel =?2")
+    public List<ELearningCurriculum> findAllCurriculumByTutorialLevelAndType(final CurriculumType curriculumType, final StudentTutorialLevel studentTutorialLevel);
 }

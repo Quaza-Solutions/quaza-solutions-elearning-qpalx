@@ -1,7 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.subscription;
 
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
-import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfile;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfile;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionValidationResult;
 import org.joda.time.DateTime;
@@ -22,7 +22,7 @@ public interface IQPalxSubscriptionService {
 
     public SubscriptionValidationResult validateUserQPalXSubscription(final QPalXUser qPalXUser);
 
-    public Optional<UserSubscriptionProfile> findActiveUserSubscriptionProfile(final QPalXUser qPalXUser);
+    public Optional<StudentSubscriptionProfile> findActiveUserSubscriptionProfile(final QPalXUser qPalXUser);
 
     /**
      * Given a QPalXSubscription, assuming that subscription starts from current date calculate and return

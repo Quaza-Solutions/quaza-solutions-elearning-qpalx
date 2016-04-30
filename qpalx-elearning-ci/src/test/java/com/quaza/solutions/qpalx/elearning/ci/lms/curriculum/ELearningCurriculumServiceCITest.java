@@ -3,7 +3,7 @@ package com.quaza.solutions.qpalx.elearning.ci.lms.curriculum;
 import com.quaza.solutions.qpalx.QPalXServiceApplicationBootstrapper;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
 import org.junit.Assert;
@@ -79,9 +79,9 @@ public class ELearningCurriculumServiceCITest {
     @Test
     public void testFindAllCurriculumByTutorialLevel() {
         // Find a QPalXTUtorialLevel
-        QPalXTutorialLevel qPalXTutorialLevel = iqPalXTutorialService.findQPalXTutorialLevelByID(4L); // SHS in WAF region
-        Assert.assertNotNull(qPalXTutorialLevel);
-        List<ELearningCurriculum> eLearningCurricula = ieLearningCurriculumService.findAllCurriculumByTutorialLevel(qPalXTutorialLevel);
+        StudentTutorialLevel studentTutorialLevel = iqPalXTutorialService.findQPalXTutorialLevelByID(4L); // SHS in WAF region
+        Assert.assertNotNull(studentTutorialLevel);
+        List<ELearningCurriculum> eLearningCurricula = ieLearningCurriculumService.findAllCurriculumByTutorialLevel(studentTutorialLevel);
         Assert.assertNotNull(eLearningCurricula);
     }
 }

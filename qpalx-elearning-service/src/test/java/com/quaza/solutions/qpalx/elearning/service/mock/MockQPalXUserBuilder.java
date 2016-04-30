@@ -5,11 +5,11 @@ import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserSexE;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserTypeE;
-import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfileBuilder;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfileBuilder;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatusE;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionTypeE;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import org.joda.time.DateTime;
 
 /**
@@ -44,15 +44,15 @@ public class MockQPalXUserBuilder {
     }
 
 
-    private static QPalXTutorialLevel buildDefaultQPalXTutorialLevel() {
-        QPalXTutorialLevel tutorialLevel = new QPalXTutorialLevel();
+    private static StudentTutorialLevel buildDefaultQPalXTutorialLevel() {
+        StudentTutorialLevel tutorialLevel = new StudentTutorialLevel();
         tutorialLevel.setTutorialLevel(TEST_TUTORIAL_LEVELS[0]);
         return tutorialLevel;
     }
 
 
     public static void assignActiveUserSubscriptionProfile(final QPalXUser qPalXUser) {
-        UserSubscriptionProfileBuilder userSubscriptionProfileBuilder = new UserSubscriptionProfileBuilder()
+        StudentSubscriptionProfileBuilder userSubscriptionProfileBuilder = new StudentSubscriptionProfileBuilder()
                 .addSubscriptionStatusE(SubscriptionStatusE.ACTIVE)
                 .addSubscriptionPurchasedDate(new DateTime())
                 .addQPalXSubscription(getMockQPalXSubscription(qPalXUser))

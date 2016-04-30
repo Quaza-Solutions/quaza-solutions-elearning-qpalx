@@ -2,7 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.qpalxuser;
 
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.IQPalXUserVO;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
-import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfile;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfile;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 
 import java.util.Optional;
@@ -44,13 +44,13 @@ public interface IQPalXUserSubscriptionService {
     public boolean renewQPalXUserSubscription(QPalXUser qPalXUser, QPalXSubscription subscription);
 
     /**
-     * Creates a brand new UserSubscriptionProfile given a subscriptionID for a QPalXUser.
+     * Creates a brand new StudentSubscriptionProfile given a subscriptionID for a QPalXUser.
      *
      * @param subscriptionID
      * @param qPalXUser
      * @return
      */
-    public Optional<UserSubscriptionProfile> addQPalXUserTutorialSubscriptionProfile(Long subscriptionID, QPalXUser qPalXUser);
+    public Optional<StudentSubscriptionProfile> addQPalXUserTutorialSubscriptionProfile(Long subscriptionID, QPalXUser qPalXUser);
 
 }
 

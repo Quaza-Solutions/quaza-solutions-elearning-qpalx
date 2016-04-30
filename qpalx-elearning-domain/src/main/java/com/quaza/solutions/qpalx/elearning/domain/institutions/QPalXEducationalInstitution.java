@@ -127,4 +127,36 @@ public class QPalXEducationalInstitution {
 				.append("webSiteAddress", webSiteAddress)
 				.toString();
 	}
+
+	public static final Builder builder() {
+		return new Builder();
+	}
+
+	public static final class Builder {
+		private final QPalXEducationalInstitution educationalInstitution = new QPalXEducationalInstitution();
+
+		public Builder name(String name) {
+			educationalInstitution.name = name;
+			return this;
+		}
+
+		public Builder code(String code) {
+			educationalInstitution.code = code;
+			return this;
+		}
+
+		public Builder description(String description) {
+			educationalInstitution.description = description;
+			return this;
+		}
+
+		public Builder webSiteAddress(String webSiteAddress) {
+			educationalInstitution.webSiteAddress = webSiteAddress;
+			return this;
+		}
+
+		public QPalXEducationalInstitution build() {
+			return educationalInstitution;
+		}
+	}
 }

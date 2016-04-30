@@ -1,6 +1,5 @@
 package com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile;
 
-import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatusE;
@@ -14,13 +13,13 @@ import org.joda.time.DateTime;
 import javax.persistence.*;
 
 /**
- * Domain object specifying User subscription profile to QPalX application.
+ * Domain object specifies all attributes of a Student subscription profile on QPalX platform.
  *
  * Created by manyce400 on 11/25/15.
  */
 @Entity
-@Table(name="UserSubscriptionProfile")
-public class UserSubscriptionProfile {
+@Table(name="StudentSubscriptionProfile")
+public class StudentSubscriptionProfile {
 
 
     @Id
@@ -28,6 +27,7 @@ public class UserSubscriptionProfile {
     @Column(name="ID", nullable=false)
     private Long id;
 
+    // QPalXUser object for this subscription
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "QPalxUserID", nullable = false)
     private QPalXUser qpalxUser;
@@ -37,11 +37,7 @@ public class UserSubscriptionProfile {
     @JoinColumn(name = "QPalXSubscriptionID", nullable = false)
     private QPalXSubscription qPalXSubscription;
 
-    // Fetch this Eager, nullable since user does not have to be tied to an EducationalInstitution
-    // EducationInstitution has Municipality information as such Service layer needs to enforce that it matches user's selected Municipality
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "QPalXEducationalInstitutionID", nullable = true)
-    private QPalXEducationalInstitution educationalInstitution;
+
 
     @Column(name="SubscriptionStatusE", nullable=false, length=20)
     @Enumerated(EnumType.STRING)
@@ -58,7 +54,9 @@ public class UserSubscriptionProfile {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime subscriptionExpirationDate;
 
-    public UserSubscriptionProfile() {
+
+
+    public StudentSubscriptionProfile() {
 
     }
 
@@ -84,14 +82,6 @@ public class UserSubscriptionProfile {
 
     public void setqPalXSubscription(QPalXSubscription qPalXSubscription) {
         this.qPalXSubscription = qPalXSubscription;
-    }
-
-    public QPalXEducationalInstitution getEducationalInstitution() {
-        return educationalInstitution;
-    }
-
-    public void setEducationalInstitution(QPalXEducationalInstitution educationalInstitution) {
-        this.educationalInstitution = educationalInstitution;
     }
 
     public SubscriptionStatusE getSubscriptionStatusE() {
@@ -124,13 +114,12 @@ public class UserSubscriptionProfile {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserSubscriptionProfile that = (UserSubscriptionProfile) o;
+        StudentSubscriptionProfile that = (StudentSubscriptionProfile) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)
                 .append(qpalxUser, that.qpalxUser)
                 .append(qPalXSubscription, that.qPalXSubscription)
-                .append(educationalInstitution, that.educationalInstitution)
                 .append(subscriptionStatusE, that.subscriptionStatusE)
                 .append(subscriptionPurchasedDate, that.subscriptionPurchasedDate)
                 .append(subscriptionExpirationDate, that.subscriptionExpirationDate)
@@ -143,7 +132,6 @@ public class UserSubscriptionProfile {
                 .append(id)
                 .append(qpalxUser)
                 .append(qPalXSubscription)
-                .append(educationalInstitution)
                 .append(subscriptionStatusE)
                 .append(subscriptionPurchasedDate)
                 .append(subscriptionExpirationDate)
@@ -156,7 +144,6 @@ public class UserSubscriptionProfile {
                 .append("id", id)
                 .append("qpalxUser", qpalxUser)
                 .append("qPalXSubscription", qPalXSubscription)
-                .append("educationalInstitution", educationalInstitution)
                 .append("subscriptionStatusE", subscriptionStatusE)
                 .append("subscriptionPurchasedDate", subscriptionPurchasedDate)
                 .append("subscriptionExpirationDate", subscriptionExpirationDate)

@@ -1,8 +1,8 @@
 package com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.GeographicalRegion;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialGrade;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,25 +13,25 @@ import java.util.List;
  *
  * @author manyce400
  */
-public interface IQPalXTutorialLevelRepository extends CrudRepository<QPalXTutorialLevel, Long> {
+public interface IQPalXTutorialLevelRepository extends CrudRepository<StudentTutorialLevel, Long> {
 
 
     /**
-     * Find all QPalXTutorialLevel's for the given GeographicalRegion which are currently enabled.
+     * Find all StudentTutorialLevel's for the given GeographicalRegion which are currently enabled.
      *
      * @param geographicalRegion
      * @return
      */
-    @Query("Select  qPalXTutorialLevel From QPalXTutorialLevel qPalXTutorialLevel Where qPalXTutorialLevel.geographicalRegion =?1 And qPalXTutorialLevel.enabled = 1")
-    public List<QPalXTutorialLevel> findAllGeographicalRegionTutorialLevels(final GeographicalRegion geographicalRegion);
+    @Query("Select  qPalXTutorialLevel From StudentTutorialLevel qPalXTutorialLevel Where qPalXTutorialLevel.geographicalRegion =?1 And qPalXTutorialLevel.enabled = 1")
+    public List<StudentTutorialLevel> findAllGeographicalRegionTutorialLevels(final GeographicalRegion geographicalRegion);
 
 
     /**
-     * Find all TutorialGrade for the given QPalXTutorialLevel
+     * Find all StudentTutorialGrade for the given StudentTutorialLevel
      *
-     * @param qPalXTutorialLevel
+     * @param studentTutorialLevel
      * @return
      */
-    @Query("Select  tutorialGrade From TutorialGrade tutorialGrade Where tutorialGrade.qPalXTutorialLevel =?1")
-    public List<TutorialGrade> findAllTutorialGradeForQPalXTutorialLevel(final QPalXTutorialLevel qPalXTutorialLevel);
+    @Query("Select  tutorialGrade From StudentTutorialGrade tutorialGrade Where tutorialGrade.studentTutorialLevel =?1")
+    public List<StudentTutorialGrade> findAllTutorialGradeForQPalXTutorialLevel(final StudentTutorialLevel studentTutorialLevel);
 }

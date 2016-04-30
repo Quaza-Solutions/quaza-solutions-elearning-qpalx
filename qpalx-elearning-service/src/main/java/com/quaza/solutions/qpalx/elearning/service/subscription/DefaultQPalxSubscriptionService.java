@@ -1,8 +1,8 @@
 package com.quaza.solutions.qpalx.elearning.service.subscription;
 
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
-import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfile;
-import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.repository.IUserSubscriptionProfileRepository;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfile;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.repository.IStudentSubscriptionProfileRepository;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatusE;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionValidationResult;
@@ -29,7 +29,7 @@ public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionServic
     private IQPalXSubscriptionRepository iqPalXSubscriptionRepository;
 
     @Autowired
-    private IUserSubscriptionProfileRepository iUserSubscriptionProfileRepository;
+    private IStudentSubscriptionProfileRepository iStudentSubscriptionProfileRepository;
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultQPalxSubscriptionService.class);
 
@@ -54,31 +54,31 @@ public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionServic
         LOGGER.info("validating QPalX subscription for qPalXUser: {} ...", qPalXUser.getEmail());
 
         // Find the current active user subscription profile
-        List<UserSubscriptionProfile> userSubscriptionProfiles = iUserSubscriptionProfileRepository.findUserSubcriptionProfileInfo(qPalXUser);
-        Optional<UserSubscriptionProfile> activeUserSubscriptionProfile = findActiveUserSubscriptionProfile(qPalXUser);
+        List<StudentSubscriptionProfile> studentSubscriptionProfiles = iStudentSubscriptionProfileRepository.findUserSubcriptionProfileInfo(qPalXUser);
+        Optional<StudentSubscriptionProfile> activeUserSubscriptionProfile = findActiveUserSubscriptionProfile(qPalXUser);
 
         if(activeUserSubscriptionProfile.isPresent()) {
             return getActiveSubscriptionValidationResult(activeUserSubscriptionProfile.get());
         } else {
-            if(userSubscriptionProfiles == null || userSubscriptionProfiles.size() == 0) {
+            if(studentSubscriptionProfiles == null || studentSubscriptionProfiles.size() == 0) {
                 // No user subscriptions was found for this user, return invalid results. using the most recent subscription profile or none if user never bought a subscription
                 LOGGER.info("qPalXUser: {} has never purchased a QPalX subscription: {}", qPalXUser.getEmail());
                 return getInvalidSubscriptionValidationResult();
             } else {
-                // Sort the userSubscriptionProfiles by purchased date so we can get the most recent purchased subscription which has expired
-                return getExpiredSubscriptionValidationResult(userSubscriptionProfiles);
+                // Sort the studentSubscriptionProfiles by purchased date so we can get the most recent purchased subscription which has expired
+                return getExpiredSubscriptionValidationResult(studentSubscriptionProfiles);
             }
         }
     }
 
     @Override
-    public Optional<UserSubscriptionProfile> findActiveUserSubscriptionProfile(QPalXUser qPalXUser) {
+    public Optional<StudentSubscriptionProfile> findActiveUserSubscriptionProfile(QPalXUser qPalXUser) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         LOGGER.info("Finding currently active UserSubscription profile for qPalXUser:> {}", qPalXUser);
 
         // Find the current active user subscription profile
-        List<UserSubscriptionProfile> userSubscriptionProfiles = iUserSubscriptionProfileRepository.findUserSubcriptionProfileInfo(qPalXUser);
-        Optional<UserSubscriptionProfile> activeUserSubscriptionProfile = userSubscriptionProfiles.stream()
+        List<StudentSubscriptionProfile> studentSubscriptionProfiles = iStudentSubscriptionProfileRepository.findUserSubcriptionProfileInfo(qPalXUser);
+        Optional<StudentSubscriptionProfile> activeUserSubscriptionProfile = studentSubscriptionProfiles.stream()
                 .filter((userSubscriptionProfile) -> isActiveUserSubscription(userSubscriptionProfile))
                 .findFirst();
         return activeUserSubscriptionProfile;
@@ -95,28 +95,28 @@ public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionServic
         return subscriptionExpiryDate;
     }
 
-    boolean isActiveUserSubscription(UserSubscriptionProfile userSubscriptionProfile) {
+    boolean isActiveUserSubscription(StudentSubscriptionProfile studentSubscriptionProfile) {
         DateTime now = new DateTime();
-        QPalXSubscription subscription = userSubscriptionProfile.getqPalXSubscription();
-        DateTime purchaseDate = userSubscriptionProfile.getSubscriptionPurchasedDate();
+        QPalXSubscription subscription = studentSubscriptionProfile.getqPalXSubscription();
+        DateTime purchaseDate = studentSubscriptionProfile.getSubscriptionPurchasedDate();
 
         LOGGER.info("purchaseDate=" + purchaseDate + " now = " + now);
         int numberOfDays = Days.daysBetween(purchaseDate, now).getDays();
         LOGGER.info("numberOfDays since subscription was purchased = " + numberOfDays);
         if (numberOfDays > subscription.getSubscriptionType().getNumberOfDays()) {
-            LOGGER.debug("UserSubscriptionProfile: {} is not active", userSubscriptionProfile);
+            LOGGER.debug("StudentSubscriptionProfile: {} is not active", studentSubscriptionProfile);
             return false;
         } else {
-            LOGGER.debug("UserSubscriptionProfile: {} is currently active", userSubscriptionProfile);
+            LOGGER.debug("StudentSubscriptionProfile: {} is currently active", studentSubscriptionProfile);
             return true;
         }
     }
 
-    private SubscriptionValidationResult getActiveSubscriptionValidationResult(UserSubscriptionProfile activeUserSubscriptionProfile) {
+    private SubscriptionValidationResult getActiveSubscriptionValidationResult(StudentSubscriptionProfile activeStudentSubscriptionProfile) {
         SubscriptionValidationResult validationResult = new SubscriptionValidationResult(
-                activeUserSubscriptionProfile.getSubscriptionPurchasedDate(),
-                activeUserSubscriptionProfile.getSubscriptionExpirationDate(),
-                activeUserSubscriptionProfile.getqPalXSubscription().getSubscriptionType(),
+                activeStudentSubscriptionProfile.getSubscriptionPurchasedDate(),
+                activeStudentSubscriptionProfile.getSubscriptionExpirationDate(),
+                activeStudentSubscriptionProfile.getqPalXSubscription().getSubscriptionType(),
                 SubscriptionStatusE.ACTIVE
         );
 
@@ -135,10 +135,10 @@ public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionServic
         return validationResult;
     }
 
-    private SubscriptionValidationResult getExpiredSubscriptionValidationResult(List<UserSubscriptionProfile> userSubscriptionProfiles) {
-        // Sort the userSubscriptionProfiles by purchased date so we can get the most recent purchased subscription which has expired
-        Collections.sort(userSubscriptionProfiles, (profile1, profile2) -> profile2.getSubscriptionPurchasedDate().compareTo(profile1.getSubscriptionPurchasedDate()));
-        UserSubscriptionProfile mostRecentPurchasedSubscriptionProfile = userSubscriptionProfiles.get(0);
+    private SubscriptionValidationResult getExpiredSubscriptionValidationResult(List<StudentSubscriptionProfile> studentSubscriptionProfiles) {
+        // Sort the studentSubscriptionProfiles by purchased date so we can get the most recent purchased subscription which has expired
+        Collections.sort(studentSubscriptionProfiles, (profile1, profile2) -> profile2.getSubscriptionPurchasedDate().compareTo(profile1.getSubscriptionPurchasedDate()));
+        StudentSubscriptionProfile mostRecentPurchasedSubscriptionProfile = studentSubscriptionProfiles.get(0);
 
         LOGGER.info("Returning an expired SubscriptionValidationResult from mostRecentPurchasedSubscriptionProfile:> {}", mostRecentPurchasedSubscriptionProfile);
         SubscriptionValidationResult validationResult = new SubscriptionValidationResult(

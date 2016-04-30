@@ -3,7 +3,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCurriculumRepository;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -45,17 +45,17 @@ public class CacheEnabledELearningCurriculumService implements IELearningCurricu
 
 
     @Override
-    public List<ELearningCurriculum> findAllCurriculumByTutorialLevel(final QPalXTutorialLevel qPalXTutorialLevel) {
-        Assert.notNull(qPalXTutorialLevel, "qPalXTutorialLevel cannot be null");
-        LOGGER.info("Finding all ELearningCurriculum by qPalXTutorialLevel: {}", qPalXTutorialLevel);
-        return ieLearningCurriculumRepository.findAllCurriculumByTutorialLevel(qPalXTutorialLevel);
+    public List<ELearningCurriculum> findAllCurriculumByTutorialLevel(final StudentTutorialLevel studentTutorialLevel) {
+        Assert.notNull(studentTutorialLevel, "studentTutorialLevel cannot be null");
+        LOGGER.info("Finding all ELearningCurriculum by studentTutorialLevel: {}", studentTutorialLevel);
+        return ieLearningCurriculumRepository.findAllCurriculumByTutorialLevel(studentTutorialLevel);
     }
 
     @Override
-    public List<ELearningCurriculum> findAllCurriculumByTutorialLevelAndType(final CurriculumType curriculumType, final QPalXTutorialLevel qPalXTutorialLevel) {
+    public List<ELearningCurriculum> findAllCurriculumByTutorialLevelAndType(final CurriculumType curriculumType, final StudentTutorialLevel studentTutorialLevel) {
         Assert.notNull(curriculumType, "curriculumType cannot be null");
-        Assert.notNull(qPalXTutorialLevel, "qPalXTutorialLevel cannot be null");
-        LOGGER.info("Finding all ELearningCurriculum by curriculumType: {} and qPalXTutorialLevel: {}", curriculumType, qPalXTutorialLevel);
-        return ieLearningCurriculumRepository.findAllCurriculumByTutorialLevelAndType(curriculumType, qPalXTutorialLevel);
+        Assert.notNull(studentTutorialLevel, "studentTutorialLevel cannot be null");
+        LOGGER.info("Finding all ELearningCurriculum by curriculumType: {} and studentTutorialLevel: {}", curriculumType, studentTutorialLevel);
+        return ieLearningCurriculumRepository.findAllCurriculumByTutorialLevelAndType(curriculumType, studentTutorialLevel);
     }
 }

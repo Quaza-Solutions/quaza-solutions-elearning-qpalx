@@ -21,8 +21,6 @@ public interface IQPalXUserVO {
 
     public String getPassword();
 
-    public Long getRegisteredByUserID();
-
     /**
      * Returns User's Municipality ID.
      *

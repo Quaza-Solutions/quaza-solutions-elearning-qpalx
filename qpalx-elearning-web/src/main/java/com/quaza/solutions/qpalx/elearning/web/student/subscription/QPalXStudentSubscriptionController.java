@@ -3,7 +3,7 @@ package com.quaza.solutions.qpalx.elearning.web.student.subscription;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IGeographicalDateTimeFormatter;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.payment.electronic.mpower.MPowerQPalXPaymentService;
@@ -119,8 +119,8 @@ public class QPalXStudentSubscriptionController {
             return qPalXStudentSubscriptionHTMLPath.visitSubscriptionPage("QPalx-Student-Info");
         }
 
-        List<QPalXTutorialLevel> qPalXTutorialLevels = iqPalXTutorialService.findAllQPalXTutorialLevels();
-        model.addAttribute("QPalXTutorialLevels", qPalXTutorialLevels);
+        List<StudentTutorialLevel> studentTutorialLevels = iqPalXTutorialService.findAllQPalXTutorialLevels();
+        model.addAttribute("QPalXTutorialLevels", studentTutorialLevels);
         return qPalXStudentSubscriptionHTMLPath.visitSubscriptionPage("UserEducation-Profile");
     }
 

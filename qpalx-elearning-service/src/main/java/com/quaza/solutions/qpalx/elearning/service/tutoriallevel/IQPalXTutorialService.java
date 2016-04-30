@@ -1,8 +1,8 @@
 package com.quaza.solutions.qpalx.elearning.service.tutoriallevel;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.GeographicalRegion;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.QPalXTutorialLevel;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialGrade;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 
 import java.util.List;
 
@@ -11,12 +11,12 @@ import java.util.List;
  */
 public interface IQPalXTutorialService {
 
-    public QPalXTutorialLevel findQPalXTutorialLevelByID(Long id);
+    public StudentTutorialLevel findQPalXTutorialLevelByID(Long id);
 
-    public TutorialGrade findTutorialGradeByID(Long id);
+    public StudentTutorialGrade findTutorialGradeByID(Long id);
 
-    public List<QPalXTutorialLevel> findAllQPalXTutorialLevels();
+    public List<StudentTutorialLevel> findAllQPalXTutorialLevels();
 
-    public List<QPalXTutorialLevel> findAllGeographicalRegionTutorialLevels(final GeographicalRegion geographicalRegion);
+    public List<StudentTutorialLevel> findAllGeographicalRegionTutorialLevels(final GeographicalRegion geographicalRegion);
 
 }

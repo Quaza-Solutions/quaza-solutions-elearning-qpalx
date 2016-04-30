@@ -10,12 +10,13 @@ import org.joda.time.DateTime;
 import javax.persistence.*;
 
 /**
+ * Tutorial Grade represents the current specific level for a Student under a tutorial level.
  *
  * @author manyce400
  */
 @Entity
-@Table(name="TutorialGrade")
-public class TutorialGrade {
+@Table(name="StudentTutorialGrade")
+public class StudentTutorialGrade {
 
 
 
@@ -24,7 +25,7 @@ public class TutorialGrade {
     @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="TutorialGrade", nullable=false, length=50, unique=true)
+    @Column(name="StudentTutorialGrade", nullable=false, length=50, unique=true)
     private String tutorialGrade;
 
     // Determines if this tutorial grade is active in the QPalX platform
@@ -39,8 +40,8 @@ public class TutorialGrade {
 
     // Fetch this eager as we want to be able to actively look this up always on demand
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "QPalXTutorialLevelID", nullable = false)
-    private QPalXTutorialLevel qPalXTutorialLevel;
+    @JoinColumn(name = "StudentTutorialLevelID", nullable = false)
+    private StudentTutorialLevel studentTutorialLevel;
 
     public Long getId() {
         return id;
@@ -80,7 +81,7 @@ public class TutorialGrade {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        TutorialGrade that = (TutorialGrade) o;
+        StudentTutorialGrade that = (StudentTutorialGrade) o;
 
         return new EqualsBuilder()
                 .append(enabled, that.enabled)
@@ -104,10 +105,10 @@ public class TutorialGrade {
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", id)
-                .append("tutorialGrade", tutorialGrade)
+                .append("studentTutorialGrade", tutorialGrade)
                 .append("enabled", enabled)
                 .append("entryDateTime", entryDateTime)
-                .append("qPalXTutorialLevel", qPalXTutorialLevel)
+                .append("studentTutorialLevel", studentTutorialLevel)
                 .toString();
     }
 
@@ -117,30 +118,30 @@ public class TutorialGrade {
 
     public static final class Builder {
 
-        private final TutorialGrade tutorialGrade = new TutorialGrade();
+        private final StudentTutorialGrade studentTutorialGrade = new StudentTutorialGrade();
 
         public Builder tutorialGrade(String tutorialGradeName) {
-            tutorialGrade.setTutorialGrade(tutorialGradeName);
+            studentTutorialGrade.setTutorialGrade(tutorialGradeName);
             return this;
         }
 
         public Builder enabled(boolean enabled) {
-            tutorialGrade.enabled = enabled;
+            studentTutorialGrade.enabled = enabled;
             return this;
         }
 
         public Builder entryDateTime(DateTime entryDateTime) {
-            tutorialGrade.entryDateTime = entryDateTime;
+            studentTutorialGrade.entryDateTime = entryDateTime;
             return this;
         }
 
-        public Builder qPalXTutorialLevel(QPalXTutorialLevel qPalXTutorialLevel) {
-            tutorialGrade.qPalXTutorialLevel = qPalXTutorialLevel;
+        public Builder studentTutorialLevel(StudentTutorialLevel studentTutorialLevel) {
+            studentTutorialGrade.studentTutorialLevel = studentTutorialLevel;
             return this;
         }
 
-        public TutorialGrade build() {
-            return tutorialGrade;
+        public StudentTutorialGrade build() {
+            return studentTutorialGrade;
         }
 
     }

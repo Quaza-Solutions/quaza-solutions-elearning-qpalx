@@ -2,13 +2,12 @@ package com.quaza.solutions.qpalx.elearning.domain.qpalxuser;
 
 import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
-import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.UserSubscriptionProfile;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfile;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -54,10 +53,6 @@ public class QPalXUser {
     @Column(name="MobilePhoneNumber", nullable=true, unique = true, length = 50)
     private String mobilePhoneNumber;
 
-    // Nullable.  Existing QPalX User that was responsible for registering this user.  Null if user registered themself
-    @Column(name="RegisteredByUserID", nullable=true)
-    private Long registeredByUserID;
-
     // Password setup is always required to login
     @Column(name="Password", nullable=false, length = 10)
     private String password;
@@ -83,22 +78,26 @@ public class QPalXUser {
     @Column(name="PhotoFileLocation", nullable=true, unique = true, length = 800)
     private String photoFileLocation;
 
-    // For Student users, contains list of all TutorialGrade levels that user has gone through
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qpalxUser")
-    private Set<QPalXStudentTutorialGrade> studentTutorialGradeLevels = new HashSet<>();
+    // Represents the QPalXUser that originally enrolled this student.  Students can enroll themselves as part of the signup process.
+    // Also Students can be enrolled by either a parent/guardian or a member of an Educational Institution.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "EnrolledByQPalxUserID", nullable = true)
+    private QPalXUser enrolledByQPalXUser;
 
-    // Social Network information that Employee belongs to
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qpalxUser")
-    private Set<UserSocialNetwork> socialNetworks = new HashSet<UserSocialNetwork>();
 
-    // Social Network information that Employee belongs to
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qpalxUser")
-    private Set<UserEducationalInstitutions> educationalInstitutions = new HashSet<UserEducationalInstitutions>();
 
 
     // User subscription profiles
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qpalxUser")
-    private Set<UserSubscriptionProfile> userSubscriptionProfiles = new HashSet<>();
+    private Set<StudentSubscriptionProfile> studentSubscriptionProfiles = new HashSet<>();
+
+    // Social Networks that QPalXUser is a member of.
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qpalxUser")
+    private Set<UserSocialNetwork> socialNetworks = new HashSet<UserSocialNetwork>();
+
+
+
+
 
     public Long getId() {
         return id;
@@ -169,14 +168,6 @@ public class QPalXUser {
         this.mobilePhoneNumber = mobilePhoneNumber;
     }
 
-    public Long getRegisteredByUserID() {
-        return registeredByUserID;
-    }
-
-    public void setRegisteredByUserID(Long registeredByUserID) {
-        this.registeredByUserID = registeredByUserID;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -225,13 +216,12 @@ public class QPalXUser {
         this.photoFileLocation = photoFileLocation;
     }
 
-    public Set<QPalXStudentTutorialGrade> getStudentTutorialGradeLevels() {
-        return ImmutableSet.copyOf(studentTutorialGradeLevels);
+    public QPalXUser getEnrolledByQPalXUser() {
+        return enrolledByQPalXUser;
     }
 
-    public void addStudentTutorialGradeLevel(QPalXStudentTutorialGrade qPalXStudentTutorialGrade) {
-        Assert.notNull(qPalXStudentTutorialGrade, "qPalXStudentTutorialGrade cannot be null");
-        studentTutorialGradeLevels.add(qPalXStudentTutorialGrade);
+    public void setEnrolledByQPalXUser(QPalXUser enrolledByQPalXUser) {
+        this.enrolledByQPalXUser = enrolledByQPalXUser;
     }
 
     public Set<UserSocialNetwork> getSocialNetworks() {
@@ -242,20 +232,12 @@ public class QPalXUser {
         this.socialNetworks.add(userSocialNetwork);
     }
 
-    public Set<UserEducationalInstitutions> getEducationalInstitutions() {
-        return ImmutableSet.copyOf(educationalInstitutions);
+    public Set<StudentSubscriptionProfile> getStudentSubscriptionProfiles() {
+        return ImmutableSet.copyOf(studentSubscriptionProfiles);
     }
 
-    public void addEducationalInstitution(UserEducationalInstitutions userEducationalInstitution) {
-        this.educationalInstitutions.add(userEducationalInstitution);
-    }
-
-    public Set<UserSubscriptionProfile> getUserSubscriptionProfiles() {
-        return ImmutableSet.copyOf(userSubscriptionProfiles);
-    }
-
-    public void addUserSubscriptionProfile(UserSubscriptionProfile userSubscriptionProfile) {
-        userSubscriptionProfiles.add(userSubscriptionProfile);
+    public void addUserSubscriptionProfile(StudentSubscriptionProfile studentSubscriptionProfile) {
+        studentSubscriptionProfiles.add(studentSubscriptionProfile);
     }
 
     @Override
@@ -277,14 +259,11 @@ public class QPalXUser {
                 .append(userSex, qPalXUser.userSex)
                 .append(email, qPalXUser.email)
                 .append(mobilePhoneNumber, qPalXUser.mobilePhoneNumber)
-                .append(registeredByUserID, qPalXUser.registeredByUserID)
                 .append(password, qPalXUser.password)
                 .append(qPalXMunicipality, qPalXUser.qPalXMunicipality)
                 .append(lastLoginDate, qPalXUser.lastLoginDate)
                 .append(photoFileLocation, qPalXUser.photoFileLocation)
-                .append(socialNetworks, qPalXUser.socialNetworks)
-                .append(educationalInstitutions, qPalXUser.educationalInstitutions)
-                .append(userSubscriptionProfiles, qPalXUser.userSubscriptionProfiles)
+                .append(enrolledByQPalXUser, qPalXUser.getEnrolledByQPalXUser())
                 .isEquals();
     }
 
@@ -299,7 +278,6 @@ public class QPalXUser {
                 .append(userSex)
                 .append(email)
                 .append(mobilePhoneNumber)
-                .append(registeredByUserID)
                 .append(password)
                 .append(resetPassword)
                 .append(accountLocked)
@@ -321,7 +299,6 @@ public class QPalXUser {
                 .append("userSex", userSex)
                 .append("email", email)
                 .append("mobilePhoneNumber", mobilePhoneNumber)
-                .append("registeredByUserID", registeredByUserID)
                 .append("password", password)
                 .append("resetPassword", resetPassword)
                 .append("accountLocked", accountLocked)
@@ -403,18 +380,13 @@ public class QPalXUser {
             return this;
         }
 
-        public Builder registeredByUserID(Long registeredByUserID) {
-            qPalXUser.registeredByUserID = registeredByUserID;
-            return this;
-        }
-
         public Builder photoFileLocation(String photoFileLocation) {
             qPalXUser.photoFileLocation = photoFileLocation;
             return this;
         }
 
-        public Builder qPalXStudentTutorialGrade(QPalXStudentTutorialGrade qPalXStudentTutorialGrade) {
-            qPalXUser.addStudentTutorialGradeLevel(qPalXStudentTutorialGrade);
+        public Builder enrolledByQPalXUser(QPalXUser enrolledByQPalXUser) {
+            qPalXUser.enrolledByQPalXUser = enrolledByQPalXUser;
             return this;
         }
 
@@ -423,8 +395,8 @@ public class QPalXUser {
             return this;
         }
 
-        public Builder userSubscriptionProfile(UserSubscriptionProfile userSubscriptionProfile) {
-            qPalXUser.addUserSubscriptionProfile(userSubscriptionProfile);
+        public Builder userSubscriptionProfile(StudentSubscriptionProfile studentSubscriptionProfile) {
+            qPalXUser.addUserSubscriptionProfile(studentSubscriptionProfile);
             return  this;
         }
 

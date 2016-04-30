@@ -53,7 +53,7 @@ public interface IQPalxUserRepository extends CrudRepository<QPalXUser, Long> {
 
     /**
      * Find and return QPalXUser with the SuccessID passed in as argument.
-     * As part of this operation fetch the UserSubscriptionProfile lazy Collection as well.
+     * As part of this operation fetch the StudentSubscriptionProfile lazy Collection as well.
      *
      * @param successID
      * @return
