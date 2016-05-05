@@ -1,16 +1,13 @@
-package com.quaza.solutions.qpalx.elearning.service.prepaid;
+package com.quaza.solutions.qpalx.elearning.service.prepaidsubscription;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.repository.IQPalxPrepaidIDRepository;
-import org.apache.commons.lang3.ObjectUtils;
 import org.joda.time.DateTime;
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,8 +22,10 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService{
 
     private int counter=0;
 
+    private List<PrepaidSubscription> uniqueIdsList;
+
     @Override
-    public String generateUniquePrepaidId(QPalXMunicipality qPalXMunicipality) {
+    public String generateUniqueId(QPalXMunicipality qPalXMunicipality, List<PrepaidSubscription> thisuniqueidslist) {
         PrepaidSubscription prepaidSubscription;
 
         String uniqueid = "";
@@ -40,8 +39,10 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService{
         for (int i = 0; i < 10; i++) {
             uniqueid += alpha.charAt(r.nextInt(length));
         }
-
-        if(this.findByUniqueId(uniqueid) == null) {
+        if(thisuniqueidslist.isEmpty()){
+            System.out.println("Could not query list : ListNull");
+        }
+        if(!thisuniqueidslist.contains(uniqueid)) {
             prepaidSubscription = new PrepaidSubscription();
             prepaidSubscription.setUniqueID(uniqueid);
             prepaidSubscription.setAlreadyUsed(false);
@@ -52,21 +53,28 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService{
 
             prepaidSubscription.setDateCreated(DateTime.now());
             prepaidSubscription.setRedemptionDate(null);
+            thisuniqueidslist.add(prepaidSubscription);
             this.save(prepaidSubscription);
             counter++;
-        }else if(this.findByUniqueId(uniqueid) != null){
+        }else if(thisuniqueidslist.contains(uniqueid)){
             System.out.println("Code already generated : Generating new code");
-            generateUniquePrepaidId(qPalXMunicipality);
+            generateUniqueId(qPalXMunicipality, thisuniqueidslist);
         }
         return uniqueid;
     }
 
     @Override
-    public void generateMultipleUniqueIds(int numberOfCodes, QPalXMunicipality qPalXMunicipality) {
+    public void generateUniqueIds(int numberOfCodes, QPalXMunicipality qPalXMunicipality) {
+        uniqueIdsList = getAllUniqueIds();
         for(int i=0; i<numberOfCodes; i++){
-            generateUniquePrepaidId(qPalXMunicipality);
+            generateUniqueId(qPalXMunicipality, uniqueIdsList);
         }
         System.out.println(counter+" Codes Generated");
+    }
+
+    @Override
+    public List<PrepaidSubscription> getAllUniqueIds() {
+        return iQPalxPrepaidIDRepository.getAllUniqueIdsRepo();
     }
 
     @Override
