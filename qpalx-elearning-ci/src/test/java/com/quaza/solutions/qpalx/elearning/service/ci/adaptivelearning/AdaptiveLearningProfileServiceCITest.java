@@ -99,7 +99,7 @@ public class AdaptiveLearningProfileServiceCITest {
                 .adaptiveLearningProfile(adaptiveLearningProfile.get())
                 .proficiencyRankingScaleE(ProficiencyRankingScaleE.TEN)
                 .eLearningCurriculum(eLearningCurriculum)
-                .proficiencyRankingRecordDateTime(new DateTime())
+                //.proficiencyRankingRecordDateTime(new DateTime())
                 .build();
 
         adaptiveLearningProfile.get().addAdaptiveProficiencyRanking(adaptiveProficiencyRanking);
