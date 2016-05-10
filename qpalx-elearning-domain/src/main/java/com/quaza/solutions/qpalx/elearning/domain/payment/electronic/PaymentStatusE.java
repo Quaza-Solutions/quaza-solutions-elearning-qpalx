@@ -7,10 +7,10 @@ package com.quaza.solutions.qpalx.elearning.domain.payment.electronic;
  */
 public enum PaymentStatusE {
 	
-	completed,
+	Succesful,
 
-	error,
+	Error,
 	
-	canceled;
+	Canceled;
 
 }

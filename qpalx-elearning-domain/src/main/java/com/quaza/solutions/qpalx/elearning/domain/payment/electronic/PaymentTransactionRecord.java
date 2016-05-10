@@ -1,23 +1,25 @@
 package com.quaza.solutions.qpalx.elearning.domain.payment.electronic;
 
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
-import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
 /**
+ * Entity models payment transaction records for subscribing to and accessing QPalX platform.
  *
  * @author manyce400
  */
 @Entity
-@Table(name="EPaymentTransaction")
-public class EPaymentTransaction {
+@Table(name="PaymentTransactionRecord", indexes = {
+        @Index(columnList = "transactionID", name = "payment_transactionID_hidx")
+    }
+)
+public class PaymentTransactionRecord {
 
 
     @Id
@@ -26,8 +28,13 @@ public class EPaymentTransaction {
     private Long id;
 
     // Transaction ID provided from the Electronic Payment service Merchant. Unique way to identify the transaction.
-    @Column(name="TransactionID", nullable=false, length = 255)
+    @Column(name="TransactionID", nullable=false, length = 255, unique = true)
     private String transactionID;
+
+    // Reason payment was executed
+    @Column(name="PaymentReason", nullable=false, length=20)
+    @Enumerated(EnumType.STRING)
+    private PaymentReasonE paymentReason;
 
     @Column(name="PaymentServiceProvider", nullable=false, length=20)
     @Enumerated(EnumType.STRING)
@@ -41,15 +48,10 @@ public class EPaymentTransaction {
     @Enumerated(EnumType.STRING)
     private PaymentStatusE paymentStatus;
 
-    // Populate with QPalXUser that payment charge was made against
+    // QPalXUser that payment was processed on behalf of
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QPalxUserID", nullable = false)
     private QPalXUser qPalXUser;
-
-    // Populate with the type of Subscription if this transaction is due to a QpalXSubscription request
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "QPalXSubscriptionID", nullable = true)
-    private QPalXSubscription qPalXSubscription;
 
     // Date payment was made
     @Column(name="PaymentEntryDateTime", nullable=true)
@@ -57,7 +59,7 @@ public class EPaymentTransaction {
     private DateTime paymentEntryDateTime;
 
 
-    public EPaymentTransaction() {
+    public PaymentTransactionRecord() {
     }
 
     public Long getId() {
@@ -74,6 +76,14 @@ public class EPaymentTransaction {
 
     public void setTransactionID(String transactionID) {
         this.transactionID = transactionID;
+    }
+
+    public PaymentReasonE getPaymentReason() {
+        return paymentReason;
+    }
+
+    public void setPaymentReason(PaymentReasonE paymentReason) {
+        this.paymentReason = paymentReason;
     }
 
     public PaymentServiceProviderE getPaymentServiceProviderE() {
@@ -108,14 +118,6 @@ public class EPaymentTransaction {
         this.qPalXUser = qPalXUser;
     }
 
-    public QPalXSubscription getQPalXSubscription() {
-        return qPalXSubscription;
-    }
-
-    public void setQPalXSubscription(QPalXSubscription qPalXSubscription) {
-        this.qPalXSubscription = qPalXSubscription;
-    }
-
     public DateTime getPaymentEntryDateTime() {
         return paymentEntryDateTime;
     }
@@ -130,17 +132,17 @@ public class EPaymentTransaction {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        EPaymentTransaction that = (EPaymentTransaction) o;
+        PaymentTransactionRecord that = (PaymentTransactionRecord) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)
                 .append(transactionID, that.transactionID)
+                .append(paymentReason, that.paymentReason)
                 .append(paymentServiceProviderE, that.paymentServiceProviderE)
                 .append(ePaymentServiceMethod, that.ePaymentServiceMethod)
                 .append(paymentStatus, that.paymentStatus)
-                .append(paymentEntryDateTime, that.paymentEntryDateTime)
-                .append(qPalXSubscription, that.qPalXSubscription)
                 .append(qPalXUser, that.qPalXUser)
+                .append(paymentEntryDateTime, that.paymentEntryDateTime)
                 .isEquals();
     }
 
@@ -149,26 +151,26 @@ public class EPaymentTransaction {
         return new HashCodeBuilder(17, 37)
                 .append(id)
                 .append(transactionID)
+                .append(paymentReason)
                 .append(paymentServiceProviderE)
                 .append(ePaymentServiceMethod)
                 .append(paymentStatus)
-                .append(paymentEntryDateTime)
-                .append(qPalXSubscription)
                 .append(qPalXUser)
+                .append(paymentEntryDateTime)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+        return new ToStringBuilder(this)
                 .append("id", id)
                 .append("transactionID", transactionID)
+                .append("paymentReason", paymentReason)
                 .append("paymentServiceProviderE", paymentServiceProviderE)
                 .append("ePaymentServiceMethod", ePaymentServiceMethod)
                 .append("paymentStatus", paymentStatus)
-                .append("paymentEntryDateTime", paymentEntryDateTime)
-                .append("qPalXSubscription", qPalXSubscription)
                 .append("qPalXUser", qPalXUser)
+                .append("paymentEntryDateTime", paymentEntryDateTime)
                 .toString();
     }
 
@@ -178,45 +180,40 @@ public class EPaymentTransaction {
 
     public static final class Builder {
         
-        private EPaymentTransaction ePaymentTransaction = new EPaymentTransaction();
+        private PaymentTransactionRecord paymentTransactionRecord = new PaymentTransactionRecord();
 
-        public Builder addPaymentQPalXUser(QPalXUser qPalXUser) {
-            ePaymentTransaction.setQPalXUser(qPalXUser);
+        public Builder qPalXUser(QPalXUser qPalXUser) {
+            paymentTransactionRecord.setQPalXUser(qPalXUser);
             return this;
         }
 
-        public Builder addTransactionID(String transactionID) {
-            ePaymentTransaction.setTransactionID(transactionID);
+        public Builder transactionID(String transactionID) {
+            paymentTransactionRecord.setTransactionID(transactionID);
             return this;
         }
 
-        public Builder addPaymentServiceProvider(PaymentServiceProviderE paymentServiceProviderE) {
-            ePaymentTransaction.setPaymentServiceProviderE(paymentServiceProviderE);
+        public Builder paymentServiceProviderE(PaymentServiceProviderE paymentServiceProviderE) {
+            paymentTransactionRecord.setPaymentServiceProviderE(paymentServiceProviderE);
             return this;
         }
 
-        public Builder addEPaymentServiceMethodE(EPaymentServiceMethodE ePaymentServiceMethodE) {
-            ePaymentTransaction.setEPaymentServiceMethod(ePaymentServiceMethodE);
+        public Builder ePaymentServiceMethodE(EPaymentServiceMethodE ePaymentServiceMethodE) {
+            paymentTransactionRecord.setEPaymentServiceMethod(ePaymentServiceMethodE);
             return this;
         }
 
-        public Builder addPaymentStatus(PaymentStatusE paymentStatusE) {
-            ePaymentTransaction.setPaymentStatus(paymentStatusE);
+        public Builder paymentStatusE(PaymentStatusE paymentStatusE) {
+            paymentTransactionRecord.setPaymentStatus(paymentStatusE);
             return this;
         }
 
-        public Builder addPaymentQPalXSubscription(QPalXSubscription qPalXSubscription) {
-            ePaymentTransaction.setQPalXSubscription(qPalXSubscription);
+        public Builder paymentEntryDateTime(DateTime paymentEntryDateTime) {
+            paymentTransactionRecord.setPaymentEntryDateTime(paymentEntryDateTime);
             return this;
         }
 
-        public Builder addPaymentEntryDateTime(DateTime paymentEntryDateTime) {
-            ePaymentTransaction.setPaymentEntryDateTime(paymentEntryDateTime);
-            return this;
-        }
-
-        public EPaymentTransaction build() {
-            return ePaymentTransaction;
+        public PaymentTransactionRecord build() {
+            return paymentTransactionRecord;
         }
     }
 }

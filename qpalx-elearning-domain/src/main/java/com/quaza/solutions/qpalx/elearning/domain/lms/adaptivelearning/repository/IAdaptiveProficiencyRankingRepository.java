@@ -12,11 +12,20 @@ import org.springframework.data.repository.CrudRepository;
 public interface IAdaptiveProficiencyRankingRepository extends CrudRepository<AdaptiveProficiencyRanking, Long> {
 
 
+    /**
+     * Find the current Student's proficiency ranking for the given ELearningCurriculum as of right now.
+     *
+     * @param qPalXUser
+     * @param eLearningCurriculum
+     * @return
+     */
     @Query("Select               adaptiveProficiencyRanking From AdaptiveProficiencyRanking adaptiveProficiencyRanking "+
             "INNER JOIN FETCH    adaptiveProficiencyRanking.qpalxUser qpalxUser " +
             "INNER JOIN FETCH    adaptiveProficiencyRanking.eLearningCurriculum eLearningCurriculum " +
             "Where               qpalxUser =?1 " +
-            "And                 eLearningCurriculum =?2"
+            "And                 eLearningCurriculum =?2 " +
+            "And                 adaptiveProficiencyRanking.proficiencyRankingEffectiveDateTime is not null " +
+            "And                 adaptiveProficiencyRanking.proficiencyRankingEndDateTime is null"
     )
-    public AdaptiveProficiencyRanking findStudentAdaptiveProficiencyRankingByCurriculum(final QPalXUser qPalXUser, final ELearningCurriculum eLearningCurriculum);
+    public AdaptiveProficiencyRanking findCurrentStudentAdaptiveProficiencyRankingForCurriculum(final QPalXUser qPalXUser, final ELearningCurriculum eLearningCurriculum);
 }
