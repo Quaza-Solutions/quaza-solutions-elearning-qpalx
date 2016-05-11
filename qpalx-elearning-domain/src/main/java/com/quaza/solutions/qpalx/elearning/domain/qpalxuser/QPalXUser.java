@@ -19,7 +19,10 @@ import java.util.Set;
  * @author manyce400
  */
 @Entity
-@Table(name="QPalXUser")
+@Table(name="QPalXUser", indexes = {
+        @Index(columnList = "email", name = "user_email_hidx"),
+        @Index(columnList = "successID", name = "user_successID_hidx")
+})
 public class QPalXUser {
 
 
@@ -43,7 +46,7 @@ public class QPalXUser {
     @Enumerated(EnumType.STRING)
     private QPalxUserTypeE userType;
 
-    @Column(name="UserSex", nullable=false, length=10)
+    @Column(name="UserSex", nullable=true, length=10)
     @Enumerated(EnumType.STRING)
     private QPalxUserSexE userSex;
 

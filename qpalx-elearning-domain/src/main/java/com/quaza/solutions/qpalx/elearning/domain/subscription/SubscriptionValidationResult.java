@@ -44,8 +44,8 @@ public class SubscriptionValidationResult {
         StringBuffer validationMessage = new StringBuffer()
                 .append("SubscriptionStatus:  ").append(subscriptionStatusE)
                 .append(" SuscriptionType: ").append(subscriptionTypeE)
-                .append(" Purchased Date: ").append(purchaseDate.toString())
-                .append(" Expiration Date: ").append(expirationDate.toString());
+                .append(" Purchased Date: ").append(purchaseDate)
+                .append(" Expiration Date: ").append(expirationDate);
         return validationMessage.toString();
     }
 }
