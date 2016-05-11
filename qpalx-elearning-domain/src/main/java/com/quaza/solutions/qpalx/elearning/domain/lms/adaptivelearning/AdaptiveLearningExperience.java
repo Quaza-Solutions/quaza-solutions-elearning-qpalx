@@ -32,9 +32,6 @@ public class AdaptiveLearningExperience {
     @JoinColumn(name = "QPalxUserID", nullable = false)
     private QPalXUser qpalxUser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "AdaptiveLearningProfileID", nullable = false)
-    private AdaptiveLearningProfile adaptiveLearningProfile;
 
     // Tracks the actual ELearningCourseActivity that was taken as part of this
     @ManyToOne(fetch = FetchType.LAZY)
@@ -80,13 +77,6 @@ public class AdaptiveLearningExperience {
         this.qpalxUser = qpalxUser;
     }
 
-    public AdaptiveLearningProfile getAdaptiveLearningProfile() {
-        return adaptiveLearningProfile;
-    }
-
-    public void setAdaptiveLearningProfile(AdaptiveLearningProfile adaptiveLearningProfile) {
-        this.adaptiveLearningProfile = adaptiveLearningProfile;
-    }
 
     public ELearningCourseActivity getELearningCourseActivity() {
         return eLearningCourseActivity;
@@ -140,7 +130,6 @@ public class AdaptiveLearningExperience {
 
         return new EqualsBuilder()
                 .append(id, that.id)
-                .append(adaptiveLearningProfile, that.adaptiveLearningProfile)
                 .append(eLearningCourseActivity, that.eLearningCourseActivity)
                 .append(proficiencyScore, that.proficiencyScore)
                 .append(proficiencyScoreRangeE, that.proficiencyScoreRangeE)
@@ -153,7 +142,6 @@ public class AdaptiveLearningExperience {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(adaptiveLearningProfile)
                 .append(eLearningCourseActivity)
                 .append(proficiencyScore)
                 .append(proficiencyScoreRangeE)
@@ -166,7 +154,6 @@ public class AdaptiveLearningExperience {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("adaptiveLearningProfile", adaptiveLearningProfile)
                 .append("eLearningCourseActivity", eLearningCourseActivity)
                 .append("proficiencyScore", proficiencyScore)
                 .append("proficiencyScoreRangeE", proficiencyScoreRangeE)
@@ -182,10 +169,10 @@ public class AdaptiveLearningExperience {
         private Builder() {
         }
 
-        public Builder adaptiveLearningProfile(final AdaptiveLearningProfile adaptiveLearningProfile) {
-            instance.adaptiveLearningProfile = adaptiveLearningProfile;
-            return this;
-        }
+//        public Builder adaptiveLearningProfile(final AdaptiveLearningProfile adaptiveLearningProfile) {
+//            instance.adaptiveLearningProfile = adaptiveLearningProfile;
+//            return this;
+//        }
 
         public Builder eLearningCourseActivity(final ELearningCourseActivity eLearningCourseActivity) {
             instance.eLearningCourseActivity = eLearningCourseActivity;

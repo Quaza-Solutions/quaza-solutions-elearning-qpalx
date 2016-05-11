@@ -10,6 +10,8 @@ public enum PaymentServiceProviderE {
 	
 	MPOWER,
 
+	QuazaSolutions,
+
 	Authorize_Dot_Net
 	;
 }

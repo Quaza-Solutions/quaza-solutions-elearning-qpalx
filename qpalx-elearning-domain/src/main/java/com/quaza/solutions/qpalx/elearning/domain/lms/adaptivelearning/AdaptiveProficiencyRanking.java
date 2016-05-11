@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -36,9 +37,9 @@ public class AdaptiveProficiencyRanking {
     private Long id;
 
     // Link back to QPalXUser AdaptiveLearningProfile
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "AdaptiveLearningProfileID", nullable = false)
-    private AdaptiveLearningProfile adaptiveLearningProfile;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "QPalxUserID", nullable = false)
+    private QPalXUser qpalxUser;
 
     // Link back to ELearningCurriculum.
     @ManyToOne(fetch = FetchType.LAZY)
@@ -77,12 +78,12 @@ public class AdaptiveProficiencyRanking {
         this.id = id;
     }
 
-    public AdaptiveLearningProfile getAdaptiveLearningProfile() {
-        return adaptiveLearningProfile;
+    public QPalXUser getQpalxUser() {
+        return qpalxUser;
     }
 
-    public void setAdaptiveLearningProfile(AdaptiveLearningProfile adaptiveLearningProfile) {
-        this.adaptiveLearningProfile = adaptiveLearningProfile;
+    public void setQpalxUser(QPalXUser qpalxUser) {
+        this.qpalxUser = qpalxUser;
     }
 
     public ELearningCurriculum geteLearningCurriculum() {
@@ -125,6 +126,13 @@ public class AdaptiveProficiencyRanking {
         this.proficiencyRankingTriggerTypeE = proficiencyRankingTriggerTypeE;
     }
 
+    public void endProficiencyRankingNow() {
+        if(proficiencyRankingEndDateTime == null) {
+            proficiencyRankingEndDateTime = new DateTime();
+        }
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -135,7 +143,7 @@ public class AdaptiveProficiencyRanking {
 
         return new EqualsBuilder()
                 .append(id, that.id)
-                .append(adaptiveLearningProfile, that.adaptiveLearningProfile)
+                .append(qpalxUser, that.qpalxUser)
                 .append(eLearningCurriculum, that.eLearningCurriculum)
                 .append(proficiencyRankingScaleE, that.proficiencyRankingScaleE)
                 .append(proficiencyRankingEffectiveDateTime, that.proficiencyRankingEffectiveDateTime)
@@ -148,7 +156,7 @@ public class AdaptiveProficiencyRanking {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(adaptiveLearningProfile)
+                .append(qpalxUser)
                 .append(eLearningCurriculum)
                 .append(proficiencyRankingScaleE)
                 .append(proficiencyRankingEffectiveDateTime)
@@ -161,7 +169,7 @@ public class AdaptiveProficiencyRanking {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("adaptiveLearningProfile", adaptiveLearningProfile)
+                .append("qpalxUser", qpalxUser)
                 .append("eLearningCurriculum", eLearningCurriculum)
                 .append("proficiencyRankingScaleE", proficiencyRankingScaleE)
                 .append("proficiencyRankingEffectiveDateTime", proficiencyRankingEffectiveDateTime)
@@ -182,8 +190,8 @@ public class AdaptiveProficiencyRanking {
         private Builder() {
         }
 
-        public Builder adaptiveLearningProfile(final AdaptiveLearningProfile adaptiveLearningProfile) {
-            adaptiveProficiencyRanking.adaptiveLearningProfile = adaptiveLearningProfile;
+        public Builder qpalxUser(final QPalXUser qpalxUser) {
+            adaptiveProficiencyRanking.qpalxUser = qpalxUser;
             return this;
         }
 

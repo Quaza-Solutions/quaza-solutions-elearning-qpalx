@@ -10,7 +10,7 @@ public enum EPaymentServiceMethodE {
 
     Mobile_Money("Mobile Money"),
 
-    Proprietary_Payments("Proprietary Payments"),
+    QPalX_Prepaid("QPalX Prepaid Card"),
 
     CREDIT_CARDS("Credit Cards"),
 
