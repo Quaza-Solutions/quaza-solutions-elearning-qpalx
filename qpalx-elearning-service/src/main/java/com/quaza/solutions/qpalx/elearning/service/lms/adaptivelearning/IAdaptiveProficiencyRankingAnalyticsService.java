@@ -1,5 +1,9 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveLearningProfile;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
+
 /**
  * Defines service functionality for logic around QPalxUser Adaptive proficiency ranking
  *
@@ -18,7 +22,7 @@ public interface IAdaptiveProficiencyRankingAnalyticsService {
      * @param adaptiveLearningProfile
      * @param eLearningCurriculum
      */
-//    public AdaptiveProficiencyRanking calculateAdaptiveProficiencyRanking(final AdaptiveLearningProfile adaptiveLearningProfile, final ELearningCurriculum eLearningCurriculum);
+    public AdaptiveProficiencyRanking calculateAdaptiveProficiencyRanking(final AdaptiveLearningProfile adaptiveLearningProfile, final ELearningCurriculum eLearningCurriculum);
 
 
 }

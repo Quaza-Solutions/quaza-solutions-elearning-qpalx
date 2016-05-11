@@ -47,8 +47,8 @@ public interface IQPalxUserRepository extends CrudRepository<QPalXUser, Long> {
      * @param successID
      * @return
      */
-//    @Query("Select qpalxUser From QPalXUser qpalxUser JOIN FETCH qpalxUser.educationalInstitutions Where qpalxUser.successID = ?1")
-//    public QPalXUser findQPalxUserBySuccessIDAndFetchUserEducationalInstitutions(String successID);
+    @Query("Select qpalxUser From QPalXUser qpalxUser JOIN FETCH qpalxUser.educationalInstitutions Where qpalxUser.successID = ?1")
+    public QPalXUser findQPalxUserBySuccessIDAndFetchUserEducationalInstitutions(String successID);
 
 
     /**
@@ -58,7 +58,7 @@ public interface IQPalxUserRepository extends CrudRepository<QPalXUser, Long> {
      * @param successID
      * @return
      */
-    @Query("Select qpalxUser From QPalXUser qpalxUser JOIN FETCH qpalxUser.studentSubscriptionProfiles Where qpalxUser.successID = ?1")
+    @Query("Select qpalxUser From QPalXUser qpalxUser JOIN FETCH qpalxUser.userSubscriptionProfiles Where qpalxUser.successID = ?1")
     public QPalXUser findQPalxUserBySuccessIDAndFetchUserSubscriptionProfile(String successID);
 
 

@@ -1,6 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.service.payment.electronic;
 
-import com.quaza.solutions.qpalx.elearning.domain.payment.electronic.PaymentTransactionRecord;
+import com.quaza.solutions.qpalx.elearning.domain.payment.electronic.EPaymentTransaction;
 import com.quaza.solutions.qpalx.elearning.domain.payment.electronic.PaymentServiceProviderE;
 
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.List;
 public interface IEPaymentTransactionService {
 
     /**
-     * Saves an PaymentTransactionRecord for analytics and tracking purposes.
+     * Saves an EPaymentTransaction for analytics and tracking purposes.
      *
-     * @param paymentTransactionRecord
+     * @param ePaymentTransaction
      */
-    public void recordEPaymentTransaction(final PaymentTransactionRecord paymentTransactionRecord);
+    public void recordEPaymentTransaction(final EPaymentTransaction ePaymentTransaction);
 
 
     /**
@@ -24,6 +24,6 @@ public interface IEPaymentTransactionService {
      *
      * @param paymentServiceProviderE
      */
-    public List<PaymentTransactionRecord> findAllEPaymentTransactionByPaymentServiceProvider(final PaymentServiceProviderE paymentServiceProviderE);
+    public List<EPaymentTransaction> findAllEPaymentTransactionByPaymentServiceProvider(final PaymentServiceProviderE paymentServiceProviderE);
 }
 
