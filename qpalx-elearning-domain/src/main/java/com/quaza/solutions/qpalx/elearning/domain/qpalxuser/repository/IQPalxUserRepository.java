@@ -40,26 +40,13 @@ public interface IQPalxUserRepository extends CrudRepository<QPalXUser, Long> {
     @Query("Select qpalxUser From QPalXUser qpalxUser JOIN FETCH qpalxUser.socialNetworks Where qpalxUser.successID = ?1")
     public QPalXUser findQPalxUserBySuccessIDAndFetchSocialNetworks(String successID);
 
-    /**
-     * Find and return QPalXUser with the SuccessID passed in as argument.
-     * As part of this operation fetch the UserEducationalInstitutions lazy Collection as well.
-     *
-     * @param successID
-     * @return
-     */
-    @Query("Select qpalxUser From QPalXUser qpalxUser JOIN FETCH qpalxUser.educationalInstitutions Where qpalxUser.successID = ?1")
-    public QPalXUser findQPalxUserBySuccessIDAndFetchUserEducationalInstitutions(String successID);
+
+//    @Query("Select qpalxUser From QPalXUser qpalxUser JOIN FETCH qpalxUser.educationalInstitutions Where qpalxUser.successID = ?1")
+//    public QPalXUser findQPalxUserBySuccessIDAndFetchUserEducationalInstitutions(String successID);
 
 
-    /**
-     * Find and return QPalXUser with the SuccessID passed in as argument.
-     * As part of this operation fetch the StudentSubscriptionProfile lazy Collection as well.
-     *
-     * @param successID
-     * @return
-     */
-    @Query("Select qpalxUser From QPalXUser qpalxUser JOIN FETCH qpalxUser.userSubscriptionProfiles Where qpalxUser.successID = ?1")
-    public QPalXUser findQPalxUserBySuccessIDAndFetchUserSubscriptionProfile(String successID);
+//    @Query("Select qpalxUser From QPalXUser qpalxUser JOIN FETCH qpalxUser.userSubscriptionProfiles Where qpalxUser.successID = ?1")
+//    public QPalXUser findQPalxUserBySuccessIDAndFetchUserSubscriptionProfile(String successID);
 
 
 

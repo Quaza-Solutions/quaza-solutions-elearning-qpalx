@@ -41,14 +41,14 @@ public class ELearningCurriculumServiceCITest {
         Assert.assertNotNull(eLearningCurriculum);
     }
 
-    @Test
+    //@Test
     public void testFindByELearningCurriculumName() {
         ELearningCurriculum eLearningCurriculum = ieLearningCurriculumService.findByELearningCurriculumName("English");
         System.out.println("eLearningCurriculum = " + eLearningCurriculum);
         Assert.assertNotNull(eLearningCurriculum);
     }
 
-    @Test
+    //@Test
     public void testFindAllCurriculumByTypeCore() {
         // verify that we can find CORE curricula in the system
         List<ELearningCurriculum> eLearningCurriculaCore = ieLearningCurriculumService.findAllCurriculumByType(CurriculumType.CORE);
@@ -62,7 +62,7 @@ public class ELearningCurriculumServiceCITest {
         });
     }
 
-    @Test
+    //@Test
     public void testFindAllCurriculumByTypeElective() {
         // verify that we can find CORE curricula in the system
         List<ELearningCurriculum> eLearningCurriculaElective = ieLearningCurriculumService.findAllCurriculumByType(CurriculumType.ELECTIVE);
@@ -76,7 +76,7 @@ public class ELearningCurriculumServiceCITest {
         });
     }
 
-    @Test
+    //@Test
     public void testFindAllCurriculumByTutorialLevel() {
         // Find a QPalXTUtorialLevel
         StudentTutorialLevel studentTutorialLevel = iqPalXTutorialService.findQPalXTutorialLevelByID(4L); // SHS in WAF region
