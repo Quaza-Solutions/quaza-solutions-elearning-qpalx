@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface IQPalxPrepaidIDService {
 
-    public String generateUniqueId(QPalXMunicipality qPalXMunicipality, List<PrepaidSubscription> prepaidSubscriptions);//get and set countrycode/citycode
+    public String generateUniqueId(QPalXMunicipality qPalXMunicipality, Iterable<PrepaidSubscription> prepaidSubscriptions);//get and set countrycode/citycode
 
     public void generateUniqueIds(int numberOfCodes, QPalXMunicipality qPalXMunicipality);//get and set countrycode/citycode
 
@@ -21,7 +21,7 @@ public interface IQPalxPrepaidIDService {
 
     public void save(PrepaidSubscription obj);
 
-    public List<PrepaidSubscription> getAllUniqueIds();
+    public Iterable<PrepaidSubscription> getAllUniqueIds();
 
     //upon redemption update table with respective values - pass municipality down for extra verification - return true or false for web end
     public boolean redeemCode(String uniqueId, QPalXMunicipality qPalXMunicipality); //unique id must match country + city code

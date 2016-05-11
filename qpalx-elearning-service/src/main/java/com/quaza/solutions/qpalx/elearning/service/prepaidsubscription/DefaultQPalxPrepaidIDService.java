@@ -20,12 +20,8 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService{
     @Autowired
     IQPalxPrepaidIDRepository iQPalxPrepaidIDRepository;
 
-    private int counter=0;
-
-    private List<PrepaidSubscription> uniqueIdsList;
-
     @Override
-    public String generateUniqueId(QPalXMunicipality qPalXMunicipality, List<PrepaidSubscription> thisuniqueidslist) {
+    public String generateUniqueId(QPalXMunicipality qPalXMunicipality, Iterable<PrepaidSubscription> thisuniqueidslist) {
         PrepaidSubscription prepaidSubscription;
 
         String uniqueid = "";
@@ -39,6 +35,7 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService{
         for (int i = 0; i < 10; i++) {
             uniqueid += alpha.charAt(r.nextInt(length));
         }
+        /**
         if(thisuniqueidslist.isEmpty()){
             System.out.println("Could not query list : ListNull");
         }
@@ -55,27 +52,24 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService{
             prepaidSubscription.setRedemptionDate(null);
             thisuniqueidslist.add(prepaidSubscription);
             this.save(prepaidSubscription);
-            counter++;
         }else if(thisuniqueidslist.contains(uniqueid)){
             System.out.println("Code already generated : Generating new code");
             generateUniqueId(qPalXMunicipality, thisuniqueidslist);
         }
+         **/
         return uniqueid;
     }
 
     @Override
     public void generateUniqueIds(int numberOfCodes, QPalXMunicipality qPalXMunicipality) {
-        uniqueIdsList = getAllUniqueIds();
+        Iterable<PrepaidSubscription> uniqueIdIterable = getAllUniqueIds();
         for(int i=0; i<numberOfCodes; i++){
-            generateUniqueId(qPalXMunicipality, uniqueIdsList);
+            generateUniqueId(qPalXMunicipality, uniqueIdIterable);
         }
-        System.out.println(counter+" Codes Generated");
     }
 
     @Override
-    public List<PrepaidSubscription> getAllUniqueIds() {
-        return iQPalxPrepaidIDRepository.getAllUniqueIdsRepo();
-    }
+    public Iterable<PrepaidSubscription> getAllUniqueIds() { return iQPalxPrepaidIDRepository.findAll(); }
 
     @Override
     public PrepaidSubscription findById(Long obj) {
@@ -83,14 +77,10 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService{
     }
 
     @Override
-    public void save(PrepaidSubscription obj) {
-        iQPalxPrepaidIDRepository.save(obj);
-    }
+    public void save(PrepaidSubscription obj) { iQPalxPrepaidIDRepository.save(obj); }
 
     @Override
-    public PrepaidSubscription findByUniqueId(String uniqueid){
-        return iQPalxPrepaidIDRepository.findByUniqueIdRepo(uniqueid);
-    }
+    public PrepaidSubscription findByUniqueId(String uniqueid){ return iQPalxPrepaidIDRepository.findByUniqueIdRepo(uniqueid); }
 
     @Override
     public boolean redeemCode(String uniqueid, QPalXMunicipality qPalXMunicipality){

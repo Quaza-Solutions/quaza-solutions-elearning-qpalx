@@ -14,7 +14,4 @@ public interface IQPalxPrepaidIDRepository extends CrudRepository<PrepaidSubscri
     @Query("SELECT prepaidsubscription FROM PrepaidSubscription prepaidsubscription WHERE prepaidsubscription.uniqueID = ?1")
     public PrepaidSubscription findByUniqueIdRepo(String uniqueid);
 
-    @Query("SELECT prepaidsubscription FROM PrepaidSubscription prepaidsubscription")
-    public List<PrepaidSubscription> getAllUniqueIdsRepo();
-
 }

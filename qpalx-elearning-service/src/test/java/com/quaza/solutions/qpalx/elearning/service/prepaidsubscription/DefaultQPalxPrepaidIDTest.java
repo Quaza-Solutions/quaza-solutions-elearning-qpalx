@@ -15,7 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 /**
- *
  * @author Trading_1
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -28,6 +27,10 @@ public class DefaultQPalxPrepaidIDTest {
     QPalXMunicipality qPalXMunicipality;
     @Mock
     List<PrepaidSubscription> mockAllUniqueIdsList;
+    @Mock
+    List<PrepaidSubscription> mockValues;
+    @Mock
+    List<PrepaidSubscription> mockReturn;
 
     @Test
     public void testRedeemCode(){
@@ -39,15 +42,24 @@ public class DefaultQPalxPrepaidIDTest {
     public void testGenerateUniqueId(){
         mockAllUniqueIdsList = iqPalxPrepaidIDService.getAllUniqueIds();
         Mockito.when(iqPalxPrepaidIDService.generateUniqueId(qPalXMunicipality, mockAllUniqueIdsList)).thenReturn("randomString");
+        System.out.println("Generated Id = " + iqPalxPrepaidIDService.generateUniqueId(qPalXMunicipality, mockAllUniqueIdsList));
         Assert.assertEquals("randomString", iqPalxPrepaidIDService.generateUniqueId(qPalXMunicipality, mockAllUniqueIdsList));
     }
 
     @Test
     public void testGetAllUniqueIds() {
         mockAllUniqueIdsList = iqPalxPrepaidIDService.getAllUniqueIds();
-        Assert.assertEquals(mockAllUniqueIdsList, iqPalxPrepaidIDService.getAllUniqueIds());
+        mockValues = iqPalxPrepaidIDService.getAllUniqueIds();
+        Assert.assertEquals(mockAllUniqueIdsList, mockValues);
         mockAllUniqueIdsList.add(prepaidSubscription);
-        Assert.assertNotEquals(mockAllUniqueIdsList, iqPalxPrepaidIDService.getAllUniqueIds());
+        System.out.println("mockAllUniqueIdsList = " + mockAllUniqueIdsList);
+        System.out.println("getAllUniqueIds() = " + mockValues);
+        Assert.assertNotEquals(mockAllUniqueIdsList, mockValues);
+        Mockito.doReturn(mockReturn).when(iqPalxPrepaidIDService).getAllUniqueIds();
+        if(mockAllUniqueIdsList.contains(prepaidSubscription)){
+            System.out.println("Contains Value - " + prepaidSubscription);
+        }
+        Assert.assertEquals(mockReturn, iqPalxPrepaidIDService.getAllUniqueIds());
     }
 
 }
