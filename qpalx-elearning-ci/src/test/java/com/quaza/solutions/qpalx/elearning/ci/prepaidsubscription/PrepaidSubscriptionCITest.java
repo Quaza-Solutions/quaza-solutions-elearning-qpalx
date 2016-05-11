@@ -44,13 +44,13 @@ public class PrepaidSubscriptionCITest {
         Assert.assertNotNull(prepaidSubscription);
     }
 
-    //@Test
+    @Test
     public void testSavePrepaidId(){
         PrepaidSubscription prepaidSubscription = new PrepaidSubscription();
-        prepaidSubscription.setUniqueID("");
+        prepaidSubscription.setUniqueID("random");
         prepaidSubscription.setAlreadyUsed(false);
-        prepaidSubscription.setCityCode("");
-        prepaidSubscription.setCountryCode("");
+        prepaidSubscription.setCityCode("ny");
+        prepaidSubscription.setCountryCode("usa");
         iQpalxPrepaidIDService.save(prepaidSubscription);
     }
 
