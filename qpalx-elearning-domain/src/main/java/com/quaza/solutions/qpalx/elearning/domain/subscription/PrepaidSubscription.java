@@ -1,25 +1,22 @@
 package com.quaza.solutions.qpalx.elearning.domain.subscription;
 
-import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
-import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by Trading_1 on 4/25/2016.
  */
-
 @Entity
 @Table(name="PrepaidSubscription")
 public class PrepaidSubscription {
-    //date time created, used
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID", nullable=false)
@@ -38,9 +35,11 @@ public class PrepaidSubscription {
     private boolean alreadyUsed;
 
     @Column(name="DateCreated", nullable=false)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime dateCreated;
 
     @Column(name="RedemptionDate", nullable=true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime redemptionDate;
 
     public long getID(){ return this.id; };
@@ -82,24 +81,25 @@ public class PrepaidSubscription {
     }
 
 
-    //Do we need
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        PrepaidSubscription p_that = (PrepaidSubscription) o;
+        PrepaidSubscription that = (PrepaidSubscription) o;
 
         return new EqualsBuilder()
-                .append(id, p_that.id)
-                .append(countryCode, p_that.countryCode)
-                .append(cityCode, p_that.cityCode)
-                .append(uniqueID, p_that.uniqueID)
-                .append(alreadyUsed, p_that.alreadyUsed)
+                .append(alreadyUsed, that.alreadyUsed)
+                .append(id, that.id)
+                .append(countryCode, that.countryCode)
+                .append(cityCode, that.cityCode)
+                .append(uniqueID, that.uniqueID)
+                .append(dateCreated, that.dateCreated)
+                .append(redemptionDate, that.redemptionDate)
                 .isEquals();
     }
-    //Do we need
+
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
@@ -108,9 +108,12 @@ public class PrepaidSubscription {
                 .append(cityCode)
                 .append(uniqueID)
                 .append(alreadyUsed)
+                .append(dateCreated)
+                .append(redemptionDate)
                 .toHashCode();
     }
-    //Do we need
+
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -119,6 +122,8 @@ public class PrepaidSubscription {
                 .append("cityCode", cityCode)
                 .append("uniqueID", uniqueID)
                 .append("alreadyUsed", alreadyUsed)
+                .append("dateCreated", dateCreated)
+                .append("redemptionDate", redemptionDate)
                 .toString();
     }
 
