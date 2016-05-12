@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.QPalXServiceApplicationBootstrapper;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
 import com.quaza.solutions.qpalx.elearning.service.prepaidsubscription.IQPalxPrepaidIDService;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +24,7 @@ public class PrepaidSubscriptionCITest {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxPrepaidIDService")
     private IQPalxPrepaidIDService iQpalxPrepaidIDService;
-    @Autowired
+    //@Autowired
     QPalXMunicipality qPalXMunicipality;
 
     //@Test
@@ -51,6 +52,7 @@ public class PrepaidSubscriptionCITest {
         prepaidSubscription.setAlreadyUsed(false);
         prepaidSubscription.setCityCode("ny");
         prepaidSubscription.setCountryCode("usa");
+        prepaidSubscription.setDateCreated(DateTime.now());
         iQpalxPrepaidIDService.save(prepaidSubscription);
     }
 

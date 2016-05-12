@@ -40,7 +40,7 @@ public class PrepaidSubscription {
     @Column(name="DateCreated", nullable=false, length=255)
     private DateTime dateCreated;
 
-    @Column(name="RedemptionDate", nullable=false, length=255)
+    @Column(name="RedemptionDate", nullable=true, length=255)
     private DateTime redemptionDate;
 
     public long getID(){ return this.id; };
