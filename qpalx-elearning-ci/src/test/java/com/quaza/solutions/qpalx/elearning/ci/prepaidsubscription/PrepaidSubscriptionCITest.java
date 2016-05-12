@@ -52,7 +52,7 @@ public class PrepaidSubscriptionCITest {
         prepaidSubscription.setAlreadyUsed(false);
         prepaidSubscription.setCityCode("ny");
         prepaidSubscription.setCountryCode("usa");
-        prepaidSubscription.setDateCreated(DateTime.now());
+        prepaidSubscription.setDateCreated(new DateTime());
         iQpalxPrepaidIDService.save(prepaidSubscription);
     }
 
