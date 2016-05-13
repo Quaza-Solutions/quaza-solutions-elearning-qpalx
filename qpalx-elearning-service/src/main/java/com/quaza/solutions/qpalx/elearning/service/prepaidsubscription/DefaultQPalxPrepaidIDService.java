@@ -21,7 +21,7 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService{
     IQPalxPrepaidIDRepository iQPalxPrepaidIDRepository;
 
     @Override
-    public String generateUniqueId(QPalXMunicipality qPalXMunicipality, Iterable<PrepaidSubscription> thisuniqueidslist) {
+    public String generateUniqueId(QPalXMunicipality qPalXMunicipality, List<PrepaidSubscription> thisuniqueidslist) {
         PrepaidSubscription prepaidSubscription;
 
         String uniqueid = "";
@@ -35,41 +35,40 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService{
         for (int i = 0; i < 10; i++) {
             uniqueid += alpha.charAt(r.nextInt(length));
         }
-        /**
-        if(thisuniqueidslist.isEmpty()){
-            System.out.println("Could not query list : ListNull");
-        }
-        if(!thisuniqueidslist.contains(uniqueid)) {
-            prepaidSubscription = new PrepaidSubscription();
-            prepaidSubscription.setUniqueID(uniqueid);
-            prepaidSubscription.setAlreadyUsed(false);
+            if(thisuniqueidslist == null){
+                System.out.println("Failure to load uniqueIds : null");
+            }else
+            if (!thisuniqueidslist.contains(uniqueid)) {
+                prepaidSubscription = new PrepaidSubscription();
+                prepaidSubscription.setUniqueID(uniqueid);
+                prepaidSubscription.setAlreadyUsed(false);
 
-            //the country and city code have to be quantifiable from QPalxMunicipality
-            prepaidSubscription.setCityCode("NY");
-            prepaidSubscription.setCountryCode("USA");
+                //the country and city code have to be quantifiable from QPalxMunicipality
+                prepaidSubscription.setCityCode("NY");
+                prepaidSubscription.setCountryCode("USA");
 
-            prepaidSubscription.setDateCreated(DateTime.now());
-            prepaidSubscription.setRedemptionDate(null);
-            thisuniqueidslist.add(prepaidSubscription);
-            this.save(prepaidSubscription);
-        }else if(thisuniqueidslist.contains(uniqueid)){
-            System.out.println("Code already generated : Generating new code");
-            generateUniqueId(qPalXMunicipality, thisuniqueidslist);
-        }
-         **/
+                prepaidSubscription.setDateCreated(DateTime.now());
+                prepaidSubscription.setRedemptionDate(null);
+                thisuniqueidslist.add(prepaidSubscription);
+                save(prepaidSubscription);
+            } else if (thisuniqueidslist.contains(uniqueid)) {
+                System.out.println("Code already generated : Generating new code");
+                generateUniqueId(qPalXMunicipality, thisuniqueidslist);
+            }
+
         return uniqueid;
     }
 
     @Override
     public void generateUniqueIds(int numberOfCodes, QPalXMunicipality qPalXMunicipality) {
-        Iterable<PrepaidSubscription> uniqueIdIterable = getAllUniqueIds();
+        List<PrepaidSubscription> uniqueIdList = getAllUniqueIds();
         for(int i=0; i<numberOfCodes; i++){
-            generateUniqueId(qPalXMunicipality, uniqueIdIterable);
+            generateUniqueId(qPalXMunicipality, uniqueIdList);
         }
     }
 
     @Override
-    public Iterable<PrepaidSubscription> getAllUniqueIds() { return iQPalxPrepaidIDRepository.findAll(); }
+    public List<PrepaidSubscription> getAllUniqueIds() { return iQPalxPrepaidIDRepository.getAllUniqueIdsRepo(); }
 
     @Override
     public PrepaidSubscription findById(Long obj) {
@@ -85,13 +84,14 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService{
     @Override
     public boolean redeemCode(String uniqueid, QPalXMunicipality qPalXMunicipality){
         PrepaidSubscription prepaidSubscription = findByUniqueId(uniqueid);
+        //going to have to add quantifiable QPalxMunicipality country/city code
+        //return different error messages - field null - code already redeemed - code successfully redeemed -
         if(prepaidSubscription != null){
-            if(qPalXMunicipality.getQPalXCountry().equals(prepaidSubscription.getcountryCode())){
-                if(qPalXMunicipality.getCode().equals(prepaidSubscription.getcityCode())){
+                    prepaidSubscription.setRedemptionDate(DateTime.now());
+                    prepaidSubscription.setAlreadyUsed(true);
+                    save(prepaidSubscription);
                     return true;
                 }
-            }
-        }
         return false;
     }
 

@@ -7,15 +7,12 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-
 /**
  * Created by Trading_1 on 4/25/2016.
  */
 @Entity
 @Table(name="PrepaidSubscription")
 public class PrepaidSubscription {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
