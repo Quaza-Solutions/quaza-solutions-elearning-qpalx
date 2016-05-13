@@ -4,7 +4,6 @@ import com.quaza.solutions.qpalx.QPalXServiceApplicationBootstrapper;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
 import com.quaza.solutions.qpalx.elearning.service.prepaidsubscription.IQPalxPrepaidIDService;
-import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
 
 /**
  * Created by Trading_1 on 4/29/2016.
@@ -47,13 +44,13 @@ public class PrepaidSubscriptionCITest {
 
     @Test
     public void testSavePrepaidId(){
-        PrepaidSubscription prepaidSubscription = new PrepaidSubscription();
-        prepaidSubscription.setUniqueID("random");
-        prepaidSubscription.setAlreadyUsed(false);
-        prepaidSubscription.setCityCode("ny");
-        prepaidSubscription.setCountryCode("usa");
-        prepaidSubscription.setDateCreated(new DateTime());
-        iQpalxPrepaidIDService.save(prepaidSubscription);
+//        PrepaidSubscription prepaidSubscription = new PrepaidSubscription();
+//        prepaidSubscription.setUniqueID("random");
+//        prepaidSubscription.setAlreadyUsed(false);
+//        prepaidSubscription.setCityCode("ny");
+//        prepaidSubscription.setCountryCode("usa");
+//        prepaidSubscription.setDateCreated(new DateTime());
+//        iQpalxPrepaidIDService.save(prepaidSubscription);
     }
 
 }

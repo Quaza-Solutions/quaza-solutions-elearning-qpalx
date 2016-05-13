@@ -1,9 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.ci.lms.adaptivelearning;
 
 import com.quaza.solutions.qpalx.QPalXServiceApplicationBootstrapper;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
-import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.IAdaptiveProficiencyRankingService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import org.junit.Test;
@@ -29,27 +27,27 @@ public class DefaultAdaptiveProficiencyRankingServiceCITest {
     @Qualifier("quaza.solutions.qpalx.elearning.service.CacheEnabledELearningCurriculumService")
     private IELearningCurriculumService ieLearningCurriculumService;
 
-    @Autowired
-    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultAdaptiveProficiencyRankingService")
-    private IAdaptiveProficiencyRankingService iAdaptiveProficiencyRankingService;
+//    @Autowired
+//    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultAdaptiveProficiencyRankingService")
+//    private IAdaptiveProficiencyRankingService iAdaptiveProficiencyRankingService;
 
 
     @Test
     public void testFindCurrentStudentAdaptiveProficiencyRankingForCurriculum() {
         // First look up a user
-        QPalXUser qPalXUser = iqPalxUserService.findQPalXUserByEmail("mjones@gmail.com");
-        System.out.println("qPalXUser = " + qPalXUser);
-        
-        // Lookup a curriculum
-        ELearningCurriculum eLearningCurriculum = ieLearningCurriculumService.findByELearningCurriculumID(1L);
-        System.out.println("eLearningCurriculum = " + eLearningCurriculum);
+//        QPalXUser qPalXUser = iqPalxUserService.findQPalXUserByEmail("mjones@gmail.com");
+//        System.out.println("qPalXUser = " + qPalXUser);
+//
+//        // Lookup a curriculum
+//        ELearningCurriculum eLearningCurriculum = ieLearningCurriculumService.findByELearningCurriculumID(1L);
+//        System.out.println("eLearningCurriculum = " + eLearningCurriculum);
         
         // Find this students current ranking in the curriculum.
 //        AdaptiveProficiencyRanking adaptiveProficiencyRanking = iAdaptiveProficiencyRankingService.findCurrentStudentAdaptiveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum);
 //        System.out.println("adaptiveProficiencyRanking = " + adaptiveProficiencyRanking);
     }
 
-    @Test
+//    @Test
     public void testCeateStudentAdaptiveProficiencyRanking() {
         // First look up a user
         QPalXUser qPalXUser = iqPalxUserService.findQPalXUserByEmail("mjones@gmail.com");

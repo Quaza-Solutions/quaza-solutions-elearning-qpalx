@@ -10,7 +10,7 @@
 
   <groupId>com.quaza.solutions.qpalx.elearning</groupId>
   <artifactId>quaza-solutions-elearning-qpalx</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>

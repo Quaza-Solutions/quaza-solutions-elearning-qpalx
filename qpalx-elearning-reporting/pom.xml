@@ -3,12 +3,12 @@
     <parent>
         <artifactId>quaza-solutions-elearning-qpalx</artifactId>
         <groupId>com.quaza.solutions.qpalx.elearning</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>qpalx-elearning-reporting</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>qpalx-elearning-reporting</name>
