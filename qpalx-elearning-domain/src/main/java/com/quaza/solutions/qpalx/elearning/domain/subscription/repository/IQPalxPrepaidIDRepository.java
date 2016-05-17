@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
-
 /**
  * Created by Trading_1 on 4/25/2016.
  */
@@ -13,5 +12,8 @@ public interface IQPalxPrepaidIDRepository extends CrudRepository<PrepaidSubscri
 
     @Query("SELECT prepaidsubscription FROM PrepaidSubscription prepaidsubscription WHERE prepaidsubscription.uniqueID = ?1")
     public PrepaidSubscription findByUniqueIdRepo(String uniqueid);
+
+    @Query("SELECT prepaidsubscription.uniqueID FROM PrepaidSubscription prepaidsubscription")
+    public List<PrepaidSubscription> getAllUniqueIdsRepo();
 
 }
