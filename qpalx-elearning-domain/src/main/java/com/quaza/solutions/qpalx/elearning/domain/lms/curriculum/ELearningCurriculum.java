@@ -34,7 +34,7 @@ public class ELearningCurriculum {
 
     // The StudentTutorialLevel that this ELearning Curriculum has been designed for.
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "QPalXTutorialLevelID", nullable = false)
+    @JoinColumn(name = "StudentTutorialLevelID", nullable = false)
     private StudentTutorialLevel studentTutorialLevel;
 
     public ELearningCurriculum() {

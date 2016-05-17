@@ -17,4 +17,31 @@
     <QPalXSubscription ID="2" SubscriptionName="Quarterly Plan" SubscriptionCost="3" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" />
     <QPalXSubscription ID="3" SubscriptionName="Yearly Plan" SubscriptionCost="5" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" />
 
+    <!-- Populate QPalX Municipality data -->
+    <QPalXMunicipality ID="1" Code="ACC" Name="Greater Accra Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="2" Code="ASH" Name="Ashanti Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="3" Code="BAR" Name="Brong Ahafo Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="4" Code="CER" Name="Central Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="5" Code="EAR" Name="Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="6" Code="WER" Name="Western Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="7" Code="UER" Name="Upper Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="8" Code="UWR" Name="Upper West Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="9" Code="VTR" Name="Volta Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="10" Code="NOR" Name="Northern Region" TimeZone="UTC" QPalXCountryID="2" />
+
+    <!-- Populate StudentTutorialLevel data -->
+    <StudentTutorialLevel ID="1" TutorialLevel="Elementary School" TutorialLevelDescription="Elementary Level" Enabled="1" GeographicalRegionID="1" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="2" TutorialLevel="Middle School" TutorialLevelDescription="Middle School Level" Enabled="1" GeographicalRegionID="1" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="3" TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="1" EntryDateTime="2016-05-16" />
+
+    <!-- Populate ELearningCurriculum data -->
+    <ELearningCurriculum ID="1" CurriculumName="ACC" CurriculumDescription="Greater Accra Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
+    <ELearningCurriculum ID="2" CurriculumName="ASH" CurriculumDescription="Ashanti Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
+    <ELearningCurriculum ID="3" CurriculumName="BAR" CurriculumDescription="Brong Ahafo Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
+    <ELearningCurriculum ID="4" CurriculumName="CER" CurriculumDescription="Central Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
+    <ELearningCurriculum ID="5" CurriculumName="EAR" CurriculumDescription="Eastern Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
+    <ELearningCurriculum ID="6" CurriculumName="WER" CurriculumDescription="Western Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
+    <ELearningCurriculum ID="7" CurriculumName="UER" CurriculumDescription="Upper Eastern Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
+    <ELearningCurriculum ID="8" CurriculumName="UWR" CurriculumDescription="Upper West Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
+
 </dataset>
