@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+    <!-- Populate all Geographical Regions -->
+    <GeographicalRegion ID="1" RegionCode="NAM" RegionName="North America" />
+    <GeographicalRegion ID="2" RegionCode="WAF" RegionName="West Africa" />
+
+    <!-- Populate all QPalX Countries -->
+    <QPalXCountry ID="1" CountryCode="US" CountryName="United States of America" CountryCurrency="USD" GeographicalRegionID="1" />
+    <QPalXCountry ID="2" CountryCode="GH" CountryName="Ghana" CountryCurrency="GH Cedis" GeographicalRegionID="2" />
+
+    <!-- Populate SocialNetworks -->
+    <SocialNetwork ID="1" SocialNetworkName="Facebook" SocialNetworkDesc="Social Networking" WebSiteAddress="www.facebook.com" />
+
+    <!-- Populate Subscription data -->
+    <QPalXSubscription ID="1" SubscriptionName="Monthly Plan" SubscriptionCost="2" SubscriptionType="MONTHLY" SubscriptionQPalXCountryID="2" />
+    <QPalXSubscription ID="2" SubscriptionName="Quarterly Plan" SubscriptionCost="3" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" />
+    <QPalXSubscription ID="3" SubscriptionName="Yearly Plan" SubscriptionCost="5" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" />
+
+</dataset>
