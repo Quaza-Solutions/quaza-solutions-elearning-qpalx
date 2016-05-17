@@ -17,10 +17,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+        <hibernate.connection.driver_class>com.mysql.jdbc.Driver</hibernate.connection.driver_class>
         <hibernate.connection.charSet>UTF-8</hibernate.connection.charSet>
         <hibernate.export.schema.delimiter>;</hibernate.export.schema.delimiter>
-        <project.build.outputDirectory>{project.build.outputDirectory}</project.build.outputDirectory>
-        <hibernate.export.schema.filename>${project.build.directory}/QPalx-db-schema.sql</hibernate.export.schema.filename>
+        <hibernate.connection.url><![CDATA[jdbc:mysql://localhost/QPalx_Test]]></hibernate.connection.url>
+        <hibernate.connection.username>manyce400</hibernate.connection.username>
+        <hibernate.connection.password>bridge15</hibernate.connection.password>
+        <!--<project.build.outputDirectory>{project.build.outputDirectory}</project.build.outputDirectory>-->
+        <!--<hibernate.export.schema.filename>${project.build.directory}/QPalx-db-schema.sql</hibernate.export.schema.filename>-->
     </properties>
 
     <dependencies>
@@ -105,44 +109,63 @@
         <plugins>
             <plugin>
                 <groupId>de.juplo</groupId>
-                <artifactId>hibernate4-maven-plugin</artifactId>
-                <version>1.0.5</version>
+                <artifactId>hibernate-maven-plugin</artifactId>
+                <version>2.0.0</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>export</goal>
+                            <goal>drop</goal>
+                            <goal>create</goal>
+                            <!--<goal>export</goal>-->
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <target>SCRIPT</target>
-                </configuration>
+                <dependencies>
+                    <!-- Add dependency to MySQL JDBC in order to drop and create tables -->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.37</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
-            <!-- This plugin generates projects javadocs as well as UML diagrams  y1jL_EkPL2oC
-              <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-site-plugin</artifactId>
-                  <configuration>
-                      <reportPlugins>
-                          <plugin>
-                              <groupId>org.apache.maven.plugins</groupId>
-                              <artifactId>maven-project-info-reports-plugin</artifactId>
-                          </plugin>
-                          <plugin>
-                              <groupId>org.apache.maven.plugins</groupId>
-                              <artifactId>maven-javadoc-plugin</artifactId>
-                              <version>2.8.1</version>
-                              <configuration>
-                                  <doclet>ydoc.doclets.YStandard</doclet>
-                                  <docletPath>${yDoc.path}/lib/ydoc.jar:${yDoc.path}/lib/styleed.jar:${yDoc.path}/resources</docletPath>
-                                  <additionalparam>-umlautogen</additionalparam>
-                              </configuration>
-                          </plugin>
-                      </reportPlugins>
-                  </configuration>
-              </plugin>
-              -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>dbunit-maven-plugin</artifactId>
+                <version>1.0-beta-3</version>
+                <dependencies>
+                    <!-- Add dependency to MySQL JDBC in order to drop and create tables -->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.37</version>
+                    </dependency>
+                </dependencies>
+
+                <configuration>
+                    <driver>${hibernate.connection.driver_class}</driver>
+                    <url>${hibernate.connection.url}</url>
+                    <username>${hibernate.connection.username}</username>
+                    <password>${hibernate.connection.password}</password>
+                    <!--<skip>${maven.test.skip}</skip>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>insert</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>CLEAN_INSERT</type>
+                            <src>../qpalx-elearning-domain/src/test/resources/qpalx-test-data.xml</src>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
 
         </plugins>
         <pluginManagement>
