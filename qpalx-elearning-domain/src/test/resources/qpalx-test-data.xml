@@ -4,6 +4,9 @@
     <!-- Populate all Geographical Regions -->
     <GeographicalRegion ID="1" RegionCode="NAM" RegionName="North America" />
     <GeographicalRegion ID="2" RegionCode="WAF" RegionName="West Africa" />
+    <GeographicalRegion ID="3" RegionCode="WEUR" RegionName="Western Europe" />
+    <GeographicalRegion ID="4" RegionCode="EEUR" RegionName="Eastern Europe" />
+    <GeographicalRegion ID="5" RegionCode="NEUR" RegionName="Northern Europe" />
 
     <!-- Populate all QPalX Countries -->
     <QPalXCountry ID="1" CountryCode="US" CountryName="United States of America" CountryCurrency="USD" GeographicalRegionID="1" />
@@ -29,10 +32,20 @@
     <QPalXMunicipality ID="9" Code="VTR" Name="Volta Region" TimeZone="UTC" QPalXCountryID="2" />
     <QPalXMunicipality ID="10" Code="NOR" Name="Northern Region" TimeZone="UTC" QPalXCountryID="2" />
 
-    <!-- Populate StudentTutorialLevel data -->
-    <StudentTutorialLevel ID="1" TutorialLevel="Elementary School" TutorialLevelDescription="Elementary Level" Enabled="1" GeographicalRegionID="1" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="2" TutorialLevel="Middle School" TutorialLevelDescription="Middle School Level" Enabled="1" GeographicalRegionID="1" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="3" TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="1" EntryDateTime="2016-05-16" />
+
+    <!-- Populate StudentTutorialLevel data for GeographicalRegion WAF -->
+    <StudentTutorialLevel ID="1" TutorialLevel="Elementary School"  TutorialLevelDescription="Elementary Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="2" TutorialLevel="Middle School"      TutorialLevelDescription="Middle School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="3" TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="4" TutorialLevel="Senior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="5" TutorialLevel="College" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+
+    <!--  Populate StudentTutorialGrade -->
+    <StudentTutorialGrade ID="1" TutorialGrade="SS1" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade ID="2" TutorialGrade="SS2" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade ID="3" TutorialGrade="SS3" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+
+
 
     <!-- Populate ELearningCurriculum data -->
     <ELearningCurriculum ID="1" CurriculumName="ACC" CurriculumDescription="Greater Accra Region" CurriculumType="UTC" StudentTutorialLevelID="1" />

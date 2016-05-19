@@ -21,7 +21,7 @@ public class GeographicalRegion {
     @Column(name="RegionName", nullable=false, length=100, unique=true)
     private String regionName;
 
-    @Column(name="RegionCode", nullable=false, length=3)
+    @Column(name="RegionCode", nullable=false, length=4)
     private String regionCode;
 
     public Long getId() {

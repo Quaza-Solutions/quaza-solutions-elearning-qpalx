@@ -25,7 +25,7 @@ public class StudentTutorialGrade {
     @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="StudentTutorialGrade", nullable=false, length=50, unique=true)
+    @Column(name="TutorialGrade", nullable=false, length=50, unique=true)
     private String tutorialGrade;
 
     // Determines if this tutorial grade is active in the QPalX platform
