@@ -40,21 +40,23 @@
     <StudentTutorialLevel ID="4" TutorialLevel="Senior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
     <StudentTutorialLevel ID="5" TutorialLevel="College" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
 
-    <!--  Populate StudentTutorialGrade -->
+    <!--  Populate StudentTutorialGrade For Senior High School -->
     <StudentTutorialGrade ID="1" TutorialGrade="SS1" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
     <StudentTutorialGrade ID="2" TutorialGrade="SS2" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
     <StudentTutorialGrade ID="3" TutorialGrade="SS3" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
 
 
 
-    <!-- Populate ELearningCurriculum data -->
-    <ELearningCurriculum ID="1" CurriculumName="ACC" CurriculumDescription="Greater Accra Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
-    <ELearningCurriculum ID="2" CurriculumName="ASH" CurriculumDescription="Ashanti Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
-    <ELearningCurriculum ID="3" CurriculumName="BAR" CurriculumDescription="Brong Ahafo Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
-    <ELearningCurriculum ID="4" CurriculumName="CER" CurriculumDescription="Central Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
-    <ELearningCurriculum ID="5" CurriculumName="EAR" CurriculumDescription="Eastern Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
-    <ELearningCurriculum ID="6" CurriculumName="WER" CurriculumDescription="Western Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
-    <ELearningCurriculum ID="7" CurriculumName="UER" CurriculumDescription="Upper Eastern Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
-    <ELearningCurriculum ID="8" CurriculumName="UWR" CurriculumDescription="Upper West Region" CurriculumType="UTC" StudentTutorialLevelID="1" />
+    <!-- Populate CORE ELearningCurriculum data for SHS in West Africa -->
+    <ELearningCurriculum ID="1" CurriculumName="English" CurriculumDescription="English Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum ID="2" CurriculumName="Mathematics" CurriculumDescription="Mathematics Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum ID="3" CurriculumName="Social Studies" CurriculumDescription="Social Studies Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum ID="4" CurriculumName="Science" CurriculumDescription="Sciences Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+
+    <!-- Populate ELECTIVE ELearningCurriculum data for SHS in West Africa -->
+    <ELearningCurriculum ID="5" CurriculumName="General Arts" CurriculumDescription="General Arts Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum ID="6" CurriculumName="Business" CurriculumDescription="Business Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum ID="7" CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum ID="8" CurriculumName="Science" CurriculumDescription="Sciences Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
 
 </dataset>

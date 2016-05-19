@@ -25,7 +25,7 @@ public class ELearningCurriculum {
     @Enumerated(EnumType.STRING)
     private CurriculumType curriculumType;
 
-    @Column(name="CurriculumName", nullable=false, length=20, unique=true)
+    @Column(name="CurriculumName", nullable=false, length=20)
     private String curriculumName;
 
     @Column(name="CurriculumDescription", nullable=false, length=255, unique=true)
