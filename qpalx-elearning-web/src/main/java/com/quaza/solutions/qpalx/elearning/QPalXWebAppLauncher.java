@@ -2,8 +2,10 @@ package com.quaza.solutions.qpalx.elearning;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 
@@ -11,11 +13,8 @@ import org.springframework.http.HttpStatus;
  * @author manyce400
  */
 @SpringBootApplication
-public class QPalXWebAppLauncher {
+public class QPalXWebAppLauncher extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
-        SpringApplication.run(QPalXWebAppLauncher.class, args);
-    }
 
     // Configure default pages displayed when errors occur.
     @Bean
@@ -28,5 +27,15 @@ public class QPalXWebAppLauncher {
             container.addErrorPages(error404Page, error500Page);
         });
     }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(QPalXWebAppLauncher.class);
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(QPalXWebAppLauncher.class, args);
+    }
+
 }
 
