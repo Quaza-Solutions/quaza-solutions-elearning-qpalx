@@ -9,7 +9,7 @@
 
     <artifactId>qpalx-elearning-web</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>qpalx-elearning-web</name>
     <url>http://maven.apache.org</url>
@@ -55,6 +55,14 @@
             <artifactId>imgscalr-lib</artifactId>
             <version>4.2</version>
         </dependency>
+
+        <!-- Starter Tomcat dependency prevents embedded Servlet libraries in war from interfering with Tomcal -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
 
     </dependencies>
 </project>
