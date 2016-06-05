@@ -65,4 +65,13 @@
 
 
     </dependencies>
+
+    <build>
+        <!-- customize the name of finally built war -->
+        <!--
+            1) ROOT.war is for main application
+            2) staging.war is for the staging application
+        -->
+        <finalName>staging</finalName>
+    </build>
 </project>

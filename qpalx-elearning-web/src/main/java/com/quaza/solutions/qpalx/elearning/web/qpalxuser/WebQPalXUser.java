@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Web only QPalXUser object which hides the underlying Domain data Object model for QPalXUser and exposes only relevant Web only
@@ -21,58 +22,101 @@ import java.util.Collection;
 public class WebQPalXUser implements UserDetails {
 
 
-    private final QPalXUser qPalXUser;
+
+
+    private Optional<QPalXUser> qPalXUser = Optional.empty();
 
     private final SubscriptionValidationResult subscriptionValidationResult;
 
     private IGeographicalDateTimeFormatter iGeographicalDateTimeFormatter;
 
+
+
+    public WebQPalXUser(SubscriptionValidationResult subscriptionValidationResult) {
+        this(subscriptionValidationResult, null);
+    }
+
+    public WebQPalXUser(SubscriptionValidationResult subscriptionValidationResult, IGeographicalDateTimeFormatter iGeographicalDateTimeFormatter) {
+        this.subscriptionValidationResult = subscriptionValidationResult;
+        this.iGeographicalDateTimeFormatter = iGeographicalDateTimeFormatter;
+    }
+
     public WebQPalXUser(final QPalXUser qPalXUser, SubscriptionValidationResult subscriptionValidationResult) {
-        //super(qPalXUser.getEmail(), qPalXUser.getPassword(), null);
-        this.qPalXUser = qPalXUser;
+        this.qPalXUser = Optional.of(qPalXUser);
         this.subscriptionValidationResult = subscriptionValidationResult;
     }
 
-
     public String getUserFullName() {
-        return new StringBuffer(qPalXUser.getFirstName())
-                .append(" ")
-                .append(qPalXUser.getLastName())
-                .toString();
+        if (qPalXUser.isPresent()) {
+            return new StringBuffer(qPalXUser.get().getFirstName())
+                    .append(" ")
+                    .append(qPalXUser.get().getLastName())
+                    .toString();
+        }
+
+        return null;
     }
 
     public String getEmail() {
-        return qPalXUser.getEmail();
+        if (qPalXUser.isPresent()) {
+            return qPalXUser.get().getEmail();
+        }
+
+        return null;
     }
 
     public String getSuccessID() {
-        return qPalXUser.getSuccessID();
+        if (qPalXUser.isPresent()) {
+            return qPalXUser.get().getSuccessID();
+        }
+
+        return null;
     }
 
 
     public String getUserSubscriptionExpiryDate() {
-        DateTime expiryDate = subscriptionValidationResult.getExpirationDate();
-        QPalXMunicipality studentMunicipality = qPalXUser.getQPalXMunicipality();
-        return iGeographicalDateTimeFormatter.getDisplayDateTimeWithTimeZone(expiryDate, studentMunicipality);
+        if (qPalXUser.isPresent()) {
+            DateTime expiryDate = subscriptionValidationResult.getExpirationDate();
+            QPalXMunicipality studentMunicipality = qPalXUser.get().getQPalXMunicipality();
+            return iGeographicalDateTimeFormatter.getDisplayDateTimeWithTimeZone(expiryDate, studentMunicipality);
+        }
+
+        return null;
     }
 
     public QPalXUser getQPalXUser() {
-        return qPalXUser;
+        return qPalXUser.get();
+    }
+
+    public boolean hasValidQPalXUser() {
+        return qPalXUser.isPresent();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList(qPalXUser.getUserType().toString());
+        if (qPalXUser.isPresent()) {
+            return AuthorityUtils.createAuthorityList(qPalXUser.get().getUserType().toString());
+        }
+
+        return AuthorityUtils.createAuthorityList();
     }
 
     @Override
     public String getPassword() {
-        return qPalXUser.getPassword();
+        if (qPalXUser.isPresent()) {
+            return qPalXUser.get().getPassword();
+        }
+
+        return null;
     }
 
     @Override
     public String getUsername() {
-        return qPalXUser.getEmail();
+        if (qPalXUser.isPresent()) {
+            return qPalXUser.get().getEmail();
+        }
+
+        return null;
     }
 
     @Override
@@ -82,7 +126,11 @@ public class WebQPalXUser implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return !qPalXUser.isAccountLocked(); // Return inverse since isAccountLocked will return false if not locked
+        if (qPalXUser.isPresent()) {
+            return !qPalXUser.get().isAccountLocked(); // Return inverse since isAccountLocked will return false if not locked
+        }
+
+        return false;
     }
 
     @Override
@@ -92,7 +140,11 @@ public class WebQPalXUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return !qPalXUser.isAccountLocked(); // Return inverse since isAccountLocked will return false if not locked
+        if (qPalXUser.isPresent()) {
+            return !qPalXUser.get().isAccountLocked(); // Return inverse since isAccountLocked will return false if not locked
+        }
+
+        return false;
     }
 
     public SubscriptionValidationResult getSubscriptionValidationResult() {

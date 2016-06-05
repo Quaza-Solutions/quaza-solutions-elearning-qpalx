@@ -84,25 +84,30 @@ public class SubscriptionRenewalController {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(SubscriptionRenewalController.class);
 
 
-    @RequestMapping(value = "/GatewayAccessFailure", method = RequestMethod.GET)
+    @RequestMapping(value = "/GatewayAccessFailure", method = {RequestMethod.GET, RequestMethod.POST})
     public String indexMain(ModelMap modelMap, Model model, HttpServletRequest httpServletRequest) {
         WebQPalXUser validationFailureUser = (WebQPalXUser) httpServletRequest.getSession().getAttribute("Validation_Failure_User");
-        QPalXUser qPalXUser = validationFailureUser.getQPalXUser();
 
-        //build from the validation failure user
-        QPalXWebUserVO qPalXWebUserVO = QPalXWebUserVO.builder()
-                .firstName(qPalXUser.getFirstName())
-                .lastName(qPalXUser.getLastName())
-                .email(qPalXUser.getEmail())
-                .municipalityID(qPalXUser.getQPalXMunicipality().getId())
-                .build();
+        if (validationFailureUser.hasValidQPalXUser()) {
+            QPalXUser qPalXUser = validationFailureUser.getQPalXUser();
 
+            //build from the validation failure user
+            QPalXWebUserVO qPalXWebUserVO = QPalXWebUserVO.builder()
+                    .firstName(qPalXUser.getFirstName())
+                    .lastName(qPalXUser.getLastName())
+                    .email(qPalXUser.getEmail())
+                    .municipalityID(qPalXUser.getQPalXMunicipality().getId())
+                    .build();
 
-        List<QPalXSubscription> subscriptions = iqPalxSubscriptionService.findAllQPalXSubscriptionsByCountryCode("GH");
-        model.addAttribute("QPalXUserSubscriptions", subscriptions);
+            List<QPalXSubscription> subscriptions = iqPalxSubscriptionService.findAllQPalXSubscriptionsByCountryCode("GH");
+            model.addAttribute("QPalXUserSubscriptions", subscriptions);
 
-        modelMap.addAttribute("QPalXUserSubscriptionForm", qPalXWebUserVO);
-        return qPalXStudentSubscriptionHTMLPath.visitSubscriptionPage("Subscription_Renewal");
+            modelMap.addAttribute("QPalXUserSubscriptionForm", qPalXWebUserVO);
+            return qPalXStudentSubscriptionHTMLPath.visitSubscriptionPage("Subscription_Renewal");
+        } else {
+            LOGGER.info("Invalid Qpalx User login detected, redirecting to home page...");
+            return qPalXStudentSubscriptionHTMLPath.goToHomePage();
+        }
     }
 
 

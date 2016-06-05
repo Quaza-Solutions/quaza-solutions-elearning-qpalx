@@ -73,7 +73,6 @@ public class DefaultQPalXAuthenticationSuccessFailureHandler implements Authenti
                 break;
         }
 
-
         System.out.println("\nSubscription Failure Result: "+qPalXUserLoginException.getWebQPalXUser().get().getSubscriptionValidationResult().getValidationResultMessage()+"\n");
         //String targetURL = "/QPalXGateway?authenticationStatus=invalid";
         httpServletRequest.getSession().setAttribute("Validation_Failure_User", qPalXUserLoginException.getWebQPalXUser().get());

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+    <header>
+        <div class="col-md-1"><img src="images/logo.png" alt="quaza" id="logo" /></div>
+        <input class="text-box email-3" placeholder="Enter Email Address" type="text"/>
+        <input class="text-box not-blank" placeholder="Enter Password" type="text"/>
+        <button id="log-in" type="button" class="btn btn-success">Log In</button>
+        <br />
+        <div class="clearfix"></div>
+        <button class="btn btn-link" style="margin-right: 130px; color: #aaa;">Forgot your password?</button>
+    </header>
+    <h1>Sign Up</h1>
+    <div class="container">
+        <div class="col-md-2"><span class="three-circle-blue"><span class="three-blue"><b>1</b></span></span><span class="three-text-blue"><b> Account</b></span></div>
+        <div class="col-md-2"><span class="three-circle-gray"><span class="three-gray">2</span></span> Payment</div>
+        <div class="col-md-2"><span class="three-circle-gray"><span class="three-gray">3</span></span> Proficiency</div>
+
+       <div class="clearfix"></div>
+       <div class="col-md-2"><hr id="blue-line" /></div>
+       <div class="col-md-10"><hr id="gray-line" /></div>
+   
+       <div class="clearfix bottom-space"></div>
+       <div class="col-md-3"><b>Account Information</b></div>
+       <div class="clearfix"></div>
+       <div class="col-md-3"><img src="images/avatar.png" /></div>
+
+       <form th:action="@{/select-signup-payment}" th:object="${QPalXWebUserVO}" method="post">
+           <div class="col-md-3"></div>
+           <div class="col-md-6" id="password">Password</div>
+           <div class="clearfix"></div>
+           <div class="col-md-3"></div>
+           <div class="col-md-3"></div>
+           <div class="col-md-6"><input type="password" size="61" class="password" id="password-1"/></div>
+           <div class="clearfix bottom-space"></div>
+           <div class="col-md-3">First name</div>
+           <div class="col-md-3">Last name</div>
+           <div class="col-md-6">Confirm Password</div>
+           <div class="clearfix"></div>
+
+           <div class="col-md-3"><input type="text" size="26" id="first"/><span id="first-name"></span></div>
+           <div class="col-md-3"><input type="text" size="26" id="last"/><span id="last-name"></span></div>
+           <div class="col-md-6"><input type="password" size="61" class="password" id="password-2"/><span id="password-confirm"></span></div>
+
+           <div class="clearfix bottom-space"></div>
+           <div class="col-md-6">Email</div>
+           <div class="clearfix"></div>
+           <div class="col-md-6"><input type="email" class="email" size="61"/><span id="tooltip-1"></span></div>
+           <div class="col-md-3" id="location"><b>Location</b></div>
+           <div class="clearfix bottom-space"></div>
+
+           <div class="col-md-3">Education Level</div>
+           <div class="col-md-3">Grade Level</div>
+           <div class="col-md-3">Country</div>
+           <div class="col-md-3">Region</div>
+           <div class="clearfix"></div>
+
+            <div class="col-md-3">
+               <select class="dropdown">
+                    <option value="High School">High School</option>
+                    <option value="Bachelor's">Bachelor's</option>
+                    <option value="Master's">Master's</option>
+                    <option value="Doctorate">Doctorate</option>
+               </select>
+           </div>
+
+            <div class="col-md-3">
+                <select id="grade" name="grade" class="dropdown">
+                    <option value="Freshman">Freshman</option>
+                    <option value="Sophomore">Sophomore</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <select id="countries" name="countries" class="dropdown">
+                    <option value="Ghana">Ghana</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                 <select id="region" name="region" class="dropdown">
+                    <option value="Greater Accra">Greater Accra</option>
+                </select>
+            </div>
+
+            <div class="clearfix bottom-space"></div>
+
+            <div class="col-md-6">Current School</div>
+            <div class="col-md-3">Zip/Postal</div>
+            <div class="col-md-3">Phone</div>
+
+            <div class="clearfix"></div>
+
+            <div class="col-md-6">
+                 <select id="school" name="school" class="academy">
+                    <option value="Accra Academy">Accra Academy</option>
+                 </select>
+            </div>
+
+            <div class="col-md-3"><input type="text" size="26" id="zip"/><span id="zip-code"></span></div>
+            <div class="col-md-3"><input type="text" size="26" id="phone"/><span id="phone-number"></span></div>
+
+            <div class="clearfix bottom-space"></div>
+            <div class="col-md-12 continue"><button type="submit" class="btn btn-success">Continue</button></div>
+        </form>
+    </div>
+    <div class="clearfix bottom-space"></div>
+
+    <footer>
+        <div class="col-md-4" id="icons">
+            <span class="icon" id="facebook"><i class="fa fa-facebook fa-lg"></i></span>
+            <span class="icon" id="twitter"><i class="fa fa-twitter fa-lg"></i></span>
+            <span class="icon" id="instagram"><i class="fa fa-instagram fa-lg"></i></span>
+            <div id="copyright"><p class="footer">&copy; 2016 Qpalx. All rights reserved</p></div>
+        </div>
+   
+        <div class="col-md-4"><h3 class="header-3">Contact Us</h3><div class="footer-color"><br /><p>hello@qpalx.com</p><br /><p>Studio M, 4th Floor, 8 Lower<br />Manchester Street, M1 5QF</p><br />+34 393 323 3222</div></div>
+        <div class="col-md-4"><h3 class="header-3">Subscribe now</h3><div class="footer-color"><br /><p>Sign up to stay up to date with our<br /> latest news
+            <br /><br /></p></div>
+            <input id="text-box-1" class="email-4" placeholder="Enter your e-mail here" size="30" type="text"/><button data-toggle="dropdown" id="button-1">
+            <i class="fa fa-paper-plane"></i></button>
+        </div>
+    </footer>
+<!-- jQuery first, then Bootstrap JS. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+<script src="js/validation.js"></script>
+</body>
+</html>

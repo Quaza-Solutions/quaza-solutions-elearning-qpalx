@@ -2,61 +2,61 @@
 <dataset>
 
     <!-- Populate all Geographical Regions -->
-    <GeographicalRegion ID="1" RegionCode="NAM" RegionName="North America" />
-    <GeographicalRegion ID="2" RegionCode="WAF" RegionName="West Africa" />
-    <GeographicalRegion ID="3" RegionCode="WEUR" RegionName="Western Europe" />
-    <GeographicalRegion ID="4" RegionCode="EEUR" RegionName="Eastern Europe" />
-    <GeographicalRegion ID="5" RegionCode="NEUR" RegionName="Northern Europe" />
+    <GeographicalRegion RegionCode="NAM" RegionName="North America" />
+    <GeographicalRegion RegionCode="WAF" RegionName="West Africa" />
+    <GeographicalRegion RegionCode="WEUR" RegionName="Western Europe" />
+    <GeographicalRegion RegionCode="EEUR" RegionName="Eastern Europe" />
+    <GeographicalRegion RegionCode="NEUR" RegionName="Northern Europe" />
 
     <!-- Populate all QPalX Countries -->
-    <QPalXCountry ID="1" CountryCode="US" CountryName="United States of America" CountryCurrency="USD" GeographicalRegionID="1" />
-    <QPalXCountry ID="2" CountryCode="GH" CountryName="Ghana" CountryCurrency="GH Cedis" GeographicalRegionID="2" />
+    <QPalXCountry CountryCode="US" CountryName="United States of America" CountryCurrency="USD" GeographicalRegionID="1" />
+    <QPalXCountry CountryCode="GH" CountryName="Ghana" CountryCurrency="GH Cedis" GeographicalRegionID="2" />
 
     <!-- Populate SocialNetworks -->
-    <SocialNetwork ID="1" SocialNetworkName="Facebook" SocialNetworkDesc="Social Networking" WebSiteAddress="www.facebook.com" />
+    <SocialNetwork SocialNetworkName="Facebook" SocialNetworkDesc="Social Networking" WebSiteAddress="www.facebook.com" />
 
     <!-- Populate Subscription data -->
-    <QPalXSubscription ID="1" SubscriptionName="Monthly Plan" SubscriptionCost="2" SubscriptionType="MONTHLY" SubscriptionQPalXCountryID="2" />
-    <QPalXSubscription ID="2" SubscriptionName="Quarterly Plan" SubscriptionCost="3" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" />
-    <QPalXSubscription ID="3" SubscriptionName="Yearly Plan" SubscriptionCost="5" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" />
+    <QPalXSubscription SubscriptionName="Monthly Plan" SubscriptionCost="2" SubscriptionType="MONTHLY" SubscriptionQPalXCountryID="2" />
+    <QPalXSubscription SubscriptionName="Quarterly Plan" SubscriptionCost="3" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" />
+    <QPalXSubscription SubscriptionName="Yearly Plan" SubscriptionCost="5" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" />
 
     <!-- Populate QPalX Municipality data -->
-    <QPalXMunicipality ID="1" Code="ACC" Name="Greater Accra Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality ID="2" Code="ASH" Name="Ashanti Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality ID="3" Code="BAR" Name="Brong Ahafo Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality ID="4" Code="CER" Name="Central Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality ID="5" Code="EAR" Name="Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality ID="6" Code="WER" Name="Western Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality ID="7" Code="UER" Name="Upper Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality ID="8" Code="UWR" Name="Upper West Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality ID="9" Code="VTR" Name="Volta Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality ID="10" Code="NOR" Name="Northern Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="ACC" Name="Greater Accra Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="ASH" Name="Ashanti Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="BAR" Name="Brong Ahafo Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="CER" Name="Central Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="EAR" Name="Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="WER" Name="Western Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="UER" Name="Upper Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="UWR" Name="Upper West Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="VTR" Name="Volta Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="NOR" Name="Northern Region" TimeZone="UTC" QPalXCountryID="2" />
 
 
     <!-- Populate StudentTutorialLevel data for GeographicalRegion WAF -->
-    <StudentTutorialLevel ID="1" TutorialLevel="Elementary School"  TutorialLevelDescription="Elementary Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="2" TutorialLevel="Middle School"      TutorialLevelDescription="Middle School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="3" TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="4" TutorialLevel="Senior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="5" TutorialLevel="College" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel TutorialLevel="Elementary School"  TutorialLevelDescription="Elementary Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel TutorialLevel="Middle School"      TutorialLevelDescription="Middle School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel TutorialLevel="Senior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel TutorialLevel="College" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
 
     <!--  Populate StudentTutorialGrade For Senior High School -->
-    <StudentTutorialGrade ID="1" TutorialGrade="SS1" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
-    <StudentTutorialGrade ID="2" TutorialGrade="SS2" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
-    <StudentTutorialGrade ID="3" TutorialGrade="SS3" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade TutorialGrade="SS1" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade TutorialGrade="SS2" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade TutorialGrade="SS3" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
 
 
 
     <!-- Populate CORE ELearningCurriculum data for SHS in West Africa -->
-    <ELearningCurriculum ID="1" CurriculumName="English" CurriculumDescription="English Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum ID="2" CurriculumName="Mathematics" CurriculumDescription="Mathematics Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum ID="3" CurriculumName="Social Studies" CurriculumDescription="Social Studies Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum ID="4" CurriculumName="Science" CurriculumDescription="Sciences Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum CurriculumName="English" CurriculumDescription="English Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum CurriculumName="Mathematics" CurriculumDescription="Mathematics Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum CurriculumName="Social Studies" CurriculumDescription="Social Studies Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
 
     <!-- Populate ELECTIVE ELearningCurriculum data for SHS in West Africa -->
-    <ELearningCurriculum ID="5" CurriculumName="General Arts" CurriculumDescription="General Arts Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum ID="6" CurriculumName="Business" CurriculumDescription="Business Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum ID="7" CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum ID="8" CurriculumName="Science" CurriculumDescription="Sciences Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum CurriculumName="General Arts" CurriculumDescription="General Arts Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum CurriculumName="Business" CurriculumDescription="Business Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
 
 </dataset>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<header>
+    <form th:action="@{/login}" method="post" class="navbar-form navbar-right">
+        <div class="col-md-1"><img src="images/logo.png" alt="quaza" id="logo" /></div>
+        <input class="text-box" placeholder="Enter Email Address" name="username" type="text"/>
+        <input class="text-box" placeholder="Enter Password" type="password"/>
+        <button id="log-in" type="submit" class="btn btn-success" name="password">Log In</button>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+    <br />
+    <div class="clearfix"></div>
+    <button class="btn btn-link" style="margin-right: 130px; color: #aaa;">Forgot your password?</button>
+</header>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 bgrnd-image"><p id="header-1">Qpalx is an e-learning platform for<br /> academic excellence.  Comming Soon !!!.</p>
+            <div class="continue"><a th:href="@{/qpalx-sign-up}"><button type="button" class="btn btn-success btn-lg">Sign Up</button></a></div>
+        </div>
+    </div>
+    <div class="row gray-bgrnd">
+        <div class="col-md-12"><p id="header-2">How It Works</p></div>
+    </div>
+
+    <div class="row gray-bgrnd">
+        <div class="col-md-3"><div class="white-box"><img src="images/book.png" class="book" /><p class="centered top-margin"><b>Learn</b></p><p class="centered gray padded-2">Learn from videos created by expert teachers and content creators</p></div></div>
+        <div class="col-md-3"><div class="white-box"><img src="images/book.png" class="book" /><p class="centered top-margin"><b>Practice</b></p><p class="centered gray padded-2">Practice what you learned through quizzes and interactive challenges.</p></div></div>
+        <div class="col-md-3"><div class="white-box"><img src="images/book.png" class="book" /><p class="centered top-margin"><b>Adaptive</b></p><p class="centered gray padded-2">Lessons and assessments cater to your proficiency level needs and skills.</p></div></div>
+        <div class="col-md-3"><div class="white-box"><img src="images/book.png" class="book" /><p class="centered top-margin"><b>Performance</b></p><p class="centered gray padded-2">Track your performance over time as an indicator of information retained.</p></div></div>
+    </div>
+
+
+    <div class="clearfix bottom-space"></div>
+
+</div>
+
+<footer>
+
+    <div class="col-md-4" id="icons">
+
+        <span class="icon" id="facebook"><i class="fa fa-facebook fa-lg"></i></span>
+
+        <span class="icon" id="twitter"><i class="fa fa-twitter fa-lg"></i></span>
+
+        <span class="icon" id="instagram"><i class="fa fa-instagram fa-lg"></i></span>
+
+
+        <div id="copyright"><p class="footer">&copy; 2016 Qpalx. All rights reserved</p></div>
+
+    </div>
+
+    <div class="col-md-4"><h3 class="header-3">Contact Us</h3><div class="footer-color"><br /><p>hello@qpalx.com</p><br /><p>Studio M, 4th Floor, 8 Lower<br />Manchester Street, M1 5QF</p><br />+34 393 323 3222</div></div>
+
+
+    <div class="col-md-4"><h3 class="header-3">Subscribe now</h3><div class="footer-color"><br /><p>Sign up to stay up to date with our<br /> latest news
+        <br /><br /></p></div>
+        <input id="text-box-1" placeholder="Enter your e-mail here" size="30" type="text"/><button data-toggle="dropdown" id="button-1">
+            <i class="fa fa-paper-plane"></i></button>
+
+    </div></footer>
+<!-- jQuery first, then Bootstrap JS. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+
+</body>
+</html>

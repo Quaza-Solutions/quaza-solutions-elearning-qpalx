@@ -3,9 +3,10 @@ package com.quaza.solutions.qpalx.elearning.domain.subscription;
 import org.joda.time.DateTime;
 
 /**
- * Created by manyce400 on 11/27/15.
+ * @author manyce400
  */
 public class SubscriptionValidationResult {
+
 
 
 
@@ -16,6 +17,13 @@ public class SubscriptionValidationResult {
     private final SubscriptionTypeE subscriptionTypeE;
 
     private final SubscriptionStatusE subscriptionStatusE;
+
+
+
+    public SubscriptionValidationResult(SubscriptionStatusE subscriptionStatusE) {
+        this(null, null, null, subscriptionStatusE);
+    }
+
 
     public SubscriptionValidationResult(DateTime purchaseDate, DateTime expirationDate, SubscriptionTypeE subscriptionTypeE, SubscriptionStatusE subscriptionStatusE) {
         this.purchaseDate = purchaseDate;

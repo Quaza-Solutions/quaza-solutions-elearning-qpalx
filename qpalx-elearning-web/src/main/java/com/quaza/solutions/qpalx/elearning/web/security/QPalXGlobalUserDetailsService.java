@@ -69,13 +69,20 @@ public class QPalXGlobalUserDetailsService implements UserDetailsService {
         }
 
         LOGGER.info("Denying access to QPalX for User Email: {}", userEmail);
-        throw new QPalXUserLoginExpiredException(String.format("User with emai:> =%s was not found in QPalX User Database", userEmail));
+        WebQPalXUser invalidUser = getInvalidLoginEvent();
+        throw new QPalXUserLoginExpiredException(invalidUser, String.format("User with email :> =%s was not found in QPalX User Database", userEmail));
     }
 
     private WebQPalXUser getQPalXLoginEvent(final QPalXUser qPalXUser, SubscriptionValidationResult subscriptionValidationResult) {
         WebQPalXUser webQPalXUser = new WebQPalXUser(qPalXUser, subscriptionValidationResult);
         qPalXUser.setLastLoginDate(new DateTime());
         iqPalxUserService.saveQPalXUser(qPalXUser);
+        return webQPalXUser;
+    }
+
+    private WebQPalXUser getInvalidLoginEvent() {
+        SubscriptionValidationResult subscriptionValidationResult = new SubscriptionValidationResult(SubscriptionStatusE.INVALID);
+        WebQPalXUser webQPalXUser = new WebQPalXUser(subscriptionValidationResult);
         return webQPalXUser;
     }
 }

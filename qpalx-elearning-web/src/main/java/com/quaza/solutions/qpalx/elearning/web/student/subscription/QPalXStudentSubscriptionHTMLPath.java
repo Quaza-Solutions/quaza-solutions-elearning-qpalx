@@ -16,12 +16,23 @@ public class QPalXStudentSubscriptionHTMLPath {
 
     private static final String STUDENT_SUBSCRIPTION_HTML_ROOT = "qpalx-student/subscription/";
 
+    private static final String QPALX_HOME_PAGE = "launch";
+
+    private static final String STUDENT_HOME_PAGE = "qpalx-student/home/home";
+
+
+
     private final LinkedList<String> visitedSubscriptionPaths;
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXStudentSubscriptionHTMLPath.class);
 
     public QPalXStudentSubscriptionHTMLPath() {
         visitedSubscriptionPaths = new LinkedList<>();
+    }
+
+
+    public String goToHomePage() {
+        return "launch";
     }
 
     public String visitSubscriptionPage(String page) {
@@ -32,4 +43,6 @@ public class QPalXStudentSubscriptionHTMLPath {
         LOGGER.debug("Forwarding user to subscription page: {}", pageToVisit);
         return pageToVisit;
     }
+
+
 }

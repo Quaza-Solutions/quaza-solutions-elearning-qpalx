@@ -105,18 +105,42 @@
                 As long as classes are properly annotated in the scan packaged defined in persistence.xml there will be a dll.
 
                 Plugin documentation is available at http://juplo.de/hibernate4-maven-plugin/
+
+                De Juplo hibernate-maven-plugin only supports hiberate 5.  Enable only commented out below on updating to hibernate 5
         -->
         <plugins>
+            <!--<plugin>-->
+                <!--<groupId>de.juplo</groupId>-->
+                <!--<artifactId>hibernate-maven-plugin</artifactId>-->
+                <!--<version>2.0.0</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>drop</goal>-->
+                            <!--<goal>create</goal>-->
+                            <!--&lt;!&ndash;<goal>export</goal>&ndash;&gt;-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<dependencies>-->
+                    <!--&lt;!&ndash; Add dependency to MySQL JDBC in order to drop and create tables &ndash;&gt;-->
+                    <!--<dependency>-->
+                        <!--<groupId>mysql</groupId>-->
+                        <!--<artifactId>mysql-connector-java</artifactId>-->
+                        <!--<version>5.1.37</version>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
+            <!--</plugin>-->
+
+
             <plugin>
                 <groupId>de.juplo</groupId>
-                <artifactId>hibernate-maven-plugin</artifactId>
-                <version>2.0.0</version>
+                <artifactId>hibernate4-maven-plugin</artifactId>
+                <version>1.0.5</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>drop</goal>
-                            <goal>create</goal>
-                            <!--<goal>export</goal>-->
+                            <goal>export</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -130,6 +154,7 @@
                 </dependencies>
             </plugin>
 
+            <!-- DB Unit plugin will connect to the database and create default entries specified in the qpalx-test-data.xml file -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
