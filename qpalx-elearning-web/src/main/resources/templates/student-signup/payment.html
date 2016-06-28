@@ -26,7 +26,8 @@
   <div class="col-md-2"><span class="three-circle-gray"><span class="three-gray"><b>1</b></span></span>Account</div>
   
     <div class="col-md-2"><span class="three-circle-blue"><span class="three-blue">2</span></span><span class="three-text-blue"><b> Payment</b></span></div>
-    
+
+
 <div class="col-md-2"><span class="three-circle-gray"><span class="three-gray">3</span></span> Proficiency</div>
 
    <div class="clearfix"></div>
@@ -34,7 +35,8 @@
    <div class="col-md-2"><hr id="blue-line" /></div>
    <div class="col-md-8"><hr class="gray-line" /></div>
    <div class="row">
-   
+
+
    <div class="col-md-4 cents-box cents-box-2"><img class="cents" src="images/2cents.png" /><p class="centered large-text"><b>Monthly</b></p><p class="centered">You will be billed on a monthly basis</p></div>
    <div class="col-md-2"></div>
    <div class="col-md-4 cents-box cents-box-5"><img class="cents" src="images/5cents.png" /><p class="centered large-text"><b>Annually</b></p><p class="centered">You will be charged on a yearly basis at a discounted price.</p></div>
@@ -64,7 +66,8 @@
    <div class="col-md-1"><img src="images/mpower.png" /></div>
    <div class="col-md-2"></div>
    </div>
-   
+
+      <form th:action="@{/customize-proficiency-ranking}" th:object="${QPalXWebUserVO}" method="post">
    <div class="row">
    <div class="col-md-3"></div>
    <div class="col-md-4">Mpower Alias Number</div>
@@ -106,10 +109,10 @@
    </div>  
    
    <div class="clearfix bottom-space"></div>
-    <div class="col-md-12 continue"><button type="button" class="btn btn-success">Continue</button></div>
+    <div class="col-md-12 continue"><button type="submit" class="btn btn-success">Continue</button></div>
+          </form>
 </div>
    <div class="clearfix bottom-space"></div>
-   
    
    
    <footer>

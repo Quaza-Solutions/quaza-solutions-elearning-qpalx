@@ -24,4 +24,12 @@ public class StudentSignUpController {
         model.addAttribute("SignUpSelectionWebVO", new SignUpSelectionWebVO());
         return "student-signup/payment";
     }
+
+    @RequestMapping(value = "/customize-proficiency-ranking", method = RequestMethod.POST)
+    public String customizeStudentProficiencyRankings(final ModelMap modelMap, Model model) {
+        LOGGER.info("Processing student signup payment page");
+        model.addAttribute("SignUpSelectionWebVO", new SignUpSelectionWebVO());
+        return "student-signup/proficiency";
+    }
+
 }

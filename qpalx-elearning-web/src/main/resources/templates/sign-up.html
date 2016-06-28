@@ -11,15 +11,7 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-    <header>
-        <div class="col-md-1"><img src="images/logo.png" alt="quaza" id="logo" /></div>
-        <input class="text-box" placeholder="Enter Email Address" type="text"/>
-        <input class="text-box" placeholder="Enter Password" type="text"/>
-        <button id="log-in" type="button" class="btn btn-success">Log In</button>
-        <br/>
-        <div class="clearfix"></div>
-        <button class="btn btn-link" style="margin-right: 130px; color: #aaa;">Forgot your password?</button>
-    </header>
+<div th:replace="fragments/header :: header"/>
 
     <h1>Sign Up</h1>
 
@@ -67,23 +59,7 @@
 
 <div class="clearfix bottom-space"></div>
 
-<footer>
-    <div class="col-md-4" id="icons">
-        <span class="icon" id="facebook"><i class="fa fa-facebook fa-lg"></i></span>
-        <span class="icon" id="twitter"><i class="fa fa-twitter fa-lg"></i></span>
-        <span class="icon" id="instagram"><i class="fa fa-instagram fa-lg"></i></span>
-        <div id="copyright"><p class="footer">&copy; 2016 Qpalx. All rights reserved</p></div>
-   </div>
-
-   <div class="col-md-4"><h3 class="header-3">Contact Us</h3><div class="footer-color"><br /><p>hello@qpalx.com</p><br /><p>Studio M, 4th Floor, 8 Lower<br />Manchester Street, M1 5QF</p><br />+34 393 323 3222</div></div>
-
-
-   <div class="col-md-4"><h3 class="header-3">Subscribe now</h3><div class="footer-color"><br /><p>Sign up to stay up to date with our<br /> latest news
-        <br /><br /></p></div>
-        <input id="text-box-1" placeholder="Enter your e-mail here" size="30" type="text"/><button data-toggle="dropdown" id="button-1">
-        <i class="fa fa-paper-plane"></i></button>
-   </div>
-</footer>
+<div th:replace="fragments/footer :: footer"/>
 
 <!-- jQuery first, then Bootstrap JS. -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
