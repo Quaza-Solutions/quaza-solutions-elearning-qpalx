@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5 (25232) - http://www.bohemiancoding.com/sketch -->
+    <title>Business</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#D7D7D7" offset="0%"></stop>
+            <stop stop-color="#ABABAB" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="12.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0811594203 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-3" x="0" y="0" width="1280" height="2568" rx="6"></rect>
+    </defs>
+    <g id="Qpalx-_-UX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Sign-Up---Select-Courses" sketch:type="MSArtboardGroup" transform="translate(-676.000000, -1710.000000)">
+            <g id="Home" sketch:type="MSLayerGroup" transform="translate(0.000000, -5.000000)">
+                <g id="Content">
+                    <mask id="mask-4" sketch:name="Mask" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <use id="Mask" stroke="url(#linearGradient-1)" fill="#FFFFFF" filter="url(#filter-2)" sketch:type="MSShapeGroup" xlink:href="#path-3"></use>
+                    <g id="Site-Content" mask="url(#mask-4)">
+                        <g transform="translate(0.000000, 72.000000)" id="content">
+                            <g transform="translate(86.000000, 699.000000)">
+                                <g id="Group-10" transform="translate(590.000000, 944.000000)" sketch:type="MSShapeGroup">
+                                    <g id="Business">
+                                        <g id="Layer_1">
+                                            <g id="Group">
+                                                <circle id="Oval" fill="#2C97DE" cx="75" cy="75" r="75"></circle>
+                                                <g transform="translate(27.380952, 23.369048)">
+                                                    <rect id="Rectangle-path" fill="#168B7D" x="0.714285714" y="16.1547619" width="93.8095238" height="77.6190476"></rect>
+                                                    <path d="M94.5238095,41.8690476 L47.6190476,61.0357143 L0.714285714,41.8690476 L0.714285714,16.1547619 L94.5238095,16.1547619 L94.5238095,41.8690476 Z" id="Shape" fill="#E3E6E8"></path>
+                                                    <path d="M70.2380952,0.0833333333 L25,0.0833333333 C24.2857143,0.0833333333 23.6904762,0.678571429 23.6904762,1.39285714 L23.6904762,16.2738095 L29.2857143,16.2738095 L29.2857143,7.58333333 C29.2857143,6.86904762 29.8809524,6.27380952 30.5952381,6.27380952 L64.5238095,6.27380952 C65.2380952,6.27380952 65.8333333,6.86904762 65.8333333,7.58333333 L65.8333333,16.1547619 L71.4285714,16.1547619 L71.4285714,1.27380952 C71.4285714,0.678571429 70.952381,0.0833333333 70.2380952,0.0833333333 L70.2380952,0.0833333333 Z" id="Shape" fill="#5D5E61"></path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

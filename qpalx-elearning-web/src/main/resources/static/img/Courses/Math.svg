@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5 (25232) - http://www.bohemiancoding.com/sketch -->
+    <title>Math</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#D7D7D7" offset="0%"></stop>
+            <stop stop-color="#ABABAB" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="12.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0811594203 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-3" x="0" y="0" width="1280" height="2568" rx="6"></rect>
+    </defs>
+    <g id="Qpalx-_-UX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Sign-Up---Select-Courses" sketch:type="MSArtboardGroup" transform="translate(-86.000000, -1127.000000)">
+            <g id="Home" sketch:type="MSLayerGroup" transform="translate(0.000000, -5.000000)">
+                <g id="Content">
+                    <mask id="mask-4" sketch:name="Mask" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <use id="Mask" stroke="url(#linearGradient-1)" fill="#FFFFFF" filter="url(#filter-2)" sketch:type="MSShapeGroup" xlink:href="#path-3"></use>
+                    <g id="Site-Content" mask="url(#mask-4)">
+                        <g transform="translate(0.000000, 72.000000)" id="content">
+                            <g transform="translate(86.000000, 699.000000)">
+                                <g id="Group-4" transform="translate(0.000000, 361.000000)" sketch:type="MSShapeGroup">
+                                    <g id="Math">
+                                        <g id="Layer_1">
+                                            <g id="Group">
+                                                <circle id="Oval" fill="#2C97DE" cx="75" cy="75" r="75"></circle>
+                                                <g transform="translate(30.511905, 25.750000)">
+                                                    <path d="M0.202380952,21.6309524 L0.202380952,93.6547619 L72.2261905,93.6547619 L0.202380952,21.6309524 L0.202380952,21.6309524 Z M11.8690476,49.8452381 L43.8928571,81.8690476 L11.8690476,81.8690476 L11.8690476,49.8452381 L11.8690476,49.8452381 Z" id="Shape" fill="#E3E6E8"></path>
+                                                    <rect id="Rectangle-path" fill="#BEC8CE" x="0.202380952" y="33.0595238" width="4.52380952" height="2.38095238"></rect>
+                                                    <rect id="Rectangle-path" fill="#BEC8CE" x="0.202380952" y="40.9166667" width="6.54761905" height="2.38095238"></rect>
+                                                    <rect id="Rectangle-path" fill="#BEC8CE" x="0.202380952" y="48.6547619" width="4.52380952" height="2.38095238"></rect>
+                                                    <rect id="Rectangle-path" fill="#BEC8CE" x="0.202380952" y="56.6309524" width="6.54761905" height="2.38095238"></rect>
+                                                    <rect id="Rectangle-path" fill="#BEC8CE" x="0.202380952" y="64.3690476" width="4.52380952" height="2.38095238"></rect>
+                                                    <rect id="Rectangle-path" fill="#BEC8CE" x="0.202380952" y="72.3452381" width="6.54761905" height="2.38095238"></rect>
+                                                    <rect id="Rectangle-path" fill="#BEC8CE" x="0.202380952" y="80.0833333" width="4.52380952" height="2.38095238"></rect>
+                                                    <rect id="Rectangle-path" fill="#BEC8CE" x="0.202380952" y="87.9404762" width="6.54761905" height="2.38095238"></rect>
+                                                    <path d="M23.0743333,27.5243095 L40.0784048,10.5202381 L87.8076548,58.2494881 L70.8035833,75.2535595 L23.0743333,27.5243095 L23.0743333,27.5243095 Z" id="Rectangle-path" fill="#FAD839"></path>
+                                                    <path d="M26.1547619,1.1547619 L13.6547619,13.6547619 C12.4642857,14.8452381 12.4642857,16.8690476 13.6547619,18.1785714 L23.0595238,27.5833333 L40.0833333,10.5595238 L30.6785714,1.1547619 C29.4880952,-0.154761905 27.4642857,-0.154761905 26.1547619,1.1547619 L26.1547619,1.1547619 Z" id="Shape" fill="#EC5552"></path>
+                                                    <path d="M87.8214286,58.297619 L70.797619,75.202381 L93.5357143,80.9166667 L87.8214286,58.297619 Z" id="Shape" fill="#753A29"></path>
+                                                    <path d="M28.7144167,21.8850595 L34.5227381,16.0767381 L82.2519881,63.8059881 L76.4436667,69.6143095 L28.7144167,21.8850595 L28.7144167,21.8850595 Z" id="Rectangle-path" fill="#FFC717"></path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

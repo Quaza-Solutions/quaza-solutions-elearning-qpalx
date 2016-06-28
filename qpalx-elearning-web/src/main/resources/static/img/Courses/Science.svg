@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5 (25232) - http://www.bohemiancoding.com/sketch -->
+    <title>Science</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#D7D7D7" offset="0%"></stop>
+            <stop stop-color="#ABABAB" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="12.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0811594203 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-3" x="0" y="0" width="1280" height="2568" rx="6"></rect>
+    </defs>
+    <g id="Qpalx-_-UX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Sign-Up---Select-Courses" sketch:type="MSArtboardGroup" transform="translate(-86.000000, -1410.000000)">
+            <g id="Home" sketch:type="MSLayerGroup" transform="translate(0.000000, -5.000000)">
+                <g id="Content">
+                    <mask id="mask-4" sketch:name="Mask" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <use id="Mask" stroke="url(#linearGradient-1)" fill="#FFFFFF" filter="url(#filter-2)" sketch:type="MSShapeGroup" xlink:href="#path-3"></use>
+                    <g id="Site-Content" mask="url(#mask-4)">
+                        <g transform="translate(0.000000, 72.000000)" id="content">
+                            <g transform="translate(86.000000, 699.000000)">
+                                <g id="Group-5" transform="translate(0.000000, 644.000000)" sketch:type="MSShapeGroup">
+                                    <g id="Science">
+                                        <g id="Layer_1">
+                                            <g id="Group">
+                                                <circle id="Oval" fill="#2C97DE" cx="75" cy="75" r="75"></circle>
+                                                <g transform="translate(34.523810, 27.380952)">
+                                                    <path d="M79.7619048,85.8333333 L51.7857143,44.047619 C50.952381,42.7380952 50.4761905,41.1904762 50.4761905,39.6428571 L50.4761905,0.714285714 L30.4761905,0.714285714 L30.4761905,39.5238095 C30.4761905,41.0714286 30,42.6190476 29.1666667,43.9285714 L1.19047619,85.8333333 C-1.30952381,89.5238095 1.42857143,94.5238095 5.83333333,94.5238095 L75.1190476,94.5238095 C79.5238095,94.5238095 82.2619048,89.5238095 79.7619048,85.8333333 L79.7619048,85.8333333 Z" id="Shape" fill="#E3E6E8"></path>
+                                                    <path d="M77.7380952,87.1428571 L60.8333333,61.6666667 L20.1190476,61.6666667 L3.21428571,87.1428571 C2.5,88.0952381 2.5,89.4047619 3.0952381,90.4761905 C3.69047619,91.547619 4.76190476,92.1428571 5.95238095,92.1428571 L75.2380952,92.1428571 C76.4285714,92.1428571 77.5,91.547619 78.0952381,90.4761905 C78.5714286,89.4047619 78.452381,88.0952381 77.7380952,87.1428571 L77.7380952,87.1428571 Z" id="Shape" fill="#168B7D"></path>
+                                                    <ellipse id="Oval" fill="#168B7D" cx="38.8095238" cy="51.4285714" rx="1.66666667" ry="1.66666667"></ellipse>
+                                                    <ellipse id="Oval" fill="#168B7D" cx="38.8095238" cy="32.5" rx="1.66666667" ry="1.66666667"></ellipse>
+                                                    <ellipse id="Oval" fill="#168B7D" cx="43.8095238" cy="13.3333333" rx="1.66666667" ry="1.66666667"></ellipse>
+                                                    <ellipse id="Oval" fill="#168B7D" cx="50.5952381" cy="52.7380952" rx="3.0952381" ry="3.0952381"></ellipse>
+                                                    <ellipse id="Oval" fill="#168B7D" cx="28.5714286" cy="55.7142857" rx="1.07142857" ry="1.07142857"></ellipse>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
