@@ -1,7 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.web.signup.student;
 
+import com.quaza.solutions.qpalx.elearning.web.home.ApplicationHomeController;
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.QPalXWebUserVO;
-import com.quaza.solutions.qpalx.elearning.web.signup.SignUpSelectionWebVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,15 +23,22 @@ public class StudentSignUpController {
     @RequestMapping(value = "/select-signup-payment", method = RequestMethod.POST)
     public String selectSignUpPaymentPage(final ModelMap modelMap, Model model, @ModelAttribute("SignUpSelectionWebVO") QPalXWebUserVO qPalXWebUserVO) {
         LOGGER.info("Student signup payment requested with qPalXWebUserVO: {}", qPalXWebUserVO);
-        model.addAttribute("SignUpSelectionWebVO", new SignUpSelectionWebVO());
+        model.addAttribute("QPalXWebUserVO", qPalXWebUserVO);
         return "student-signup/payment";
     }
 
     @RequestMapping(value = "/customize-proficiency-ranking", method = RequestMethod.POST)
-    public String customizeStudentProficiencyRankings(final ModelMap modelMap, Model model) {
+    public String customizeStudentProficiencyRankings(final ModelMap modelMap, Model model, @ModelAttribute("SignUpSelectionWebVO") QPalXWebUserVO qPalXWebUserVO) {
         LOGGER.info("Processing student signup payment page");
-        model.addAttribute("SignUpSelectionWebVO", new SignUpSelectionWebVO());
+        model.addAttribute("QPalXWebUserVO", qPalXWebUserVO);
         return "student-signup/proficiency";
+    }
+
+    @RequestMapping(value = "/complete-qpalx-signup", method = RequestMethod.POST)
+    public String completeQPalXSignup(final ModelMap modelMap, Model model, @ModelAttribute("SignUpSelectionWebVO") QPalXWebUserVO qPalXWebUserVO) {
+        LOGGER.info("Completing QPalX signup event for qPalXWebUserVO: {} ", qPalXWebUserVO);
+        model.addAttribute("QPalXWebUserVO", qPalXWebUserVO);
+        return ApplicationHomeController.QPALX_HOME_PAGE;
     }
 
 }
