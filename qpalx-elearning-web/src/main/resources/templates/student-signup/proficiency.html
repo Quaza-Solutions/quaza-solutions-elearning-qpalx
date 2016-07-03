@@ -58,6 +58,10 @@
                         <option value="advanced">Advanced</option>
                     </select>
 
+                    <select class="dropdown"  >
+                        <option th:each="SimplifiedProficiencyRankE : ${SimplifiedProficiencyRanks}"  th:value="${SimplifiedProficiencyRankE.proficiencyRanking}" th:text="${SimplifiedProficiencyRankE}"></option>
+                    </select>
+
                 </div>
             </div>
             <div class="col-md-3">

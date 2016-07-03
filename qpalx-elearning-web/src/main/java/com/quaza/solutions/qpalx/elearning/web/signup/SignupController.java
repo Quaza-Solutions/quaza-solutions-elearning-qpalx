@@ -59,12 +59,12 @@ public class SignUpController {
             case Student:
                 LOGGER.info("Student QPalX signup selected, returning student sign-up form");
                 selectedSignupTypePage = "student-signup/sign-up-student";
-                addSignupAttributesToResponse(model);
+                addSignupAttributesToResponse(model, modelMap);
                 break;
             case Parent:
                 LOGGER.info("Parent QPalX signup selected, returning parent sign-up form");
                 selectedSignupTypePage = "parent-signup/sign-up-parent";
-                addSignupAttributesToResponse(model);
+                addSignupAttributesToResponse(model, modelMap);
                 break;
             case Teacher:
                 LOGGER.info("Teacher QPalX signup selected which is currently not supported, returning to home page.");
@@ -80,11 +80,11 @@ public class SignUpController {
     }
 
 
-    private void addSignupAttributesToResponse(final Model model) {
+    private void addSignupAttributesToResponse(final Model model, final ModelMap modelMap) {
         List<QPalXMunicipality> municipalities = iqPalXMunicipalityService.findAllQPalXMunicipalities();
         List<StudentTutorialLevel> studentTutorialLevels = iqPalXTutorialService.findAllQPalXTutorialLevels();
         List<StudentTutorialGrade> studentTutorialGrades = iqPalXTutorialService.findAllStudentTutorialGrade();
-        model.addAttribute("QPalXWebUserVO", new QPalXWebUserVO());
+        modelMap.addAttribute("QPalXWebUserVO", new QPalXWebUserVO());
         model.addAttribute("QPalXMunicipalities", municipalities);
         model.addAttribute("StudentTutorialLevels", studentTutorialLevels);
         model.addAttribute("StudentTutorialGrades", studentTutorialGrades);

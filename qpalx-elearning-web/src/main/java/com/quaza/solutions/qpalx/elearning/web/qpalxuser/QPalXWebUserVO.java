@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.web.qpalxuser;
 
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.IQPalXUserVO;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Web implementation of IQPalXUserVO.  This uses Java EE validation annotations to make sure all bindings to this
@@ -262,7 +263,7 @@ public class QPalXWebUserVO implements IQPalXUserVO {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("email", email)

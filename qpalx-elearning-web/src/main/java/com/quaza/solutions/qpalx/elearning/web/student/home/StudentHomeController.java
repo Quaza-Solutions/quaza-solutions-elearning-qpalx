@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author manyce400
  */
 @Controller
-public class QPalXUserHomeController {
+public class StudentHomeController {
 
 
     @Autowired
@@ -29,8 +29,10 @@ public class QPalXUserHomeController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultGeographicalDateTimeFormatter")
     private IGeographicalDateTimeFormatter iGeographicalDateTimeFormatter;
 
+    public static final String STUDENT_HOME_PAGE = "qpalx-student/home/home";
 
-    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXUserHomeController.class);
+
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentHomeController.class);
 
 
     /**

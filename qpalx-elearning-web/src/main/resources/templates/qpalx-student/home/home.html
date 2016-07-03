@@ -1,98 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
     <!-- Required meta tags always come first -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <!-- Bootstrap CSS -->
-   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-  <header>
-  <div class="col-md-1"><img src="images/logo.png" alt="quaza" id="logo" /></div>
-  <br /><br /><br />
-  </header>
- 
-  <div class="container" style="margin-bottom: 10px;">
-   <div class="row">
- <div class="col-md-12"><img src="images/kwame.png" />&nbsp;&nbsp;&nbsp;<span class="large-text"><b>Kwame Antwi</b></span> &middot; Account &middot; Sign Out</div>
- </div>
- </div>
- <div class="container fixed-width gray-bgrnd" style="margin-bottom: 10px;">
-  
-  <div class="row">
- <div class="col-md-4 white" id="experience"><b class="medium-text">Experience Gained</b><br /><img src="images/graph-1.png" /></div>
- <div class="col-md-1" id="space"></div>
- <div class="col-md-7 white" id="overall">
- <b class="medium-text" style="margin-right: 200px;">Overall Performance</b>
- <button type="button" class="btn btn-default btn-xs time timely">Weekly</button>
- <button type="button" class="btn btn-default btn-xs time timely">Monthly</button>
- <button type="button" class="btn btn-success btn-xs time">Yearly</button>
- <br /><img style="margin-left: -20px;" src="images/graph-2.png" /></div>
- </div>
- 
- </div>
- <div class="container" style="margin-top: 10px; margin-bottom: 0px;">
- <div class="row">
- <div class="col-md-2"><b>In Progress</b>
- </div>
- <div class="col-md-2" style="margin-left: -80px;"><b>Completed</b>
- </div>
- <div class="col-md-2" style="margin-left: -80px;"><b>Courses</b>
- </div>
- </div>
- <div class="row">
- <br />
- <div class="col-md-1" style="width: 120px; border-bottom: 2px solid #7dc855;"></div>
- </div>
- </div>
- <div class="clearfix"></div>
- <div class="container" style="margin-top: 10px; margin-bottom: 0px;">
- 
- 
-<table border="0" style="width: 100%;">
-<tr class="light-gray"><td style="width: 4%;">1</td><td style="width: 20%;"><div class="gray-box"><img src="images/75.png" class="gray-box-rectangle" /></div></td>
-<td style="width: 60%;" class="light-gray"><b>English 101</b><br />10 Lessons</td><td style="width: 10%;" class="light-gray">45:02</td></tr>
-<tr><td>2</td><td><div class="gray-box"><img class="gray-box-img" src="images/75.png" /></div></td><td><b>English 101 Part 2</b><br />20 Lessons</td><td>78:23</td></tr>
-<tr><td>3</td><td><div class="gray-box">&nbsp;</div></td><td><b>English 102 Part 2</b><br />10 Lessons</td><td>41:15</td></tr>
-<tr><td>3</td><td><div class="gray-box">&nbsp;</div></td><td><b>Algebra 101</b><br />15 Lessons</td><td>15:23</td></tr>
-<tr><td>3</td><td><div class="gray-box">&nbsp;</div></td><td><b>Algebra 101 Part 2</b><br />10 Lessons</td><td>43:12</td></tr>
-<tr><td>3</td><td><div class="gray-box">&nbsp;</div></td><td><b>English 102</b><br />10 Lessons</td><td>78:23</td></tr>
-<tr><td>3</td><td><div class="gray-box">&nbsp;</div></td><td><b>Algebra 102</b><br />10 Lessons</td><td>43:10</td></tr>
-</table>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
+          integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div th:replace="fragments/header-loggedin :: header-loggedin"/>
+
+<div class="container" style="margin-bottom: 10px;">
+    <div class="row">
+        <div class="col-md-12"><img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;<span
+                class="large-text"><b>Kwame Antwi</b></span> &middot; Account &middot; Sign Out
+        </div>
+    </div>
 </div>
-   <div class="clearfix bottom-space"></div>
-  
-   <footer>
-   
-   <div class="col-md-4" id="icons">
-   
-<span class="icon" id="facebook"><i class="fa fa-facebook fa-lg"></i></span>
- 
-<span class="icon" id="twitter"><i class="fa fa-twitter fa-lg"></i></span>
 
-<span class="icon" id="instagram"><i class="fa fa-instagram fa-lg"></i></span>
+<!-- Commenting out experience gained graphs -->
+<!--<div class="container fixed-width gray-bgrnd" style="margin-bottom: 10px;">
+
+    <div class="row">
+        <div class="col-md-4 white" id="experience"><b class="medium-text">Experience Gained</b><br/><img
+                src="images/graph-1.png"/></div>
+        <div class="col-md-1" id="space"></div>
+        <div class="col-md-7 white" id="overall">
+            <b class="medium-text" style="margin-right: 200px;">Overall Performance</b>
+            <button type="button" class="btn btn-default btn-xs time timely">Weekly</button>
+            <button type="button" class="btn btn-default btn-xs time timely">Monthly</button>
+            <button type="button" class="btn btn-success btn-xs time">Yearly</button>
+            <br/><img style="margin-left: -20px;" src="images/graph-2.png"/></div>
+    </div>
+
+</div>-->
+<div class="container" style="margin-top: 10px; margin-bottom: 0px;">
+    <div class="row">
+        <div class="col-md-2"><b>In Progress</b>
+        </div>
+        <div class="col-md-2" style="margin-left: -80px;"><b>Completed</b>
+        </div>
+        <div class="col-md-2" style="margin-left: -80px;"><b>Courses</b>
+        </div>
+    </div>
+    <div class="row">
+        <br/>
+        <div class="col-md-1" style="width: 120px; border-bottom: 2px solid #7dc855;"></div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="container" style="margin-top: 10px; margin-bottom: 0px;">
 
 
-  <div id="copyright"><p class="footer">&copy; 2016 Qpalx. All rights reserved</p></div> 
-  
-   </div>
-   
-   <div class="col-md-4"><h3 class="header-3">Contact Us</h3><div class="footer-color"><br /><p>hello@qpalx.com</p><br /><p>Studio M, 4th Floor, 8 Lower<br />Manchester Street, M1 5QF</p><br />+34 393 323 3222</div></div>
-   
-   
-   <div class="col-md-4"><h3 class="header-3">Subscribe now</h3><div class="footer-color"><br /><p>Sign up to stay up to date with our<br /> latest news
- <br /><br /></p></div>  
-<input id="text-box-1" placeholder="Enter your e-mail here" size="30" type="text"></input><button data-toggle="dropdown" id="button-1">
-<i class="fa fa-paper-plane"></i></button>
-   
-   </div></footer>
-    <!-- jQuery first, then Bootstrap JS. -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
-  </body>
+    <table border="0" style="width: 100%;">
+        <tr class="hover-2">
+            <td style="width: 4%;">1</td>
+            <td style="width: 20%;">
+                <div class="gray-box"><img src="images/75.png"/></div>
+            </td>
+            <td style="width: 60%;"><b>English 101</b><br/>10 Lessons</td>
+            <td style="width: 10%;">45:02</td>
+        </tr>
+        <tr class="hover-2">
+            <td>2</td>
+            <td>
+                <div class="gray-box"><img class="gray-box-img" src="images/75.png"/></div>
+            </td>
+            <td><b>English 101 Part 2</b><br/>20 Lessons</td>
+            <td>78:23</td>
+        </tr>
+        <tr class="hover-2">
+            <td>3</td>
+            <td>
+                <div class="gray-box">&nbsp;</div>
+            </td>
+            <td><b>English 102 Part 2</b><br/>10 Lessons</td>
+            <td>41:15</td>
+        </tr>
+        <tr class="hover-2">
+            <td>3</td>
+            <td>
+                <div class="gray-box">&nbsp;</div>
+            </td>
+            <td><b>Algebra 101</b><br/>15 Lessons</td>
+            <td>15:23</td>
+        </tr>
+        <tr class="hover-2">
+            <td>3</td>
+            <td>
+                <div class="gray-box">&nbsp;</div>
+            </td>
+            <td><b>Algebra 101 Part 2</b><br/>10 Lessons</td>
+            <td>43:12</td>
+        </tr>
+        <tr class="hover-2">
+            <td>3</td>
+            <td>
+                <div class="gray-box">&nbsp;</div>
+            </td>
+            <td><b>English 102</b><br/>10 Lessons</td>
+            <td>78:23</td>
+        </tr>
+        <tr class="hover-2">
+            <td>3</td>
+            <td>
+                <div class="gray-box">&nbsp;</div>
+            </td>
+            <td><b>Algebra 102</b><br/>10 Lessons</td>
+            <td>43:10</td>
+        </tr>
+    </table>
+</div>
+<div class="clearfix bottom-space"></div>
+
+<div th:replace="fragments/footer :: footer"/>
+<!-- jQuery first, then Bootstrap JS. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"
+        integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7"
+        crossorigin="anonymous"></script>
+</body>
 </html>
