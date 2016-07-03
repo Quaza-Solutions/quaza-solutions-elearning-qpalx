@@ -46,6 +46,8 @@ public class QPalXWebUserVO implements IQPalXUserVO {
     //    @NotNull
     private Long tutorialGradeID;
 
+    private Long studentTutorialLevelID;
+
     //@NotNull
     private Long educationalInstitutionID;
 
@@ -136,11 +138,19 @@ public class QPalXWebUserVO implements IQPalXUserVO {
 
     @Override
     public Long getTutorialGradeID() {
-        return null;
+        return tutorialGradeID;
     }
 
     public void setTutorialGradeID(Long tutorialGradeID) {
         this.tutorialGradeID = tutorialGradeID;
+    }
+
+    public Long getStudentTutorialLevelID() {
+        return studentTutorialLevelID;
+    }
+
+    public void setStudentTutorialLevelID(Long studentTutorialLevelID) {
+        this.studentTutorialLevelID = studentTutorialLevelID;
     }
 
     public Long getEducationalInstitutionID() {
@@ -194,10 +204,13 @@ public class QPalXWebUserVO implements IQPalXUserVO {
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("email", email)
+                .append("mobilePhoneNumber", mobilePhoneNumber)
                 .append("password", password)
+                .append("registeredByUserID", registeredByUserID)
                 .append("municipalityID", municipalityID)
                 .append("subscriptionID", subscriptionID)
                 .append("tutorialGradeID", tutorialGradeID)
+                .append("studentTutorialLevelID", studentTutorialLevelID)
                 .append("educationalInstitutionID", educationalInstitutionID)
                 .append("mobileMoneySystem", mobileMoneySystem)
                 .append("mPowerAccountAlias", mPowerAccountAlias)
@@ -205,7 +218,6 @@ public class QPalXWebUserVO implements IQPalXUserVO {
                 .append("studentPhotoFile", studentPhotoFile)
                 .toString();
     }
-
 
     public static final class Builder {
 

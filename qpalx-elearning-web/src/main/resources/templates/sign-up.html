@@ -26,25 +26,25 @@
     <form th:action="@{/sign-up-type-select}" th:object="${SignUpSelectionWebVO}" method="post">
         <div class="row">
             <div class="col-sm-4">
-            <input type="radio" id="check-box-1" name="options" />
+            <input type="radio" id="check-box-1" value="Student" name="options" th:field="*{signUpType}" />
             <label for="check-box-1" class="box" id="left-box"><img src="images/student.png" class="user" /><h4 class="centered">Student</h4>
                 <p class="centered gray small-text">Sign up and learn from content created by expert teachers and content creators.</p>
             </label>
             </div>
 
             <div class="col-sm-4">
-                <input type="radio" id="check-box-2" name="options" />
+                <input type="radio" id="check-box-2" value="Parent" name="options" th:field="*{signUpType}" />
                 <label for="check-box-2" class="box" id="center-box"><img src="images/student.png" class="user" /><h4 class="centered">Parent</h4>
                     <p class="centered gray small-text">Manage and track your son or daughter's performance using Qpalx.</p>
                 </label>
             </div>
 
-            <div class="col-sm-4">
-                <input type="radio" id="check-box-3" name="options" />
+           <!-- <div class="col-sm-4">
+                <input type="radio" id="check-box-3" value="Teacher" name="options" th:field="*{signUpType}" />
                 <label for="check-box-3" class="box" id="right-box"><img src="images/student.png" class="user" /><h4 class="centered">Teacher</h4>
                     <p class="centered gray small-text">Manage your class performance and gain an understanding of how well your students are doing. </p>
                 </label>
-            </div>
+            </div>-->
 
         </div>
 

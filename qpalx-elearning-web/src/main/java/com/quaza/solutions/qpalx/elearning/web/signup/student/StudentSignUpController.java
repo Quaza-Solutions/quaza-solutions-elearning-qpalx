@@ -1,9 +1,11 @@
 package com.quaza.solutions.qpalx.elearning.web.signup.student;
 
+import com.quaza.solutions.qpalx.elearning.web.qpalxuser.QPalXWebUserVO;
 import com.quaza.solutions.qpalx.elearning.web.signup.SignUpSelectionWebVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,8 +21,8 @@ public class StudentSignUpController {
 
 
     @RequestMapping(value = "/select-signup-payment", method = RequestMethod.POST)
-    public String selectSignUpPaymentPage(final ModelMap modelMap, Model model) {
-        LOGGER.info("Processing student signup payment page");
+    public String selectSignUpPaymentPage(final ModelMap modelMap, Model model, @ModelAttribute("SignUpSelectionWebVO") QPalXWebUserVO qPalXWebUserVO) {
+        LOGGER.info("Student signup payment requested with qPalXWebUserVO: {}", qPalXWebUserVO);
         model.addAttribute("SignUpSelectionWebVO", new SignUpSelectionWebVO());
         return "student-signup/payment";
     }

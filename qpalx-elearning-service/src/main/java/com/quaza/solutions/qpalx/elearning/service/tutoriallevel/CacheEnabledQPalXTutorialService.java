@@ -45,6 +45,13 @@ public class CacheEnabledQPalXTutorialService implements IQPalXTutorialService {
     }
 
     @Override
+    public List<StudentTutorialGrade> findAllStudentTutorialGrade() {
+        LOGGER.info("Finding all configured StudentTutorialGrade...");
+        Iterable<StudentTutorialGrade> studentTutorialGrades  = iTutorialGradeRepository.findAll();
+        return ImmutableList.copyOf(studentTutorialGrades);
+    }
+
+    @Override
     public List<StudentTutorialLevel> findAllQPalXTutorialLevels() {
         LOGGER.debug("Finding all StudentTutorialLevel's....");
         Iterable<StudentTutorialLevel> qPalXTutorialLevels = iqPalXTutorialLevelRepository.findAll();
