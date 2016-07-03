@@ -223,5 +223,34 @@ public class DefaultQPalXUserSubscriptionServiceTest {
             return qPalXUser.getMobilePhoneNumber();
         }
 
+        @Override
+        public String getCoreEnglishProficiencyLevel() {
+            return null;
+        }
+
+        @Override
+        public String getCoreMathProficiencyLevel() {
+            return null;
+        }
+
+        @Override
+        public String getCoreSocialStudiesProficiencyLevel() {
+            return null;
+        }
+
+        @Override
+        public String getCoreScienceProficiencyLevel() {
+            return null;
+        }
+
+        @Override
+        public String getCoreICTProficiencyLevel() {
+            return null;
+        }
+
+        @Override
+        public String getCoreVocationalStudiesProficiencyLevel() {
+            return null;
+        }
     }
 }

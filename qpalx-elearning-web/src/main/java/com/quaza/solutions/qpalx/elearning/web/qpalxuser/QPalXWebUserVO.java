@@ -62,6 +62,18 @@ public class QPalXWebUserVO implements IQPalXUserVO {
 
     private String studentPhotoFile;
 
+    private String coreEnglishProficiencyLevel;
+
+    private String coreMathProficiencyLevel;
+
+    private String coreSocialStudiesProficiencyLevel;
+
+    private String coreScienceProficiencyLevel;
+
+    private String coreICTProficiencyLevel;
+
+    private String coreVocationalStudiesProficiencyLevel;
+
     public QPalXWebUserVO() {
 
     }
@@ -198,6 +210,54 @@ public class QPalXWebUserVO implements IQPalXUserVO {
         this.studentPhotoFile = studentPhotoFile;
     }
 
+    public String getCoreEnglishProficiencyLevel() {
+        return coreEnglishProficiencyLevel;
+    }
+
+    public void setCoreEnglishProficiencyLevel(String coreEnglishProficiencyLevel) {
+        this.coreEnglishProficiencyLevel = coreEnglishProficiencyLevel;
+    }
+
+    public String getCoreMathProficiencyLevel() {
+        return coreMathProficiencyLevel;
+    }
+
+    public void setCoreMathProficiencyLevel(String coreMathProficiencyLevel) {
+        this.coreMathProficiencyLevel = coreMathProficiencyLevel;
+    }
+
+    public String getCoreSocialStudiesProficiencyLevel() {
+        return coreSocialStudiesProficiencyLevel;
+    }
+
+    public void setCoreSocialStudiesProficiencyLevel(String coreSocialStudiesProficiencyLevel) {
+        this.coreSocialStudiesProficiencyLevel = coreSocialStudiesProficiencyLevel;
+    }
+
+    public String getCoreScienceProficiencyLevel() {
+        return coreScienceProficiencyLevel;
+    }
+
+    public void setCoreScienceProficiencyLevel(String coreScienceProficiencyLevel) {
+        this.coreScienceProficiencyLevel = coreScienceProficiencyLevel;
+    }
+
+    public String getCoreICTProficiencyLevel() {
+        return coreICTProficiencyLevel;
+    }
+
+    public void setCoreICTProficiencyLevel(String coreICTProficiencyLevel) {
+        this.coreICTProficiencyLevel = coreICTProficiencyLevel;
+    }
+
+    public String getCoreVocationalStudiesProficiencyLevel() {
+        return coreVocationalStudiesProficiencyLevel;
+    }
+
+    public void setCoreVocationalStudiesProficiencyLevel(String coreVocationalStudiesProficiencyLevel) {
+        this.coreVocationalStudiesProficiencyLevel = coreVocationalStudiesProficiencyLevel;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -216,6 +276,12 @@ public class QPalXWebUserVO implements IQPalXUserVO {
                 .append("mPowerAccountAlias", mPowerAccountAlias)
                 .append("mPowerAuthorizationToken", mPowerAuthorizationToken)
                 .append("studentPhotoFile", studentPhotoFile)
+                .append("coreEnglishProficiencyLevel", coreEnglishProficiencyLevel)
+                .append("coreMathProficiencyLevel", coreMathProficiencyLevel)
+                .append("coreSocialStudiesProficiencyLevel", coreSocialStudiesProficiencyLevel)
+                .append("coreScienceProficiencyLevel", coreScienceProficiencyLevel)
+                .append("coreICTProficiencyLevel", coreICTProficiencyLevel)
+                .append("coreVocationalStudiesProficiencyLevel", coreVocationalStudiesProficiencyLevel)
                 .toString();
     }
 
