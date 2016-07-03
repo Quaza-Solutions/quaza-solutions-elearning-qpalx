@@ -48,8 +48,10 @@ public class QPalXWebUserVO implements IQPalXUserVO {
 
     private Long studentTutorialLevelID;
 
+
     //@NotNull
     private Long educationalInstitutionID;
+
 
     //@NotNull
     private String mobileMoneySystem;
