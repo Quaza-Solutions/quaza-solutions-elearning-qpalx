@@ -204,6 +204,11 @@ public class DefaultQPalXUserSubscriptionServiceTest {
         }
 
         @Override
+        public Long getStudentTutorialLevelID() {
+            return 1L;
+        }
+
+        @Override
         public String getMPowerAccountAlias() {
             return "manyce400";
         }
