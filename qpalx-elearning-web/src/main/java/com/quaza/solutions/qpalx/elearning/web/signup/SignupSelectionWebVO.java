@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class SignUpSelectionWebVO {
 
 
+    // Selected type of user sign-up.
     private String signUpType;
 
     public SignUpSelectionWebVO() {
@@ -16,6 +17,10 @@ public class SignUpSelectionWebVO {
 
     public String getSignUpType() {
         return signUpType;
+    }
+
+    public SignUpTypeE getAsSignUpTypeE() {
+        return SignUpTypeE.getSignUpTypeE(signUpType);
     }
 
     public void setSignUpType(String signUpType) {

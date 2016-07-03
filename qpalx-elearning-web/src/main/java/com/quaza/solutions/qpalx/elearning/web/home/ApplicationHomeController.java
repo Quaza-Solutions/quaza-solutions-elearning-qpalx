@@ -36,7 +36,7 @@ public class ApplicationHomeController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultGeographicalDateTimeFormatter")
     private IGeographicalDateTimeFormatter iGeographicalDateTimeFormatter;
 
-    private static final String QPALX_HOME_PAGE = "launch";
+    public static final String QPALX_HOME_PAGE = "launch";
 
     private static final String STUDENT_HOME_PAGE = "qpalx-student/home/home";
 

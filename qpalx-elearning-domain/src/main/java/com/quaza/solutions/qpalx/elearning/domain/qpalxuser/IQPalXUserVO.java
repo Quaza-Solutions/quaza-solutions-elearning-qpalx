@@ -35,6 +35,8 @@ public interface IQPalXUserVO {
      */
     public Long getSubscriptionID();
 
+    public Long getStudentTutorialLevelID();
+
     public Long getEducationalInstitutionID();
 
     /**
