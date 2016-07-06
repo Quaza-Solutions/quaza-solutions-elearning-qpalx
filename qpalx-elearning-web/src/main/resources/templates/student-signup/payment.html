@@ -17,60 +17,64 @@
 
 <h1>Sign Up</h1>
 <div class="container">
+    <div class="col-md-2"><span class="three-circle-gray"><span class="three-gray"><b>1</b></span></span>Account</div>
+
+    <div class="col-md-2"><span class="three-circle-blue"><span class="three-blue">2</span></span><span
+            class="three-text-blue"><b> Payment</b></span></div>
+
+    <div class="col-md-2"><span class="three-circle-gray"><span class="three-gray">3</span></span> Proficiency</div>
+
+    <div class="clearfix"></div>
+    <div class="col-md-2">
+        <hr class="gray-line"/>
+    </div>
+    <div class="col-md-2">
+        <hr id="blue-line"/>
+    </div>
+    <div class="col-md-8">
+        <hr class="gray-line"/>
+    </div>
+
     <form th:action="@{/customize-proficiency-ranking}" th:object="${QPalXWebUserVO}" method="post">
-        <div class="col-md-2"><span class="three-circle-gray"><span class="three-gray"><b>1</b></span></span>Account
-        </div>
-
-        <div class="col-md-2"><span class="three-circle-blue"><span class="three-blue">2</span></span><span
-                class="three-text-blue"><b> Payment</b></span></div>
-
-
-        <div class="col-md-2"><span class="three-circle-gray"><span class="three-gray">3</span></span> Proficiency</div>
-
         <div class="clearfix"></div>
-        <div class="col-md-2">
-            <hr class="gray-line"/>
-        </div>
-        <div class="col-md-2">
-            <hr id="blue-line"/>
-        </div>
-        <div class="col-md-8">
-            <hr class="gray-line"/>
-        </div>
         <div class="row">
+            <div class="col-md-6">
+                <input type="radio" id="check-box-one" value="3" name="subscription-options" th:field="*{subscriptionID}"/>
+                <label for="check-box-one" class="cents-box cents-box-2" id="monthly">
+                    <img class="cents" src="images/2cents.png"/>
+                    <p class="centered large-text"><b>Monthly</b></p>
+                    <p class="centered">You will be billed on a monthly basis</p></label>
 
+            </div>
 
-            <div class="col-md-4 cents-box cents-box-2">
-                <input type="radio" id="check-box-1" value="3" name="subscription-options" th:field="*{subscriptionID}"/>
-                <img class="cents" src="images/2cents.png"/>
-                <p class="centered large-text"><b>Monthly</b></p>
-                <p class="centered">You will be billed on a monthly basis</p>
+            <div class="col-md-6">
+                <input type="radio" id="check-box-two" value="5" name="subscription-options" th:field="*{subscriptionID}"/>
+                <label for="check-box-two" class="cents-box cents-box-5" id="yearly">
+                    <img class="cents" src="images/5cents.png"/>
+                    <p class="centered large-text"><b>Annually</b></p>
+                    <p class="centered side-margin">You will be charged on a yearly basis at a discounted price.</p>
+                </label>
             </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-4 cents-box cents-box-5">
-                <input type="radio" id="check-box-2" value="5" name="subscription-options" th:field="*{subscriptionID}"/>
-                <img class="cents" src="images/5cents.png"/>
-                <p class="centered large-text"><b>Annually</b></p>
-                <p class="centered">You will be charged on a yearly basis at a discounted price.</p>
-            </div>
-            <div class="col-md-2"></div>
+
         </div>
+
         <br/><br/><br/>
         <div class="row hover">
             <div class="col-md-2"></div>
-            <div class="col-md-1"><input type="radio" class="radio-btn" name="payment-options"/></div>
+            <div class="col-md-1"><input type="radio" class="radio-btn radio-btn-1" name="payment-options"/></div>
             <div class="col-md-6"><p><b>Credit Card</b></p>
                 <p>Safe money transfer using your bank account. Safe payment online. Credit card needed: Visa, Maestro,
-                    Discover, American Express.</p></div>
+                    Discover, American Express.</p><span class="red"></span></div>
             <div class="col-md-1"><img src="images/visa.png"/></div>
             <div class="col-md-2"></div>
         </div>
         <br/><br/><br/>
         <div class="row hover">
             <div class="col-md-2"></div>
-            <div class="col-md-1"><input type="radio" class="radio-btn" name="payment-options"/></div>
+            <div class="col-md-1"><input type="radio" class="radio-btn radio-btn-2" name="payment-options"/></div>
             <div class="col-md-6"><p><b>PayPal</b></p>
-                <p>Safe payment online. Credit card needed. PayPal account is not necessary</p></div>
+                <p>Safe payment online. Credit card needed. PayPal account is not necessary</p><span
+                        class="red-2"></span></div>
             <div class="col-md-1"><img src="images/paypal.png"/></div>
             <div class="col-md-2"></div>
         </div>
@@ -96,7 +100,7 @@
             <div class="col-md-6"><input type="text" class="form-control mpower"/></div>
             <div class="col-md-3"></div>
         </div>
-        <br/>zcx
+        <br/>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">Full Name</div>
@@ -139,15 +143,15 @@
 
 <!-- jQuery first, then Bootstrap JS. -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"
-        integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7"
-        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 
 <script>
 $('.radio-btn').click(function() {
 		$('.row').removeClass("hvr");
 		$(this).filter(':checked').closest('.row').addClass("hvr");
 }); 
+
+
 
 
 

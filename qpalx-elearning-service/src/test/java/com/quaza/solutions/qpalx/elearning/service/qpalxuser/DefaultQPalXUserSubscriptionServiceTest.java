@@ -10,6 +10,7 @@ import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatu
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.IAdaptiveProficiencyRankingService;
 import com.quaza.solutions.qpalx.elearning.service.mock.MockQPalXCountryBuilder;
 import com.quaza.solutions.qpalx.elearning.service.mock.MockQPalXMunicipalityBuilder;
 import com.quaza.solutions.qpalx.elearning.service.mock.MockQPalXSubscriptionBuilder;
@@ -56,6 +57,9 @@ public class DefaultQPalXUserSubscriptionServiceTest {
 
     @Mock
     private IStudentEnrolmentRecordService iStudentEnrolmentRecordService;
+
+    @Mock
+    private IAdaptiveProficiencyRankingService iAdaptiveProficiencyRankingService;
 
 
     private MockQPalXUserBuilder mockQPalXUserBuilder = new MockQPalXUserBuilder();

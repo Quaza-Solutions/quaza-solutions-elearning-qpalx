@@ -213,13 +213,21 @@ width: 248px;
 height: 32px;	
 }
 
+#zip {
+width: 248px;	
+}
+
+#phone {
+width: 248px;	
+}
+
 .academy {
 	width: 522px; 
 	height: 32px;
 }
 
 #password {
-	margin-top: 198px;
+/*	margin-top: 198px;*/
 }
 
 #parent {
@@ -242,8 +250,21 @@ height: 32px;
 #check-box-1 {
     display: none;
 }
+#check-box-one {
+    display: none;
+}
 
+#check-box-one:checked + label{
+    border: 2px solid #7dc855;
+}
 #check-box-1:checked + label{
+    border: 2px solid #7dc855;
+}
+#check-box-two {
+    display: none;
+}
+
+#check-box-two:checked + label{
     border: 2px solid #7dc855;
 }
 
@@ -304,7 +325,9 @@ height: 32px;
 .centered {
 	text-align: center;
 }
-
+.side-margin {
+	padding: 0 10px 0 10px;		  
+}
 .gray {
 	   color: #999;
 	   }
@@ -441,15 +464,15 @@ height: 200px;
 }
 
 .cents-box-2 {
-	margin: 60px 60px 0 -200px;
+	margin: 60px 0 0 190px;
 }
 
 .cents-box-5 {
-	margin: 60px 90px 0 90px;
+	margin: 60px 0 0 40px;
 }
 
 .cents {
-	margin: 60px 60px;
+	margin: 60px 80px;
 	text-align: center;
 	}
 	
@@ -675,3 +698,6 @@ _:-ms-lang(x), .email { width: 500px; }
 	color: #7dc855;
 }
 
+.red {
+	color: red;
+}

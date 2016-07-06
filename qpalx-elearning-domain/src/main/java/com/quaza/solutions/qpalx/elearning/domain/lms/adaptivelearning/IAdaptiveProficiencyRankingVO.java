@@ -8,7 +8,7 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning;
 public interface IAdaptiveProficiencyRankingVO {
 
 
-    public Long getELearningCurriculumID();
+    public String getELearningCurriculumName();
 
-    public Integer getProficiencyRanking();
+    public String getSimplifiedProficiencyRank();
 }

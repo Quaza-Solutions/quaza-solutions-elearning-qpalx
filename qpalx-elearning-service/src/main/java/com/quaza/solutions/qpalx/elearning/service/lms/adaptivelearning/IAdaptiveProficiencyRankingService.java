@@ -1,6 +1,5 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning;
 
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.IAdaptiveProficiencyRankingVO;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 
@@ -14,10 +13,10 @@ public interface IAdaptiveProficiencyRankingService {
 
 
     /**
-     * Build inital AdaptiveProficiencyRanking for a QPalXUser.  This is done as part of initial platform signup.
+     * Build's initial AdaptiveProficiencyRanking for a QPalXUser.  This is done as part of initial platform sign up.
      *
      * @param qPalXUser
      * @param initialAdaptiveProficiencyRankingVOs
      */
-    public AdaptiveProficiencyRanking buildInitialAdaptiveProficiencyRanking(QPalXUser qPalXUser, Set<IAdaptiveProficiencyRankingVO> initialAdaptiveProficiencyRankingVOs);
+    public void buildInitialAdaptiveProficiencyRanking(QPalXUser qPalXUser, Set<IAdaptiveProficiencyRankingVO> initialAdaptiveProficiencyRankingVOs);
 }
