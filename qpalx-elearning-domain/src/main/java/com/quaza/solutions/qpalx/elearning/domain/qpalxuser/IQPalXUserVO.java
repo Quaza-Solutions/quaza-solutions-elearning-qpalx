@@ -52,4 +52,16 @@ public interface IQPalXUserVO {
      * @return Long.
      */
     public Long getPaymentSystemID();
+
+    public String getCoreEnglishProficiencyLevel();
+
+    public String getCoreMathProficiencyLevel();
+
+    public String getCoreSocialStudiesProficiencyLevel();
+
+    public String getCoreScienceProficiencyLevel();
+
+    public String getCoreICTProficiencyLevel();
+
+    public String getCoreVocationalStudiesProficiencyLevel();
 }

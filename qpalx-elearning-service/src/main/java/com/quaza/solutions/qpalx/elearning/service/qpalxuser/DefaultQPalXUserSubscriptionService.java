@@ -1,8 +1,11 @@
 package com.quaza.solutions.qpalx.elearning.service.qpalxuser;
 
+import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRankingVO;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.IAdaptiveProficiencyRankingVO;
 import com.quaza.solutions.qpalx.elearning.domain.payment.electronic.repository.IEPaymentServiceTransactionRepository;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.*;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfile;
@@ -14,6 +17,7 @@ import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatu
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.IAdaptiveProficiencyRankingService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IStudentEnrolmentRecordService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
@@ -25,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  *
@@ -67,6 +72,10 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
 
     @Autowired
     private IEPaymentServiceTransactionRepository iePaymentServiceTransactionRepository;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultAdaptiveProficiencyRankingService")
+    private IAdaptiveProficiencyRankingService iAdaptiveProficiencyRankingService;
 
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultQPalXUserSubscriptionService.class);
@@ -120,6 +129,9 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
                 qPalXEducationalInstitution = iqPalXEducationalInstitutionService.findByID(iqPalXUserVO.getEducationalInstitutionID());
             }
             iStudentEnrolmentRecordService.createStudentEnrolmentRecord(qPalXUser, studentTutorialGrade, qPalXEducationalInstitution);
+
+            // create default QPalX enrollment record.
+            buildAndSaveInitialAdaptiveProficiencyRaning(qPalXUser, iqPalXUserVO);
             return Optional.of(qPalXUser);
         }
 
@@ -192,6 +204,20 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
 
         LOGGER.warn("Found an already active StudentSubscriptionProfile: {} cannot create new one", activeUserSubscriptionProfile.get());
         return Optional.empty();
+    }
+
+    void buildAndSaveInitialAdaptiveProficiencyRaning(QPalXUser qPalXUser, IQPalXUserVO iqPalXUserVO) {
+        LOGGER.info("Building and saving all student users core curriculum initial proficiencies...");
+        Set<IAdaptiveProficiencyRankingVO> initialAdaptiveProficiencyRankingVOs =ImmutableSet.of(
+                new AdaptiveProficiencyRankingVO("English", iqPalXUserVO.getCoreEnglishProficiencyLevel()),
+                new AdaptiveProficiencyRankingVO("Mathematics", iqPalXUserVO.getCoreMathProficiencyLevel()),
+                new AdaptiveProficiencyRankingVO("Social Studies", iqPalXUserVO.getCoreSocialStudiesProficiencyLevel()),
+                new AdaptiveProficiencyRankingVO("Science", iqPalXUserVO.getCoreScienceProficiencyLevel()),
+                new AdaptiveProficiencyRankingVO("ICT", iqPalXUserVO.getCoreICTProficiencyLevel()),
+                new AdaptiveProficiencyRankingVO("Vocational Studies", iqPalXUserVO.getCoreVocationalStudiesProficiencyLevel())
+        );
+
+        iAdaptiveProficiencyRankingService.buildInitialAdaptiveProficiencyRanking(qPalXUser, initialAdaptiveProficiencyRankingVOs);
     }
 
 

@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.web.qpalxuser;
 
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.IQPalXUserVO;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Web implementation of IQPalXUserVO.  This uses Java EE validation annotations to make sure all bindings to this
@@ -48,8 +49,10 @@ public class QPalXWebUserVO implements IQPalXUserVO {
 
     private Long studentTutorialLevelID;
 
+
     //@NotNull
     private Long educationalInstitutionID;
+
 
     //@NotNull
     private String mobileMoneySystem;
@@ -61,6 +64,18 @@ public class QPalXWebUserVO implements IQPalXUserVO {
     private String mPowerAuthorizationToken;
 
     private String studentPhotoFile;
+
+    private String coreEnglishProficiencyLevel;
+
+    private String coreMathProficiencyLevel;
+
+    private String coreSocialStudiesProficiencyLevel;
+
+    private String coreScienceProficiencyLevel;
+
+    private String coreICTProficiencyLevel;
+
+    private String coreVocationalStudiesProficiencyLevel;
 
     public QPalXWebUserVO() {
 
@@ -198,9 +213,57 @@ public class QPalXWebUserVO implements IQPalXUserVO {
         this.studentPhotoFile = studentPhotoFile;
     }
 
+    public String getCoreEnglishProficiencyLevel() {
+        return coreEnglishProficiencyLevel;
+    }
+
+    public void setCoreEnglishProficiencyLevel(String coreEnglishProficiencyLevel) {
+        this.coreEnglishProficiencyLevel = coreEnglishProficiencyLevel;
+    }
+
+    public String getCoreMathProficiencyLevel() {
+        return coreMathProficiencyLevel;
+    }
+
+    public void setCoreMathProficiencyLevel(String coreMathProficiencyLevel) {
+        this.coreMathProficiencyLevel = coreMathProficiencyLevel;
+    }
+
+    public String getCoreSocialStudiesProficiencyLevel() {
+        return coreSocialStudiesProficiencyLevel;
+    }
+
+    public void setCoreSocialStudiesProficiencyLevel(String coreSocialStudiesProficiencyLevel) {
+        this.coreSocialStudiesProficiencyLevel = coreSocialStudiesProficiencyLevel;
+    }
+
+    public String getCoreScienceProficiencyLevel() {
+        return coreScienceProficiencyLevel;
+    }
+
+    public void setCoreScienceProficiencyLevel(String coreScienceProficiencyLevel) {
+        this.coreScienceProficiencyLevel = coreScienceProficiencyLevel;
+    }
+
+    public String getCoreICTProficiencyLevel() {
+        return coreICTProficiencyLevel;
+    }
+
+    public void setCoreICTProficiencyLevel(String coreICTProficiencyLevel) {
+        this.coreICTProficiencyLevel = coreICTProficiencyLevel;
+    }
+
+    public String getCoreVocationalStudiesProficiencyLevel() {
+        return coreVocationalStudiesProficiencyLevel;
+    }
+
+    public void setCoreVocationalStudiesProficiencyLevel(String coreVocationalStudiesProficiencyLevel) {
+        this.coreVocationalStudiesProficiencyLevel = coreVocationalStudiesProficiencyLevel;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("email", email)
@@ -216,6 +279,12 @@ public class QPalXWebUserVO implements IQPalXUserVO {
                 .append("mPowerAccountAlias", mPowerAccountAlias)
                 .append("mPowerAuthorizationToken", mPowerAuthorizationToken)
                 .append("studentPhotoFile", studentPhotoFile)
+                .append("coreEnglishProficiencyLevel", coreEnglishProficiencyLevel)
+                .append("coreMathProficiencyLevel", coreMathProficiencyLevel)
+                .append("coreSocialStudiesProficiencyLevel", coreSocialStudiesProficiencyLevel)
+                .append("coreScienceProficiencyLevel", coreScienceProficiencyLevel)
+                .append("coreICTProficiencyLevel", coreICTProficiencyLevel)
+                .append("coreVocationalStudiesProficiencyLevel", coreVocationalStudiesProficiencyLevel)
                 .toString();
     }
 

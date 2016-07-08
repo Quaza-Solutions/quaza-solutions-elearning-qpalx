@@ -1,76 +1,106 @@
 
 $('#first').blur(function() {
+	$("#first-name").empty();
 	var inp = $("#first").val();
 if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt3 = "Please don't leave the field blank";
 		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		
 		$('#first-name').append(newDiv3);
+	  // Prevent form submission
+      event.preventDefault();
          } else {
-$(this).removeClass("focus-2").addClass("blur-2");
+		//$("#first-name").empty();
+		$(this).removeClass("focus-2").addClass("blur-2");
          }
 							   });
 
 $('#zip').blur(function() {
+	$("#zip-code").empty();
 	var inp = $("#zip").val();
 if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt3 = "Please don't leave the field blank";
 		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		
 		$('#zip-code').append(newDiv3);
+	  // Prevent form submission
+      event.preventDefault();
          } else {
-$(this).removeClass("focus-2").addClass("blur-2");
+		//$("#zip-code").empty();
+		$(this).removeClass("focus-2").addClass("blur-2");
          }
 							   });
 
 $('#phone').blur(function() {
+	$("#phone-number").empty();
 	var inp = $("#phone").val();
 if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt3 = "Please don't leave the field blank";
 		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		
 		$('#phone-number').append(newDiv3);
+	  // Prevent form submission
+      event.preventDefault();
          } else {
-$(this).removeClass("focus-2").addClass("blur-2");
+		//$("#phone-number").empty();
+		$(this).removeClass("focus-2").addClass("blur-2");
          }
 							   });
 
 $('#last').blur(function() {
+	$("#last-name").empty();
 	var inp = $("#last").val();
 if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt4 = "Please don't leave the field blank";
 		var newDiv4 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt4);
+		
 		$('#last-name').append(newDiv4);
+	  // Prevent form submission
+      event.preventDefault();
          } else {
-$(this).removeClass("focus-2").addClass("blur-2");
+		//$('#last-name').empty();
+		$(this).removeClass("focus-2").addClass("blur-2");
          }
 							   });
 
    $('.email').blur(function() {
+	$("#tooltip-1").empty();
 	var input = $(".email").val();
   if (!validateEmail($(this).val()) || ( $.trim(input).length == 0 )) {
 	  $(this).removeClass("blur").addClass("focus");
 	  var txt = "Please enter a valid email address.";
 		var newDiv = $('<div style=\"position: relative; top: -20px; right: -300px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt);
+		
 		$('#tooltip-1').append(newDiv);
+	  // Prevent form submission
+      event.preventDefault();
          } else {
+			 	//$("#tooltip-1").empty();
 				 $(this).removeClass("focus").addClass("blur");
          }
 })
    $('.email-2').blur(function() {
+	$(".tooltip-2").empty();
 	var input = $(".email-2").val();
   if (!validateEmail($(this).val()) || ( $.trim(input).length == 0 )) {
 	  $(this).removeClass("blur").addClass("focus");
 	  var txt = "Please enter a valid email address.";
 		var newDiv = $('<div style=\"position: relative; top: -20px; right: -300px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt);
+		
 		$('.tooltip-2').append(newDiv);
+	  // Prevent form submission
+      event.preventDefault();
          } else {
 				 $(this).removeClass("focus").addClass("blur");
+				 //$(".tooltip-2").empty();
          }
 })
    
@@ -79,7 +109,8 @@ $(this).removeClass("focus-2").addClass("blur-2");
   if (!validateEmail($(this).val()) || ( $.trim(input2).length == 0 )) {
 	  $(this).removeClass("blur-3").addClass("focus-3");
 	  alert("Please enter a valid email address");
-		
+	  // Prevent form submission
+      event.preventDefault();		
          } else {
 				 $(this).removeClass("focus-3").addClass("blur-3");
          }
@@ -90,7 +121,8 @@ $(this).removeClass("focus-2").addClass("blur-2");
   if (!validateEmail($(this).val()) || ( $.trim(input2).length == 0 )) {
 	  $(this).removeClass("blur-3").addClass("focus-3");
 	  alert("Please enter a valid email address");
-		
+	  // Prevent form submission
+      event.preventDefault();		
          } else {
 				 $(this).removeClass("focus-3").addClass("blur-3");
          }
@@ -103,6 +135,8 @@ if ( $.trim(input4).length == 0 )
 {
    $(this).removeClass("blur-3").addClass("focus-3");
    	alert("Please do not leave this field blank.");
+	// Prevent form submission
+    event.preventDefault();
          } else {
 $(this).removeClass("focus-3").addClass("blur-3");
          }
@@ -116,18 +150,22 @@ $(this).removeClass("focus-3").addClass("blur-3");
      }
    }
    
-  // $('#submit').click(function(event){
 $('#password-2').blur(function() {
-          if($('#password-1').val() != $('#password-2').val()) {
+		$("#password-confirm").empty();
 		var txt2 = "Please enter the same password";
 		var newDiv2 = $('<div style=\"position: relative; top: 0px; right: -300px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt2);
+		
+		   if($('#password-1').val() != $('#password-2').val()) {
+		  $(this).removeClass("blur").addClass("focus");
+		
 		$('#password-confirm').append(newDiv2);
-            $(this).removeClass("blur").addClass("focus");
             // Prevent form submission
             event.preventDefault();
         } else {
+			
 			 $(this).removeClass("focus").addClass("blur");
-							   }
+			  	//$("#password-confirm").empty();						  
+				}
 							   })
-				//			   })
+				
   
