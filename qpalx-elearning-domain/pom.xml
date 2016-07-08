@@ -20,7 +20,7 @@
         <hibernate.connection.driver_class>com.mysql.jdbc.Driver</hibernate.connection.driver_class>
         <hibernate.connection.charSet>UTF-8</hibernate.connection.charSet>
         <hibernate.export.schema.delimiter>;</hibernate.export.schema.delimiter>
-        <hibernate.connection.url><![CDATA[jdbc:mysql://localhost/QPalx_Test]]></hibernate.connection.url>
+        <hibernate.connection.url><![CDATA[jdbc:mysql://localhost/QPalx]]></hibernate.connection.url>
         <hibernate.connection.username>manyce400</hibernate.connection.username>
         <hibernate.connection.password>bridge15</hibernate.connection.password>
         <!--<project.build.outputDirectory>{project.build.outputDirectory}</project.build.outputDirectory>-->
@@ -28,6 +28,13 @@
     </properties>
 
     <dependencies>
+
+        <!-- Apache Poi Dependency !-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-scratchpad</artifactId>
+            <version>3.15-beta1</version>
+        </dependency>
 
         <!-- Spring Dependencies -->
         <dependency>
@@ -155,42 +162,42 @@
             </plugin>
 
             <!-- DB Unit plugin will connect to the database and create default entries specified in the qpalx-test-data.xml file -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>dbunit-maven-plugin</artifactId>
-                <version>1.0-beta-3</version>
-                <dependencies>
-                    <!-- Add dependency to MySQL JDBC in order to drop and create tables -->
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.37</version>
-                    </dependency>
-                </dependencies>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>dbunit-maven-plugin</artifactId>-->
+                <!--<version>1.0-beta-3</version>-->
+                <!--<dependencies>-->
+                    <!--&lt;!&ndash; Add dependency to MySQL JDBC in order to drop and create tables &ndash;&gt;-->
+                    <!--<dependency>-->
+                        <!--<groupId>mysql</groupId>-->
+                        <!--<artifactId>mysql-connector-java</artifactId>-->
+                        <!--<version>5.1.37</version>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
 
-                <configuration>
-                    <driver>${hibernate.connection.driver_class}</driver>
-                    <url>${hibernate.connection.url}</url>
-                    <username>${hibernate.connection.username}</username>
-                    <password>${hibernate.connection.password}</password>
-                    <!--<skip>${maven.test.skip}</skip>-->
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>insert</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>CLEAN_INSERT</type>
-                            <src>../qpalx-elearning-domain/src/test/resources/qpalx-test-data.xml</src>
-                        </configuration>
-                    </execution>
+                <!--<configuration>-->
+                    <!--<driver>${hibernate.connection.driver_class}</driver>-->
+                    <!--<url>${hibernate.connection.url}</url>-->
+                    <!--<username>${hibernate.connection.username}</username>-->
+                    <!--<password>${hibernate.connection.password}</password>-->
+                    <!--&lt;!&ndash;<skip>${maven.test.skip}</skip>&ndash;&gt;-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>insert</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>CLEAN_INSERT</type>-->
+                            <!--<src>../qpalx-elearning-domain/src/test/resources/qpalx-test-data.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
 
-                </executions>
-            </plugin>
+                <!--</executions>-->
+            <!--</plugin>-->
 
         </plugins>
         <pluginManagement>
