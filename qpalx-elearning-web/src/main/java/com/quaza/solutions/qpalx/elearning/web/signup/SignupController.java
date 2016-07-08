@@ -5,7 +5,7 @@ import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialG
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
-import com.quaza.solutions.qpalx.elearning.web.home.ApplicationHomeController;
+import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.QPalXWebUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,7 +46,7 @@ public class SignUpController {
     public String signUpStartPage(final ModelMap modelMap, Model model) {
         LOGGER.info("Processing QPalX signup request, sending to signup selection page....");
         model.addAttribute("SignUpSelectionWebVO", new SignUpSelectionWebVO());
-        return "sign-up";
+        return ContentRootE.Home.getContentRootPagePath("sign-up");
     }
 
     @RequestMapping(value = "/sign-up-type-select", method = RequestMethod.POST)
@@ -58,21 +58,21 @@ public class SignUpController {
         switch (signUpTypeE) {
             case Student:
                 LOGGER.info("Student QPalX signup selected, returning student sign-up form");
-                selectedSignupTypePage = "student-signup/sign-up-student";
+                selectedSignupTypePage = ContentRootE.Student_Signup.getContentRootPagePath("sign-up-student");
                 addSignupAttributesToResponse(model, modelMap);
                 break;
             case Parent:
                 LOGGER.info("Parent QPalX signup selected, returning parent sign-up form");
-                selectedSignupTypePage = "parent-signup/sign-up-parent";
+                selectedSignupTypePage = ContentRootE.Parent_Signup.getContentRootPagePath("sign-up-parent");
                 addSignupAttributesToResponse(model, modelMap);
                 break;
             case Teacher:
                 LOGGER.info("Teacher QPalX signup selected which is currently not supported, returning to home page.");
-                selectedSignupTypePage = ApplicationHomeController.QPALX_HOME_PAGE;
+                selectedSignupTypePage = ContentRootE.Home.getContentRootPagePath("launch");
                 break;
             default:
                 LOGGER.info("Invalid QPalX signup type selected, returning to home page");
-                selectedSignupTypePage = ApplicationHomeController.QPALX_HOME_PAGE;
+                selectedSignupTypePage = ContentRootE.Home.getContentRootPagePath("launch");
                 break;
         }
 

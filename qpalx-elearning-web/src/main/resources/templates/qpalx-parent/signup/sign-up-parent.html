@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
-          integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/style.css"/>
 </head>
@@ -49,15 +48,15 @@
 
     <form action="" method="post" id="submit_form_2">
 
-        <div class="col-md-3"><input type="text" size="26" id="first"/><span id="first-name"></span></div>
-        <div class="col-md-3"><input type="text" size="26" id="last"/><span id="last-name"></span></div>
-        <div class="col-md-6"><input type="password" size="61" class="password" id="password-1"/></div>
+        <div class="col-md-3"><input type="text" size="26" id="first" th:field="*{firstName}"/><span id="first-name"></span></div>
+        <div class="col-md-3"><input type="text" size="26" id="last" th:field="*{lastName}"/><span id="last-name"></span></div>
+        <div class="col-md-6"><input type="password" size="61" class="password" id="password-1" th:field="*{password}"/></div>
 
         <div class="clearfix bottom-space"></div>
         <div class="col-md-6">Email</div>
         <div class="col-md-6">Confirm Password</div>
         <div class="clearfix"></div>
-        <div class="col-md-6"><input type="email" size="61" class="email"/><span id="tooltip-1"></span></div>
+        <div class="col-md-6"><input type="email" size="61" class="email" th:field="*{email}"/><span id="tooltip-1"></span></div>
         <div class="col-md-6"><input type="password" class="password" size="61" id="password-2"/><span
                 id="password-confirm"></span></div>
         <div class="clearfix bottom-space"></div>
@@ -73,7 +72,7 @@
 
         <div class="clearfix bottom-space"></div>
         <div class="col-md-12 continue">
-            <button type="button" class="btn btn-success">Continue</button>
+            <button type="submit" class="btn btn-success">Continue</button>
         </div>
     </form>
 </div>

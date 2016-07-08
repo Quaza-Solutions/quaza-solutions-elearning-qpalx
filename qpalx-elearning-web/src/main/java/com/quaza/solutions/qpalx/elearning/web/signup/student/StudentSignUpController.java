@@ -8,7 +8,7 @@ import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalXUserSubscript
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
-import com.quaza.solutions.qpalx.elearning.web.home.ApplicationHomeController;
+import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.QPalXWebUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -62,15 +62,14 @@ public class StudentSignUpController {
     @RequestMapping(value = "/select-signup-payment", method = RequestMethod.POST)
     public String selectSignUpPaymentPage(Model model, @ModelAttribute("QPalXWebUserVO") QPalXWebUserVO qPalXWebUserVO) {
         LOGGER.info("Student signup payment requested with qPalXWebUserVO: {}", qPalXWebUserVO);
-
-        return "student-signup/payment";
+        return ContentRootE.Student_Signup.getContentRootPagePath("payment");
     }
 
     @RequestMapping(value = "/customize-proficiency-ranking", method = RequestMethod.POST)
     public String customizeStudentProficiencyRankings(final ModelMap modelMap, Model model, @ModelAttribute("QPalXWebUserVO") QPalXWebUserVO qPalXWebUserVO) {
         LOGGER.info("Processing student signup payment page with qPalXWebUserVO: {}", qPalXWebUserVO);
         model.addAttribute("SimplifiedProficiencyRanks", SimplifiedProficiencyRankE.values());
-        return "student-signup/proficiency";
+        return ContentRootE.Student_Signup.getContentRootPagePath("proficiency");
     }
 
     @RequestMapping(value = "/complete-qpalx-signup", method = RequestMethod.POST)
@@ -83,11 +82,13 @@ public class StudentSignUpController {
         // save all subscription details
         Optional<QPalXUser> optionalQPalXUser = iqPalXUserSubscriptionService.createNewQPalXUserWithTutorialSubscription(qPalXWebUserVO);
         status.isComplete();
+
         if(optionalQPalXUser.isPresent()) {
             LOGGER.info("QPalXUser subscription has been succesfully processed, returning to QPalX home page to signup...");
-            return ApplicationHomeController.QPALX_HOME_PAGE;
+            return ContentRootE.Home.getContentRootPagePath("launch");
         }
-        return ApplicationHomeController.QPALX_HOME_PAGE;
+
+        return ContentRootE.Home.getContentRootPagePath("launch");
     }
 
 }
