@@ -162,42 +162,42 @@
             </plugin>
 
             <!-- DB Unit plugin will connect to the database and create default entries specified in the qpalx-test-data.xml file -->
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>dbunit-maven-plugin</artifactId>-->
-                <!--<version>1.0-beta-3</version>-->
-                <!--<dependencies>-->
-                    <!--&lt;!&ndash; Add dependency to MySQL JDBC in order to drop and create tables &ndash;&gt;-->
-                    <!--<dependency>-->
-                        <!--<groupId>mysql</groupId>-->
-                        <!--<artifactId>mysql-connector-java</artifactId>-->
-                        <!--<version>5.1.37</version>-->
-                    <!--</dependency>-->
-                <!--</dependencies>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>dbunit-maven-plugin</artifactId>
+                <version>1.0-beta-3</version>
+                <dependencies>
+                    <!-- Add dependency to MySQL JDBC in order to drop and create tables -->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.37</version>
+                    </dependency>
+                </dependencies>
 
-                <!--<configuration>-->
-                    <!--<driver>${hibernate.connection.driver_class}</driver>-->
-                    <!--<url>${hibernate.connection.url}</url>-->
-                    <!--<username>${hibernate.connection.username}</username>-->
-                    <!--<password>${hibernate.connection.password}</password>-->
-                    <!--&lt;!&ndash;<skip>${maven.test.skip}</skip>&ndash;&gt;-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>insert</id>-->
-                        <!--<phase>test-compile</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>operation</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<format>flat</format>-->
-                            <!--<type>CLEAN_INSERT</type>-->
-                            <!--<src>../qpalx-elearning-domain/src/test/resources/qpalx-test-data.xml</src>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
+                <configuration>
+                    <driver>${hibernate.connection.driver_class}</driver>
+                    <url>${hibernate.connection.url}</url>
+                    <username>${hibernate.connection.username}</username>
+                    <password>${hibernate.connection.password}</password>
+                    <!--<skip>${maven.test.skip}</skip>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>insert</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>CLEAN_INSERT</type>
+                            <src>../qpalx-elearning-domain/src/test/resources/qpalx-test-data.xml</src>
+                        </configuration>
+                    </execution>
 
-                <!--</executions>-->
-            <!--</plugin>-->
+                </executions>
+            </plugin>
 
         </plugins>
         <pluginManagement>
