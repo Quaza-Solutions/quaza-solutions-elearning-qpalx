@@ -52,6 +52,8 @@
     <ELearningCurriculum CurriculumName="Mathematics" CurriculumDescription="Mathematics Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
     <ELearningCurriculum CurriculumName="Social Studies" CurriculumDescription="Social Studies Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
     <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum CurriculumName="ICT" CurriculumDescription="ICT Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+    <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
 
     <!-- Populate ELECTIVE ELearningCurriculum data for SHS in West Africa -->
     <ELearningCurriculum CurriculumName="General Arts" CurriculumDescription="General Arts Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
