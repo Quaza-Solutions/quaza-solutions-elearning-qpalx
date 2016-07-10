@@ -1,9 +1,11 @@
 package com.quaza.solutions.qpalx.elearning.web.signup;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
+import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
+import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.QPalXWebUserVO;
@@ -38,6 +40,10 @@ public class SignUpController {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.CacheEnabledQPalXTutorialService")
     private IQPalXTutorialService iqPalXTutorialService;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalXEducationalInstitutionService")
+    private IQPalXEducationalInstitutionService iqPalXEducationalInstitutionService;
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(SignUpController.class);
 
@@ -84,10 +90,12 @@ public class SignUpController {
         List<QPalXMunicipality> municipalities = iqPalXMunicipalityService.findAllQPalXMunicipalities();
         List<StudentTutorialLevel> studentTutorialLevels = iqPalXTutorialService.findAllQPalXTutorialLevels();
         List<StudentTutorialGrade> studentTutorialGrades = iqPalXTutorialService.findAllStudentTutorialGrade();
+        List<QPalXEducationalInstitution> qPalXEducationalInstitutions = iqPalXEducationalInstitutionService.findAll();
         modelMap.addAttribute("QPalXWebUserVO", new QPalXWebUserVO());
         model.addAttribute("QPalXMunicipalities", municipalities);
         model.addAttribute("StudentTutorialLevels", studentTutorialLevels);
         model.addAttribute("StudentTutorialGrades", studentTutorialGrades);
+        model.addAttribute("QPalXEducationalInstitutions", qPalXEducationalInstitutions);
     }
 
 }

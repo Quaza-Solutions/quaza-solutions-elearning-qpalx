@@ -35,7 +35,7 @@ public class StudentEnrolmentRecord {
     private QPalXUser qpalxUser;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TutorialGradeID", nullable = false)
+    @JoinColumn(name = "StudentTutorialGradeID", nullable = false)
     private StudentTutorialGrade studentTutorialGrade;
 
     // Effective date for which students enrolment in StudentTutorialGrade began

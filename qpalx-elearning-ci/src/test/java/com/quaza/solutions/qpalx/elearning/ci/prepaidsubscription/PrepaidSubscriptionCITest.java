@@ -1,7 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.ci.prepaidsubscription;
 
 import com.quaza.solutions.qpalx.QPalXServiceApplicationBootstrapper;
-import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
 import com.quaza.solutions.qpalx.elearning.service.prepaidsubscription.IQPalxPrepaidIDService;
@@ -29,10 +28,10 @@ public class PrepaidSubscriptionCITest {
 
     @Test //- Working -
     public void testCodeRedemption(){
-        iQpalxPrepaidIDService.redeemCode("1H4M6X8Q1W", qPalXMunicipality);
+//        iQpalxPrepaidIDService.redeemCode("1H4M6X8Q1W", qPalXMunicipality);
     };
 
-    @Test //- Working -
+//    @Test //- Working -
     public void testGenerateMultipleUniqueIds(){ iQpalxPrepaidIDService.generateUniqueIds(1, qPalXMunicipality); }
 
     @Test //- Working -
@@ -43,7 +42,7 @@ public class PrepaidSubscriptionCITest {
         Assert.assertNotNull(list1);
     }
 
-    @Test //- Working -
+//    @Test //- Working -
     public void testFindByUniqueIdPrepaidSubscription() {
         PrepaidSubscription prepaidSubscription = iQpalxPrepaidIDService.findByUniqueId("1H4M6X8Q1W");
         System.out.println("FindByUniqueId prepaidSubscription = " + prepaidSubscription);

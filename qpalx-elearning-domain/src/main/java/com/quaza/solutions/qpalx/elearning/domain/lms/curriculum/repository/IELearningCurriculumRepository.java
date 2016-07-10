@@ -25,6 +25,15 @@ public interface IELearningCurriculumRepository extends CrudRepository<ELearning
     public ELearningCurriculum findByELearningCurriculumName(final String curriculumName);
 
     /**
+     * Find ELearningCurriculum by its name and type
+     *
+     * @param curriculumName
+     * @return
+     */
+    @Query("Select  eLearningCurriculum From ELearningCurriculum eLearningCurriculum Where eLearningCurriculum.curriculumName = ?1 And eLearningCurriculum.curriculumType = ?2")
+    public ELearningCurriculum findByELearningCurriculumNameAndType(final String curriculumName, CurriculumType curriculumType);
+
+    /**
      * Find all the ELearningCurriculum of a specific CurriculumType
      *
      * @param curriculumType

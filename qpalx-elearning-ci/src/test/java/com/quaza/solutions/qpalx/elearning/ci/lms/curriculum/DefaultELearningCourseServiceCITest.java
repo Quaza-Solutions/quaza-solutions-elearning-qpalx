@@ -32,7 +32,9 @@ public class DefaultELearningCourseServiceCITest {
         // Link newly created course to Mathematics curriculum
 //        ELearningCurriculum eLearningCurriculum = ieLearningCurriculumService.findByELearningCurriculumName("Mathematics");
 //
-//        // Build an ELearningCourse and persist to database
+//        System.out.println("eLearningCurriculum = " + eLearningCurriculum);
+
+        // Build an ELearningCourse and persist to database
 //        ELearningCourse eLearningCourse = ELearningCourse.builder()
 //                .courseActive(true)
 //                .courseName("Algebra 1")

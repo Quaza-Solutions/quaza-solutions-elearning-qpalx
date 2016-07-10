@@ -93,8 +93,8 @@
 
         <div class="clearfix"></div>
         <div class="col-md-6">
-            <select id="school" name="school" class="academy">
-                <option value="Accra Academy">Accra Academy</option>
+            <select class="dropdown" th:field="*{educationalInstitutionID}">
+                <option th:each="QPalXEducationalInstitution : ${QPalXEducationalInstitutions}" th:value="${QPalXEducationalInstitution.id}" th:text="${QPalXEducationalInstitution.name}"></option>
             </select>
         </div>
         <div class="col-md-3"><input type="text" size="30" id="zip"/><span id="zip-code"></span></div>
