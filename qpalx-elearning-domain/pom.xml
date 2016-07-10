@@ -14,6 +14,12 @@
     <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <profiles>
+        <profile>
+            <id>dev-env</id>
+        </profile>
+    </profiles>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
@@ -21,8 +27,8 @@
         <hibernate.connection.charSet>UTF-8</hibernate.connection.charSet>
         <hibernate.export.schema.delimiter>;</hibernate.export.schema.delimiter>
         <hibernate.connection.url><![CDATA[jdbc:mysql://localhost/QPalx]]></hibernate.connection.url>
-        <hibernate.connection.username>manyce400</hibernate.connection.username>
-        <hibernate.connection.password>bridge15</hibernate.connection.password>
+        <hibernate.connection.username>${hibernate.connection.username}</hibernate.connection.username>
+        <hibernate.connection.password>${hibernate.connection.password}</hibernate.connection.password>
         <!--<project.build.outputDirectory>{project.build.outputDirectory}</project.build.outputDirectory>-->
         <!--<hibernate.export.schema.filename>${project.build.directory}/QPalx-db-schema.sql</hibernate.export.schema.filename>-->
     </properties>
