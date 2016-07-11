@@ -20,6 +20,11 @@
     <QPalXSubscription SubscriptionName="Quarterly Plan" SubscriptionCost="3" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" />
     <QPalXSubscription SubscriptionName="Yearly Plan" SubscriptionCost="5" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" />
 
+    <!-- Populate Educational institutions  data -->
+    <QPalXEducationalInstitution Code="ACC" Name="Accra Academy"  />
+    <QPalXEducationalInstitution Code="DEY" Name="De Youngsters" />
+    <QPalXEducationalInstitution Code="GIS" Name="Ghana International School" />
+
     <!-- Populate QPalX Municipality data -->
     <QPalXMunicipality Code="ACC" Name="Greater Accra Region" TimeZone="UTC" QPalXCountryID="2" />
     <QPalXMunicipality Code="ASH" Name="Ashanti Region" TimeZone="UTC" QPalXCountryID="2" />
@@ -37,7 +42,7 @@
     <StudentTutorialLevel TutorialLevel="Elementary School"  TutorialLevelDescription="Elementary Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
     <StudentTutorialLevel TutorialLevel="Middle School"      TutorialLevelDescription="Middle School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
     <StudentTutorialLevel TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel TutorialLevel="Senior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel TutorialLevel="Senior High School" TutorialLevelDescription="Senior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
     <StudentTutorialLevel TutorialLevel="College" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
 
     <!--  Populate StudentTutorialGrade For Senior High School -->

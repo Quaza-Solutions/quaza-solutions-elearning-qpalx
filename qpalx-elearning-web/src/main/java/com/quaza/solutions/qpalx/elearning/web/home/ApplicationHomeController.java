@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserTypeE;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IGeographicalDateTimeFormatter;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
+import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.WebQPalXUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,16 +37,11 @@ public class ApplicationHomeController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultGeographicalDateTimeFormatter")
     private IGeographicalDateTimeFormatter iGeographicalDateTimeFormatter;
 
-    public static final String QPALX_HOME_PAGE = "launch";
-
-    private static final String STUDENT_HOME_PAGE = "qpalx-student/home/home";
-
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ApplicationHomeController.class);
 
 
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String execQPalxMainHomePage(Model model) {
+    public String execQPalxMainHomePage(final Model model) {
         LOGGER.info("Received request to access main QPalx home page...");
         Optional<QPalXUser> optionalUser = getLoggedInQPalXUser();
 
@@ -54,14 +50,20 @@ public class ApplicationHomeController {
             LOGGER.info("Current user logged in with email:> {}", optionalUser.get().getEmail());
 
             if (QPalxUserTypeE.STUDENT == optionalUser.get().getUserType()) {
-                routeQPalxUserByUserType(optionalUser.get());
+                addQPalXUserDetailsToResponse(model, optionalUser.get());
+                return ContentRootE.Student_Home.getContentRootPagePath("home");
             }
+
+            LOGGER.info("Only Student QPalX users currently supported");
             return null;
         } else {
-            LOGGER.info("Valid logged in QPalxUser session not found, forwarding to main home page.");
-            return QPALX_HOME_PAGE;
+            LOGGER.info("Valid logged in QPalxUser session not found, redirecting to main home page.");
+            return ContentRootE.Home.getContentRootPagePath("launch");
         }
+    }
 
+    private void addQPalXUserDetailsToResponse(final Model model, QPalXUser qPalXUser) {
+        model.addAttribute("LoggedInQPalXUser", qPalXUser);
     }
 
     private Optional<QPalXUser> getLoggedInQPalXUser() {
@@ -76,18 +78,4 @@ public class ApplicationHomeController {
         return Optional.empty();
     }
 
-    private String routeQPalxUserByUserType(QPalXUser qPalXUser) {
-        QPalxUserTypeE qPalxUserTypeE = qPalXUser.getUserType();
-        String userLandingPage = null;
-
-        switch (qPalxUserTypeE) {
-            case STUDENT:
-                LOGGER.info("Routing to home page for student with email: {}", qPalXUser.getEmail());
-                userLandingPage = STUDENT_HOME_PAGE;
-                break;
-            default:
-        }
-
-        return userLandingPage;
-    }
 }
