@@ -1,10 +1,13 @@
 package com.quaza.solutions.qpalx.elearning.service.institutions;
 
+import com.google.common.collect.ImmutableList;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.repository.IQPalXEducationalInstitutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 /**
  * @author manyce400
@@ -26,5 +29,12 @@ public class DefaultQPalXEducationalInstitutionService implements IQPalXEducatio
         Assert.notNull(id, "id cannot be null");
         LOGGER.info("Finding QPalXEducationalInstitution with id: {}", id);
         return iqPalXEducationalInstitutionRepository.findOne(id);
+    }
+
+    @Override
+    public List<QPalXEducationalInstitution> findAll() {
+        LOGGER.info("Finding all QPalXEducationalInstitutions..");
+        Iterable<QPalXEducationalInstitution> qPalXEducationalInstitutionIterable = iqPalXEducationalInstitutionRepository.findAll();
+        return ImmutableList.copyOf(qPalXEducationalInstitutionIterable);
     }
 }

@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveP
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.IAdaptiveProficiencyRankingVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.ProficiencyRankingTriggerTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.repository.IAdaptiveProficiencyRankingRepository;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCurriculumRepository;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
@@ -58,7 +59,7 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
         LOGGER.info("Building new adaptive proficiency ranking for user: {} with proficiency details: {}", qPalXUser.getEmail(), iAdaptiveProficiencyRankingVO);
 
         // lookup proficiency and curriculum details
-        ELearningCurriculum eLearningCurriculum = ieLearningCurriculumRepository.findByELearningCurriculumName(iAdaptiveProficiencyRankingVO.getELearningCurriculumName());
+        ELearningCurriculum eLearningCurriculum = ieLearningCurriculumRepository.findByELearningCurriculumNameAndType(iAdaptiveProficiencyRankingVO.getELearningCurriculumName(), CurriculumType.CORE);
         SimplifiedProficiencyRankE simplifiedProficiencyRankE = SimplifiedProficiencyRankE.valueOf(iAdaptiveProficiencyRankingVO.getSimplifiedProficiencyRank());
 
         if (eLearningCurriculum != null && simplifiedProficiencyRankE != null) {

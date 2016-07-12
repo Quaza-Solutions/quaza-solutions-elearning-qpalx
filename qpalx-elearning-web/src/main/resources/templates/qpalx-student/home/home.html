@@ -16,8 +16,10 @@
 
 <div class="container" style="margin-bottom: 10px;">
     <div class="row">
-        <div class="col-md-12"><img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;<span
-                class="large-text"><b>Kwame Antwi</b></span> &middot; Account &middot; Sign Out
+        <div class="col-md-12">
+            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;
+            <span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot; <a href="/logout">Sign Out</a>
+            <p th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
         </div>
     </div>
 </div>

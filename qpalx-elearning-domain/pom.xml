@@ -14,13 +14,15 @@
     <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
         <hibernate.connection.driver_class>com.mysql.jdbc.Driver</hibernate.connection.driver_class>
         <hibernate.connection.charSet>UTF-8</hibernate.connection.charSet>
         <hibernate.export.schema.delimiter>;</hibernate.export.schema.delimiter>
-        <hibernate.connection.url><![CDATA[jdbc:mysql://localhost/QPalx_Test]]></hibernate.connection.url>
+        <hibernate.connection.url><![CDATA[jdbc:mysql://localhost/QPalx]]></hibernate.connection.url>
         <hibernate.connection.username>manyce400</hibernate.connection.username>
         <hibernate.connection.password>bridge15</hibernate.connection.password>
         <!--<project.build.outputDirectory>{project.build.outputDirectory}</project.build.outputDirectory>-->
@@ -28,6 +30,13 @@
     </properties>
 
     <dependencies>
+
+        <!-- Apache Poi Dependency !-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-scratchpad</artifactId>
+            <version>3.15-beta1</version>
+        </dependency>
 
         <!-- Spring Dependencies -->
         <dependency>

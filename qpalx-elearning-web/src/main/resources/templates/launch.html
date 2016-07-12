@@ -14,11 +14,20 @@
 <body>
 <header>
     <form th:action="@{/login}" method="post" class="navbar-form navbar-right">
-        <div class="col-md-1"><img src="images/logo.png" alt="quaza" id="logo" /></div>
+
+        <!-- hidden field is a spring-security feature which generates a hidden token checked on submission to make sure submission is from this website directly -->
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+        <div class="col-md-1">
+            <img src="images/logo.png" alt="quaza" id="logo" />
+        </div>
+
         <input class="text-box" placeholder="Enter Email Address" name="username" type="text"/>
-        <input class="text-box" placeholder="Enter Password" type="password"/>
-        <button id="log-in" type="submit" class="btn btn-success" name="password">Log In</button>
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <input class="text-box" placeholder="Enter Password" name="password" type="password"/>
+
+        <button id="log-in" type="submit" class="btn btn-success">Log In</button>
+
     </form>
     <br />
     <div class="clearfix"></div>
