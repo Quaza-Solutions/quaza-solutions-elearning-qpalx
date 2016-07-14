@@ -20,7 +20,7 @@ public interface IStudentEnrolmentRecordRepository extends CrudRepository<Studen
      * @param qPalXUser
      * @return StudentEnrolmentRecord
      */
-    @Query("Select studentEnrolmentRecord From StudentEnrolmentRecord studentEnrolmentRecord Where studentEnrolmentRecord.qpalxUser = ?1 And studentEnrolmentRecord.enrolmentEffectiveDate is not null And studentEnrolmentRecord.enrolmentEndDate is not null")
+    @Query("Select studentEnrolmentRecord From StudentEnrolmentRecord studentEnrolmentRecord Where studentEnrolmentRecord.qpalxUser = ?1 And studentEnrolmentRecord.enrolmentEffectiveDate is not null And studentEnrolmentRecord.enrolmentEndDate is null")
     public StudentEnrolmentRecord findCurrentStudentEnrolmentRecord(QPalXUser qPalXUser);
 
     /**
@@ -33,7 +33,7 @@ public interface IStudentEnrolmentRecordRepository extends CrudRepository<Studen
             "From StudentEnrolmentRecord studentEnrolmentRecord " +
             "Where studentEnrolmentRecord.educationalInstitution = ?1 " +
             "And studentEnrolmentRecord.enrolmentEffectiveDate is not null " +
-            "And studentEnrolmentRecord.enrolmentEndDate is not null ")
+            "And studentEnrolmentRecord.enrolmentEndDate is null ")
     public List<StudentEnrolmentRecord> findCurrentStudentsEnrolmentRecordForEducationalInstitution(final QPalXEducationalInstitution educationalInstitution);
 
 

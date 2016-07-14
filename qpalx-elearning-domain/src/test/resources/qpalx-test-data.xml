@@ -46,24 +46,52 @@
     <StudentTutorialLevel TutorialLevel="College" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
 
     <!--  Populate StudentTutorialGrade For Senior High School -->
-    <StudentTutorialGrade TutorialGrade="SS1" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
-    <StudentTutorialGrade TutorialGrade="SS2" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
-    <StudentTutorialGrade TutorialGrade="SS3" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade TutorialGrade="SHS1" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade TutorialGrade="SHS2" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade TutorialGrade="SHS3" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
 
 
 
-    <!-- Populate CORE ELearningCurriculum data for SHS in West Africa -->
-    <ELearningCurriculum CurriculumName="English" CurriculumDescription="English Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum CurriculumName="Mathematics" CurriculumDescription="Mathematics Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum CurriculumName="Social Studies" CurriculumDescription="Social Studies Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum CurriculumName="ICT" CurriculumDescription="ICT Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Core West African Curriculum" CurriculumType="CORE" StudentTutorialLevelID="4" />
+    <!-- Populate CORE ELearningCurriculum data for SHS1 in West Africa -->
+    <ELearningCurriculum CurriculumName="English" CurriculumDescription="English Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" />
+    <ELearningCurriculum CurriculumName="Mathematics" CurriculumDescription="Mathematics Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" />
+    <ELearningCurriculum CurriculumName="Social Studies" CurriculumDescription="Social Studies Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" />
+    <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" />
+    <ELearningCurriculum CurriculumName="ICT" CurriculumDescription="ICT Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" />
+    <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" />
 
-    <!-- Populate ELECTIVE ELearningCurriculum data for SHS in West Africa -->
-    <ELearningCurriculum CurriculumName="General Arts" CurriculumDescription="General Arts Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum CurriculumName="Business" CurriculumDescription="Business Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
-    <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Elective West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialLevelID="4" />
+    <!-- Populate ELECTIVE ELearningCurriculum data for SHS1 in West Africa -->
+    <ELearningCurriculum CurriculumName="General Arts" CurriculumDescription="General Arts Elective SHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="1" />
+    <ELearningCurriculum CurriculumName="Business" CurriculumDescription="Business Elective SHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="1" />
+    <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective SHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="1" />
+    <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Elective SHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="1" />
+
+    <!-- Populate CORE ELearningCurriculum data for SHS2 in West Africa -->
+    <ELearningCurriculum CurriculumName="English" CurriculumDescription="English Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" />
+    <ELearningCurriculum CurriculumName="Mathematics" CurriculumDescription="Mathematics Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" />
+    <ELearningCurriculum CurriculumName="Social Studies" CurriculumDescription="Social Studies Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" />
+    <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" />
+    <ELearningCurriculum CurriculumName="ICT" CurriculumDescription="ICT Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" />
+    <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" />
+
+    <!-- Populate ELECTIVE ELearningCurriculum data for SHS2 in West Africa -->
+    <ELearningCurriculum CurriculumName="General Arts" CurriculumDescription="General Arts Elective SHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="2" />
+    <ELearningCurriculum CurriculumName="Business" CurriculumDescription="Business Elective SHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="2" />
+    <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective SHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="2" />
+    <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Elective SHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="2" />
+
+    <!-- Populate CORE ELearningCurriculum data for SHS3 in West Africa -->
+    <ELearningCurriculum CurriculumName="English" CurriculumDescription="English Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" />
+    <ELearningCurriculum CurriculumName="Mathematics" CurriculumDescription="Mathematics Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" />
+    <ELearningCurriculum CurriculumName="Social Studies" CurriculumDescription="Social Studies Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" />
+    <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" />
+    <ELearningCurriculum CurriculumName="ICT" CurriculumDescription="ICT Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" />
+    <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" />
+
+    <!-- Populate ELECTIVE ELearningCurriculum data for SHS3 in West Africa -->
+    <ELearningCurriculum CurriculumName="General Arts" CurriculumDescription="General Arts Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" />
+    <ELearningCurriculum CurriculumName="Business" CurriculumDescription="Business Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" />
+    <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" />
+    <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" />
 
 </dataset>

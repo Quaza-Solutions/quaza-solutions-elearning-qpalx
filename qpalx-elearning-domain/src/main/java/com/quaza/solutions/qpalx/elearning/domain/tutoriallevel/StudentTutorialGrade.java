@@ -75,6 +75,14 @@ public class StudentTutorialGrade {
         this.entryDateTime = entryDateTime;
     }
 
+    public StudentTutorialLevel getStudentTutorialLevel() {
+        return studentTutorialLevel;
+    }
+
+    public void setStudentTutorialLevel(StudentTutorialLevel studentTutorialLevel) {
+        this.studentTutorialLevel = studentTutorialLevel;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
