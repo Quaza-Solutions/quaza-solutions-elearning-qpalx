@@ -1,7 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
-import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 
 import java.util.List;
 
@@ -17,6 +17,6 @@ public interface IELearningCourseService {
 
     public ELearningCourse findByCourseName(String courseName);
 
-    public List<ELearningCourse> findStudentELearningCourses(QPalXUser qPalXUser);
+    public List<ELearningCourse> findByELearningCurriculum(ELearningCurriculum eLearningCurriculum);
 
 }

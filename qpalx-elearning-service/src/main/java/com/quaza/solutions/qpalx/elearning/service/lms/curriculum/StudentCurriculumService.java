@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentEnrolmentRecord;
@@ -38,7 +39,7 @@ public class StudentCurriculumService implements IStudentCurriculumService {
         StudentEnrolmentRecord studentEnrolmentRecord = getStudentEnrolmentRecord(qPalXUser);
         if(studentEnrolmentRecord != null) {
             StudentTutorialGrade studentTutorialGrade = studentEnrolmentRecord.getStudentTutorialGrade();
-            List<ELearningCurriculum> eLearningCurricula = iELearningCurriculumService.findAllCurriculumByTutorialGrade(studentTutorialGrade);
+            List<ELearningCurriculum> eLearningCurricula = iELearningCurriculumService.findAllCurriculumByTutorialGradeAndType(CurriculumType.CORE ,studentTutorialGrade);
             LOGGER.info("Returning student user to main home page with all elearning curricula");
             return eLearningCurricula;
         }
@@ -49,7 +50,16 @@ public class StudentCurriculumService implements IStudentCurriculumService {
     @Override
     public List<ELearningCurriculum> findAllStudentElectiveELearningCurriculum(QPalXUser qPalXUser) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
-        LOGGER.info("Finding all CORE ELearningCurriculum for Student: {}", qPalXUser.getEmail());
+        LOGGER.info("Finding all ELECTIVE ELearningCurriculum for Student: {}", qPalXUser.getEmail());
+
+        StudentEnrolmentRecord studentEnrolmentRecord = getStudentEnrolmentRecord(qPalXUser);
+        if(studentEnrolmentRecord != null) {
+            StudentTutorialGrade studentTutorialGrade = studentEnrolmentRecord.getStudentTutorialGrade();
+            List<ELearningCurriculum> eLearningCurricula = iELearningCurriculumService.findAllCurriculumByTutorialGradeAndType(CurriculumType.ELECTIVE ,studentTutorialGrade);
+            LOGGER.info("Returning student user to main home page with all elearning curricula");
+            return eLearningCurricula;
+        }
+
         return null;
     }
 
