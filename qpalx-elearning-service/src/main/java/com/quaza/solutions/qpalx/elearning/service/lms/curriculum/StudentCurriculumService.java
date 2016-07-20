@@ -63,6 +63,18 @@ public class StudentCurriculumService implements IStudentCurriculumService {
         return null;
     }
 
+    @Override
+    public List<ELearningCurriculum> findAllCoreELearningCurriculum(StudentTutorialGrade studentTutorialGrade) {
+        Assert.notNull(studentTutorialGrade, "studentTutorialGrade cannot be null");
+        return null;
+    }
+
+    @Override
+    public List<ELearningCurriculum> findAllElectiveELearningCurriculum(StudentTutorialGrade studentTutorialGrade) {
+        Assert.notNull(studentTutorialGrade, "studentTutorialGrade cannot be null");
+        return null;
+    }
+
     private StudentEnrolmentRecord getStudentEnrolmentRecord(QPalXUser qPalXUser) {
         return iStudentEnrolmentRecordService.findCurrentStudentEnrolmentRecord(qPalXUser);
     }

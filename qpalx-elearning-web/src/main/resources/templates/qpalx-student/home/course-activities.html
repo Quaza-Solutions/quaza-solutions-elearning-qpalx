@@ -25,12 +25,11 @@
 
 
 <div class="container large-fonts">
-    <div class="col-md-2 med-text"><b th:text="${SelectedELearningCurriculum.curriculumName}"></b></div>
+    <div class="col-md-2 med-text"><b th:text="${SelectedELearningCourse.courseName}"></b></div>
     <div class="col-md-7"></div>
 
-    <!-- Using Thymeleafs inline property to inline custom text directly into bold attribute -->
     <div class="col-md-3 med-text" style="position: relative; left: 40px;">
-        <b th:inline="text">&#8592; <a th:href="@{/select-curriculum(curricumlumType=${SelectedELearningCurriculum.curriculumType})}">Back to [[${SelectedELearningCurriculum.curriculumType}]]</a></b>
+        <b th:inline="text">&#8592; <a th:href="@{/curriculum-courses(curriculumID=${ELearningCourseParentCurriculum.id})}">Back to [[${ELearningCourseParentCurriculum.curriculumName}]] Courses</a></b>
     </div>
 
     <div class="padded">
@@ -40,17 +39,18 @@
 
                 <br/>
                 <table width="100%" border="0">
-                    <!--<tr>
-                        <td width="90%" class="cell-padded green" >
-                            <a th:href="@{/qpalx-course-details?qCourseID=5}">Physics</a>
+                    <tr>
+                        <td width="90%" class="cell-padded green">
+                            <a th:href="@{/play-qcourse-video?courseActivityID=2}">Deformation of Solids</a>
                         </td>
                         <td width="10%" class="green">
-                            15:02&nbsp;&nbsp;<img style="margin: 0 0 10px 0;" width="20px" height="20px" src="images/green-check-mark.png"/>
+                            15:02
                         </td>
-                    </tr>-->
+                    </tr>
 
-                    <tr th:each="CurriculumELearningCourses,rowStat : ${CurriculumELearningCourses}">
-                        <td class="cell-padded" th:inline="text"><a th:href="@{/qpalx-course-details(qCourseID=${CurriculumELearningCourses.id})}">[[${CurriculumELearningCourses.courseName}]]</a></td>
+                    <tr class="light-gray">
+                        <td class="cell-padded">Hooke's Law</td>
+                        <td class="cell-padded">15:02</td>
                     </tr>
 
                 </table>

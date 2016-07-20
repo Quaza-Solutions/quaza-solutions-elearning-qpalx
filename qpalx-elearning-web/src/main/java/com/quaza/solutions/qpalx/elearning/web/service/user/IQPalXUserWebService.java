@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.web.service.user;
 
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import org.springframework.ui.Model;
 
 import java.util.Optional;
 
@@ -16,4 +17,12 @@ public interface IQPalXUserWebService {
      * @return
      */
     public Optional<QPalXUser> getLoggedInQPalXUser();
+
+
+    /**
+     * Loads and adds all the ELearning curriculum by CurriculumType based on the UserType of qPalXUser
+     * @param model
+     * @param qPalXUser
+     */
+    public void addQPalXUserAccesibleCurriculum(final Model model, QPalXUser qPalXUser);
 }

@@ -1,10 +1,16 @@
 package com.quaza.solutions.qpalx.elearning.web.service.user;
 
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserTypeE;
+import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IStudentCurriculumService;
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.WebQPalXUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 
 import java.util.Optional;
 
@@ -15,6 +21,9 @@ import java.util.Optional;
 public class QPalXUserWebService implements IQPalXUserWebService {
 
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.StudentCurriculumService")
+    private IStudentCurriculumService iStudentCurriculumService;
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXUserWebService.class);
 
@@ -35,4 +44,23 @@ public class QPalXUserWebService implements IQPalXUserWebService {
         return Optional.empty();
     }
 
+    @Override
+    public void addQPalXUserAccesibleCurriculum(Model model, QPalXUser qPalXUser) {
+        Assert.notNull(qPalXUser, "qPalxUser cannot be null");
+
+        QPalxUserTypeE qPalxUserTypeE = qPalXUser.getUserType();
+        switch (qPalxUserTypeE) {
+            case STUDENT:
+                break;
+            case CONTENT_DEVELOPER:
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    private void addContentDeveloperAccessibleCurricula(Model model, QPalXUser qPalXUser) {
+
+    }
 }

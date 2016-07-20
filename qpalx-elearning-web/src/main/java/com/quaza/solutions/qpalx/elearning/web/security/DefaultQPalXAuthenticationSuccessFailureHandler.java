@@ -1,8 +1,8 @@
 package com.quaza.solutions.qpalx.elearning.web.security;
 
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserTypeE;
-import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatusE;
-import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionValidationResult;
+import com.quaza.solutions.qpalx.elearning.web.qpalxuser.WebQPalXUser;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -57,26 +57,9 @@ public class DefaultQPalXAuthenticationSuccessFailureHandler implements Authenti
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException exception) throws IOException, ServletException {
-        QPalXUserLoginExpiredException qPalXUserLoginException = (QPalXUserLoginExpiredException) exception.getCause();
-        SubscriptionValidationResult validationResult = qPalXUserLoginException.getWebQPalXUser().get().getSubscriptionValidationResult();
-        SubscriptionStatusE subscriptionStatusE = validationResult.getSubscriptionStatusE();
-
-        String redirectPage = "";
-        switch (subscriptionStatusE) {
-            case EXPIRED:
-                redirectPage = "/GatewayAccessFailure";
-                break;
-            case INVALID:
-                redirectPage = "/GatewayAccessFailure";
-                break;
-            default:
-                break;
-        }
-
-        System.out.println("\nSubscription Failure Result: "+qPalXUserLoginException.getWebQPalXUser().get().getSubscriptionValidationResult().getValidationResultMessage()+"\n");
-        //String targetURL = "/QPalXGateway?authenticationStatus=invalid";
-        httpServletRequest.getSession().setAttribute("Validation_Failure_User", qPalXUserLoginException.getWebQPalXUser().get());
-        redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, redirectPage);
+        WebQPalXUser authenticationFailedUser = getAuthenticationFailedWebUser(exception);
+        httpServletRequest.setAttribute("AuthenticationFailedUser", authenticationFailedUser);
+        redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/qpalx-access-failure");
     }
 
     private QPalxUserTypeE getQPalxUserTypeE(Authentication authentication) {
@@ -92,6 +75,24 @@ public class DefaultQPalXAuthenticationSuccessFailureHandler implements Authenti
         }
 
         LOGGER.warn("Could not determine the granted authorities of principal user: {}", principal);
+        return null;
+    }
+
+    private WebQPalXUser getAuthenticationFailedWebUser(AuthenticationException exception) {
+        WebQPalXUser authenticationFailedUser;
+        Throwable exceptionCause = exception.getCause();
+
+        if(exceptionCause instanceof BadCredentialsException) {
+            // password did not match the password we have on file return empty web user with invalid subscription
+            authenticationFailedUser = new WebQPalXUser();
+            return authenticationFailedUser;
+        } else if(exceptionCause instanceof QPalXUserLoginException) {
+            QPalXUserLoginException qPalXUserLoginException = (QPalXUserLoginException) exceptionCause;
+            Optional<WebQPalXUser> optional = qPalXUserLoginException.getWebQPalXUser();
+            authenticationFailedUser = optional.get();
+            return authenticationFailedUser;
+        }
+
         return null;
     }
 }

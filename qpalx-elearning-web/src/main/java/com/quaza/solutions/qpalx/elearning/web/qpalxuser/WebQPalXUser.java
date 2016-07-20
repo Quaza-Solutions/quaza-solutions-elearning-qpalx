@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.web.qpalxuser;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatusE;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionValidationResult;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IGeographicalDateTimeFormatter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -31,6 +32,9 @@ public class WebQPalXUser implements UserDetails {
     private IGeographicalDateTimeFormatter iGeographicalDateTimeFormatter;
 
 
+    public WebQPalXUser() {
+        this(new SubscriptionValidationResult(SubscriptionStatusE.INVALID), null);
+    }
 
     public WebQPalXUser(SubscriptionValidationResult subscriptionValidationResult) {
         this(subscriptionValidationResult, null);

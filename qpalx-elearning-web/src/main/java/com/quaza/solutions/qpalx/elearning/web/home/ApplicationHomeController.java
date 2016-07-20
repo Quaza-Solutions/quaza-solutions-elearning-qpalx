@@ -57,12 +57,13 @@ public class ApplicationHomeController {
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
 
         if(optionalUser.isPresent()) {
-            // TODO complete implementation
             LOGGER.info("Current user logged in with email:> {}", optionalUser.get().getEmail());
 
             if (QPalxUserTypeE.STUDENT == optionalUser.get().getUserType()) {
                 addQPalXUserDetailsToResponse(model, CurriculumType.CORE, optionalUser.get());
                 return ContentRootE.Student_Home.getContentRootPagePath("home");
+            } else if(QPalxUserTypeE.CONTENT_DEVELOPER == optionalUser.get().getUserType()) {
+                LOGGER.info("Logged in user is a Content Developer, building content developer options to QPalX portal...");
             }
 
             LOGGER.info("Only Student QPalX users currently supported");

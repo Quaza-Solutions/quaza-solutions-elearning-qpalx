@@ -84,11 +84,11 @@ public class SubscriptionRenewalController {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(SubscriptionRenewalController.class);
 
 
-    @RequestMapping(value = "/GatewayAccessFailure", method = {RequestMethod.GET, RequestMethod.POST})
-    public String indexMain(ModelMap modelMap, Model model, HttpServletRequest httpServletRequest) {
-        WebQPalXUser validationFailureUser = (WebQPalXUser) httpServletRequest.getSession().getAttribute("Validation_Failure_User");
+    @RequestMapping(value = "/qpalx-access-failure", method = {RequestMethod.GET, RequestMethod.POST})
+    public String indexMain(ModelMap modelMap, Model model, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+        WebQPalXUser validationFailureUser = (WebQPalXUser) httpServletRequest.getAttribute("AuthenticationFailedUser");
 
-        if (validationFailureUser.hasValidQPalXUser()) {
+        if (validationFailureUser != null && validationFailureUser.hasValidQPalXUser()) {
             QPalXUser qPalXUser = validationFailureUser.getQPalXUser();
 
             //build from the validation failure user
@@ -106,6 +106,7 @@ public class SubscriptionRenewalController {
             return qPalXStudentSubscriptionHTMLPath.visitSubscriptionPage("Subscription_Renewal");
         } else {
             LOGGER.info("Invalid Qpalx User login detected, redirecting to home page...");
+            model.addAttribute("CredentialsAuthentication", "Invalid Login Detected");
             return qPalXStudentSubscriptionHTMLPath.goToHomePage();
         }
     }
