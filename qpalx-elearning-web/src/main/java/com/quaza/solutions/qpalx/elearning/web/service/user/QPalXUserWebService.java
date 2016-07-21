@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.web.service.user;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserTypeE;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IStudentCurriculumService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -61,6 +63,7 @@ public class QPalXUserWebService implements IQPalXUserWebService {
     }
 
     private void addContentDeveloperAccessibleCurricula(Model model, QPalXUser qPalXUser) {
-
+        LOGGER.info("Adding accesible elearning curricula for Content Developer user: {}", qPalXUser.getEmail());
+        List<ELearningCurriculum> eLearningCurricula =iStudentCurriculumService.findAllCoreELearningCurriculum()
     }
 }
