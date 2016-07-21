@@ -1,11 +1,14 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 /**
  * @author manyce400
@@ -43,5 +46,11 @@ public class DefaultELearningCourseService implements IELearningCourseService {
         return ieLearningCourseRepository.findByCourseName(courseName);
     }
 
-
+    @Override
+    public List<ELearningCourse> findByELearningCurriculum(ELearningCurriculum eLearningCurriculum) {
+        Assert.notNull(eLearningCurriculum);
+        LOGGER.info("Finding all ELearning courses for curriculum with name:> {}", eLearningCurriculum.getCurriculumName());
+        List<ELearningCourse> eLearningCourses = ieLearningCourseRepository.findByELearningCurriculum(eLearningCurriculum);
+        return eLearningCourses;
+    }
 }

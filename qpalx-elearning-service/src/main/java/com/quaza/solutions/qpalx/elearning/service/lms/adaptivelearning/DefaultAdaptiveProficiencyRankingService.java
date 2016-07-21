@@ -10,6 +10,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELe
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.SimplifiedProficiencyRankE;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,13 +39,13 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
 
     @Override
     @Transactional
-    public void buildInitialAdaptiveProficiencyRanking(QPalXUser qPalXUser, Set<IAdaptiveProficiencyRankingVO> initialAdaptiveProficiencyRankingVOs) {
+    public void buildInitialAdaptiveProficiencyRanking(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade, Set<IAdaptiveProficiencyRankingVO> initialAdaptiveProficiencyRankingVOs) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         Assert.notNull(initialAdaptiveProficiencyRankingVOs, "qPalXUser cannot be null");
 
 
         initialAdaptiveProficiencyRankingVOs.forEach(adptiveProficiencyRanking -> {
-            AdaptiveProficiencyRanking adaptiveProficiencyRanking = buildSingleAdaptiveProficiencyRanking(qPalXUser, adptiveProficiencyRanking);
+            AdaptiveProficiencyRanking adaptiveProficiencyRanking = buildSingleAdaptiveProficiencyRanking(qPalXUser, studentTutorialGrade, adptiveProficiencyRanking);
 
             if (adaptiveProficiencyRanking != null) {
                 LOGGER.info("Saving adaptiveProficiencyRanking: {}", adaptiveProficiencyRanking);
@@ -55,11 +56,11 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
     }
 
 
-    protected AdaptiveProficiencyRanking buildSingleAdaptiveProficiencyRanking(QPalXUser qPalXUser, IAdaptiveProficiencyRankingVO iAdaptiveProficiencyRankingVO) {
+    protected AdaptiveProficiencyRanking buildSingleAdaptiveProficiencyRanking(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade, IAdaptiveProficiencyRankingVO iAdaptiveProficiencyRankingVO) {
         LOGGER.info("Building new adaptive proficiency ranking for user: {} with proficiency details: {}", qPalXUser.getEmail(), iAdaptiveProficiencyRankingVO);
 
         // lookup proficiency and curriculum details
-        ELearningCurriculum eLearningCurriculum = ieLearningCurriculumRepository.findByELearningCurriculumNameAndType(iAdaptiveProficiencyRankingVO.getELearningCurriculumName(), CurriculumType.CORE);
+        ELearningCurriculum eLearningCurriculum = ieLearningCurriculumRepository.findByELearningCurriculumNameTypeAndTutorialGrade(iAdaptiveProficiencyRankingVO.getELearningCurriculumName(), CurriculumType.CORE, studentTutorialGrade);
         SimplifiedProficiencyRankE simplifiedProficiencyRankE = SimplifiedProficiencyRankE.valueOf(iAdaptiveProficiencyRankingVO.getSimplifiedProficiencyRank());
 
         if (eLearningCurriculum != null && simplifiedProficiencyRankE != null) {

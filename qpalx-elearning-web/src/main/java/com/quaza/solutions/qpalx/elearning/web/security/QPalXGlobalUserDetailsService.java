@@ -59,7 +59,7 @@ public class QPalXGlobalUserDetailsService implements UserDetailsService {
                     return validatedQPalXUser;
                 } else {
                     LOGGER.info("No valid or active subscription found for user with email: {}", qPalXUser.getEmail());
-                    throw new QPalXUserLoginExpiredException(validatedQPalXUser, "QPalXSubscription has currently expired");
+                    throw new QPalXUserLoginException(validatedQPalXUser, "QPalXSubscription has currently expired");
                 }
             } else {
                 // Create login with no subscription event
@@ -70,7 +70,7 @@ public class QPalXGlobalUserDetailsService implements UserDetailsService {
 
         LOGGER.info("Denying access to QPalX for User Email: {}", userEmail);
         WebQPalXUser invalidUser = getInvalidLoginEvent();
-        throw new QPalXUserLoginExpiredException(invalidUser, String.format("User with email :> =%s was not found in QPalX User Database", userEmail));
+        throw new QPalXUserLoginException(invalidUser, String.format("User with email :> =%s was not found in QPalX User Database", userEmail));
     }
 
     private WebQPalXUser getQPalXLoginEvent(final QPalXUser qPalXUser, SubscriptionValidationResult subscriptionValidationResult) {

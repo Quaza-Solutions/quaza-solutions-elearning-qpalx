@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div th:replace="fragments/header-loggedin :: header-loggedin"/>
+
+<div class="container" style="margin-bottom: 10px;">
+    <div class="row">
+        <div class="col-md-12">
+            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;
+            <span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot; <a href="/logout">Sign Out</a>
+            <p th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
+        </div>
+    </div>
+</div>
+
+
+<div class="container large-fonts">
+    <div class="col-md-2 med-text"><b th:text="${SelectedELearningCurriculum.curriculumName}"></b></div>
+    <div class="col-md-7"></div>
+
+    <!-- Using Thymeleafs inline property to inline custom text directly into bold attribute -->
+    <div class="col-md-3 med-text" style="position: relative; left: 40px;">
+        <b th:inline="text">&#8592; <a th:href="@{/select-curriculum(curricumlumType=${SelectedELearningCurriculum.curriculumType})}">Back to [[${SelectedELearningCurriculum.curriculumType}]]</a></b>
+    </div>
+
+    <div class="padded">
+        <div class="row">
+            <div class="col-md-12">
+                <hr/>
+
+                <br/>
+                <table width="100%" border="0">
+                    <!--<tr>
+                        <td width="90%" class="cell-padded green" >
+                            <a th:href="@{/qpalx-course-details?qCourseID=5}">Physics</a>
+                        </td>
+                        <td width="10%" class="green">
+                            15:02&nbsp;&nbsp;<img style="margin: 0 0 10px 0;" width="20px" height="20px" src="images/green-check-mark.png"/>
+                        </td>
+                    </tr>-->
+
+                    <tr th:each="CurriculumELearningCourses,rowStat : ${CurriculumELearningCourses}">
+                        <td class="cell-padded" th:inline="text"><a th:href="@{/qpalx-course-details(qCourseID=${CurriculumELearningCourses.id})}">[[${CurriculumELearningCourses.courseName}]]</a></td>
+                    </tr>
+
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix bottom-space"></div>
+    <div class="col-md-12 continue">
+        <button type="button" class="btn btn-success">Continue</button>
+    </div>
+</div>
+
+
+<div th:replace="fragments/footer :: footer"/>
+<!-- jQuery first, then Bootstrap JS. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+</body>
+</html>

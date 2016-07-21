@@ -577,10 +577,11 @@ button[title]:hover:after {
 	color: #7dc855;
 }
 .bgrnd-image {
-	background-image:url(../images/young-student-reading-books-18673501.jpg);
+	background-image:url(../images/Qpalx.png);
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 700px;
+	/*height: 784px;*/
+	height: 990px;
 	margin-top: -100px;
 }
 #header-1 {

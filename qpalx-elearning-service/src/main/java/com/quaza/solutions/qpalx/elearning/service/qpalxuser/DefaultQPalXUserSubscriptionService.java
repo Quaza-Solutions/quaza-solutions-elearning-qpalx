@@ -131,7 +131,7 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
             iStudentEnrolmentRecordService.createStudentEnrolmentRecord(qPalXUser, studentTutorialGrade, qPalXEducationalInstitution);
 
             // create default QPalX enrollment record.
-            buildAndSaveInitialAdaptiveProficiencyRaning(qPalXUser, iqPalXUserVO);
+            buildAndSaveInitialAdaptiveProficiencyRaning(qPalXUser, studentTutorialGrade, iqPalXUserVO);
             return Optional.of(qPalXUser);
         }
 
@@ -206,7 +206,7 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
         return Optional.empty();
     }
 
-    void buildAndSaveInitialAdaptiveProficiencyRaning(QPalXUser qPalXUser, IQPalXUserVO iqPalXUserVO) {
+    void buildAndSaveInitialAdaptiveProficiencyRaning(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade, IQPalXUserVO iqPalXUserVO) {
         LOGGER.info("Building and saving all student users core curriculum initial proficiencies...");
         Set<IAdaptiveProficiencyRankingVO> initialAdaptiveProficiencyRankingVOs =ImmutableSet.of(
                 new AdaptiveProficiencyRankingVO("English", iqPalXUserVO.getCoreEnglishProficiencyLevel()),
@@ -217,7 +217,7 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
                 new AdaptiveProficiencyRankingVO("Vocational Studies", iqPalXUserVO.getCoreVocationalStudiesProficiencyLevel())
         );
 
-        iAdaptiveProficiencyRankingService.buildInitialAdaptiveProficiencyRanking(qPalXUser, initialAdaptiveProficiencyRankingVOs);
+        iAdaptiveProficiencyRankingService.buildInitialAdaptiveProficiencyRanking(qPalXUser, studentTutorialGrade, initialAdaptiveProficiencyRankingVOs);
     }
 
 

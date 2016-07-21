@@ -81,7 +81,7 @@ public class QPalXGlobalSecurityConfiguration extends WebSecurityConfigurerAdapt
         List<String> exclustionList = Lists.newArrayList(
                 "/", "/css/**", "/css/**/**", "/js/**", "/img/**", "/images/**", "/font/**", "/QGatewaySignup", "/QPalxSubscribptionEducatioProfile",
                 "/QPalxSubscribptionPayment", "/QPalxSubscribptionConfirm", "/QPalxSubscribptionMobilePaySetup", "/QPalxSubscribptionCancel", "/QPalxSubscribptionProcess",
-                "/QPalxSubscribptionComplete", "/QPalXGateway", "/GatewayAccessFailure", "/ConfirmSubscriptionRenewal", "/GetSubscriptionRenewalToken", "/SubscribptionRenewalComplete",
+                "/QPalxSubscribptionComplete", "/QPalXGateway", "/qpalx-access-failure", "/ConfirmSubscriptionRenewal", "/GetSubscriptionRenewalToken", "/SubscribptionRenewalComplete",
                 "/PerformanceSnapshot", "/qpalx-sign-up", "/sign-up-type-select", "/select-signup-payment", "/customize-proficiency-ranking", "/complete-qpalx-signup"
         );
 

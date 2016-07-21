@@ -10,22 +10,22 @@ import java.util.Optional;
  *
  * @author manyce400
  */
-public class QPalXUserLoginExpiredException extends AccountExpiredException {
+public class QPalXUserLoginException extends AccountExpiredException {
 
 
     private final WebQPalXUser webQPalXUser;
 
-    public QPalXUserLoginExpiredException(String msg) {
+    public QPalXUserLoginException(String msg) {
         super(msg);
         this.webQPalXUser = null;
     }
 
-    public QPalXUserLoginExpiredException(WebQPalXUser webQPalXUser, String msg) {
+    public QPalXUserLoginException(WebQPalXUser webQPalXUser, String msg) {
         super(msg);
         this.webQPalXUser = webQPalXUser;
     }
 
-    public QPalXUserLoginExpiredException(WebQPalXUser webQPalXUser, String msg, Throwable t) {
+    public QPalXUserLoginException(WebQPalXUser webQPalXUser, String msg, Throwable t) {
         super(msg, t);
         this.webQPalXUser = webQPalXUser;
     }

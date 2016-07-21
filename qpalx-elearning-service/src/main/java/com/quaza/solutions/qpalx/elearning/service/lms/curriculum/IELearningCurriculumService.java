@@ -2,7 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 
 import java.util.List;
 
@@ -17,8 +17,8 @@ public interface IELearningCurriculumService {
 
     public List<ELearningCurriculum> findAllCurriculumByType(final CurriculumType curriculumType);
 
-    public List<ELearningCurriculum> findAllCurriculumByTutorialLevel(final StudentTutorialLevel studentTutorialLevel);
+    public List<ELearningCurriculum> findAllCurriculumByTutorialGrade(final StudentTutorialGrade studentTutorialGrade);
 
-    public List<ELearningCurriculum> findAllCurriculumByTutorialLevelAndType(final CurriculumType curriculumType, final StudentTutorialLevel studentTutorialLevel);
+    public List<ELearningCurriculum> findAllCurriculumByTutorialGradeAndType(final CurriculumType curriculumType, final StudentTutorialGrade studentTutorialGrade);
 
 }

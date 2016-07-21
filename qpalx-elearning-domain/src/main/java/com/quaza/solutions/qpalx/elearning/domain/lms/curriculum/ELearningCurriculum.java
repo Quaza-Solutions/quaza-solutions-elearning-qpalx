@@ -1,6 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -32,10 +32,10 @@ public class ELearningCurriculum {
     private String curriculumDescription;
 
 
-    // The StudentTutorialLevel that this ELearning Curriculum has been designed for.
+    // The StudentTutorialGrade that this ELearning Curriculum has been designed for.
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "StudentTutorialLevelID", nullable = false)
-    private StudentTutorialLevel studentTutorialLevel;
+    @JoinColumn(name = "StudentTutorialGradeID", nullable = false)
+    private StudentTutorialGrade studentTutorialGrade;
 
     public ELearningCurriculum() {
     }
@@ -72,12 +72,12 @@ public class ELearningCurriculum {
         this.curriculumDescription = curriculumDescription;
     }
 
-    public StudentTutorialLevel getQPalXTutorialLevel() {
-        return studentTutorialLevel;
+    public StudentTutorialGrade getStudentTutorialGrade() {
+        return studentTutorialGrade;
     }
 
-    public void setQPalXTutorialLevel(StudentTutorialLevel studentTutorialLevel) {
-        this.studentTutorialLevel = studentTutorialLevel;
+    public void setStudentTutorialGrade(StudentTutorialGrade studentTutorialGrade) {
+        this.studentTutorialGrade = studentTutorialGrade;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class ELearningCurriculum {
                 .append(curriculumType, that.curriculumType)
                 .append(curriculumName, that.curriculumName)
                 .append(curriculumDescription, that.curriculumDescription)
-                .append(studentTutorialLevel, that.studentTutorialLevel)
+                .append(studentTutorialGrade, that.studentTutorialGrade)
                 .isEquals();
     }
 
@@ -104,7 +104,7 @@ public class ELearningCurriculum {
                 .append(curriculumType)
                 .append(curriculumName)
                 .append(curriculumDescription)
-                .append(studentTutorialLevel)
+                .append(studentTutorialGrade)
                 .toHashCode();
     }
 
@@ -115,7 +115,7 @@ public class ELearningCurriculum {
                 .append("curriculumType", curriculumType)
                 .append("curriculumName", curriculumName)
                 .append("curriculumDescription", curriculumDescription)
-                .append("studentTutorialLevel", studentTutorialLevel)
+                .append("studentTutorialGrade", studentTutorialGrade)
                 .toString();
     }
 }
