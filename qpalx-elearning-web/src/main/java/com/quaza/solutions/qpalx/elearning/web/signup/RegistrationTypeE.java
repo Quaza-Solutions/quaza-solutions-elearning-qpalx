@@ -7,7 +7,7 @@ import org.springframework.util.Assert;
  *
  * @author manyce400
  */
-public enum SignUpTypeE {
+public enum RegistrationTypeE {
 
 
     Student,
@@ -15,12 +15,12 @@ public enum SignUpTypeE {
     Teacher
     ;
 
-    public static SignUpTypeE getSignUpTypeE(String signUpType) {
+    public static RegistrationTypeE getSignUpTypeE(String signUpType) {
         Assert.notNull(signUpType, "signUpType cannot be null");
 
-        for(SignUpTypeE signUpTypeE : values()) {
-            if(signUpTypeE.toString().equals(signUpType)) {
-                return signUpTypeE;
+        for(RegistrationTypeE registrationTypeE : values()) {
+            if(registrationTypeE.toString().equals(signUpType)) {
+                return registrationTypeE;
             }
         }
 

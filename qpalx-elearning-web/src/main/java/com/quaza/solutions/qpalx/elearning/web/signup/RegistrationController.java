@@ -23,14 +23,13 @@ import java.util.List;
 
 /**
  * Main controller for handling all QPalX signup request and routing to appropriate Signup processes for
- * Students, Teachers and Admins.
+ * Students, Teachers and Parents.
  *
  * @author manyce400
  */
 @Controller
-@SessionAttributes(value = {"SignUpSelectionWebVO", "QPalXWebUserVO"})
-public class SignUpController {
-
+@SessionAttributes(value = {"RegistrationSelectionWebVO", "QPalXWebUserVO"})
+public class RegistrationController {
 
 
     @Autowired
@@ -45,32 +44,31 @@ public class SignUpController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalXEducationalInstitutionService")
     private IQPalXEducationalInstitutionService iqPalXEducationalInstitutionService;
 
-    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(SignUpController.class);
-
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(RegistrationController.class);
 
     @RequestMapping(value = "/qpalx-sign-up", method = RequestMethod.GET)
-    public String signUpStartPage(final ModelMap modelMap, Model model) {
+    public String registrationStartPage(final ModelMap modelMap, Model model) {
         LOGGER.info("Processing QPalX signup request, sending to signup selection page....");
-        model.addAttribute("SignUpSelectionWebVO", new SignUpSelectionWebVO());
+        model.addAttribute("RegistrationSelectionWebVO", new RegistrationSelectionWebVO());
         return ContentRootE.Home.getContentRootPagePath("sign-up");
     }
 
     @RequestMapping(value = "/sign-up-type-select", method = RequestMethod.POST)
-    public String signUpSelectionPage(final ModelMap modelMap, Model model, @ModelAttribute("SignUpSelectionWebVO") SignUpSelectionWebVO signUpSelectionWebVO) {
-        LOGGER.info("Received initial QPalX Signup selection request signUpSelectionWebVO: {}", signUpSelectionWebVO);
+    public String registrationSelectionPage(final ModelMap modelMap, Model model, @ModelAttribute("RegistrationSelectionWebVO") RegistrationSelectionWebVO registrationSelectionWebVO) {
+        LOGGER.info("Received initial QPalX Signup selection request registrationSelectionWebVO: {}", registrationSelectionWebVO);
 
         String selectedSignupTypePage = null;
-        SignUpTypeE signUpTypeE = signUpSelectionWebVO.getAsSignUpTypeE();
-        switch (signUpTypeE) {
+        RegistrationTypeE registrationTypeE = registrationSelectionWebVO.getAsSignUpTypeE();
+        switch (registrationTypeE) {
             case Student:
                 LOGGER.info("Student QPalX signup selected, returning student sign-up form");
                 selectedSignupTypePage = ContentRootE.Student_Signup.getContentRootPagePath("sign-up-student");
-                addSignupAttributesToResponse(model, modelMap);
+                addRegistrationProcessAttributes(model, modelMap);
                 break;
             case Parent:
                 LOGGER.info("Parent QPalX signup selected, returning parent sign-up form");
                 selectedSignupTypePage = ContentRootE.Parent_Signup.getContentRootPagePath("sign-up-parent");
-                addSignupAttributesToResponse(model, modelMap);
+                addRegistrationProcessAttributes(model, modelMap);
                 break;
             case Teacher:
                 LOGGER.info("Teacher QPalX signup selected which is currently not supported, returning to home page.");
@@ -86,7 +84,7 @@ public class SignUpController {
     }
 
 
-    private void addSignupAttributesToResponse(final Model model, final ModelMap modelMap) {
+    private void addRegistrationProcessAttributes(final Model model, final ModelMap modelMap) {
         List<QPalXMunicipality> municipalities = iqPalXMunicipalityService.findAllQPalXMunicipalities();
         List<StudentTutorialLevel> studentTutorialLevels = iqPalXTutorialService.findAllQPalXTutorialLevels();
         List<StudentTutorialGrade> studentTutorialGrades = iqPalXTutorialService.findAllStudentTutorialGrade();
@@ -97,5 +95,4 @@ public class SignUpController {
         model.addAttribute("StudentTutorialGrades", studentTutorialGrades);
         model.addAttribute("QPalXEducationalInstitutions", qPalXEducationalInstitutions);
     }
-
 }

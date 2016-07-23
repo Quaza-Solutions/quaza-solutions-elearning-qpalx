@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * @author manyce400
  */
 @Controller
-@SessionAttributes(value = {"SignUpSelectionWebVO", "QPalXWebUserVO"})
-public class ParentSignUpController {
+@SessionAttributes(value = {"RegistrationSelectionWebVO", "QPalXWebUserVO"})
+public class ParentRegistrationController {
 
 
 
-    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ParentSignUpController.class);
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ParentRegistrationController.class);
 
 
     //@RequestMapping(value = "/select-signup-payment", method = RequestMethod.POST)

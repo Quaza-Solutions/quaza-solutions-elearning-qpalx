@@ -27,8 +27,9 @@ import java.util.Optional;
  * @author manyce400
  */
 @Controller
-@SessionAttributes(value = {"SignUpSelectionWebVO", "QPalXWebUserVO"})
-public class StudentSignUpController {
+@SessionAttributes(value = {"RegistrationSelectionWebVO", "QPalXWebUserVO"})
+public class StudentRegistrationController {
+
 
 
 
@@ -56,11 +57,11 @@ public class StudentSignUpController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.CacheEnabledQPalXTutorialService")
     private IQPalXTutorialService iqPalXTutorialService;
 
-    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentSignUpController.class);
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentRegistrationController.class);
 
 
     @RequestMapping(value = "/select-signup-payment", method = RequestMethod.POST)
-    public String selectSignUpPaymentPage(Model model, @ModelAttribute("QPalXWebUserVO") QPalXWebUserVO qPalXWebUserVO) {
+    public String accessRegistrationPayment(Model model, @ModelAttribute("QPalXWebUserVO") QPalXWebUserVO qPalXWebUserVO) {
         LOGGER.info("Student signup payment requested with qPalXWebUserVO: {}", qPalXWebUserVO);
         return ContentRootE.Student_Signup.getContentRootPagePath("payment");
     }
