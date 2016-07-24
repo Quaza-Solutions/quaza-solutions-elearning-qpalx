@@ -66,7 +66,7 @@ public class StudentCurriculumService implements IStudentCurriculumService {
     @Override
     public List<ELearningCurriculum> findAllCoreELearningCurriculum(StudentTutorialGrade studentTutorialGrade) {
         Assert.notNull(studentTutorialGrade, "studentTutorialGrade cannot be null");
-        return null;
+        return iELearningCurriculumService.findAllCurriculumByTutorialGradeAndType(CurriculumType.CORE, studentTutorialGrade);
     }
 
     @Override
