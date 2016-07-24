@@ -94,4 +94,8 @@
     <ELearningCurriculum CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" />
     <ELearningCurriculum CurriculumName="Science" CurriculumDescription="Sciences Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" />
 
+    <!-- Create dummy Content Developer QPalxUser with StudentTutorialLevel SHS -->
+    <QPalXUser ID="1" FirstName="Justice" LastName="Wrappah" Email="JWrappah@quazasolutions.com" Password="qpalx" UserType="CONTENT_DEVELOPER" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <ContentAdminProfileRecord QPalxUserID="1" StudentTutorialLevelID="4" Enabled="1" EffectiveDate="2016-07-28"/>
+
 </dataset>
