@@ -20,9 +20,16 @@ public interface IQPalXUserWebService {
 
 
     /**
+     * Add basic QPalXUser info details
+     */
+    public void addQPalXUserInfoDetailsToWebModel(final Model model, QPalXUser qPalXUser);
+
+
+    /**
      * Loads and adds all the ELearning curriculum by CurriculumType based on the UserType of qPalXUser
      * @param model
      * @param qPalXUser
      */
     public void addQPalXUserAccesibleCurriculum(final Model model, QPalXUser qPalXUser);
+
 }

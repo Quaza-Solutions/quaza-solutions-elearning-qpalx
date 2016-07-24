@@ -8,6 +8,7 @@ import com.quaza.solutions.qpalx.elearning.service.geographical.IGeographicalDat
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IStudentCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
+import com.quaza.solutions.qpalx.elearning.web.service.user.IContentAdminWebService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -48,6 +49,11 @@ public class ApplicationHomeController {
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserWebService")
     private IQPalXUserWebService iqPalXUserWebService;
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.web.ContentAdminWebService")
+    private IContentAdminWebService iContentAdminWebService;
+
+
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ApplicationHomeController.class);
 
 
@@ -64,6 +70,9 @@ public class ApplicationHomeController {
                 return ContentRootE.Student_Home.getContentRootPagePath("home");
             } else if(QPalxUserTypeE.CONTENT_DEVELOPER == optionalUser.get().getUserType()) {
                 LOGGER.info("Logged in user is a Content Developer, building content developer options to QPalX portal...");
+                iqPalXUserWebService.addQPalXUserInfoDetailsToWebModel(model, optionalUser.get());
+                iContentAdminWebService.addContentAdminCurriculaOptions(model, optionalUser.get());
+                return ContentRootE.Content_Admin_Home.getContentRootPagePath("home");
             }
 
             LOGGER.info("Only Student QPalX users currently supported");
