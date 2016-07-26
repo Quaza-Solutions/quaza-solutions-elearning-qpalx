@@ -5,7 +5,7 @@
             <PatternLayout pattern="%d{MMM-dd-yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <File name="MAIN-APP-LOG-FILE" fileName="logs/application.log">
+        <File name="MAIN-APP-LOG-FILE" fileName="/home/qpalxcom/tomcat/logs/application.log">
             <PatternLayout>
                 <Pattern>%d{MMM-dd-yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
             </PatternLayout>
@@ -13,11 +13,11 @@
     </Appenders>
     <Loggers>
         <Root level="INFO">
-            <AppenderRef ref="Console"/>
+            <AppenderRef ref="MAIN-APP-LOG-FILE"/>
         </Root>
 
         <Logger name="com.quaza.solutions" level="debug" additivity="false">
-            <AppenderRef ref="Console" level="INFO" />
+            <AppenderRef ref="MAIN-APP-LOG-FILE" level="INFO" />
         </Logger>
     </Loggers>
 </Configuration>
