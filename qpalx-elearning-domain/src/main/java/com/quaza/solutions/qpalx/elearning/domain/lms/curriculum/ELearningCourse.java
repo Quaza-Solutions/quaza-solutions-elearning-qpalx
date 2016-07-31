@@ -2,7 +2,6 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
 import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
-import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -35,19 +34,6 @@ public class ELearningCourse {
 	
 	@Column(name="CourseDescription", nullable=false, length=255)
 	private String courseDescription;
-
-
-	// Ceiling ProficiencyRankingScale should always be specified for each ELearningCourse.
-	// Students can only take ElearningCourse's inclusive between the specified ceiling and floor ProficiencyRanking
-	@Column(name="ProficiencyRankingScaleCeiling", nullable=false, length=10)
-	@Enumerated(EnumType.STRING)
-	private ProficiencyRankingScaleE proficiencyRankingScaleCeiling;
-
-    // Floor ProficiencyRankingScale should always be specified for each ELearningCourse.
-    // Students can only take ElearningCourse's inclusive between the specified ceiling and floor ProficiencyRanking
-    @Column(name="ProficiencyRankingScaleFloor", nullable=false, length=10)
-    @Enumerated(EnumType.STRING)
-    private ProficiencyRankingScaleE proficiencyRankingScaleFloor;
 
     // ELearningCurriculum that this course is associated with.
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -97,22 +83,6 @@ public class ELearningCourse {
 	public void setCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
 	}
-
-    public ProficiencyRankingScaleE getProficiencyRankingScaleCeiling() {
-        return proficiencyRankingScaleCeiling;
-    }
-
-    public void setProficiencyRankingScaleCeiling(ProficiencyRankingScaleE proficiencyRankingScaleCeiling) {
-        this.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
-    }
-
-    public ProficiencyRankingScaleE getProficiencyRankingScaleFloor() {
-        return proficiencyRankingScaleFloor;
-    }
-
-    public void setProficiencyRankingScaleFloor(ProficiencyRankingScaleE proficiencyRankingScaleFloor) {
-        this.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
-    }
 
     public ELearningCurriculum geteLearningCurriculum() {
         return eLearningCurriculum;
@@ -173,8 +143,6 @@ public class ELearningCourse {
                 .append(id, that.id)
                 .append(courseName, that.courseName)
                 .append(courseDescription, that.courseDescription)
-                .append(proficiencyRankingScaleCeiling, that.proficiencyRankingScaleCeiling)
-                .append(proficiencyRankingScaleFloor, that.proficiencyRankingScaleFloor)
                 .append(eLearningCurriculum, that.eLearningCurriculum)
                 .append(qPalXEducationalInstitution, that.qPalXEducationalInstitution)
                 .append(entryDate, that.entryDate)
@@ -187,8 +155,6 @@ public class ELearningCourse {
                 .append(id)
                 .append(courseName)
                 .append(courseDescription)
-                .append(proficiencyRankingScaleCeiling)
-                .append(proficiencyRankingScaleFloor)
                 .append(eLearningCurriculum)
                 .append(qPalXEducationalInstitution)
                 .append(entryDate)
@@ -202,8 +168,6 @@ public class ELearningCourse {
                 .append("id", id)
                 .append("courseName", courseName)
                 .append("courseDescription", courseDescription)
-                .append("proficiencyRankingScaleCeiling", proficiencyRankingScaleCeiling)
-                .append("proficiencyRankingScaleFloor", proficiencyRankingScaleFloor)
                 .append("eLearningCurriculum", eLearningCurriculum)
                 .append("qPalXEducationalInstitution", qPalXEducationalInstitution)
                 .append("entryDate", entryDate)
@@ -234,15 +198,6 @@ public class ELearningCourse {
             return this;
         }
 
-        public Builder proficiencyRankingScaleCeiling(ProficiencyRankingScaleE proficiencyRankingScaleCeiling) {
-            eLearningCourse.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
-            return this;
-        }
-
-        public Builder proficiencyRankingScaleFloor(ProficiencyRankingScaleE proficiencyRankingScaleFloor) {
-            eLearningCourse.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
-            return this;
-        }
 
         public Builder eLearningCurriculum(ELearningCurriculum eLearningCurriculum) {
             eLearningCourse.eLearningCurriculum = eLearningCurriculum;

@@ -8,6 +8,8 @@ public enum LearningActivityE {
 
     Quiz,
 
+    Video,
+
     Assesment,
 
     Assignment,

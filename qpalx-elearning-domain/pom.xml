@@ -185,8 +185,10 @@
                     <!--<skip>${maven.test.skip}</skip>-->
                 </configuration>
                 <executions>
+
+                    <!-- Insert initial static data -->
                     <execution>
-                        <id>insert</id>
+                        <id>insert_initial</id>
                         <phase>test-compile</phase>
                         <goals>
                             <goal>operation</goal>
@@ -194,7 +196,21 @@
                         <configuration>
                             <format>flat</format>
                             <type>CLEAN_INSERT</type>
-                            <src>../qpalx-elearning-domain/src/test/resources/qpalx-test-data.xml</src>
+                            <src>../qpalx-elearning-domain/src/main/resources/qpalx-initial-static-data.xml</src>
+                        </configuration>
+                    </execution>
+
+                    <!-- Insert all WAF ELearning Curriculum, Courses & Activities -->
+                    <execution>
+                        <id>insert_course_activities</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>../qpalx-elearning-domain/src/main/resources/qpalx-waf-ecourses.xml</src>
                         </configuration>
                     </execution>
 

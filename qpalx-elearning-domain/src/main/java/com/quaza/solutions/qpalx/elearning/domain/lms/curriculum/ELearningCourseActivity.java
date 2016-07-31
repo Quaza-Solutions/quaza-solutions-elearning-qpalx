@@ -1,6 +1,8 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningActivityE;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -43,10 +45,27 @@ public class ELearningCourseActivity {
     @Embedded
     private ELearningMediaContent eLearningMediaContent;
 
+    // Floor ProficiencyRankingScale should always be specified for each ELearningCourse.
+    // Students can only take ElearningCourse's inclusive between the specified ceiling and floor ProficiencyRanking
+    @Column(name="ProficiencyRankingScaleFloor", nullable=false, length=10)
+    @Enumerated(EnumType.STRING)
+    private ProficiencyRankingScaleE proficiencyRankingScaleFloor;
+
+    // Ceiling ProficiencyRankingScale should always be specified for each ELearningCourse.
+    // Students can only take ElearningCourse's inclusive between the specified ceiling and floor ProficiencyRanking
+    @Column(name="ProficiencyRankingScaleCeiling", nullable=false, length=10)
+    @Enumerated(EnumType.STRING)
+    private ProficiencyRankingScaleE proficiencyRankingScaleCeiling;
+
+
     // Always fetch this Eager as we always need the course readily available to use.
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ELearningCourseID", nullable = false)
     private ELearningCourse eLearningCourse;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TutorialLevelCalendarID", nullable = false)
+    private TutorialLevelCalendar tutorialLevelCalendar;
 
     // DateTime that the ELearning Media Content was uploaded on the QPalX platform.
     @Column(name="EntryDate", nullable=true)
@@ -99,16 +118,40 @@ public class ELearningCourseActivity {
         return eLearningMediaContent;
     }
 
-    public void setELearningMediaContent(ELearningMediaContent eLearningMediaContent) {
+    public void seteLearningMediaContent(ELearningMediaContent eLearningMediaContent) {
         this.eLearningMediaContent = eLearningMediaContent;
     }
 
-    public ELearningCourse getELearningCourse() {
+    public ProficiencyRankingScaleE getProficiencyRankingScaleFloor() {
+        return proficiencyRankingScaleFloor;
+    }
+
+    public void setProficiencyRankingScaleFloor(ProficiencyRankingScaleE proficiencyRankingScaleFloor) {
+        this.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
+    }
+
+    public ProficiencyRankingScaleE getProficiencyRankingScaleCeiling() {
+        return proficiencyRankingScaleCeiling;
+    }
+
+    public void setProficiencyRankingScaleCeiling(ProficiencyRankingScaleE proficiencyRankingScaleCeiling) {
+        this.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
+    }
+
+    public ELearningCourse geteLearningCourse() {
         return eLearningCourse;
     }
 
-    public void setELearningCourse(ELearningCourse eLearningCourse) {
+    public void seteLearningCourse(ELearningCourse eLearningCourse) {
         this.eLearningCourse = eLearningCourse;
+    }
+
+    public TutorialLevelCalendar getTutorialLevelCalendar() {
+        return tutorialLevelCalendar;
+    }
+
+    public void setTutorialLevelCalendar(TutorialLevelCalendar tutorialLevelCalendar) {
+        this.tutorialLevelCalendar = tutorialLevelCalendar;
     }
 
     public DateTime getEntryDate() {
@@ -142,7 +185,10 @@ public class ELearningCourseActivity {
                 .append(activityDescription, that.activityDescription)
                 .append(learningActivityE, that.learningActivityE)
                 .append(eLearningMediaContent, that.eLearningMediaContent)
+                .append(proficiencyRankingScaleFloor, that.proficiencyRankingScaleFloor)
+                .append(proficiencyRankingScaleCeiling, that.proficiencyRankingScaleCeiling)
                 .append(eLearningCourse, that.eLearningCourse)
+                .append(tutorialLevelCalendar, that.tutorialLevelCalendar)
                 .append(entryDate, that.entryDate)
                 .isEquals();
     }
@@ -155,7 +201,10 @@ public class ELearningCourseActivity {
                 .append(activityDescription)
                 .append(learningActivityE)
                 .append(eLearningMediaContent)
+                .append(proficiencyRankingScaleFloor)
+                .append(proficiencyRankingScaleCeiling)
                 .append(eLearningCourse)
+                .append(tutorialLevelCalendar)
                 .append(entryDate)
                 .append(activityActive)
                 .toHashCode();
@@ -169,7 +218,10 @@ public class ELearningCourseActivity {
                 .append("activityDescription", activityDescription)
                 .append("learningActivityE", learningActivityE)
                 .append("eLearningMediaContent", eLearningMediaContent)
+                .append("proficiencyRankingScaleFloor", proficiencyRankingScaleFloor)
+                .append("proficiencyRankingScaleCeiling", proficiencyRankingScaleCeiling)
                 .append("eLearningCourse", eLearningCourse)
+                .append("tutorialLevelCalendar", tutorialLevelCalendar)
                 .append("entryDate", entryDate)
                 .append("activityActive", activityActive)
                 .toString();

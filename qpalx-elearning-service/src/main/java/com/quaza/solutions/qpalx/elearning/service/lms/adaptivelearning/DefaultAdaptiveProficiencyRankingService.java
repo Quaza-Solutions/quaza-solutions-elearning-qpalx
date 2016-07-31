@@ -45,11 +45,13 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
 
 
         initialAdaptiveProficiencyRankingVOs.forEach(adptiveProficiencyRanking -> {
-            AdaptiveProficiencyRanking adaptiveProficiencyRanking = buildSingleAdaptiveProficiencyRanking(qPalXUser, studentTutorialGrade, adptiveProficiencyRanking);
+            if (adptiveProficiencyRanking.getSimplifiedProficiencyRank() != null) {
+                AdaptiveProficiencyRanking adaptiveProficiencyRanking = buildSingleAdaptiveProficiencyRanking(qPalXUser, studentTutorialGrade, adptiveProficiencyRanking);
 
-            if (adaptiveProficiencyRanking != null) {
-                LOGGER.info("Saving adaptiveProficiencyRanking: {}", adaptiveProficiencyRanking);
-                iAdaptiveProficiencyRankingRepository.save(adaptiveProficiencyRanking);
+                if (adaptiveProficiencyRanking != null) {
+                    LOGGER.info("Saving adaptiveProficiencyRanking: {}", adaptiveProficiencyRanking);
+                    iAdaptiveProficiencyRankingRepository.save(adaptiveProficiencyRanking);
+                }
             }
         });
 
