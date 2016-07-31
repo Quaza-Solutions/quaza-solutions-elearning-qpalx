@@ -39,9 +39,9 @@
 
                 <br/>
                 <table width="100%" border="0">
-                    <tr>
+                    <tr th:each="SelectedELearningCourseActivity,rowStat : ${SelectedELearningCourseActivities}">
                         <td width="90%" class="cell-padded green">
-                            <a th:href="@{/play-qcourse-video?courseActivityID=2}">Deformation of Solids</a>
+                            <img src="images/video-icon.png"/> <a th:href="@{/play-qcourse-video?courseActivityID=${SelectedELearningCourseActivity.activityName}}" th:text="${SelectedELearningCourseActivity.activityName}"></a>
                         </td>
                         <td width="10%" class="green">
                             15:02
