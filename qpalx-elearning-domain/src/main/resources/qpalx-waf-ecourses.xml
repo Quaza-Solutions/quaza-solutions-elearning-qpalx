@@ -57,7 +57,7 @@
 
 
     <!--
-        ===========================  Start ELearning Courses section  =======================================
+        ===========================  Start ELearning CORE Physics Courses section  =======================================
     -->
     <!-- Core SHS1 Science Curriculum courses for West Africa -->
     <ELearningCourse ID="1" CourseName="Physics" CourseDescription="CORE Physics SHS1" ELearningCurriculumID="3" CourseActive="1"  />

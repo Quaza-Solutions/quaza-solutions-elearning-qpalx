@@ -14,6 +14,11 @@ import java.util.List;
 public interface IELearningCourseActivityRepository extends CrudRepository<ELearningCourseActivity, Long> {
 
 
+    @Query("Select              eLearningCourseActivity From ELearningCourseActivity eLearningCourseActivity "+
+            "INNER JOIN FETCH    eLearningCourseActivity.eLearningCourse eLearningCourse " +
+            "Where               eLearningCourse =?1 "
+    )
+    public List<ELearningCourseActivity> findELearningCourseActivities( ELearningCourse eLearningCourse);
 
     @Query("Select              eLearningCourseActivity From ELearningCourseActivity eLearningCourseActivity "+
             "INNER JOIN FETCH    eLearningCourseActivity.tutorialLevelCalendar tutorialLevelCalendar " +

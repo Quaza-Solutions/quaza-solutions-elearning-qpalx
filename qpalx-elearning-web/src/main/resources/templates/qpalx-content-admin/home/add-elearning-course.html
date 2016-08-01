@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div th:replace="fragments/header-loggedin :: header-loggedin"/>
+
+<div class="container" style="margin-bottom: 10px;">
+    <div class="row">
+        <div class="col-md-12">
+            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;
+            <span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot;
+            <a th:href="@{/logout}">Sign Out</a>
+            <p th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-6"></div>
+    <div class="clearfix bottom-space"></div>
+    <form action="" method="post">
+
+        <div class="col-md-3">Course name</div>
+        <div class="col-md-3">Course Description</div>
+        <div class="col-md-6">Educational Institution</div>
+        <div class="clearfix"></div>
+
+
+        <div class="col-md-3">
+            <input type="text" size="26" id="name" name="name"/><span class="name"/>
+        </div>
+        <div class="col-md-3">
+            <input type="text" size="26" id="description" name="description"/><span class="description"></span>
+        </div>
+        <div class="col-md-6">
+            <select id="activity" name="activity" class="activity" >
+                <option th:each="QPalXEducationalInstitution : ${QPalXEducationalInstitutions}" th:value="${QPalXEducationalInstitution.id}" th:text="${QPalXEducationalInstitution.name}"></option>
+            </select>
+        </div>
+
+        <div class="clearfix bottom-space"></div>
+
+        <div class="col-md-12 continue">
+            <button type="submit" id="submit" class="btn btn-success">Add Course</button>
+        </div>
+    </form>
+</div>
+
+<div class="clearfix bottom-space"></div>
+
+
+<div th:replace="fragments/footer :: footer"/>
+<!-- jQuery first, then Bootstrap JS. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+<script src="js/validation.js"></script>
+</body>
+</html>
