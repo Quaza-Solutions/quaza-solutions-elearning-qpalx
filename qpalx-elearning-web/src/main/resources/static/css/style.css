@@ -1,5 +1,6 @@
 body {
 	font-family: 'robotoregular', sans-serif;
+	font-size: 16px;
 }
 @font-face {
 	font-family: 'robotoregular';
@@ -56,6 +57,18 @@ padding: 20px;
 margin-bottom: 100px;
 }
 
+.logo {
+color: #fff;
+font-size: 28px;
+	font-family: 'robotobold', sans-serif;	
+}
+
+#header-4 {
+background-color: #43484d;
+text-align: right;
+padding: 20px;
+}
+
 footer {
 background-color: #43484d;
 height: 340px;
@@ -85,6 +98,9 @@ body {
 
 .bottom-space {
 	margin-bottom: 40px;
+}
+.bottom-space-big {
+	margin-bottom: 400px;
 }
 
 h1 {
@@ -184,6 +200,9 @@ margin-top: 40px;
 .three-text-blue {
 	color: #358ed7;
 }
+.black {
+color: #000;	
+}
 
 .three-circle-gray {
 border-radius: 50%; 
@@ -225,6 +244,18 @@ width: 248px;
 	width: 522px; 
 	height: 32px;
 }
+.activity {
+	width: 522px; 
+	height: 32px;
+}
+.floor {
+	width: 522px; 
+	height: 32px;
+}
+.ceiling {
+	width: 522px; 
+	height: 32px;
+}
 
 #password {
 /*	margin-top: 198px;*/
@@ -238,7 +269,7 @@ width: 248px;
 	font-size: 13px;
 }
 .med-text {
-	font-size: 16px;
+	font-size: 22px;
 }
 .box {
 	display: block;
@@ -248,6 +279,15 @@ width: 248px;
 	border: thin solid #86939e;
 }
 #check-box-1 {
+    display: none;
+}
+#check-box-4 {
+    display: none;
+}
+#check-box-5 {
+    display: none;
+}
+#check-box-6 {
     display: none;
 }
 #check-box-one {
@@ -283,7 +323,15 @@ width: 248px;
 #check-box-3:checked + label{
     border: 2px solid #7dc855;
 }
-
+#check-box-4:checked + label{
+    border: 2px solid #7dc855;
+}
+#check-box-5:checked + label{
+    border: 2px solid #7dc855;
+}
+#check-box-6:checked + label{
+    border: 2px solid #7dc855;
+}
 .selected {
     border: thin solid #7dc855;
 }
@@ -397,12 +445,62 @@ width: 18px;
 .green {
 	color: #7dc855;
 }
+.black {
+color: #000;	
+}
 
 .green-hr {
-	color: #7dc855;
+	height: 2px;
 	background-color: #7dc855;
 }
 
+.green-hr-1 {
+	height: 1px;
+	width: 130px;
+	margin-left: 0px;
+	background-color: #7dc855;
+}
+
+.black-hr-1 {
+/*	height: 1px; */
+	width: 900px; 
+/*	background-color: #43484d;*/
+}
+
+.green-hr-1a {
+	height: 1px;
+	width: 200px;
+	margin-left: 0px;
+	background-color: #7dc855;
+}
+
+.black-hr-1a {
+	height: 1px; 
+	width: 700px; 
+	/*background-color: #43484d;*/
+}
+.black-hr-2 {
+	height: 1px; 
+	width: 700px; 
+/*	background-color: #43484d;*/
+}
+.blue-hr-1 {
+	height: 1px;
+	width: 200px;
+	margin-left: 0px;
+	background-color: #358ed7;
+}
+
+
+#hr-1 { 
+ 	cursor: pointer;
+}
+#hr-2 { 
+ 	cursor: pointer;
+}
+#hr-3 { 
+ 	cursor: pointer;
+}
 .light-gray {
 	background-color: #f2f2f2;
 }
@@ -577,11 +675,28 @@ button[title]:hover:after {
 	color: #7dc855;
 }
 .bgrnd-image {
-	background-image:url(../images/Qpalx.png);
+	background-image:url(../images/Qpalx_cropped.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 	/*height: 784px;*/
-	height: 990px;
+	height: 675px;
+	margin-top: -100px;
+}
+
+.bgrnd-image-2 {
+	background-image:url(../images/young-student-reading-books-18673501.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	/*height: 784px;*/
+	height: 675px;
+	margin-top: -100px;
+}
+.bgrnd-image-3 {
+	background-image:url(../images/blue.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	/*height: 784px;*/
+	height: 675px;
 	margin-top: -100px;
 }
 #header-1 {
@@ -701,4 +816,186 @@ _:-ms-lang(x), .email { width: 500px; }
 
 .red {
 	color: red;
+}
+/** beginning of http://www.jssor.com/demos/full-width-slider.slider **/
+
+        /* jssor slider bullet navigator skin 05 css */
+        /*
+        .jssorb05 div           (normal)
+        .jssorb05 div:hover     (normal mouseover)
+        .jssorb05 .av           (active)
+        .jssorb05 .av:hover     (active mouseover)
+        .jssorb05 .dn           (mousedown)
+        */
+        .jssorb05 {
+            position: absolute;
+        }
+        .jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
+            position: absolute;
+            /* size of bullet elment */
+            width: 16px;
+            height: 16px;
+            background: url('images/b05.png') no-repeat;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .jssorb05 div { background-position: -7px -7px; }
+        .jssorb05 div:hover, .jssorb05 .av:hover { background-position: -37px -7px; }
+        .jssorb05 .av { background-position: -67px -7px; }
+        .jssorb05 .dn, .jssorb05 .dn:hover { background-position: -97px -7px; }
+
+        /* jssor slider arrow navigator skin 22 css */
+        /*
+        .jssora22l                  (normal)
+        .jssora22r                  (normal)
+        .jssora22l:hover            (normal mouseover)
+        .jssora22r:hover            (normal mouseover)
+        .jssora22l.jssora22ldn      (mousedown)
+        .jssora22r.jssora22rdn      (mousedown)
+        */
+        .jssora22l, .jssora22r {
+            display: block;
+            position: absolute;
+            /* size of arrow element */
+            width: 40px;
+            height: 58px;
+            cursor: pointer;
+            background: url('images/a22.png') center center no-repeat;
+            overflow: hidden;
+        }
+        .jssora22l { background-position: -10px -31px; }
+        .jssora22r { background-position: -70px -31px; }
+        .jssora22l:hover { background-position: -130px -31px; }
+        .jssora22r:hover { background-position: -190px -31px; }
+        .jssora22l.jssora22ldn { background-position: -250px -31px; }
+        .jssora22r.jssora22rdn { background-position: -310px -31px; }
+
+
+/** end of http://www.jssor.com/demos/full-width-slider.slider **/
+
+.student {
+	text-align: right;
+	display: block;
+	margin-right: 20px;
+	font-weight: bold;
+	font-family: 'robotobold', sans-serif;	
+}
+
+.full-width {
+	margin-left: -20px;
+	width: 1140px;
+}
+.pic {
+margin: auto 0 auto -60px;
+}
+
+.num {
+	margin: 20px auto;
+}
+
+.btn-danger-1 {
+	border-radius: 25px;
+	margin: 20px 0 auto -100px;
+}
+.btn-danger-1:hover {
+	
+}
+
+.btn-default-1 {
+	border-radius: 25px;
+	margin: 20px 0 auto -100px;
+}
+.name {
+	margin: 10px 0 10px 0;
+}
+
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-bottom: 0px;
+  margin-left: -80px;
+  padding: 7px;
+  width: 160px;
+  height: 44px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
+   white-space: normal;
+}
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -5px;
+   margin-bottom: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+
+.fa-check-circle {
+	color: #7dc855;
+}
+
+.checkmark {
+	position: relative;
+	top: -250px;
+	right: -216px;
+}
+
+.checkmark1 {
+	position: relative;
+	top: -250px;
+	right: -260px;
+}
+
+.checkmark2 {
+	position: relative;
+	top: -70px;
+	right: -40px;
+}
+
+.checkmark3 {
+	position: relative;
+	top: -70px;
+	right: -20px;
 }
