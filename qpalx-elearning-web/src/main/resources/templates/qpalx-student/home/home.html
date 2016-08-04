@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
+
+<!-- Include general header -->
 <div th:replace="fragments/header-loggedin :: header-loggedin"/>
 
 <div class="container" style="margin-bottom: 10px;">
@@ -38,35 +40,49 @@
     <!--</div>-->
 
 <!--</div>-->
-<div class="container" style="margin-top: 10px; margin-bottom: 0px;">
 
-    <!-- Logic to link the CORE or ELECTIVE curriculum based on which one is currently selected -->
-    <div class="row" th:if="${CurriculumType} == 'CORE'">
-        <div class="col-md-2">
-            <b>Core</b>
+<div class="clearfix"></div>
+<div class="container">
+
+    <!-- Include main QPalx Student navigation tab -->
+    <div th:replace="fragments/student-navigation :: student-main-navigation"/>
+
+
+    <!-- Start main Student navigation panel -->
+    <!--<div class="row" th:if="${CurriculumType} == 'CORE'">
+        <div class="col-md-3">
+            <b class="green">Core Courses</b>
+            <hr class="green-hr-1a" id="hr-1" />
         </div>
-        <div class="col-md-2">
-            <b><a th:href="@{/select-curriculum(curricumlumType=ELECTIVE)}">Elective</a></b>
+
+        <div class="col-md-3" style="margin-left: -80px; cursor: pointer;" onClick="document.location.href='/select-curriculum?curricumlumType=ELECTIVE'">
+            <b id="title-2">Elective Courses</b>
+            <hr class="black-hr-1a" id="hr-2" />
+        </div>
+
+        <div class="col-md-3" onClick="hrFunction3a()" style="margin-left: -80px; cursor: pointer;">
+            <b id="title-3">E-Books</b>
+            <hr class="black-hr-1a" id="hr-3" />
         </div>
     </div>
 
     <div class="row" th:if="${CurriculumType} == 'ELECTIVE'">
-        <div class="col-md-2">
-            <b><a th:href="@{/select-curriculum(curricumlumType=CORE)}">Core</a></b>
+        <div class="col-md-3" style="cursor: pointer;" onClick="document.location.href='/select-curriculum?curricumlumType=CORE'">
+            <b>Core Courses</b>
+            <hr class="black-hr-1a" id="hr-1" />
         </div>
-        <div class="col-md-2">
-            <b>Elective</b>
+
+        <div class="col-md-3" style="margin-left: -80px;">
+            <b class="green">Elective Courses</b>
+            <hr class="green-hr-1a" id="hr-2" />
         </div>
-    </div>
 
-    <div class="row">
-        <br/>
-        <div class="col-md-1" style="width: 120px; border-bottom: 2px solid #7dc855;"></div>
-    </div>
-</div>
-
-<div class="clearfix"></div>
-<div class="container" style="margin-top: 10px; margin-bottom: 0px;">
+        <div class="col-md-3" style="margin-left: -80px; cursor: pointer;">
+            <b>E-Books</b>
+            <hr class="black-hr-1a" id="hr-3" />
+        </div>
+    </div>-->
+    <!-- End main Student navigation panel -->
 
     <table border="0" style="width: 100%;">
 
@@ -86,7 +102,9 @@
 </div>
 <div class="clearfix bottom-space"></div>
 
+<!-- Include general footer -->
 <div th:replace="fragments/footer :: footer"/>
+
 <!-- jQuery first, then Bootstrap JS. -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>

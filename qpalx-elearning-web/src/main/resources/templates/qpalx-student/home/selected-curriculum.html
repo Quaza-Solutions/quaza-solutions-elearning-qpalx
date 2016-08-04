@@ -23,39 +23,27 @@
     </div>
 </div>
 
+<div class="clearfix"></div>
+<div class="container">
 
-<div class="container large-fonts">
-    <div class="col-md-2 med-text"><b th:text="${SelectedELearningCurriculum.curriculumName}"></b></div>
-    <div class="col-md-7"></div>
+    <!-- Include main QPalx Student navigation tab -->
+    <div th:replace="fragments/student-navigation :: student-main-navigation"/>
 
-    <!-- Using Thymeleafs inline property to inline custom text directly into bold attribute -->
-    <div class="col-md-3 med-text" style="position: relative; left: 40px;">
-        <b th:inline="text">&#8592; <a th:href="@{/select-curriculum(curricumlumType=${SelectedELearningCurriculum.curriculumType})}">Back to [[${SelectedELearningCurriculum.curriculumType}]]</a></b>
+
+    <div class="col-md-2 large-fonts">
+        <b th:text="${SelectedELearningCurriculum.curriculumName}"></b>
     </div>
 
-    <div class="padded">
-        <div class="row">
+    <div>
+        <div>
             <div class="col-md-12">
                 <hr/>
-
                 <br/>
                 <table width="100%" border="0">
-                    <!--<tr>
-                        <td width="90%" class="cell-padded green" >
-                            <a th:href="@{/qpalx-course-details?qCourseID=5}">Physics</a>
-                        </td>
-                        <td width="10%" class="green">
-                            15:02&nbsp;&nbsp;<img style="margin: 0 0 10px 0;" width="20px" height="20px" src="images/green-check-mark.png"/>
-                        </td>
-                    </tr>-->
-
                     <tr th:each="CurriculumELearningCourses,rowStat : ${CurriculumELearningCourses}">
                         <td class="cell-padded" th:inline="text"><a th:href="@{/qpalx-course-details(qCourseID=${CurriculumELearningCourses.id})}">[[${CurriculumELearningCourses.courseName}]]</a></td>
                     </tr>
-
                 </table>
-
-
             </div>
         </div>
     </div>

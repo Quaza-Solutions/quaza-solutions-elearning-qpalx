@@ -80,6 +80,7 @@ public class StudentCurriculaController {
         // Find all E-Learning courses for this curriculum
         List<ELearningCourse> eLearningCourses =  ieLearningCourseService.findByELearningCurriculum(eLearningCurriculum);
         model.addAttribute("CurriculumELearningCourses", eLearningCourses);
+        model.addAttribute("CurriculumType", eLearningCurriculum.getCurriculumType().toString());
     }
 
     private void addSelectedCourseInfoToResponse(final Model model, String courseID) {
