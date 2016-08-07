@@ -12,18 +12,14 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
+<!-- Include general header fragment panel for when a Student user is already logged in -->
 <div th:replace="fragments/header-loggedin :: header-loggedin"/>
 
-<div class="container" style="margin-bottom: 10px;">
-    <div class="row">
-        <div class="col-md-12">
-            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;
-            <span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot;
-            <a th:href="@{/logout}">Sign Out</a>
-            <p th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
-        </div>
-    </div>
-</div>
+<!-- Include Student User general Account information panel -->
+<div th:replace="fragments/qpalx-user-info-panel :: general-account-info"/>
+
+<!-- Include main QPalx Student navigation tab -->
+<div th:replace="fragments/student-navigation :: student-main-navigation"/>
 
 
 <div class="container large-fonts">
