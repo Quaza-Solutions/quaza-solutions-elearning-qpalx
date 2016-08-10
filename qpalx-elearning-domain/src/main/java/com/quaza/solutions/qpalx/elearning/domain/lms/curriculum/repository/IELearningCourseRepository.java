@@ -19,5 +19,7 @@ public interface IELearningCourseRepository extends CrudRepository<ELearningCour
     @Query("Select  eLearningCourse From ELearningCourse eLearningCourse Where eLearningCourse.eLearningCurriculum = ?1")
     public List<ELearningCourse> findByELearningCurriculum(ELearningCurriculum eLearningCurriculum);
 
+    @Query("Select  eLearningCourse From ELearningCourse eLearningCourse Where eLearningCourse.courseName = ?1 and eLearningCourse.eLearningCurriculum = ?2")
+    public ELearningCourse findByCourseNameAndELearningCurriculum(String courseName, ELearningCurriculum eLearningCurriculum);
 
 }

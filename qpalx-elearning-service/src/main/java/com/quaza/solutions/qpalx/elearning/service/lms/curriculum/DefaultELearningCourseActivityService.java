@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.List;
+
 /**
  * @author manyce400
  */
@@ -25,6 +27,13 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
         Assert.notNull(id, "id cannot be null");
         LOGGER.debug("Finding ELearningCourseActivity with id:> {}", id);
         return ieLearningCourseActivityRepository.findOne(id);
+    }
+
+    @Override
+    public List<ELearningCourseActivity> findELearningCourseAcitivitiesByCourse(ELearningCourse eLearningCourse) {
+        Assert.notNull(eLearningCourse, "eLearningCourse cannot be null");
+        LOGGER.info("Finding all ELearning course activities for eLearningCours:> {}", eLearningCourse.getCourseName());
+        return ieLearningCourseActivityRepository.findELearningCourseActivities(eLearningCourse);
     }
 
     @Override

@@ -1,21 +1,17 @@
 package com.quaza.solutions.qpalx.elearning.ci.lms.adaptivelearning;
 
-import com.quaza.solutions.qpalx.QPalXServiceApplicationBootstrapper;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author manyce400
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {QPalXServiceApplicationBootstrapper.class})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringApplicationConfiguration(classes = {QPalXServiceApplicationBootstrapper.class})
 public class DefaultAdaptiveProficiencyRankingServiceCITest {
 
 

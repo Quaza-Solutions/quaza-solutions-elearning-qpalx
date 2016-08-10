@@ -8,16 +8,22 @@ import com.quaza.solutions.qpalx.elearning.service.geographical.IGeographicalDat
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IStudentCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
+import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalxDisplayPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IContentAdminWebService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,12 +59,18 @@ public class ApplicationHomeController {
     @Qualifier("quaza.solutions.qpalx.elearning.web.ContentAdminWebService")
     private IContentAdminWebService iContentAdminWebService;
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
+    private IQPalxDisplayPanelService qPalXUserInfoPanelService;
+
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ApplicationHomeController.class);
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String execQPalxMainHomePage(final Model model) {
+    public String execQPalxMainHomePage(final Model model, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
         LOGGER.info("Received request to access main QPalx home page...");
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
 
@@ -66,13 +78,14 @@ public class ApplicationHomeController {
             LOGGER.info("Current user logged in with email:> {}", optionalUser.get().getEmail());
 
             if (QPalxUserTypeE.STUDENT == optionalUser.get().getUserType()) {
+                // Add all attributes required for User information panel
+                qPalXUserInfoPanelService.addDisplayPanelAttributes(model);
                 addQPalXUserDetailsToResponse(model, CurriculumType.CORE, optionalUser.get());
                 return ContentRootE.Student_Home.getContentRootPagePath("home");
             } else if(QPalxUserTypeE.CONTENT_DEVELOPER == optionalUser.get().getUserType()) {
-                LOGGER.info("Logged in user is a Content Developer, building content developer options to QPalX portal...");
-                iqPalXUserWebService.addQPalXUserInfoDetailsToWebModel(model, optionalUser.get());
-                iContentAdminWebService.addContentAdminCurriculaOptions(model, optionalUser.get());
-                return ContentRootE.Content_Admin_Home.getContentRootPagePath("home");
+                String redirectUrl = "/curriculum-by-tutorialgrade?tutorialGradeID=1&curriculumType=CORE";
+                LOGGER.info("Logged in user is a Content Developer, redirecting to:> {}", redirectUrl);
+                redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, redirectUrl);
             }
 
             LOGGER.info("Only Student QPalX users currently supported");
@@ -93,6 +106,9 @@ public class ApplicationHomeController {
             LOGGER.info("Current user logged in with email:> {}", optionalUser.get().getEmail());
 
             if (QPalxUserTypeE.STUDENT == optionalUser.get().getUserType()) {
+                // Add all attributes required for User information panel
+                qPalXUserInfoPanelService.addDisplayPanelAttributes(model);
+
                 addQPalXUserDetailsToResponse(model, curriculumType, optionalUser.get());
                 return ContentRootE.Student_Home.getContentRootPagePath("home");
             }
@@ -120,7 +136,7 @@ public class ApplicationHomeController {
         }
 
         model.addAttribute("CurriculumType", curriculumType.toString());
-        model.addAttribute("LoggedInQPalXUser", qPalXUser);
+        //model.addAttribute("LoggedInQPalXUser", qPalXUser);
         model.addAttribute("StudentUserCurricula", eLearningCurricula);
 
     }

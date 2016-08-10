@@ -13,16 +13,8 @@
 <body>
 <div th:replace="fragments/header-loggedin :: header-loggedin"/>
 
-<div class="container" style="margin-bottom: 10px;">
-    <div class="row">
-        <div class="col-md-12">
-            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;
-            <span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot;
-            <a th:href="@{/logout}">Sign Out</a>
-            <p th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
-        </div>
-    </div>
-</div>
+<!-- Include Student User general Account information panel -->
+<div th:replace="fragments/qpalx-user-info-panel :: general-account-info"/>
 
 <div class="container">
 
@@ -30,7 +22,15 @@
     <div class="col-md-3"></div>
     <div class="col-md-6"></div>
     <div class="clearfix bottom-space"></div>
-    <form action="" method="post">
+
+    <div class="row" th:if="${AddCourseErrorSet} == 'true'">
+        <div class="alert alert-danger fade in" th:text="${ErrorMessage}"/>
+    </div>
+
+    <form th:action="@{/save-elearning-course}" th:object="${ELearningCourseWebVO}" method="post">
+
+        <!-- hidden field is a spring-security feature which generates a hidden token checked on submission to make sure submission is from this website directly -->
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
         <div class="col-md-3">Course name</div>
         <div class="col-md-3">Course Description</div>
@@ -39,20 +39,25 @@
 
 
         <div class="col-md-3">
-            <input type="text" size="26" id="name" name="name"/><span class="name"/>
+            <input type="text" size="26" th:field="*{courseName}"/><span class="name"/>
         </div>
         <div class="col-md-3">
-            <input type="text" size="26" id="description" name="description"/><span class="description"></span>
+            <input type="text" size="26" th:field="*{courseDescription}"/><span class="description"></span>
         </div>
         <div class="col-md-6">
-            <select id="activity" name="activity" class="activity" >
+            <select class="activity" th:field="*{educationalInstitutionID}">
+                <option value=""></option>
                 <option th:each="QPalXEducationalInstitution : ${QPalXEducationalInstitutions}" th:value="${QPalXEducationalInstitution.id}" th:text="${QPalXEducationalInstitution.name}"></option>
             </select>
         </div>
 
+        <!-- Hidden field to pass back the value of the ELearning curriculum for which new course will be created. -->
+        <input type="hidden" name='eLearningCurriculumID' th:value="${SelectedELearningCurriculum.id}"/>
+
         <div class="clearfix bottom-space"></div>
 
         <div class="col-md-12 continue">
+            <button type="button" class="btn btn-success">Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="submit" id="submit" class="btn btn-success">Add Course</button>
         </div>
     </form>

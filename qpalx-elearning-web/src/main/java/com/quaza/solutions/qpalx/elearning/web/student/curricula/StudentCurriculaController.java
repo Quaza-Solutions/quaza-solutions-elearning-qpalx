@@ -5,7 +5,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurric
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurriculumService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
-import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
+import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalxDisplayPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class StudentCurriculaController {
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
-    private IQPalXUserInfoPanelService iqPalXUserInfoPanelService;
+    private IQPalxDisplayPanelService qPalXUserInfoPanelService;
 
 
 
@@ -50,7 +50,7 @@ public class StudentCurriculaController {
         LOGGER.info("Finding all courses for curriculumID: {}", curriculumID);
 
         // Add all attributes required for User information panel
-        iqPalXUserInfoPanelService.addUserInfoPanelAttributes(model);
+        qPalXUserInfoPanelService.addDisplayPanelAttributes(model);
 
         addSelectedCurriculumInfoToResponse(model, curriculumID);
         return ContentRootE.Student_Home.getContentRootPagePath("selected-curriculum");
@@ -61,7 +61,7 @@ public class StudentCurriculaController {
         LOGGER.info("Retrieving all learning activities in qCourseID: {}", qCourseID);
 
         // Add all attributes required for User information panel
-        iqPalXUserInfoPanelService.addUserInfoPanelAttributes(model);
+        qPalXUserInfoPanelService.addDisplayPanelAttributes(model);
 
         addSelectedCourseInfoToResponse(model, qCourseID);
         return ContentRootE.Student_Home.getContentRootPagePath("course-activities");
@@ -72,7 +72,7 @@ public class StudentCurriculaController {
         LOGGER.info("Accessing Q Course acitivity with courseActivityID: {}", courseActivityID);
 
         // Add all attributes required for User information panel
-        iqPalXUserInfoPanelService.addUserInfoPanelAttributes(model);
+        qPalXUserInfoPanelService.addDisplayPanelAttributes(model);
 
         return ContentRootE.Student_Home.getContentRootPagePath("video-widget");
     }

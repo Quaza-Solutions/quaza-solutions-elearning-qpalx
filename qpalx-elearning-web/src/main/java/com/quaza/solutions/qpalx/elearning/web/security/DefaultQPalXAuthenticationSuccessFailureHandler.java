@@ -36,7 +36,6 @@ public class DefaultQPalXAuthenticationSuccessFailureHandler implements Authenti
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         QPalxUserTypeE qPalxUserTypeE = getQPalxUserTypeE(authentication);
-        System.out.println("\n\nExecuting success handler logic For qPalxUserTypeE: "+qPalxUserTypeE);
 
         String targetURL = "/";
 

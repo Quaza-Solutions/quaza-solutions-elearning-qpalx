@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author manyce400
@@ -21,6 +22,9 @@ public class ContentAdminWebService implements IContentAdminWebService {
 
 
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserWebService")
+    private IQPalXUserWebService iqPalXUserWebService;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.StudentCurriculumService")
@@ -35,12 +39,13 @@ public class ContentAdminWebService implements IContentAdminWebService {
 
 
     @Override
-    public void addContentAdminCurriculaOptions(Model model, QPalXUser qPalXUser) {
+    public void addContentAdminCurriculaOptions(Model model) {
         Assert.notNull(model, "model cannot be null");
-        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
+        LOGGER.info("Adding content admin curricula options data for user:> {}", optionalUser.get().getEmail());
 
         // Get and set all the Student Tutorial Grades assiged to content admin user
-        List<StudentTutorialGrade> studentTutorialGrades = iContentAdminProfileRecordService.findContentAdminStudentTutorialGrades(qPalXUser);
+        List<StudentTutorialGrade> studentTutorialGrades = iContentAdminProfileRecordService.findContentAdminStudentTutorialGrades(optionalUser.get());
         model.addAttribute("AssignedStudentTutorialGrades", studentTutorialGrades);
 
         // Load up all curricula for first studentTutorialGrades
@@ -48,7 +53,6 @@ public class ContentAdminWebService implements IContentAdminWebService {
         List<ELearningCurriculum> eLearningCurricula = iStudentCurriculumService.findAllCoreELearningCurriculum(studentTutorialGrade);
         model.addAttribute("SelectedStudentTutorialGrade", studentTutorialGrade.getTutorialGrade());
         model.addAttribute("AssignedELearningCurricula", eLearningCurricula);
-        model.addAttribute("CurriculumType", "CORE");
     }
 
 }

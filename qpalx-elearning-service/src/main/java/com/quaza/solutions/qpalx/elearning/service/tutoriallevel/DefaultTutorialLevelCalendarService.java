@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCourseActivityRepository;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.ITutorialLevelCalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -20,7 +21,7 @@ public class DefaultTutorialLevelCalendarService implements ITutorialLevelCalend
 
 
     @Autowired
-    private ITutorialLevelCalendarService iTutorialLevelCalendarService;
+    private ITutorialLevelCalendarRepository iTutorialLevelCalendarRepository;
 
     @Autowired
     private IELearningCourseActivityRepository ieLearningCourseActivityRepository;
@@ -40,11 +41,11 @@ public class DefaultTutorialLevelCalendarService implements ITutorialLevelCalend
 
     @Override
     public List<ELearningCourseActivity> findAllCourseELearningActivities(TutorialLevelCalendar tutorialLevelCalendar, ELearningCourse eLearningCourse) {
-        Assert.notNull(tutorialLevelCalendar, "tutorialLevelCalendar cannot be null");
-        Assert.notNull(eLearningCourse, "eLearningCourse cannot be null");
-        LOGGER.info("Finding all ELearningCourseActivity for tutorialLevelCalendar:> {} and eLearningCourse:> {}", tutorialLevelCalendar.getCalendarItemName(), eLearningCourse.getCourseName());
-        List<ELearningCourseActivity> eLearningCourseActivities = iTutorialLevelCalendarService.findAllCourseELearningActivities(tutorialLevelCalendar, eLearningCourse);
-        return eLearningCourseActivities;
+//        Assert.notNull(tutorialLevelCalendar, "tutorialLevelCalendar cannot be null");
+//        Assert.notNull(eLearningCourse, "eLearningCourse cannot be null");
+//        LOGGER.info("Finding all ELearningCourseActivity for tutorialLevelCalendar:> {} and eLearningCourse:> {}", tutorialLevelCalendar.getCalendarItemName(), eLearningCourse.getCourseName());
+//        List<ELearningCourseActivity> eLearningCourseActivities = iTutorialLevelCalendarService.findAllCourseELearningActivities(tutorialLevelCalendar, eLearningCourse);
+        return null;
     }
 
 }

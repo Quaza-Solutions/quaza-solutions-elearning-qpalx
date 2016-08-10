@@ -11,78 +11,30 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
+<!-- Include general header fragment panel for when a Student user is already logged in -->
+<div th:replace="fragments/header-loggedin :: header-loggedin"></div>
 
-<!-- Include general header -->
-<div th:replace="fragments/header-loggedin :: header-loggedin"/>
-
-<div class="container" style="margin-bottom: 10px;">
+<!-- Student User information panel -->
+<div class="container" style="margin-bottom: 20px;" th:if="${QPalXUserType} == 'STUDENT'">
     <div class="row">
         <div class="col-md-12">
-            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;
-            <span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot; <a th:href="@{/logout}">Sign Out</a>
-            <p th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
+            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;<span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot; <a th:href="@{/logout}">Sign Out</a>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <span class="small-text-2 below-name" data-toggle="tooltip" data-placement="bottom" title="SuccessID is your unique ID on QPalx" th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
+        </div>
+        <div class="col-md-8"></div>
     </div>
 </div>
 
-<!--<div class="container fixed-width gray-bgrnd" style="margin-bottom: 10px;">-->
 
-    <!--<div class="row">-->
-        <!--<div class="col-md-4 white" id="experience"><b class="medium-text">Experience Gained</b><br/><img-->
-                <!--src="images/graph-1.png"/></div>-->
-        <!--<div class="col-md-1" id="space"></div>-->
-        <!--<div class="col-md-7 white" id="overall">-->
-            <!--<b class="medium-text" style="margin-right: 200px;">Overall Performance</b>-->
-            <!--<button type="button" class="btn btn-default btn-xs time timely">Weekly</button>-->
-            <!--<button type="button" class="btn btn-default btn-xs time timely">Monthly</button>-->
-            <!--<button type="button" class="btn btn-success btn-xs time">Yearly</button>-->
-            <!--<br/><img style="margin-left: -20px;" src="images/graph-2.png"/></div>-->
-    <!--</div>-->
-
-<!--</div>-->
-
-<div class="clearfix"></div>
 <div class="container">
 
-    <!-- Include main QPalx Student navigation tab -->
+    <!-- Include main QPalx Student navigation panel -->
     <div th:replace="fragments/student-navigation :: student-main-navigation"/>
-
-
-    <!-- Start main Student navigation panel -->
-    <!--<div class="row" th:if="${CurriculumType} == 'CORE'">
-        <div class="col-md-3">
-            <b class="green">Core Courses</b>
-            <hr class="green-hr-1a" id="hr-1" />
-        </div>
-
-        <div class="col-md-3" style="margin-left: -80px; cursor: pointer;" onClick="document.location.href='/select-curriculum?curricumlumType=ELECTIVE'">
-            <b id="title-2">Elective Courses</b>
-            <hr class="black-hr-1a" id="hr-2" />
-        </div>
-
-        <div class="col-md-3" onClick="hrFunction3a()" style="margin-left: -80px; cursor: pointer;">
-            <b id="title-3">E-Books</b>
-            <hr class="black-hr-1a" id="hr-3" />
-        </div>
-    </div>
-
-    <div class="row" th:if="${CurriculumType} == 'ELECTIVE'">
-        <div class="col-md-3" style="cursor: pointer;" onClick="document.location.href='/select-curriculum?curricumlumType=CORE'">
-            <b>Core Courses</b>
-            <hr class="black-hr-1a" id="hr-1" />
-        </div>
-
-        <div class="col-md-3" style="margin-left: -80px;">
-            <b class="green">Elective Courses</b>
-            <hr class="green-hr-1a" id="hr-2" />
-        </div>
-
-        <div class="col-md-3" style="margin-left: -80px; cursor: pointer;">
-            <b>E-Books</b>
-            <hr class="black-hr-1a" id="hr-3" />
-        </div>
-    </div>-->
-    <!-- End main Student navigation panel -->
 
     <table border="0" style="width: 100%;">
 
