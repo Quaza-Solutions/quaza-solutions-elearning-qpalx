@@ -19,7 +19,7 @@
 <div th:replace="fragments/qpalx-user-info-panel :: general-account-info"/>
 
 <!-- Include Student User general Account information panel -->
-<div th:replace="fragments/admin-course-activity-panel :: admin-course-activity-panel"/>
+<div th:replace="fragments/admin-tutorialgrade-panel :: tutorialgrade-panel"/>
 
 
 <div class="clearfix"></div>
@@ -63,41 +63,40 @@
 
     <!-- Display the selected curriculum details -->
     <!--<div class="col-md-2 large-fonts">-->
-    <!--<b th:text="${SelectedELearningCurriculum.curriculumName}"></b><br/>-->
+        <!--<b th:text="${SelectedELearningCurriculum.curriculumName}"></b><br/>-->
     <!--</div>-->
 
-    <div class="row" th:each="ELearningCourseActivity,rowStat : ${ELearningCourseActivities}">
+    <div class="row" th:each="CurriculumELearningCourses,rowStat : ${CurriculumELearningCourses}">
 
         <div class="col-md-1 num" th:text="${rowStat.count}"></div>
 
         <div class="col-md-1"></div>
-        <div class="col-md-2 name" >
-             <a th:href="@{/view-course-activity(activityID=${ELearningCourseActivity.id})}"><b th:text="${ELearningCourseActivity.activityName}"></b></a>
-             <br/>
-             100% - A
+        <div class="col-md-2 name" style="margin-left: -80px; cursor: pointer;" >
+            <a th:href="@{/view-admin-course-activities(eLearningCourseID=${CurriculumELearningCourses.id})}"><b th:text="${CurriculumELearningCourses.courseName}"></b></a><br/>
+            100% - A
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-6"></div>
         <div class="col-md-1">
             <div class="default-btn-1"></div>
-            <button type="submit" value="0" class="btn btn-default btn-default-1 btn-sm">
-                Remove Course Activity
+            <button type="submit" value="0" class="btn btn-default btn-default-1 btn-sm" th:onClick="|document.location.href='/delete-elearning-course?eLearningCourseID=${CurriculumELearningCourses.id}&amp;curriculumID=${SelectedELearningCurriculum.id}'|">
+                Remove Course
             </button>
         </div>
     </div>
 
     <!--<div>-->
-    <!--<div>-->
-    <!--<div class="col-md-12">-->
-    <!--<hr/>-->
-    <!--<br/>-->
-    <!--<table width="100%" border="0">-->
-    <!--<tr th:each="CurriculumELearningCourses,rowStat : ${CurriculumELearningCourses}">-->
-    <!--<td class="cell-padded" th:inline="text"><a th:href="@{/qpalx-course-details(qCourseID=${CurriculumELearningCourses.id})}">[[${CurriculumELearningCourses.courseName}]]</a></td>-->
-    <!--</tr>-->
-    <!--</table>-->
-    <!--</div>-->
-    <!--</div>-->
+        <!--<div>-->
+            <!--<div class="col-md-12">-->
+                <!--<hr/>-->
+                <!--<br/>-->
+                <!--<table width="100%" border="0">-->
+                    <!--<tr th:each="CurriculumELearningCourses,rowStat : ${CurriculumELearningCourses}">-->
+                        <!--<td class="cell-padded" th:inline="text"><a th:href="@{/qpalx-course-details(qCourseID=${CurriculumELearningCourses.id})}">[[${CurriculumELearningCourses.courseName}]]</a></td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</div>-->
+        <!--</div>-->
     <!--</div>-->
 
 </div>

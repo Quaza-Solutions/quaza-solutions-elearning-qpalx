@@ -200,6 +200,10 @@ margin-top: 40px;
 .three-text-blue {
 	color: #358ed7;
 }
+
+.blue {
+	color: #358ed7;
+}
 .black {
 color: #000;	
 }
@@ -553,6 +557,9 @@ color: #000;
 .course {
 	margin: 40px 0 auto 0;
 }
+.curr {
+	margin: 30px 0 auto 0;
+}
 .course-2 {
 	position: relative;
 	top: 0;
@@ -620,7 +627,7 @@ height: 200px;
 	margin: 0 0 0 40px;
 }
 
-input[type='radio']:checked:after {
+.radio-btn:checked:after {
 	width: 30px;
 	height: 30px;
     border-radius: 50%;
@@ -1099,4 +1106,26 @@ margin: auto 0 auto -60px;
 	position: relative;
 	top: -70px;
 	right: -14px;
+}
+
+.subjects {
+	margin: 20px 0 0 20px;
+	width: 40px;
+}
+
+.subjects-2 {
+	margin: 30px 0 0 20px;
+	width: 40px;
+}
+
+.types {
+	margin: 40px 0 0 20px;
+	height: 40px;
+}
+.types-2 {
+	margin: 40px 0 0 20px;
+	width: 40px;
+}
+.ceiling {
+width: 470px;	
 }
