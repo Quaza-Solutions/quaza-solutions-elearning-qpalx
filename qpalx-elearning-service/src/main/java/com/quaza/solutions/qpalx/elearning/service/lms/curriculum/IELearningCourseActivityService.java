@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.IELearningCourseActivityVO;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ import java.util.List;
  */
 public interface IELearningCourseActivityService {
 
+
+    public ELearningCourseActivity buildNew(IELearningCourseActivityVO ieLearningCourseActivityVO);
 
     public ELearningCourseActivity findByID(Long id);
 

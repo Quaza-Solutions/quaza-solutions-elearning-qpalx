@@ -31,11 +31,14 @@ public class ELearningCurriculum {
     @Column(name="CurriculumDescription", nullable=false, length=255, unique=true)
     private String curriculumDescription;
 
-
     // The StudentTutorialGrade that this ELearning Curriculum has been designed for.
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "StudentTutorialGradeID", nullable = false)
     private StudentTutorialGrade studentTutorialGrade;
+
+    // Full path and file name of the media content
+    @Column(name="CurriculumIcon", nullable=false, length=255)
+    private String curriculumIcon;
 
     public ELearningCurriculum() {
     }
@@ -72,6 +75,14 @@ public class ELearningCurriculum {
         this.curriculumDescription = curriculumDescription;
     }
 
+    public String getCurriculumIcon() {
+        return curriculumIcon;
+    }
+
+    public void setCurriculumIcon(String curriculumIcon) {
+        this.curriculumIcon = curriculumIcon;
+    }
+
     public StudentTutorialGrade getStudentTutorialGrade() {
         return studentTutorialGrade;
     }
@@ -93,6 +104,7 @@ public class ELearningCurriculum {
                 .append(curriculumType, that.curriculumType)
                 .append(curriculumName, that.curriculumName)
                 .append(curriculumDescription, that.curriculumDescription)
+                .append(curriculumIcon, that.curriculumIcon)
                 .append(studentTutorialGrade, that.studentTutorialGrade)
                 .isEquals();
     }
@@ -115,6 +127,7 @@ public class ELearningCurriculum {
                 .append("curriculumType", curriculumType)
                 .append("curriculumName", curriculumName)
                 .append("curriculumDescription", curriculumDescription)
+                .append("curriculumIcon", curriculumIcon)
                 .append("studentTutorialGrade", studentTutorialGrade)
                 .toString();
     }
