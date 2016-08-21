@@ -23,7 +23,7 @@
 
     <br /><br />
 
-    <form th:action="@{/sign-up-type-select}" th:object="${SignUpSelectionWebVO}" method="post">
+    <form th:action="@{/sign-up-type-select}" th:object="${RegistrationSelectionWebVO}" method="post">
         <div class="row">
             <div class="col-sm-4">
             <input type="radio" id="check-box-1" value="Student" name="options" th:field="*{signUpType}" />

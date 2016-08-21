@@ -5,11 +5,7 @@
             <PatternLayout pattern="%d{MMM-dd-yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <File name="MAIN-APP-LOG-FILE" fileName="logs/application.log">
-            <PatternLayout>
-                <Pattern>%d{MMM-dd-yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
-            </PatternLayout>
-        </File>
+
     </Appenders>
     <Loggers>
         <Root level="INFO">

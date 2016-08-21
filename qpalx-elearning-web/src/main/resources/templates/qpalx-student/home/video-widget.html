@@ -6,24 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
-          integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
+<!-- Include general header fragment panel for when a Student user is already logged in -->
 <div th:replace="fragments/header-loggedin :: header-loggedin"/>
 
-<div class="container" style="margin-bottom: 10px;">
-    <div class="row">
-        <div class="col-md-12">
-            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;
-            <span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot;
-            <a href="/logout">Sign Out</a>
-            <p th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
-        </div>
-    </div>
-</div>
+<!-- Include Student User general Account information panel -->
+<div th:replace="fragments/qpalx-user-info-panel :: general-account-info"/>
+
+<!-- Include main QPalx Student navigation tab -->
+<div th:replace="fragments/student-navigation :: student-main-navigation"/>
 
 
 <div class="container large-fonts">
@@ -38,10 +33,11 @@
                 <br/>
                 <!-- <iframe width="970" height="546" src="https://www.youtube.com/embed/2LOUvMMjM_w" frameborder="0" allowfullscreen style="margin: 0 0 0 50px; text-align: center;"></iframe>-->
 
-                <video width="720" height="540" controls="controls">
-                    <source src="/videos/deformation-solids.mp4" type="video/mp4"/>
+                <!--<video width="720" height="540" controls="controls">
+                    <source src="videos/deformation-solids.mp4" type="video/mp4"/>
+                </video>-->
 
-                </video>
+                <object width="700" height="800" data="videos/testQuiz.swf"></object>
 
                 <p style="margin: 20px 50px 20px 50px;">Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
 

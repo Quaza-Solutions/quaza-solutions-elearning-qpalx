@@ -36,7 +36,6 @@ public class DefaultQPalXAuthenticationSuccessFailureHandler implements Authenti
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         QPalxUserTypeE qPalxUserTypeE = getQPalxUserTypeE(authentication);
-        System.out.println("\n\nExecuting success handler logic For qPalxUserTypeE: "+qPalxUserTypeE);
 
         String targetURL = "/";
 
@@ -66,7 +65,9 @@ public class DefaultQPalXAuthenticationSuccessFailureHandler implements Authenti
         Object principal = authentication.getPrincipal();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Optional<? extends GrantedAuthority> userAuthority = authorities.stream()
-                .filter((authority) -> authority.getAuthority().equals(QPalxUserTypeE.STUDENT.toString()) || authority.getAuthority().equals(QPalxUserTypeE.ADMINISTRATOR.toString()))
+                .filter((authority) -> authority.getAuthority().equals(QPalxUserTypeE.STUDENT.toString())
+                        || authority.getAuthority().equals(QPalxUserTypeE.CONTENT_DEVELOPER.toString())
+                        || authority.getAuthority().equals(QPalxUserTypeE.ADMINISTRATOR.toString()))
                 .findFirst();
 
         if(userAuthority.isPresent()) {

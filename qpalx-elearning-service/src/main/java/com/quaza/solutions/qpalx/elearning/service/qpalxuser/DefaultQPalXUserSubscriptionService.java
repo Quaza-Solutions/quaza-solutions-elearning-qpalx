@@ -213,8 +213,8 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
                 new AdaptiveProficiencyRankingVO("Mathematics", iqPalXUserVO.getCoreMathProficiencyLevel()),
                 new AdaptiveProficiencyRankingVO("Social Studies", iqPalXUserVO.getCoreSocialStudiesProficiencyLevel()),
                 new AdaptiveProficiencyRankingVO("Science", iqPalXUserVO.getCoreScienceProficiencyLevel()),
-                new AdaptiveProficiencyRankingVO("ICT", iqPalXUserVO.getCoreICTProficiencyLevel()),
-                new AdaptiveProficiencyRankingVO("Vocational Studies", iqPalXUserVO.getCoreVocationalStudiesProficiencyLevel())
+                new AdaptiveProficiencyRankingVO("ICT", iqPalXUserVO.getCoreICTProficiencyLevel())
+                //new AdaptiveProficiencyRankingVO("Vocational Studies", iqPalXUserVO.getCoreVocationalStudiesProficiencyLevel())
         );
 
         iAdaptiveProficiencyRankingService.buildInitialAdaptiveProficiencyRanking(qPalXUser, studentTutorialGrade, initialAdaptiveProficiencyRankingVOs);

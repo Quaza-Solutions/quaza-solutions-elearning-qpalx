@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.web.utils;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -19,6 +20,10 @@ public class FileUploadUtil implements IFileUploadUtil {
 
 
     public static final String IMAGES_UPLOAD_DIRECTORY = "/Users/manyce400/QuazaSolutions/quaza-solutions-elearning-qpalx/qpalx-elearning-web/src/main/resources/static/img/students/";
+
+    public static final String ELEARNING_VIDEOS_UPLOAD_DIRECTORY = "elearning-content/videos";
+
+    public static final String QUIZZES_VIDEOS_UPLOAD_DIRECTORY = "elearning-content/quizzes";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(FileUploadUtil.class);
 
@@ -56,6 +61,16 @@ public class FileUploadUtil implements IFileUploadUtil {
             LOGGER.warn("Mulitpart imageFile provided was empty, cannot upload file");
             return null;
         }
+    }
+
+    @Override
+    public ELearningMediaContent uploadELearningMediaContent(MultipartFile multipartFile) {
+        Assert.notNull(multipartFile, "multipartFile cannot be null");
+        String fileName = multipartFile.getOriginalFilename();
+
+        LOGGER.info("Uploading Elearning media content file:> {}", fileName);
+
+        return null;
     }
 
     private boolean isResizeableToNewDimensions(BufferedImage bufferedImage, int targetHeight, int targetWidth) {

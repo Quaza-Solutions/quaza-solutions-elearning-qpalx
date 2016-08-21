@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+    <!-- Populate all Geographical Regions -->
+    <GeographicalRegion RegionCode="NAM" RegionName="North America" />
+    <GeographicalRegion RegionCode="WAF" RegionName="West Africa" />
+    <GeographicalRegion RegionCode="WEUR" RegionName="Western Europe" />
+    <GeographicalRegion RegionCode="EEUR" RegionName="Eastern Europe" />
+    <GeographicalRegion RegionCode="NEUR" RegionName="Northern Europe" />
+
+    <!-- Populate all QPalX Countries -->
+    <QPalXCountry CountryCode="US" CountryName="United States of America" CountryCurrency="USD" GeographicalRegionID="1" />
+    <QPalXCountry CountryCode="GH" CountryName="Ghana" CountryCurrency="GH Cedis" GeographicalRegionID="2" />
+
+    <!-- Populate SocialNetworks -->
+    <SocialNetwork SocialNetworkName="Facebook" SocialNetworkDesc="Social Networking" WebSiteAddress="www.facebook.com" />
+
+    <!-- Populate Subscription data -->
+    <QPalXSubscription SubscriptionName="Monthly Plan" SubscriptionCost="2" SubscriptionType="MONTHLY" SubscriptionQPalXCountryID="2" />
+    <QPalXSubscription SubscriptionName="Quarterly Plan" SubscriptionCost="3" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" />
+    <QPalXSubscription SubscriptionName="Yearly Plan" SubscriptionCost="5" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" />
+
+    <!-- Populate Educational institutions  data -->
+    <QPalXEducationalInstitution Code="ACC" Name="Accra Academy"  />
+    <QPalXEducationalInstitution Code="DEY" Name="De Youngsters" />
+    <QPalXEducationalInstitution Code="GIS" Name="Ghana International School" />
+
+    <!-- Populate QPalX Municipality data -->
+    <QPalXMunicipality Code="ACC" Name="Greater Accra Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="ASH" Name="Ashanti Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="BAR" Name="Brong Ahafo Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="CER" Name="Central Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="EAR" Name="Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="WER" Name="Western Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="UER" Name="Upper Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="UWR" Name="Upper West Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="VTR" Name="Volta Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality Code="NOR" Name="Northern Region" TimeZone="UTC" QPalXCountryID="2" />
+
+
+    <!-- Populate StudentTutorialLevel data for GeographicalRegion WAF -->
+    <StudentTutorialLevel ID="1" TutorialLevel="Elementary School"  TutorialLevelDescription="Elementary Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="2" TutorialLevel="Middle School"      TutorialLevelDescription="Middle School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="3" TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="4" TutorialLevel="Senior High School" TutorialLevelDescription="Senior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="5" TutorialLevel="College" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+
+    <!--  Populate StudentTutorialGrade For Senior High School -->
+    <StudentTutorialGrade ID="1" TutorialGrade="SHS1" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade ID="2" TutorialGrade="SHS2" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade ID="3" TutorialGrade="SHS3" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
+
+
+    <!--  Populate TutorialLevelCalendar For Senior High School -->
+    <TutorialLevelCalendar ID="1" CalendarItemName="First Term"  CalendarItemDescripiton="WAEC SHS First Term" CalendarItemStartMonth="August" CalendarItemEndMonth="September" CalendarItemOrder="1" StudentTutorialLevelID="4" />
+    <TutorialLevelCalendar ID="2" CalendarItemName="Second Term" CalendarItemDescripiton="WAEC SHS SecondTerm Term" CalendarItemStartMonth="October" CalendarItemEndMonth="November" CalendarItemOrder="2" StudentTutorialLevelID="4" />
+    <TutorialLevelCalendar ID="3" CalendarItemName="Third Term"  CalendarItemDescripiton="WAEC SHS Third Term" CalendarItemStartMonth="December" CalendarItemEndMonth="February" CalendarItemOrder="3" StudentTutorialLevelID="4" />
+
+
+
+
+    <!-- Create dummy Content Developer QPalxUser with StudentTutorialLevel SHS -->
+    <QPalXUser ID="1" FirstName="Justice" LastName="Wrappah" Email="JWrappah@quazasolutions.com" Password="qpalx" UserType="CONTENT_DEVELOPER" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <ContentAdminProfileRecord QPalxUserID="1" StudentTutorialLevelID="4" Enabled="1" EffectiveDate="2016-07-28"/>
+
+</dataset>

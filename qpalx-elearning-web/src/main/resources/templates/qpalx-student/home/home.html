@@ -11,62 +11,30 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-<div th:replace="fragments/header-loggedin :: header-loggedin"/>
+<!-- Include general header fragment panel for when a Student user is already logged in -->
+<div th:replace="fragments/header-loggedin :: header-loggedin"></div>
 
-<div class="container" style="margin-bottom: 10px;">
+<!-- Student User information panel -->
+<div class="container" style="margin-bottom: 20px;" th:if="${QPalXUserType} == 'STUDENT'">
     <div class="row">
         <div class="col-md-12">
-            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;
-            <span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot; <a href="/logout">Sign Out</a>
-            <p th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
+            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;<span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot; <a th:href="@{/logout}">Sign Out</a>
         </div>
     </div>
-</div>
-
-<!--<div class="container fixed-width gray-bgrnd" style="margin-bottom: 10px;">-->
-
-    <!--<div class="row">-->
-        <!--<div class="col-md-4 white" id="experience"><b class="medium-text">Experience Gained</b><br/><img-->
-                <!--src="images/graph-1.png"/></div>-->
-        <!--<div class="col-md-1" id="space"></div>-->
-        <!--<div class="col-md-7 white" id="overall">-->
-            <!--<b class="medium-text" style="margin-right: 200px;">Overall Performance</b>-->
-            <!--<button type="button" class="btn btn-default btn-xs time timely">Weekly</button>-->
-            <!--<button type="button" class="btn btn-default btn-xs time timely">Monthly</button>-->
-            <!--<button type="button" class="btn btn-success btn-xs time">Yearly</button>-->
-            <!--<br/><img style="margin-left: -20px;" src="images/graph-2.png"/></div>-->
-    <!--</div>-->
-
-<!--</div>-->
-<div class="container" style="margin-top: 10px; margin-bottom: 0px;">
-
-    <!-- Logic to link the CORE or ELECTIVE curriculum based on which one is currently selected -->
-    <div class="row" th:if="${CurriculumType} == 'CORE'">
-        <div class="col-md-2">
-            <b>Core</b>
-        </div>
-        <div class="col-md-2">
-            <b><a th:href="@{/select-curriculum(curricumlumType=ELECTIVE)}">Elective</a></b>
-        </div>
-    </div>
-
-    <div class="row" th:if="${CurriculumType} == 'ELECTIVE'">
-        <div class="col-md-2">
-            <b><a th:href="@{/select-curriculum(curricumlumType=CORE)}">Core</a></b>
-        </div>
-        <div class="col-md-2">
-            <b>Elective</b>
-        </div>
-    </div>
-
     <div class="row">
-        <br/>
-        <div class="col-md-1" style="width: 120px; border-bottom: 2px solid #7dc855;"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <span class="small-text-2 below-name" data-toggle="tooltip" data-placement="bottom" title="SuccessID is your unique ID on QPalx" th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
+        </div>
+        <div class="col-md-8"></div>
     </div>
 </div>
 
-<div class="clearfix"></div>
-<div class="container" style="margin-top: 10px; margin-bottom: 0px;">
+
+<div class="container">
+
+    <!-- Include main QPalx Student navigation panel -->
+    <div th:replace="fragments/student-navigation :: student-main-navigation"/>
 
     <table border="0" style="width: 100%;">
 
@@ -86,7 +54,9 @@
 </div>
 <div class="clearfix bottom-space"></div>
 
+<!-- Include general footer -->
 <div th:replace="fragments/footer :: footer"/>
+
 <!-- jQuery first, then Bootstrap JS. -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>

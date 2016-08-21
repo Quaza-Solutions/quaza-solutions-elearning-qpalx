@@ -5,13 +5,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 /**
  * @author manyce400
  */
-public class SignUpSelectionWebVO {
+public class RegistrationSelectionWebVO {
 
 
     // Selected type of user sign-up.
     private String signUpType;
 
-    public SignUpSelectionWebVO() {
+    public RegistrationSelectionWebVO() {
 
     }
 
@@ -19,8 +19,8 @@ public class SignUpSelectionWebVO {
         return signUpType;
     }
 
-    public SignUpTypeE getAsSignUpTypeE() {
-        return SignUpTypeE.getSignUpTypeE(signUpType);
+    public RegistrationTypeE getAsSignUpTypeE() {
+        return RegistrationTypeE.getSignUpTypeE(signUpType);
     }
 
     public void setSignUpType(String signUpType) {

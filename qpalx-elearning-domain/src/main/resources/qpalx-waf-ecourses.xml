@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+    <!--
+        ===========================  Start ELearning Curriculum section  =======================================
+    -->
+
+    <!-- Populate CORE ELearningCurriculum data for SHS1 in West Africa -->
+    <ELearningCurriculum ID="1" CurriculumName="Mathematics" CurriculumDescription="Mathematics Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/core/Math.png" />
+    <ELearningCurriculum ID="2" CurriculumName="English" CurriculumDescription="English Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/core/English.png" />
+    <ELearningCurriculum ID="3" CurriculumName="Science" CurriculumDescription="Sciences Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/core/Science.png" />
+    <ELearningCurriculum ID="4" CurriculumName="Social Studies" CurriculumDescription="Social Studies Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/core/SocialStudies.png" />
+    <ELearningCurriculum ID="5" CurriculumName="ICT" CurriculumDescription="ICT Core SHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/core/Technology.png" />
+
+    <!-- Populate CORE ELearningCurriculum data for SHS2 in West Africa -->
+    <ELearningCurriculum ID="6" CurriculumName="Mathematics" CurriculumDescription="Mathematics Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/core/Math.png" />
+    <ELearningCurriculum ID="7" CurriculumName="English" CurriculumDescription="English Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/core/English.png" />
+    <ELearningCurriculum ID="8" CurriculumName="Science" CurriculumDescription="Sciences Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/core/Science.png" />
+    <ELearningCurriculum ID="9" CurriculumName="Social Studies" CurriculumDescription="Social Studies Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/core/SocialStudies.png" />
+    <ELearningCurriculum ID="10" CurriculumName="ICT" CurriculumDescription="ICT Core SHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/core/Technology.png" />
+
+    <!-- Populate CORE ELearningCurriculum data for SHS3 in West Africa -->
+    <ELearningCurriculum ID="11" CurriculumName="Mathematics" CurriculumDescription="Mathematics Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/core/Math.png" />
+    <ELearningCurriculum ID="12" CurriculumName="English" CurriculumDescription="English Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/core/English.png" />
+    <ELearningCurriculum ID="13" CurriculumName="Science" CurriculumDescription="Sciences Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/core/Science.png" />
+    <ELearningCurriculum ID="14" CurriculumName="Social Studies" CurriculumDescription="Social Studies Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/core/SocialStudies.png" />
+    <ELearningCurriculum ID="15" CurriculumName="ICT" CurriculumDescription="ICT Core SHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/core/Technology.png" />
+
+
+
+
+    <!-- Populate ELECTIVE ELearningCurriculum data for SHS1 in West Africa -->
+    <ELearningCurriculum ID="16" CurriculumName="Sciences" CurriculumDescription="Sciences Elective SHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/electives/Science.png" />
+    <ELearningCurriculum ID="17" CurriculumName="Business" CurriculumDescription="Business Elective SHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/electives/Business.png" />
+    <ELearningCurriculum ID="18" CurriculumName="General Arts" CurriculumDescription="General Arts Elective SHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/electives/GeneralArts.png" />
+    <ELearningCurriculum ID="19" CurriculumName="Economics" CurriculumDescription="Economics Elective SHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/electives/Business.png" />
+    <ELearningCurriculum ID="20" CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective SHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/electives/HomeEconomics.png" />
+    <ELearningCurriculum ID="21" CurriculumName="Technical" CurriculumDescription="Technical Elective SHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="1" CurriculumIcon="images/subjects/electives/Technical.png" />
+
+    <!-- Populate ELECTIVE ELearningCurriculum data for SHS2 in West Africa -->
+    <ELearningCurriculum ID="22" CurriculumName="Sciences" CurriculumDescription="Sciences Elective SHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/electives/Science.png" />
+    <ELearningCurriculum ID="23" CurriculumName="Business" CurriculumDescription="Business Elective SHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/electives/Business.png" />
+    <ELearningCurriculum ID="24" CurriculumName="General Arts" CurriculumDescription="General Arts Elective SHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/electives/GeneralArts.png" />
+    <ELearningCurriculum ID="25" CurriculumName="Economics" CurriculumDescription="Economics Elective SHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/electives/Business.png" />
+    <ELearningCurriculum ID="26" CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective SHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/electives/HomeEconomics.png" />
+    <ELearningCurriculum ID="27" CurriculumName="Technical" CurriculumDescription="Technical Elective SHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="2" CurriculumIcon="images/subjects/electives/Technical.png" />
+
+    <!-- Populate ELECTIVE ELearningCurriculum data for SHS3 in West Africa -->
+    <ELearningCurriculum ID="28" CurriculumName="Sciences" CurriculumDescription="Sciences Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/electives/Science.png" />
+    <ELearningCurriculum ID="29" CurriculumName="Business" CurriculumDescription="Business Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/electives/Business.png" />
+    <ELearningCurriculum ID="30" CurriculumName="General Arts" CurriculumDescription="General Arts Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/electives/GeneralArts.png" />
+    <ELearningCurriculum ID="31" CurriculumName="Economics" CurriculumDescription="Economics Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/electives/Business.png" />
+    <ELearningCurriculum ID="32" CurriculumName="Vocational Studies" CurriculumDescription="Vocational Studies Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/electives/HomeEconomics.png" />
+    <ELearningCurriculum ID="33" CurriculumName="Technical" CurriculumDescription="Technical Elective SHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="3" CurriculumIcon="images/subjects/electives/Technical.png" />
+
+
+
+
+    <!--
+        ===========================  Start ELearning CORE Physics Courses section  =======================================
+    -->
+    <!-- Core SHS1 Science Curriculum courses for West Africa -->
+    <ELearningCourse ID="1" CourseName="Physics" CourseDescription="CORE Physics SHS1" ELearningCurriculumID="3" CourseActive="1"  />
+    <ELearningCourse ID="2" CourseName="Chemistry" CourseDescription="CORE Chemistry SHS1" ELearningCurriculumID="3" CourseActive="1"  />
+    <ELearningCourse ID="3" CourseName="Biology" CourseDescription="CORE Biology SHS1" ELearningCurriculumID="3" CourseActive="1"  />
+    <ELearningCourse ID="4" CourseName="Agricultural Science" CourseDescription="CORE Agricultural Science SHS1" ELearningCurriculumID="3" CourseActive="1"  />
+
+    <!-- Core SHS2 Science Curriculum courses for West Africa -->
+    <ELearningCourse ID="5" CourseName="Physics" CourseDescription="CORE Physics SHS2" ELearningCurriculumID="8" CourseActive="1"  />
+    <ELearningCourse ID="6" CourseName="Chemistry" CourseDescription="CORE Chemistry SHS2" ELearningCurriculumID="8" CourseActive="1"  />
+    <ELearningCourse ID="7" CourseName="Biology" CourseDescription="CORE Biology SHS2" ELearningCurriculumID="8" CourseActive="1"  />
+    <ELearningCourse ID="8" CourseName="Agricultural Science" CourseDescription="CORE Agricultural Science SHS2" ELearningCurriculumID="8" CourseActive="1"  />
+
+    <!-- Core SHS3 Science Curriculum courses for West Africa -->
+    <ELearningCourse ID="9" CourseName="Physics" CourseDescription="CORE Physics SHS2" ELearningCurriculumID="13" CourseActive="1"  />
+    <ELearningCourse ID="10" CourseName="Chemistry" CourseDescription="CORE Chemistry SHS2" ELearningCurriculumID="13" CourseActive="1"  />
+    <ELearningCourse ID="11" CourseName="Biology" CourseDescription="CORE Biology SHS2" ELearningCurriculumID="13" CourseActive="1"  />
+    <ELearningCourse ID="12" CourseName="Agricultural Science" CourseDescription="CORE Agricultural Science SHS2" ELearningCurriculumID="13" CourseActive="1"  />
+
+
+
+    <!--
+        ======================  Start of CORE Physics ELearning Course Activity section  ================================
+    -->
+    <!-- CORE SHS1 Physics course activities First Term -->
+    <ELearningCourseActivity ActivityName="Introduction to Physics" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Physical Quantities" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Temperature and its measurement" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Models Of The Atomic Structure" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="1"  />
+
+
+    <!-- CORE SHS1 Physics course activities Second Term -->
+    <ELearningCourseActivity ActivityName="Forces" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Pressure" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Reflection of light" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Kinematics" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Electronic P-N junction diode" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="2"  />
+
+    <!-- CORE SHS1 Physics course activities Third Term -->
+    <ELearningCourseActivity ActivityName="Refraction of light" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="3"  />
+    <ELearningCourseActivity ActivityName="Basic fiber optics" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="3"  />
+    <ELearningCourseActivity ActivityName="Electrostatics" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="3"  />
+    <ELearningCourseActivity ActivityName="Capacitors" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="3"  />
+    <ELearningCourseActivity ActivityName="Dynamics" ActivityDescription="CORE Physics SHS1" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="1" ActivityActive="1" TutorialLevelCalendarID="3"  />
+
+
+
+    <!-- CORE SHS2 Physics course activities First Term -->
+    <ELearningCourseActivity ActivityName="The concept of matter" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Energy, work and power" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Circular motion and gravitation 1" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Circular motion and gravitation 2" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Oscillatory motion" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Thermal properties of matter 1" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="thermal properties of matter 2" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="1"  />
+
+    <!-- CORE SHS2 Physics course activities Second Term -->
+    <ELearningCourseActivity ActivityName="Optical instruments 1" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Optical instruments 2" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Wave motion 1" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Wave motion 2" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Sound 1" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Sound 2" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Direct current circuit analysis 1" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Direct current circuit analysis 2" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Magnets" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="2"  />
+
+    <!-- CORE SHS2 Physics course activities Third Term -->
+    <ELearningCourseActivity ActivityName="Electromagetism" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="3"  />
+    <ELearningCourseActivity ActivityName="Photoelectric Effect" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="3"  />
+    <ELearningCourseActivity ActivityName="Thermionic emission, Cathode Rays and X Rays" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="3"  />
+    <ELearningCourseActivity ActivityName="Dipolar junction transistor" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="5" ActivityActive="1" TutorialLevelCalendarID="3"  />
+
+
+
+
+    <!-- CORE SHS3 Physics course activities First Term -->
+    <ELearningCourseActivity ActivityName="Some properties of matter" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="9" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Deformation of solids" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="9" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Heat transfer" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="9" ActivityActive="1" TutorialLevelCalendarID="1"  />
+    <ELearningCourseActivity ActivityName="Introduction to lasers" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="9" ActivityActive="1" TutorialLevelCalendarID="1"  />
+
+    <!-- CORE SHS3 Physics course activities Second Term -->
+    <ELearningCourseActivity ActivityName="Electromagentic induction" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="9" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Alternating current theory" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="9" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="The nucleus and nuclear energy" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="9" ActivityActive="1" TutorialLevelCalendarID="2"  />
+    <ELearningCourseActivity ActivityName="Digital electronics and integrated circuit" ActivityDescription="CORE Physics SHS2" LearningActivity="Video" ELearningMediaType="mp4" ELearningMediaFile="videos/" ProficiencyRankingScaleFloor="ONE" ProficiencyRankingScaleCeiling="TWO" ELearningCourseID="9" ActivityActive="1" TutorialLevelCalendarID="2"  />
+
+
+</dataset>

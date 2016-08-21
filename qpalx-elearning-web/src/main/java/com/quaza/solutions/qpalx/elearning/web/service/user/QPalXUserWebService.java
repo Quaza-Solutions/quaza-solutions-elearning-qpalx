@@ -45,6 +45,12 @@ public class QPalXUserWebService implements IQPalXUserWebService {
     }
 
     @Override
+    public void addQPalXUserInfoDetailsToWebModel(Model model, QPalXUser qPalXUser) {
+        LOGGER.debug("Adding logged in user details for user: {}", qPalXUser.getEmail());
+        model.addAttribute("LoggedInQPalXUser", qPalXUser);
+    }
+
+    @Override
     public void addQPalXUserAccesibleCurriculum(Model model, QPalXUser qPalXUser) {
         Assert.notNull(qPalXUser, "qPalxUser cannot be null");
 
@@ -62,6 +68,6 @@ public class QPalXUserWebService implements IQPalXUserWebService {
 
     private void addContentDeveloperAccessibleCurricula(Model model, QPalXUser qPalXUser) {
         LOGGER.info("Adding accesible elearning curricula for Content Developer user: {}", qPalXUser.getEmail());
-        //List<ELearningCurriculum> eLearningCurricula =iStudentCurriculumService.findAllCoreELearningCurriculum();
+//        List<ELearningCurriculum> eLearningCurricula = iStudentCurriculumService.findAllCoreELearningCurriculum();
     }
 }
