@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author manyce400
  */
 @Service("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
-public class QPalXUserInfoPanelService implements IQPalxDisplayPanelService {
+public class QPalXUserInfoPanelService implements IQPalXUserInfoPanelService {
 
 
 
@@ -26,7 +26,7 @@ public class QPalXUserInfoPanelService implements IQPalxDisplayPanelService {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXUserInfoPanelService.class);
 
     @Override
-    public void addDisplayPanelAttributes(Model model) {
+    public void addUserInfoAttributes(Model model) {
         Assert.notNull(model, "model cannot be null");
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
 
@@ -39,8 +39,4 @@ public class QPalXUserInfoPanelService implements IQPalxDisplayPanelService {
         }
     }
 
-    @Override
-    public void addDisplayPanelAttributes(Model model, Object panelArgs) {
-
-    }
 }

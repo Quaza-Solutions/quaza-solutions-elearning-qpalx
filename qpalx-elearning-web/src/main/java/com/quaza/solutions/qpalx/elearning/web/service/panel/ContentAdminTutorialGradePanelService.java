@@ -1,12 +1,13 @@
 package com.quaza.solutions.qpalx.elearning.web.service.panel;
 
+import com.google.common.collect.ImmutableMap;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
 import com.quaza.solutions.qpalx.elearning.web.service.enums.AdminTutorialGradePanelE;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.quaza.solutions.qpalx.elearning.web.utils.IWebAttributesUtil;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,14 +18,17 @@ import org.springframework.util.Assert;
 import java.util.Optional;
 
 /**
- * Implementation of IQPalxDisplayPanelService which creates attributes for Admin tutorial panel.
+ * Implementation of IContentAdminTutorialGradePanelService which creates attributes for Admin tutorial panel.
  *
  * @author manyce400
  */
 @Service("quaza.solutions.qpalx.elearning.web.ContentAdminTutorialGradePanelService")
-public class ContentAdminTutorialGradePanelService implements IQPalxDisplayPanelService<ContentAdminTutorialGradePanelService.PanelDisplayAttributes> {
+public class ContentAdminTutorialGradePanelService implements IContentAdminTutorialGradePanelService {
 
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.web.WebAttributesUtil")
+    private IWebAttributesUtil iWebAttributesUtil;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserWebService")
@@ -36,67 +40,27 @@ public class ContentAdminTutorialGradePanelService implements IQPalxDisplayPanel
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ContentAdminTutorialGradePanelService.class);
 
-    @Override
-    public void addDisplayPanelAttributes(Model model) {
-        throw new UnsupportedOperationException("Content admin tutorial panel requires display attributes");
-    }
+
+
 
     @Override
-    public void addDisplayPanelAttributes(Model model, PanelDisplayAttributes panelDisplayAttributes) {
+    public void addDisplayPanelAttributes(Model model, Boolean addCoursesEnabled, Boolean addCourseActivitiesEnabled, String studentTutorialGradeID, String curriculumType) {
         Assert.notNull(model, "model cannot be null");
-        Assert.notNull(panelDisplayAttributes, "panelDisplayAttributes cannot be null");
+        Assert.notNull(addCoursesEnabled, "addCoursesEnabled cannot be null");
+        Assert.notNull(addCourseActivitiesEnabled, "addCourseActivitiesEnabled cannot be null");
+        Assert.notNull(studentTutorialGradeID, "studentTutorialGradeID cannot be null");
+        Assert.notNull(curriculumType, "curriculumType cannot be null");
+
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
 
         if(optionalUser.isPresent()) {
-            LOGGER.info("Adding ContentAdmin tutorial grade panel attributes for user:> {} with panelDisplayAttributes: {}", optionalUser.get().getEmail(), panelDisplayAttributes);
-            String addCoursesEnabled = panelDisplayAttributes.isAddCoursesEnabled().toString();
-            CurriculumType curriculumTypeE = CurriculumType.valueOf(panelDisplayAttributes.getCurriculumType());
-            StudentTutorialGrade studentTutorialGrade = iqPalXTutorialService.findTutorialGradeByID(NumberUtils.toLong(panelDisplayAttributes.getTutorialGradeID()));
-            model.addAttribute(AdminTutorialGradePanelE.AddCoursesEnabled.toString(), addCoursesEnabled);
-            model.addAttribute(AdminTutorialGradePanelE.CurriculumType.toString(), curriculumTypeE.toString());
-            model.addAttribute(AdminTutorialGradePanelE.StudentTutorialGrade.toString(), studentTutorialGrade.getTutorialGrade());
+            LOGGER.debug("Adding all attributes required for admin tutorial grade panel for user:> {}", optionalUser.get().getEmail());
+            CurriculumType curriculumTypeE = CurriculumType.valueOf(curriculumType);
+            StudentTutorialGrade studentTutorialGrade = iqPalXTutorialService.findTutorialGradeByID(NumberUtils.toLong(studentTutorialGradeID));
+            ImmutableMap<String, Object> attributes = AdminTutorialGradePanelE.buildAttributes(addCoursesEnabled, addCourseActivitiesEnabled, studentTutorialGrade, curriculumType.toString());
+            iWebAttributesUtil.addWebAttributes(model, attributes);
         }
+
     }
 
-    public static class PanelDisplayAttributes {
-
-        private Boolean addCoursesEnabled = false;
-        private final String tutorialGradeID;
-        private final String curriculumType;
-
-        public PanelDisplayAttributes(boolean addCoursesEnabled, String tutorialGradeID, String curriculumType) {
-            this.addCoursesEnabled = addCoursesEnabled;
-            this.tutorialGradeID = tutorialGradeID;
-            this.curriculumType = curriculumType;
-        }
-
-        public Boolean isAddCoursesEnabled() {
-            return addCoursesEnabled;
-        }
-
-        public String getTutorialGradeID() {
-            return tutorialGradeID;
-        }
-
-        public String getCurriculumType() {
-            return curriculumType;
-        }
-
-        @Override
-        public String toString() {
-            return new ToStringBuilder(this)
-                    .append("addCoursesEnabled", addCoursesEnabled)
-                    .append("tutorialGradeID", tutorialGradeID)
-                    .append("curriculumType", curriculumType)
-                    .toString();
-        }
-    }
-
-
-    public PanelDisplayAttributes getPanelDisplayAttributes(Boolean addCoursesEnabled, String tutorialGradeID, String curriculumType) {
-        Assert.notNull(addCoursesEnabled, "addCoursesEnabled cannot be null");
-        Assert.notNull(tutorialGradeID, "tutorialGradeID cannot be null");
-        Assert.notNull(curriculumType, "curriculumType  cannot be null");
-        return new PanelDisplayAttributes(addCoursesEnabled, tutorialGradeID, curriculumType);
-    }
 }

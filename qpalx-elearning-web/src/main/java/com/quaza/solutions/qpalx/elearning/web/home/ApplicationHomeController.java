@@ -8,7 +8,7 @@ import com.quaza.solutions.qpalx.elearning.service.geographical.IGeographicalDat
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IStudentCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
-import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalxDisplayPanelService;
+import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IContentAdminWebService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class ApplicationHomeController {
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
-    private IQPalxDisplayPanelService qPalXUserInfoPanelService;
+    private IQPalXUserInfoPanelService qPalXUserInfoPanelService;
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -79,7 +79,8 @@ public class ApplicationHomeController {
 
             if (QPalxUserTypeE.STUDENT == optionalUser.get().getUserType()) {
                 // Add all attributes required for User information panel
-                qPalXUserInfoPanelService.addDisplayPanelAttributes(model);
+                qPalXUserInfoPanelService.addUserInfoAttributes(model);
+
                 addQPalXUserDetailsToResponse(model, CurriculumType.CORE, optionalUser.get());
                 return ContentRootE.Student_Home.getContentRootPagePath("home");
             } else if(QPalxUserTypeE.CONTENT_DEVELOPER == optionalUser.get().getUserType()) {
@@ -107,7 +108,7 @@ public class ApplicationHomeController {
 
             if (QPalxUserTypeE.STUDENT == optionalUser.get().getUserType()) {
                 // Add all attributes required for User information panel
-                qPalXUserInfoPanelService.addDisplayPanelAttributes(model);
+                qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
                 addQPalXUserDetailsToResponse(model, curriculumType, optionalUser.get());
                 return ContentRootE.Student_Home.getContentRootPagePath("home");
