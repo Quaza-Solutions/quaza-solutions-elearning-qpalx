@@ -111,31 +111,6 @@ public class StudentCurriculaAdminController {
         return ContentRootE.Content_Admin_Home.getContentRootPagePath("home");
     }
 
-    @RequestMapping(value = "/view-admin-curricula-by-type", method = RequestMethod.GET)
-    public String viewAdminCurriculaByType(final Model model, @RequestParam("curricumlumType") String curricumlumType) {
-        LOGGER.info("Administrator curricula view by curricumlumType:> {} requested", curricumlumType);
-        CurriculumType curriculumType = CurriculumType.valueOf(curricumlumType);
-        Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
-
-        if(optionalUser.isPresent() && curriculumType != null) {
-            LOGGER.info("Current user logged in with email:> {}", optionalUser.get().getEmail());
-
-            if (QPalxUserTypeE.STUDENT == optionalUser.get().getUserType()) {
-                // Add all attributes required for User information panel
-                qPalXUserInfoPanelService.addUserInfoAttributes(model);
-
-//                addQPalXUserDetailsToResponse(model, curriculumType, optionalUser.get());
-                return ContentRootE.Student_Home.getContentRootPagePath("home");
-            }
-
-            LOGGER.info("Only Student QPalX users currently supported");
-            return ContentRootE.Home.getContentRootPagePath("launch");
-        } else {
-            LOGGER.info("Valid logged in QPalxUser session not found, redirecting to main home page.");
-            return ContentRootE.Home.getContentRootPagePath("launch");
-        }
-    }
-
 
     @RequestMapping(value = "/view-admin-curriculum-courses", method = RequestMethod.GET)
     public String displayAllCurriculumCourses(final Model model, @RequestParam("curriculumID") String curriculumID) {
@@ -173,7 +148,7 @@ public class StudentCurriculaAdminController {
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
         // Add all attributes required for content admin tutorial panel
-        contentAdminTutorialGradePanelService.addDisplayPanelAttributes(model, Boolean.FALSE, Boolean.FALSE, studentTutorialGradeID, curriculumType);
+        contentAdminTutorialGradePanelService.addDisplayPanelAttributes(model, Boolean.FALSE, Boolean.TRUE, studentTutorialGradeID, curriculumType);
 
         // find all the ELearning activities for this course
         List<ELearningCourseActivity> eLearningCourseActivities = ieLearningCourseActivityService.findELearningCourseAcitivitiesByCourse(eLearningCourse);
