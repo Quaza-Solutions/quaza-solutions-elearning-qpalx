@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -75,6 +76,13 @@ public class StudentCurriculaController {
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
         return ContentRootE.Student_Home.getContentRootPagePath("video-widget");
+    }
+
+    @RequestMapping(value = "/testQuiz", method = RequestMethod.POST)
+    public void testSubmit(Model model, @RequestParam("name") String fileName, @RequestParam("file") MultipartFile imageFile){
+        System.out.println("Ping: "+imageFile);
+//        String imageUploadedFile = iFileUploadUtil.uploadTestScores(imageFile);
+//        System.out.println("imageUploadedFile = " + imageUploadedFile);
     }
 
 

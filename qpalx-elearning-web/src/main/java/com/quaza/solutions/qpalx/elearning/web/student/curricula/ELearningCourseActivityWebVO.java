@@ -17,9 +17,9 @@ public class ELearningCourseActivityWebVO implements IELearningCourseActivityVO 
 
     public String activityFile;
 
-    private Integer proficiencyRankingScaleFloor;
+    private String proficiencyRankingScaleFloor;
 
-    private Integer proficiencyRankingScaleCeiling;
+    private String proficiencyRankingScaleCeiling;
 
     private Long eLearningCourseID;
 
@@ -63,20 +63,20 @@ public class ELearningCourseActivityWebVO implements IELearningCourseActivityVO 
     }
 
     @Override
-    public Integer getProficiencyRankingScaleFloor() {
+    public String getProficiencyRankingScaleFloor() {
         return proficiencyRankingScaleFloor;
     }
 
-    public void setProficiencyRankingScaleFloor(Integer proficiencyRankingScaleFloor) {
+    public void setProficiencyRankingScaleFloor(String proficiencyRankingScaleFloor) {
         this.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
     }
 
     @Override
-    public Integer getProficiencyRankingScaleCeiling() {
+    public String getProficiencyRankingScaleCeiling() {
         return proficiencyRankingScaleCeiling;
     }
 
-    public void setProficiencyRankingScaleCeiling(Integer proficiencyRankingScaleCeiling) {
+    public void setProficiencyRankingScaleCeiling(String proficiencyRankingScaleCeiling) {
         this.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
     }
 

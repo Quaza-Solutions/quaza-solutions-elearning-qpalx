@@ -14,9 +14,9 @@ public interface IELearningCourseActivityVO {
 
     public String getActivityFile();
 
-    public Integer getProficiencyRankingScaleFloor();
+    public String getProficiencyRankingScaleFloor();
 
-    public Integer getProficiencyRankingScaleCeiling();
+    public String getProficiencyRankingScaleCeiling();
 
     public Long getELearningCourseID();
 

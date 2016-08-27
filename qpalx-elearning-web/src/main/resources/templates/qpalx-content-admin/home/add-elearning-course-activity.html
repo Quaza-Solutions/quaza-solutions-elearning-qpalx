@@ -20,8 +20,8 @@
 
     <form method="post" th:action="@{save-elearning-course-activity}" th:object="${ELearningCourseActivityWebVO}">
         <div class="row">
-            <div class="col-md-3">Course name</div>
-            <div class="col-md-3">Course Description</div>
+            <div class="col-md-3">Activity name</div>
+            <div class="col-md-3">Activity Description</div>
             <div class="col-md-6">Type of Course Activity</div>
         </div>
 
@@ -39,8 +39,8 @@
 
         <div class="clearfix bottom-space"></div>
         <div class="row">
-            <div class="col-md-6">Course Activity Length</div>
-            <div class="col-md-6">Course Activity Duration in Minutes</div>
+            <div class="col-md-6">Activity Length</div>
+            <div class="col-md-6">Activity Duration in Minutes</div>
         </div>
         <div class="row">
             <div class="col-md-6"><input type="text" class="length" size="66" name="length"/><span class="course-length"></span></div>
@@ -54,33 +54,15 @@
         <div class="row">
             <div class="col-md-6">
                 <span></span>
-                <select id="floor" name="floor" class="ceiling">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
+                <select class="ceiling" th:field="*{proficiencyRankingScaleFloor}">
+                    <option th:each="ProficiencyRanking : ${ProficiencyRankings}" th:value="${ProficiencyRanking}" th:text="${ProficiencyRanking}"></option>
                 </select>
 
             </div>
             <div class="col-md-6">
                 <span></span>
-                <select id="ceiling" name="ceiling" class="ceiling">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
+                <select class="ceiling" th:field="*{proficiencyRankingScaleCeiling}">
+                    <option th:each="ProficiencyRanking : ${ProficiencyRankings}" th:value="${ProficiencyRanking}" th:text="${ProficiencyRanking}"></option>
                 </select>
             </div>
         </div>
