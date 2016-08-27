@@ -13,6 +13,6 @@ public interface IFileUploadUtil {
 
     public String uploadAndScaleImageFile(MultipartFile imageFile);
 
-    public ELearningMediaContent uploadELearningMediaContent(MultipartFile multipartFile);
+    public ELearningMediaContent uploadELearningCourseActivityContent(MultipartFile multipartFile);
 
 }

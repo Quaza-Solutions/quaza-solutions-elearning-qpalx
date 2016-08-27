@@ -2,10 +2,7 @@ package com.quaza.solutions.qpalx.elearning.web.student.curricula;
 
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningActivityE;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.*;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
@@ -31,6 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -269,12 +267,27 @@ public class StudentCurriculaAdminController {
     public void saveELearningCourseActivity(Model model,
                                             HttpServletRequest request, HttpServletResponse response,
                                             @RequestParam("eLearningCourseID") String eLearningCourseID,
-                                            @ModelAttribute("ELearningCourseWebVO") ELearningCourseActivityWebVO eLearningCourseActivityWebVO) {
+                                            @ModelAttribute("ELearningCourseWebVO") ELearningCourseActivityWebVO eLearningCourseActivityWebVO,
+                                            @RequestParam("file") MultipartFile multipartFile) {
         LOGGER.info("Attempting to create new ELearningCourse Activity from eLearningCourseWebVO:> {}", eLearningCourseActivityWebVO);
         Long courseID = NumberUtils.toLong(eLearningCourseID);
 
-        ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(courseID);
-        System.out.println("eLearningCourse = " + eLearningCourse);
+        // Upload file and create the ELearningMediaContent
+        ELearningMediaContent eLearningMediaContent = iFileUploadUtil.uploadELearningCourseActivityContent(multipartFile);
+
+        if(eLearningMediaContent == null) {
+            LOGGER.warn("Selected ELearning Media content could not be uploaded.  Check selected file content.");
+        } else if(eLearningMediaContent == ELearningMediaContent.NOT_SUPPORTED_MEDIA_CONTENT) {
+            LOGGER.warn("Uploaded course activity media content file is currently not supported...");
+        } else {
+            LOGGER.info("ELearningMediaContent was succesfully uploaded, building and saving ELearningContentActivity details....");
+            eLearningCourseActivityWebVO.setELearningMediaContent(eLearningMediaContent);
+            ieLearningCourseActivityService.buildNew(eLearningCourseActivityWebVO);
+
+            // On Succesful save redirect back to course activities page.
+            String targetURL = "/view-admin-course-activities?eLearningCourseID=" + courseID;
+            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+        }
 
 //
 //        // Make sure that this course hasn't all ready been created for this curriculum
