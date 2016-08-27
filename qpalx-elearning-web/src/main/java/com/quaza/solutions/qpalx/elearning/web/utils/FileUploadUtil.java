@@ -65,12 +65,40 @@ public class FileUploadUtil implements IFileUploadUtil {
 
     @Override
     public ELearningMediaContent uploadELearningMediaContent(MultipartFile multipartFile) {
-        Assert.notNull(multipartFile, "multipartFile cannot be null");
-        String fileName = multipartFile.getOriginalFilename();
+        File elearningContent = writeFileToDisk(multipartFile);
 
-        LOGGER.info("Uploading Elearning media content file:> {}", fileName);
+        if(elearningContent != null) {
+            LOGGER.info("Building  new ELearningMediaContent using file:> {}", elearningContent);
+
+//            ELearningMediaContent eLearningMediaContent = ELearningMediaContent.builder()
+//                    .eLearningMediaType("mp4")
+//                    .eLearningMediaFile(iELearningCourseActivityVO.getActivityFile())
+//                    .build();
+
+        }
+
+//        LOGGER.info("Uploading Elearning media content file:> {}", fileName);
 
         return null;
+    }
+
+
+    private File writeFileToDisk(MultipartFile multipartFile) {
+        String fileName = multipartFile.getOriginalFilename();
+
+        try {
+            // First we need to upload and output to local directory
+            byte[] bytes = multipartFile.getBytes();
+            String newFileName = ELEARNING_VIDEOS_UPLOAD_DIRECTORY + fileName;
+            LOGGER.info("Writing new file with name: {} to output stream", fileName);
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(newFileName)));
+            stream.write(bytes);
+            stream.close();
+            return new File(newFileName);
+        } catch (Exception e) {
+            LOGGER.error("Exception occurred while uploading file....", e);
+            return null;
+        }
     }
 
     private boolean isResizeableToNewDimensions(BufferedImage bufferedImage, int targetHeight, int targetWidth) {
