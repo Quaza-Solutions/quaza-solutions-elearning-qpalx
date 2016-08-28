@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.web.student.curricula;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningActivityE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.IELearningCourseActivityVO;
@@ -100,6 +101,10 @@ public class ELearningCourseActivityWebVO implements IELearningCourseActivityVO 
 
     public void setTutorialLevelCalendarID(Long tutorialLevelCalendarID) {
         this.tutorialLevelCalendarID = tutorialLevelCalendarID;
+    }
+
+    public LearningActivityE getLearningActivityE() {
+        return LearningActivityE.valueOf(activityType);
     }
 
     @Override

@@ -273,7 +273,7 @@ public class StudentCurriculaAdminController {
         Long courseID = NumberUtils.toLong(eLearningCourseID);
 
         // Upload file and create the ELearningMediaContent
-        ELearningMediaContent eLearningMediaContent = iFileUploadUtil.uploadELearningCourseActivityContent(multipartFile);
+        ELearningMediaContent eLearningMediaContent = iFileUploadUtil.uploadELearningCourseActivityContent(multipartFile, eLearningCourseActivityWebVO.getLearningActivityE());
 
         if(eLearningMediaContent == null) {
             LOGGER.warn("Selected ELearning Media content could not be uploaded.  Check selected file content.");
@@ -288,21 +288,6 @@ public class StudentCurriculaAdminController {
             String targetURL = "/view-admin-course-activities?eLearningCourseID=" + courseID;
             iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
         }
-
-//
-//        // Make sure that this course hasn't all ready been created for this curriculum
-//        ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseNameAndELearningCurriculum(eLearningCourseWebVO.getCourseName(), eLearningCurriculum);
-//        if(eLearningCourse == null) {
-//            ieLearningCourseService.createELearningCourse(eLearningCourseWebVO);
-//            String targetURL = "/view-admin-curriculum-courses?curriculumID=" + eLearningCurriculum.getId();
-//            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
-//        } else {
-//            LOGGER.warn("Content Admin user attempted to create an already existing course:> {} returning back to Add Elearning course", eLearningCourseWebVO.getCourseName());
-//            String targetURL = "/add-curriculum-course?curriculumID=" + eLearningCurriculum.getId();
-//            String errorMessage = eLearningCourseWebVO.getCourseName() + " ELearningCourse already created.";
-//            request.getSession().setAttribute("ELearningCourseAddError", errorMessage);
-//            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
-//        }
     }
 
     @RequestMapping(value = "/delete-elearning-course", method = RequestMethod.GET)

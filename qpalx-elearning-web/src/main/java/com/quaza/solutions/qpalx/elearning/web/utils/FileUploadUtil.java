@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.web.utils;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningActivityE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.MediaContentType;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseActivityService;
@@ -33,9 +34,9 @@ public class FileUploadUtil implements IFileUploadUtil {
 
     public static final String IMAGES_UPLOAD_DIRECTORY = "/Users/manyce400/QuazaSolutions/quaza-solutions-elearning-qpalx/qpalx-elearning-web/src/main/resources/static/img/students/";
 
-    public static final String ELEARNING_VIDEOS_UPLOAD_DIRECTORY = "/Users/manyce400/QuazaSolutions/quaza-solutions-elearning-qpalx/qpalx-elearning-web/src/main/resources/static/elearning-content/videos/";
+    public static final String ELEARNING_VIDEOS_UPLOAD_DIRECTORY = "/Users/manyce400/QuazaSolutions/static-content/videos/";
 
-    public static final String QUIZZES_VIDEOS_UPLOAD_DIRECTORY = "/Users/manyce400/QuazaSolutions/quaza-solutions-elearning-qpalx/qpalx-elearning-web/src/main/resources/static/elearning-content/quizzes/";
+    public static final String QUIZZES_VIDEOS_UPLOAD_DIRECTORY = "/Users/manyce400/QuazaSolutions/static-content/quizzes/";
 
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(FileUploadUtil.class);
@@ -78,23 +79,24 @@ public class FileUploadUtil implements IFileUploadUtil {
     }
 
     @Override
-    public ELearningMediaContent uploadELearningCourseActivityContent(MultipartFile multipartFile) {
+    public ELearningMediaContent uploadELearningCourseActivityContent(MultipartFile multipartFile, LearningActivityE learningActivityE) {
         Assert.notNull(multipartFile, "multipartFile cannot be null");
+        Assert.notNull(learningActivityE, "learningActivityE cannot be null");
 
         // Check to see if the media content file type is current supported in QPalX
         String fileName = multipartFile.getOriginalFilename();
         boolean isSupported = ieLearningCourseActivityService.isCourseActivityTypeSupported(fileName);
 
         if (isSupported) {
-            LOGGER.info("Uploading Course activity media content file:> {} to location:> {}", fileName, ELEARNING_VIDEOS_UPLOAD_DIRECTORY);
-
-            // Get the actual media content type
+            // Get the actual media content type and the actual directory to upload this file to
             Optional<MediaContentType> optionalMediaContentType = ieLearningCourseActivityService.getMediaContentType(fileName);
             MediaContentType mediaContentType = optionalMediaContentType.get();
+            String fileUploadDirectory = ieLearningCourseActivityService.getMediaContentTypeUploadDirectory(mediaContentType, learningActivityE);
+            LOGGER.info("Uploading Course activity media content file:> {} to location:> {}", fileName, fileUploadDirectory);
 
-            File mediaContentFile = writeFileToDisk(multipartFile, ELEARNING_VIDEOS_UPLOAD_DIRECTORY);
+            File mediaContentFile = writeFileToDisk(multipartFile, fileUploadDirectory);
             if (mediaContentFile != null) {
-                ELearningMediaContent eLearningMediaContent = ieLearningCourseActivityService.buildELearningMediaContent(mediaContentFile);
+                ELearningMediaContent eLearningMediaContent = ieLearningCourseActivityService.buildELearningMediaContent(mediaContentFile, learningActivityE);
                 return eLearningMediaContent;
             }
 

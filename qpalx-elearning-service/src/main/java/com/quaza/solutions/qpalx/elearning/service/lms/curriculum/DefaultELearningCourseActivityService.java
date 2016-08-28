@@ -74,17 +74,22 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
     }
 
     @Override
-    public ELearningMediaContent buildELearningMediaContent(File mediaContentFile) {
+    public ELearningMediaContent buildELearningMediaContent(File mediaContentFile, LearningActivityE learningActivityE) {
         Assert.notNull(mediaContentFile, "mediaContentFile cannot be null");
+        Assert.notNull(learningActivityE, "learningActivityE cannot be null");
 
         LOGGER.debug("Creating new ELearningMediaContent from file: {}", mediaContentFile);
-        String fullPathFileName = mediaContentFile.getAbsolutePath();
 
-        // Get the file extension
-        Optional<MediaContentType> optionalMediaContentType = getMediaContentType(fullPathFileName);
+        // Get the file extension to figure out the media content type
+        Optional<MediaContentType> optionalMediaContentType = getMediaContentType(mediaContentFile.getName());
+
+        // We save file name using symbolic link directory as the actual file will get uploaded to a directory outside web app context
+        String symbolicFileDirectory = getMediaContentTypeSymbolicDirectory(optionalMediaContentType.get(), learningActivityE);
+        String symbolicFileName = symbolicFileDirectory + mediaContentFile.getName();
+
         return ELearningMediaContent.builder()
                 .eLearningMediaType(optionalMediaContentType.get().toString())
-                .eLearningMediaFile(fullPathFileName)
+                .eLearningMediaFile(symbolicFileName)
                 .build();
     }
 
@@ -117,17 +122,40 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
     }
 
     @Override
-    public String getMediaContentTypeUploadDirectory(MediaContentType mediaContentType) {
+    public String getMediaContentTypeUploadDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE) {
         Assert.notNull(mediaContentType, "mediaContentType cannot be null");
+        Assert.notNull(learningActivityE, "learningActivityE cannot be null");
 
         String uploadDirectory = null;
 
-        switch (mediaContentType) {
-            case mp4:
-                uploadDirectory = fileUploadLocationConfiguration.getVideos();
+        switch (learningActivityE) {
+            case Video:
+                uploadDirectory = fileUploadLocationConfiguration.getVideosDirectory();
                 break;
-            case swf:
-                uploadDirectory = fileUploadLocationConfiguration.getQuizzes();
+            case Quiz:
+                uploadDirectory = fileUploadLocationConfiguration.getQuizzesDirectory();
+                break;
+            default:
+                break;
+
+        }
+
+        return uploadDirectory;
+    }
+
+    @Override
+    public String getMediaContentTypeSymbolicDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE) {
+        Assert.notNull(mediaContentType, "mediaContentType cannot be null");
+        Assert.notNull(learningActivityE, "learningActivityE cannot be null");
+
+        String uploadDirectory = null;
+
+        switch (learningActivityE) {
+            case Video:
+                uploadDirectory = fileUploadLocationConfiguration.getVideosSymbolicDirectory();
+                break;
+            case Quiz:
+                uploadDirectory = fileUploadLocationConfiguration.getQuizzesSymbolicDirectory();
                 break;
             default:
                 break;
