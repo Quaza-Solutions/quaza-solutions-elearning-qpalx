@@ -18,7 +18,15 @@
 
 <div class="container">
 
+    <div class="row" th:if="${Invalid_FORM_Submission} != null">
+        <div class="alert alert-danger fade in" th:text="${Invalid_FORM_Submission}"/>
+    </div>
+
     <form method="post" enctype="multipart/form-data" th:action="@{save-elearning-course-activity}" th:object="${ELearningCourseActivityWebVO}">
+
+        <!-- hidden field is a spring-security feature which generates a hidden token checked on submission to make sure submission is from this website directly -->
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
         <div class="row">
             <div class="col-md-3">Activity name</div>
             <div class="col-md-3">Activity Description</div>
