@@ -100,9 +100,11 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
 
         Optional<MediaContentType> optionalMediaContentType = getMediaContentType(mediaContentFileName);
 
-        for (MediaContentType mType : MediaContentType.values()) {
-            if(mType.equals(optionalMediaContentType.get())) {
-                return true;
+        if (optionalMediaContentType.isPresent()) {
+            for (MediaContentType mType : MediaContentType.values()) {
+                if(mType.equals(optionalMediaContentType.get())) {
+                    return true;
+                }
             }
         }
 
@@ -115,7 +117,11 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
 
         if(mediaContentFileName.lastIndexOf(".") != -1 && mediaContentFileName.lastIndexOf(".") != 0) {
             String fileType = mediaContentFileName.substring(mediaContentFileName.lastIndexOf(".")+1);
-            return Optional.of(MediaContentType.valueOf(fileType));
+            try {
+                return Optional.of(MediaContentType.valueOf(fileType));
+            } catch (IllegalArgumentException e) {
+                LOGGER.warn("Could not find matching media content type for file: {}", mediaContentFileName);
+            }
         }
 
         return Optional.empty();
