@@ -18,7 +18,15 @@
 
 <div class="container">
 
-    <form method="post" th:action="@{save-elearning-course-activity}" th:object="${ELearningCourseActivityWebVO}">
+    <div class="row" th:if="${Invalid_FORM_Submission} != null">
+        <div class="alert alert-danger fade in" th:text="${Invalid_FORM_Submission}"/>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" th:action="@{save-elearning-course-activity}" th:object="${ELearningCourseActivityWebVO}">
+
+        <!-- hidden field is a spring-security feature which generates a hidden token checked on submission to make sure submission is from this website directly -->
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
         <div class="row">
             <div class="col-md-3">Activity name</div>
             <div class="col-md-3">Activity Description</div>
@@ -30,9 +38,9 @@
             <div class="col-md-3"><input type="text" size="26" id="description" name="description" th:field="*{activityDescription}"/><span class="description"></span></div>
             <div class="col-md-6">
                 <select id="activity" name="activity" class="ceiling" th:field="*{activityType}">
-                <option value="video">Video</option>
-                <option value="interactive exercise">Interactive Exercise</option>
-                <option value="quiz">Quiz</option>
+                <option value="Video">Video</option>
+                <option value="Interactive_Excersise">Interactive Exercise</option>
+                <option value="Quiz">Quiz</option>
             </select>
             </div>
         </div>
@@ -77,10 +85,10 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <input type="file" name="datafile" size="40"/>
+                <input type="file" name="file"/>
             </div>
             <div class="col-md-6">
-                <select id="term" name="term" class="ceiling">
+                <select id="term" class="ceiling" th:field="*{tutorialLevelCalendarID}">
                     <option value="1">First Term</option>
                     <option value="2">Second Term</option>
                     <option value="3">Third Term</option>

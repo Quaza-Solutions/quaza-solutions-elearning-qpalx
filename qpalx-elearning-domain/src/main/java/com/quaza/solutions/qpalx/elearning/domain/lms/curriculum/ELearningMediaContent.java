@@ -24,6 +24,9 @@ public class ELearningMediaContent {
     @Column(name="ELearningMediaFile", nullable=true, length=255)
     private String eLearningMediaFile;
 
+
+    public static final ELearningMediaContent NOT_SUPPORTED_MEDIA_CONTENT = new ELearningMediaContent(null, null);
+
     public ELearningMediaContent() {
     }
 
@@ -46,6 +49,18 @@ public class ELearningMediaContent {
 
     public void setELearningMediaFile(String eLearningMediaFile) {
         this.eLearningMediaFile = eLearningMediaFile;
+    }
+
+    public boolean isMediaTypeSupported() {
+        MediaContentType[] mediaContentTypes = MediaContentType.values();
+
+        for (MediaContentType mType : mediaContentTypes) {
+            if(mType.toString().equals(eLearningMediaType)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

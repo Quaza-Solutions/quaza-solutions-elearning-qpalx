@@ -17,48 +17,29 @@
 <!-- Include Student User general Account information panel -->
 <div th:replace="fragments/qpalx-user-info-panel :: general-account-info"/>
 
-<!-- Include main QPalx Student navigation tab -->
-<div th:replace="fragments/student-navigation :: student-main-navigation"/>
 
-<div class="container large-fonts">
-    <div class="col-md-2 med-text"><b th:text="${SelectedELearningCourse.courseName}"></b></div>
-    <div class="col-md-7"></div>
+<div class="clearfix"></div>
+<div class="container">
 
-    <div class="col-md-3 med-text" style="position: relative; left: 40px;">
-        <b th:inline="text">&#8592; <a th:href="@{/curriculum-courses(curriculumID=${ELearningCourseParentCurriculum.id})}">Back to [[${ELearningCourseParentCurriculum.curriculumName}]] Courses</a></b>
-    </div>
-
-    <div class="padded">
-        <div class="row">
-            <div class="col-md-12">
-                <hr/>
-
-                <br/>
-                <table width="100%" border="0">
-                    <tr th:each="SelectedELearningCourseActivity,rowStat : ${SelectedELearningCourseActivities}">
-                        <td width="90%" class="cell-padded green">
-                            <img src="images/video-icon.png"/> <a th:href="@{/play-qcourse-video?courseActivityID=${SelectedELearningCourseActivity.activityName}}" th:text="${SelectedELearningCourseActivity.activityName}"></a>
-                        </td>
-                        <td width="10%" class="green">
-                            15:02
-                        </td>
-                    </tr>
-
-                    <tr class="light-gray">
-                        <td class="cell-padded">Hooke's Law</td>
-                        <td class="cell-padded">15:02</td>
-                    </tr>
-
-                </table>
+    <!-- Include main QPalx Student navigation panel -->
+    <div th:replace="fragments/student-navigation :: student-main-navigation"/>
 
 
-            </div>
+    <div class="row" th:each="SelectedELearningCourseActivity,rowStat : ${SelectedELearningCourseActivities}">
+        <div class="col-md-1 num" th:text="${rowStat.count}"></div>
+
+        <div class="col-md-1"></div>
+        <div class="col-md-2 name" >
+            <a th:href="@{/play-qcourse-video(courseActivityID=${SelectedELearningCourseActivity.id})}"><b th:text="${SelectedELearningCourseActivity.activityName}"></b></a>
+            <br/>
+            <div class="small" th:text="${SelectedELearningCourseActivity.proficiencyRankingScaleFloor.getProficiencyScoreRangeE()}"></div>
         </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-7"></div>
     </div>
+
     <div class="clearfix bottom-space"></div>
-    <div class="col-md-12 continue">
-        <button type="button" class="btn btn-success">Continue</button>
-    </div>
+
 </div>
 
 

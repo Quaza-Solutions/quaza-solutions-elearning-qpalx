@@ -1,18 +1,24 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
+import com.quaza.solutions.qpalx.elearning.config.file.management.FileUploadLocationConfiguration;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningActivityE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.MediaContentType;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCourseActivityRepository;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.IELearningCourseActivityVO;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.ITutorialLevelCalendarRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author manyce400
@@ -21,8 +27,16 @@ import java.util.List;
 public class DefaultELearningCourseActivityService implements IELearningCourseActivityService {
 
 
+
+
+    @Autowired
+    private FileUploadLocationConfiguration fileUploadLocationConfiguration;
+
     @Autowired
     private IELearningCourseActivityRepository ieLearningCourseActivityRepository;
+
+    @Autowired
+    private ITutorialLevelCalendarRepository iTutorialLevelCalendarRepository;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultELearningCourseService")
@@ -38,24 +52,123 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
 
         Long eLearningCourseID = iELearningCourseActivityVO.getELearningCourseID();
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(eLearningCourseID);
+        TutorialLevelCalendar tutorialLevelCalendar = iTutorialLevelCalendarRepository.findOne(iELearningCourseActivityVO.getTutorialLevelCalendarID());
 
         LearningActivityE learningActivityE = LearningActivityE.valueOf(iELearningCourseActivityVO.getActivityType());
-
-        ELearningMediaContent eLearningMediaContent = ELearningMediaContent.builder()
-                .eLearningMediaType("mp4")
-                .eLearningMediaFile(iELearningCourseActivityVO.getActivityFile())
-                .build();
 
         ELearningCourseActivity eLearningCourseActivity = ELearningCourseActivity.builder()
                 .eLearningCourse(eLearningCourse)
                 .learningActivityE(learningActivityE)
                 .activityName(iELearningCourseActivityVO.getActivityName())
                 .activityDescription(iELearningCourseActivityVO.getActivityDescription())
-                .eLearningMediaContent(eLearningMediaContent)
+                .eLearningMediaContent(iELearningCourseActivityVO.getELearningMediaContent())
+                .tutorialLevelCalendar(tutorialLevelCalendar)
+                .proficiencyRankingScaleFloor(iELearningCourseActivityVO.getproficiencyRankingScaleFloorE())
+                .proficiencyRankingScaleCeiling(iELearningCourseActivityVO.getProficiencyRankingScaleCeilingE())
                 .activityActive(true)
                 .entryDate(new DateTime())
                 .build();
+
+        ieLearningCourseActivityRepository.save(eLearningCourseActivity);
         return null;
+    }
+
+    @Override
+    public ELearningMediaContent buildELearningMediaContent(File mediaContentFile, LearningActivityE learningActivityE) {
+        Assert.notNull(mediaContentFile, "mediaContentFile cannot be null");
+        Assert.notNull(learningActivityE, "learningActivityE cannot be null");
+
+        LOGGER.debug("Creating new ELearningMediaContent from file: {}", mediaContentFile);
+
+        // Get the file extension to figure out the media content type
+        Optional<MediaContentType> optionalMediaContentType = getMediaContentType(mediaContentFile.getName());
+
+        // We save file name using symbolic link directory as the actual file will get uploaded to a directory outside web app context
+        String symbolicFileDirectory = getMediaContentTypeSymbolicDirectory(optionalMediaContentType.get(), learningActivityE);
+        String symbolicFileName = symbolicFileDirectory + mediaContentFile.getName();
+
+        return ELearningMediaContent.builder()
+                .eLearningMediaType(optionalMediaContentType.get().toString())
+                .eLearningMediaFile(symbolicFileName)
+                .build();
+    }
+
+    @Override
+    public boolean isCourseActivityTypeSupported(String mediaContentFileName) {
+        Assert.notNull(mediaContentFileName, "mediaContentFileName cannot be null");
+        LOGGER.debug("Checking media content file with name: {} to see if its a supported type", mediaContentFileName);
+
+        Optional<MediaContentType> optionalMediaContentType = getMediaContentType(mediaContentFileName);
+
+        if (optionalMediaContentType.isPresent()) {
+            for (MediaContentType mType : MediaContentType.values()) {
+                if(mType.equals(optionalMediaContentType.get())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public Optional<MediaContentType> getMediaContentType(String mediaContentFileName) {
+        Assert.notNull(mediaContentFileName, "mediaContentFileName cannot be null");
+
+        if(mediaContentFileName.lastIndexOf(".") != -1 && mediaContentFileName.lastIndexOf(".") != 0) {
+            String fileType = mediaContentFileName.substring(mediaContentFileName.lastIndexOf(".")+1);
+            try {
+                return Optional.of(MediaContentType.valueOf(fileType));
+            } catch (IllegalArgumentException e) {
+                LOGGER.warn("Could not find matching media content type for file: {}", mediaContentFileName);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
+    public String getMediaContentTypeUploadDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE) {
+        Assert.notNull(mediaContentType, "mediaContentType cannot be null");
+        Assert.notNull(learningActivityE, "learningActivityE cannot be null");
+
+        String uploadDirectory = null;
+
+        switch (learningActivityE) {
+            case Video:
+                uploadDirectory = fileUploadLocationConfiguration.getVideosDirectory();
+                break;
+            case Quiz:
+                uploadDirectory = fileUploadLocationConfiguration.getQuizzesDirectory();
+                break;
+            default:
+                break;
+
+        }
+
+        return uploadDirectory;
+    }
+
+    @Override
+    public String getMediaContentTypeSymbolicDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE) {
+        Assert.notNull(mediaContentType, "mediaContentType cannot be null");
+        Assert.notNull(learningActivityE, "learningActivityE cannot be null");
+
+        String uploadDirectory = null;
+
+        switch (learningActivityE) {
+            case Video:
+                uploadDirectory = fileUploadLocationConfiguration.getVideosSymbolicDirectory();
+                break;
+            case Quiz:
+                uploadDirectory = fileUploadLocationConfiguration.getQuizzesSymbolicDirectory();
+                break;
+            default:
+                break;
+
+        }
+
+        return uploadDirectory;
     }
 
     @Override

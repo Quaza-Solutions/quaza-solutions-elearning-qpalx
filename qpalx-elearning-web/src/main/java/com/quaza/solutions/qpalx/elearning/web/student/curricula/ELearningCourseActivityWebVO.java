@@ -1,5 +1,8 @@
 package com.quaza.solutions.qpalx.elearning.web.student.curricula;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningActivityE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.IELearningCourseActivityVO;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -24,6 +27,8 @@ public class ELearningCourseActivityWebVO implements IELearningCourseActivityVO 
     private Long eLearningCourseID;
 
     private Long tutorialLevelCalendarID;
+
+    public ELearningMediaContent eLearningMediaContent;
 
 
     @Override
@@ -98,6 +103,29 @@ public class ELearningCourseActivityWebVO implements IELearningCourseActivityVO 
         this.tutorialLevelCalendarID = tutorialLevelCalendarID;
     }
 
+    public LearningActivityE getLearningActivityE() {
+        return LearningActivityE.valueOf(activityType);
+    }
+
+    @Override
+    public ELearningMediaContent getELearningMediaContent() {
+        return eLearningMediaContent;
+    }
+
+    public void setELearningMediaContent(ELearningMediaContent eLearningMediaContent) {
+        this.eLearningMediaContent = eLearningMediaContent;
+    }
+
+    @Override
+    public ProficiencyRankingScaleE getproficiencyRankingScaleFloorE() {
+        return ProficiencyRankingScaleE.valueOf(proficiencyRankingScaleFloor);
+    }
+
+    @Override
+    public ProficiencyRankingScaleE getProficiencyRankingScaleCeilingE() {
+        return ProficiencyRankingScaleE.valueOf(proficiencyRankingScaleCeiling);
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -109,6 +137,7 @@ public class ELearningCourseActivityWebVO implements IELearningCourseActivityVO 
                 .append("proficiencyRankingScaleCeiling", proficiencyRankingScaleCeiling)
                 .append("eLearningCourseID", eLearningCourseID)
                 .append("tutorialLevelCalendarID", tutorialLevelCalendarID)
+                .append("eLearningMediaContent", eLearningMediaContent)
                 .toString();
     }
 }

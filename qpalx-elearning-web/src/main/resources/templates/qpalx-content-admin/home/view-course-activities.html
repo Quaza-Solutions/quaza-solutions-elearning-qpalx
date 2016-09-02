@@ -43,7 +43,8 @@
         <div class="col-md-2 name" >
              <a th:href="@{/view-course-activity(activityID=${ELearningCourseActivity.id})}"><b th:text="${ELearningCourseActivity.activityName}"></b></a>
              <br/>
-             100% - A
+            <div class="small" th:text="${ELearningCourseActivity.proficiencyRankingScaleFloor.getProficiencyScoreRangeE()}"></div>
+             <!--<div th:inline="text" class="small">[[${ELearningCourseActivity.proficiencyRankingScaleFloor}]] - [[${ELearningCourseActivity.proficiencyRankingScaleCeiling}]]</div>-->
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-6"></div>
@@ -55,19 +56,6 @@
         </div>
     </div>
 
-    <!--<div>-->
-    <!--<div>-->
-    <!--<div class="col-md-12">-->
-    <!--<hr/>-->
-    <!--<br/>-->
-    <!--<table width="100%" border="0">-->
-    <!--<tr th:each="CurriculumELearningCourses,rowStat : ${CurriculumELearningCourses}">-->
-    <!--<td class="cell-padded" th:inline="text"><a th:href="@{/qpalx-course-details(qCourseID=${CurriculumELearningCourses.id})}">[[${CurriculumELearningCourses.courseName}]]</a></td>-->
-    <!--</tr>-->
-    <!--</table>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
 
 </div>
 <div class="clearfix bottom-space"></div>
