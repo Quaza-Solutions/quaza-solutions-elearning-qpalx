@@ -24,6 +24,8 @@ public interface IQPalxSubscriptionService {
 
     public Optional<StudentSubscriptionProfile> findActiveUserSubscriptionProfile(final QPalXUser qPalXUser);
 
+    public List<QPalXSubscription> findAllSubscriptions();
+
     /**
      * Given a QPalXSubscription, assuming that subscription starts from current date calculate and return
      * the expiration date for the given subscription.

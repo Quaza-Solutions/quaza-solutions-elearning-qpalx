@@ -1,9 +1,12 @@
 package com.quaza.solutions.qpalx.elearning.web.signup.student;
 
+import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
+import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.SimplifiedProficiencyRankE;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IGeographicalDateTimeFormatter;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
+import com.quaza.solutions.qpalx.elearning.service.prepaidsubscription.IQPalxPrepaidIDService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalXUserSubscriptionService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
@@ -57,6 +60,10 @@ public class StudentRegistrationController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.CacheEnabledQPalXTutorialService")
     private IQPalXTutorialService iqPalXTutorialService;
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxPrepaidIDService")
+    private IQPalxPrepaidIDService iQpalxPrepaidIDService;
+
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentRegistrationController.class);
 
 
@@ -70,7 +77,35 @@ public class StudentRegistrationController {
     public String customizeStudentProficiencyRankings(final ModelMap modelMap, Model model, @ModelAttribute("QPalXWebUserVO") QPalXWebUserVO qPalXWebUserVO) {
         LOGGER.info("Processing student signup payment page with qPalXWebUserVO: {}", qPalXWebUserVO);
         model.addAttribute("SimplifiedProficiencyRanks", SimplifiedProficiencyRankE.values());
-        return ContentRootE.Student_Signup.getContentRootPagePath("proficiency");
+
+        LOGGER.info("Processing student signup payment page");
+        System.out.println("Value Entered: " + qPalXWebUserVO.getPrepaidValue());
+        QPalXMunicipality qPalXMunicipality = new QPalXMunicipality();
+        QPalXCountry qPalXCountry = new QPalXCountry();
+        qPalXCountry.setCountryCode("USA");
+        qPalXMunicipality.setCode("NY");
+        qPalXMunicipality.setQPalXCountry(qPalXCountry);
+        //result = testCondition ? value1 : value2
+        if(qPalXWebUserVO.getIncorrectValueCounter() == 5){
+            return "/launch.html";//penalty
+        }
+        else {
+            if (iQpalxPrepaidIDService.redeemCode(qPalXWebUserVO.getPrepaidValue(), qPalXMunicipality)) {
+                qPalXWebUserVO.setRedemptionFailure(false);
+                model.addAttribute("QPalXWebUserVO", qPalXWebUserVO);
+                LOGGER.info("Processing student signup payment page with qPalXWebUserVO: {}", qPalXWebUserVO);
+                model.addAttribute("SimplifiedProficiencyRanks", SimplifiedProficiencyRankE.values());
+                return ContentRootE.Student_Signup.getContentRootPagePath("proficiency");
+            } else {
+                qPalXWebUserVO.setRedemptionFailure(true);
+                int holder = qPalXWebUserVO.getIncorrectValueCounter();
+                holder++;
+                qPalXWebUserVO.setIncorrectValueCounter(holder);
+                System.out.println("Failed Attempts: " + qPalXWebUserVO.getIncorrectValueCounter());
+                model.addAttribute("QPalXWebUserVO", qPalXWebUserVO);
+                return ContentRootE.Student_Signup.getContentRootPagePath("payment");
+            }
+        }
     }
 
     @RequestMapping(value = "/complete-qpalx-signup", method = RequestMethod.POST)

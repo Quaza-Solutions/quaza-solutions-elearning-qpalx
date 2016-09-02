@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.service.subscription;
 
+import com.google.common.collect.ImmutableList;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfile;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.repository.IStudentSubscriptionProfileRepository;
@@ -82,6 +83,12 @@ public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionServic
                 .filter((userSubscriptionProfile) -> isActiveUserSubscription(userSubscriptionProfile))
                 .findFirst();
         return activeUserSubscriptionProfile;
+    }
+
+    @Override
+    public List<QPalXSubscription> findAllSubscriptions() {
+        Iterable<QPalXSubscription> iterableSubscription = iqPalXSubscriptionRepository.findAll();
+        return ImmutableList.copyOf(iterableSubscription);
     }
 
     @Override
