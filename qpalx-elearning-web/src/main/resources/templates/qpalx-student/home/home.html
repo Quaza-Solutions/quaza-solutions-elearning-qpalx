@@ -36,20 +36,40 @@
     <!-- Include main QPalx Student navigation panel -->
     <div th:replace="fragments/student-navigation :: student-main-navigation"/>
 
-    <table border="0" style="width: 100%;">
+    <!--<table border="0" style="width: 100%;">-->
 
-        <tr class="hover-2" th:each="StudentUserCurriculum,rowStat : ${StudentUserCurricula}">
-            <td style="width: 4%;" th:text="${rowStat.count}"></td>
-            <td style="width: 20%;">
-                <div class="gray-box">&nbsp;</div>
-            </td>
-            <td style="width: 60%;">
+        <!--<tr class="hover-2" th:each="StudentUserCurriculum,rowStat : ${StudentUserCurricula}">-->
+            <!--<td style="width: 4%;" th:text="${rowStat.count}"></td>-->
+            <!--<td style="width: 20%;">-->
+                <!--<div class="gray-box">&nbsp;</div>-->
+            <!--</td>-->
+            <!--<td style="width: 60%;">-->
+                <!--<a th:href="@{/curriculum-courses(curriculumID=${StudentUserCurriculum.id})}"><b th:text="${StudentUserCurriculum.curriculumName}"></b></a>-->
+                <!--<br/><div th:text="${StudentUserCurriculum.curriculumDescription}" />-->
+            <!--</td>-->
+        <!--</tr>-->
+
+    <!--</table>-->
+
+    <div th:each="StudentUserCurriculum,rowStat : ${StudentUserCurricula}">
+        <div class="row">
+            <div class="col-md-1 num" th:text="${rowStat.count}"/>
+            <div class="col-md-2">
+                <img th:src="${StudentUserCurriculum.curriculumIcon}" class="subjects" />
+            </div>
+            <div class="col-md-4 curr">
                 <a th:href="@{/curriculum-courses(curriculumID=${StudentUserCurriculum.id})}"><b th:text="${StudentUserCurriculum.curriculumName}"></b></a>
-                <br/><div th:text="${StudentUserCurriculum.curriculumDescription}" />
-            </td>
-        </tr>
-
-    </table>
+                <br />
+                <div th:text="${StudentUserCurriculum.curriculumDescription}"/>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr class="full-width" />
+            </div>
+        </div>
+    </div>
 
 </div>
 <div class="clearfix bottom-space"></div>
