@@ -8,6 +8,7 @@ import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCour
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurriculumService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
+import com.quaza.solutions.qpalx.elearning.web.service.panel.ITutorialLevelCalendarPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,10 @@ public class StudentCurriculaController {
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
     private IQPalXUserInfoPanelService qPalXUserInfoPanelService;
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.web.TutorialLevelCalendarPanelService")
+    private ITutorialLevelCalendarPanelService iTutorialLevelCalendarPanelService;
+
 
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentCurriculaController.class);
@@ -64,14 +69,37 @@ public class StudentCurriculaController {
     }
 
     @RequestMapping(value = "/qpalx-course-details", method = RequestMethod.GET)
-    public String displayQPalXCourseActivity(final Model model, @RequestParam("qCourseID") String qCourseID) {
-        LOGGER.info("Retrieving all learning activities in qCourseID: {}", qCourseID);
+    public String displayQPalXCourseActivities(final Model model, @RequestParam("qCourseID") String qCourseID) {
+        LOGGER.info("Retrieving all learning activities in courseID: {}", qCourseID);
 
         Long id = NumberUtils.toLong(qCourseID);
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(id);
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
+
+        // Add all attributes required for Student tutorial level calendar panel.  By Default we load only first term if no calendar is specified
+        // TODO implement method to get default calendar based on current date
+        iTutorialLevelCalendarPanelService.addCalendarPanelInfo(model, 1L);
+
+        addSelectedCourseInfoToResponse(model, qCourseID);
+        addSelectedCurriculumInfoToResponse(model, eLearningCourse.geteLearningCurriculum().getId().toString());
+        return ContentRootE.Student_Home.getContentRootPagePath("course-activities");
+    }
+
+    @RequestMapping(value = "/qpalx-course-by-calendar-details", method = RequestMethod.GET)
+    public String displayQPalXCourseActivitiesWithCalendar(final Model model, @RequestParam("qCourseID") String qCourseID, @RequestParam("tutorialLevelCalendarID") String tutorialLevelCalendarID) {
+        LOGGER.info("Retrieving all learning activities with courseID: {} and tutorialLevelCalendarID: {}", qCourseID, tutorialLevelCalendarID);
+
+        Long courseID = NumberUtils.toLong(qCourseID);
+        Long calendarID = NumberUtils.toLong(tutorialLevelCalendarID);
+        ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(courseID);
+
+        // Add all attributes required for User information panel
+        qPalXUserInfoPanelService.addUserInfoAttributes(model);
+
+        // Add all attributes required for Student tutorial level calendar panel.
+        iTutorialLevelCalendarPanelService.addCalendarPanelInfo(model, calendarID);
 
         addSelectedCourseInfoToResponse(model, qCourseID);
         addSelectedCurriculumInfoToResponse(model, eLearningCourse.geteLearningCurriculum().getId().toString());

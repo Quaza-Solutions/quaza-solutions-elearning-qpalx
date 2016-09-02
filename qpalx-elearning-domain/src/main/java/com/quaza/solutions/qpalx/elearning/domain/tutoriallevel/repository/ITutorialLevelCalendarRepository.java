@@ -14,7 +14,7 @@ public interface ITutorialLevelCalendarRepository extends CrudRepository<Tutoria
 
 
 
-    @Query("Select studentTutorialLevel From StudentTutorialLevel studentTutorialLevel Where studentTutorialLevel =?1")
+    @Query("Select tutorialLevelCalendar From TutorialLevelCalendar tutorialLevelCalendar Where tutorialLevelCalendar.studentTutorialLevel =?1")
     public List<TutorialLevelCalendar> findCalendarForStudentTutorialLevel(StudentTutorialLevel studentTutorialLevel);
 
 

@@ -3,6 +3,7 @@ package com.quaza.solutions.qpalx.elearning.service.tutoriallevel;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCourseActivityRepository;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.ITutorialLevelCalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,20 @@ public class DefaultTutorialLevelCalendarService implements ITutorialLevelCalend
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultTutorialLevelCalendarService.class);
 
+
+    @Override
+    public TutorialLevelCalendar findByID(Long id) {
+        Assert.notNull(id, "id cannot be null");
+        LOGGER.debug("Finding TutorialLevelCalendar with id: {}", id);
+        return iTutorialLevelCalendarRepository.findOne(id);
+    }
+
+    @Override
+    public List<TutorialLevelCalendar> findAllByStudentTutorialLevel(StudentTutorialLevel studentTutorialLevel) {
+        Assert.notNull(studentTutorialLevel, "studentTutorialLevel cannot be null");
+        LOGGER.debug("Finding all TutorialLevelCalendar for studentTutorialLevel: {}", studentTutorialLevel);
+        return iTutorialLevelCalendarRepository.findCalendarForStudentTutorialLevel(studentTutorialLevel);
+    }
 
     @Override
     public Map<TutorialLevelCalendar, ELearningCourseActivity> findAllCourseELearningActivities(ELearningCourse eLearningCourse) {

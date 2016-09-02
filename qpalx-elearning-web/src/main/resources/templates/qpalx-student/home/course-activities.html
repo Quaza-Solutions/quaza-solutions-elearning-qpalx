@@ -22,7 +22,8 @@
 <div class="container">
 
     <!-- Include main QPalx Student navigation panel -->
-    <div th:replace="fragments/student-navigation :: student-main-navigation"/>
+    <!--<div th:replace="fragments/student-navigation :: student-main-navigation"/>-->
+    <div th:replace="fragments/student/tutorial-level-calendar-navigation :: academic-calendar-navigation"/>
 
 
     <div class="row" th:each="SelectedELearningCourseActivity,rowStat : ${SelectedELearningCourseActivities}">
