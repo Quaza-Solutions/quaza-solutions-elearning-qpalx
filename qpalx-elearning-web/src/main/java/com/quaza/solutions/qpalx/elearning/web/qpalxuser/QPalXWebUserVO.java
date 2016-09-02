@@ -13,7 +13,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class QPalXWebUserVO implements IQPalXUserVO {
 
 
+    private int numToGenerate;
 
+    private int incorrectValueCounter;
+
+    private String prepaidValue;
+
+    private boolean redemptionFailure;
+
+    private int countryID;
 
     //    @NotNull
 //    @Size(min=2, max=50)
@@ -176,6 +184,26 @@ public class QPalXWebUserVO implements IQPalXUserVO {
         this.educationalInstitutionID = educationalInstitutionID;
     }
 
+    public int getNumToGenerate() { return numToGenerate; }
+
+    public void setNumToGenerate(int numToGenerate) { this.numToGenerate = numToGenerate; }
+
+    public int getIncorrectValueCounter() { return incorrectValueCounter; }
+
+    public void setIncorrectValueCounter(int incorrectValueCounter) { this.incorrectValueCounter = incorrectValueCounter; }
+
+    public boolean isRedemptionFailure() { return redemptionFailure; }
+
+    public void setRedemptionFailure(boolean redemptionFailure){ this.redemptionFailure = redemptionFailure; }
+
+    public String getPrepaidValue(){ return  prepaidValue; }
+
+    public void setPrepaidValue(String prepaidValue){ this.prepaidValue = prepaidValue; }
+
+    public int getCountryID() { return countryID; }
+
+    public void setCountryID(int countryID) { this.countryID = countryID; }
+
     @Override
     public Long getPaymentSystemID() {
         return null;
@@ -285,6 +313,10 @@ public class QPalXWebUserVO implements IQPalXUserVO {
                 .append("coreScienceProficiencyLevel", coreScienceProficiencyLevel)
                 .append("coreICTProficiencyLevel", coreICTProficiencyLevel)
                 .append("coreVocationalStudiesProficiencyLevel", coreVocationalStudiesProficiencyLevel)
+                .append("redemptionFailure", redemptionFailure)
+                .append("prepaidValue", prepaidValue)
+                .append("numToGenerate", numToGenerate)
+                .append("countryID", countryID)
                 .toString();
     }
 

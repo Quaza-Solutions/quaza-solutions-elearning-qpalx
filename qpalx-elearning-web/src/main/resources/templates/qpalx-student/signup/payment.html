@@ -124,11 +124,16 @@
             <div class="col-md-2"></div>
         </div>
 
-        <div class="row">
+        <div th:if="${QPalXWebUserVO.redemptionFailure == true}" class="row">
             <div class="col-md-3"></div>
-            <div class="col-md-6"><input type="text" class="form-control"/>
-                <div class="col-md-3"></div>
-            </div>
+            <div class="col-md-6"> <label for="redemptionFail" style="color:#FF0000;">Non-Existent/Already-Used Value Please Try Again</label><input type="text" th:field="*{prepaidValue}" class="form-control" style="border:1px solid #ff0000" id="redemptionFail"/>
+                <div class="col-md-3"></div></div>
+        </div>
+
+        <div th:if="${QPalXWebUserVO.redemptionFailure == false}" class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6"> <input type="text" th:field="*{prepaidValue}" class="form-control"/>
+                <div class="col-md-3"></div></div>
         </div>
 
         <div class="clearfix bottom-space"></div>
