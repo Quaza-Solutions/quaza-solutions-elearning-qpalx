@@ -22,7 +22,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ import java.util.List;
 
 @Controller
 public class QPalXCodeGenerationController {
-    private static final String FILE_PATH = "C:\\Users\\QPalx\\Quaza8262016\\quaza-solutions-elearning-qpalx\\qpalx-elearning-web\\RequestedPrepaidCodes.xls";//gets file from browser generation
+    private static final String FILE_PATH = "/temp-uploads/RequestedPrepaidCodes.xls";//gets file from browser generation
     private static final String APPLICATION_XLS = "application/xls";
 
     @Autowired
@@ -78,7 +77,7 @@ public class QPalXCodeGenerationController {
     }
 
     @RequestMapping(value = "/generateIds", method=RequestMethod.POST)//value/generate should be something else and the form should be generateIds
-    public void generateExcel(@ModelAttribute(value="QPalXWebUserVO") QPalXWebUserVO qPalXWebUserVO, HttpServletResponse response) throws IOException{
+    public void generateExcel(@ModelAttribute(value="QPalXWebUserVO") QPalXWebUserVO qPalXWebUserVO, HttpServletResponse response) throws Exception{
         QPalXSubscription qPalXSubscription = iQPalxSubscriptionService.findQPalXSubscriptionByID(qPalXWebUserVO.getSubscriptionID());
         QPalXMunicipality qPalXMunicipality = iQPalXMunicipalityService.findQPalXMunicipalityByID(qPalXWebUserVO.getMunicipalityID());
 

@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
 /**
  * Contains configurations that determine the different directories used through the application for file uploads.
  *
@@ -30,6 +28,9 @@ public class FileUploadLocationConfiguration {
     @Value("${elearning.course.activity.symbolic.quizzes.dir}")
     private String quizzesSymbolicDirectory;
 
+    @Value("${application.temp.file.dir}")
+    private String tempFileDirectory;
+
     public FileUploadLocationConfiguration() {
 
     }
@@ -50,6 +51,10 @@ public class FileUploadLocationConfiguration {
         return quizzesSymbolicDirectory;
     }
 
+    public String getTempFileDirectory() {
+        return tempFileDirectory;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -57,11 +62,7 @@ public class FileUploadLocationConfiguration {
                 .append("quizzesDirectory", quizzesDirectory)
                 .append("videosSymbolicDirectory", videosSymbolicDirectory)
                 .append("quizzesSymbolicDirectory", quizzesSymbolicDirectory)
+                .append("tempFileDirectory", tempFileDirectory)
                 .toString();
-    }
-
-    @PostConstruct
-    public void postConstruct() {
-        System.out.println();
     }
 }
