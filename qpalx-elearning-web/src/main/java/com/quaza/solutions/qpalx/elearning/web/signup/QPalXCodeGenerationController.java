@@ -6,8 +6,8 @@ import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.prepaidsubscription.IQPalxPrepaidIDService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
-import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.QPalXWebUserVO;
+import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import org.mockito.internal.util.io.IOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -48,17 +48,26 @@ public class QPalXCodeGenerationController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxSubscriptionService")
     private IQPalxSubscriptionService iQPalxSubscriptionService;
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
+    private IQPalXUserInfoPanelService qPalXUserInfoPanelService;
+
 
     @RequestMapping(value = "/generateIds", method = RequestMethod.GET)
     public String startGenrateIds(Model model) {
         List<QPalXMunicipality> municipalities = iQPalXMunicipalityService.findAllQPalXMunicipalities();
         List<QPalXSubscription> subscriptions = iQPalxSubscriptionService.findAllSubscriptions();
         List<QPalXCountry> countries = new ArrayList<QPalXCountry>();
+
         for(int i =0; i<municipalities.size(); i++){
             if(!countries.contains(municipalities.get(i).getQPalXCountry())){
                 countries.add(municipalities.get(i).getQPalXCountry());
             }
         }
+
+        // Add all attributes required for User information panel
+        qPalXUserInfoPanelService.addUserInfoAttributes(model);
+
         QPalXWebUserVO qPalXWebUserVO = new QPalXWebUserVO();
         qPalXWebUserVO.setNumToGenerate(0);
         model.addAttribute("QPalXCountries", countries);
@@ -72,9 +81,11 @@ public class QPalXCodeGenerationController {
     public void generateExcel(@ModelAttribute(value="QPalXWebUserVO") QPalXWebUserVO qPalXWebUserVO, HttpServletResponse response) throws IOException{
         QPalXSubscription qPalXSubscription = iQPalxSubscriptionService.findQPalXSubscriptionByID(qPalXWebUserVO.getSubscriptionID());
         QPalXMunicipality qPalXMunicipality = iQPalXMunicipalityService.findQPalXMunicipalityByID(qPalXWebUserVO.getMunicipalityID());
+
         int numOfCodes = qPalXWebUserVO.getNumToGenerate();
         iQpalxPrepaidIDService.generateAndWritePrepaidIdsToExcel(numOfCodes, qPalXMunicipality, qPalXSubscription, "RequestedPrepaidCodes");
         File file = new File(FILE_PATH);
+
         InputStream in = new FileInputStream(file);
         response.setContentType(APPLICATION_XLS);
         response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
