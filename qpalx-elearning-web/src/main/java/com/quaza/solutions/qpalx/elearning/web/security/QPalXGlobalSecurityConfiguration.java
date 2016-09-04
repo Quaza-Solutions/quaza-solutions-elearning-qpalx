@@ -79,7 +79,7 @@ public class QPalXGlobalSecurityConfiguration extends WebSecurityConfigurerAdapt
     // Returns a List of paths for request mappings that will be excluded from QPalX Global validation.  Access to these will not require login.
     private List<String> getPathsToExcludeFromValidation() {
         List<String> exclustionList = Lists.newArrayList(
-                "/", "/css/**", "/css/**/**", "/js/**", "/img/**", "/images/**", "/font/**", "/videos/**", "/elearning-content/**", "/QGatewaySignup", "/QPalxSubscribptionEducatioProfile",
+                "/", "/css/**", "/css/**/**", "/js/**", "/img/**", "/images/**", "/font/**", "/videos/**", "/QGatewaySignup", "/QPalxSubscribptionEducatioProfile",
                 "/QPalxSubscribptionPayment", "/QPalxSubscribptionConfirm", "/QPalxSubscribptionMobilePaySetup", "/QPalxSubscribptionCancel", "/QPalxSubscribptionProcess",
                 "/QPalxSubscribptionComplete", "/QPalXGateway", "/qpalx-access-failure", "/ConfirmSubscriptionRenewal", "/GetSubscriptionRenewalToken", "/SubscribptionRenewalComplete",
                 "/PerformanceSnapshot", "/qpalx-sign-up", "/sign-up-type-select", "/select-signup-payment", "/customize-proficiency-ranking", "/complete-qpalx-signup", "/testQuiz", "/generateIds"

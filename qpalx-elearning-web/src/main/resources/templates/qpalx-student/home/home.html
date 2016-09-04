@@ -14,22 +14,8 @@
 <!-- Include general header fragment panel for when a Student user is already logged in -->
 <div th:replace="fragments/header-loggedin :: header-loggedin"></div>
 
-<!-- Student User information panel -->
-<div class="container" style="margin-bottom: 20px;" th:if="${QPalXUserType} == 'STUDENT'">
-    <div class="row">
-        <div class="col-md-12">
-            <img src="images/kwame.png"/>&nbsp;&nbsp;&nbsp;<span class="large-text"><b th:text="${LoggedInQPalXUser.getFullName()}"/></span> &middot; Account &middot; <a th:href="@{/logout}">Sign Out</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-2">
-            <span class="small-text-2 below-name" data-toggle="tooltip" data-placement="bottom" title="SuccessID is your unique ID on QPalx" th:text="|Success ID:  ${LoggedInQPalXUser.getSuccessID()}|"/>
-        </div>
-        <div class="col-md-8"></div>
-    </div>
-</div>
-
+<!-- Include Student User general Account information panel -->
+<div th:replace="fragments/qpalx-user-info-panel :: general-account-info"/>
 
 <div class="container">
 

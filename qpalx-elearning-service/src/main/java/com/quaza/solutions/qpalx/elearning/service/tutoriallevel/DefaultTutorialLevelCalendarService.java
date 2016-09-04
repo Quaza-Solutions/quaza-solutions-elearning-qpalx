@@ -54,13 +54,5 @@ public class DefaultTutorialLevelCalendarService implements ITutorialLevelCalend
         return null;
     }
 
-    @Override
-    public List<ELearningCourseActivity> findAllCourseELearningActivities(TutorialLevelCalendar tutorialLevelCalendar, ELearningCourse eLearningCourse) {
-//        Assert.notNull(tutorialLevelCalendar, "tutorialLevelCalendar cannot be null");
-//        Assert.notNull(eLearningCourse, "eLearningCourse cannot be null");
-//        LOGGER.info("Finding all ELearningCourseActivity for tutorialLevelCalendar:> {} and eLearningCourse:> {}", tutorialLevelCalendar.getCalendarItemName(), eLearningCourse.getCourseName());
-//        List<ELearningCourseActivity> eLearningCourseActivities = iTutorialLevelCalendarService.findAllCourseELearningActivities(tutorialLevelCalendar, eLearningCourse);
-        return null;
-    }
 
 }

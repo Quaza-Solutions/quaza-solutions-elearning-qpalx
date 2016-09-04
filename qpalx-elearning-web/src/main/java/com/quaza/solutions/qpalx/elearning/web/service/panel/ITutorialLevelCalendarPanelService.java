@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.web.service.panel;
 
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import org.springframework.ui.Model;
 
 /**
@@ -9,5 +10,7 @@ public interface ITutorialLevelCalendarPanelService {
 
 
     public void addCalendarPanelInfo(Model model, Long selectedTutorialLevelCalendarID);
+
+    public void addCalendarPanelInfo(Model model, TutorialLevelCalendar selectedTutorialLevelCalendar);
 
 }

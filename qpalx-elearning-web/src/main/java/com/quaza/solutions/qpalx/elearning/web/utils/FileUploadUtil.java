@@ -91,8 +91,10 @@ public class FileUploadUtil implements IFileUploadUtil {
             // Get the actual media content type and the actual directory to upload this file to
             Optional<MediaContentType> optionalMediaContentType = ieLearningCourseActivityService.getMediaContentType(fileName);
             MediaContentType mediaContentType = optionalMediaContentType.get();
-            String fileUploadDirectory = ieLearningCourseActivityService.getMediaContentTypeUploadDirectory(mediaContentType, learningActivityE);
-            LOGGER.info("Uploading Course activity media content file:> {} to location:> {}", fileName, fileUploadDirectory);
+
+            // Get the actual pyshical file directory location where this file should be uploaded to
+            String fileUploadDirectory = ieLearningCourseActivityService.getMediaContentTypeUploadPhysicalDirectory(mediaContentType, learningActivityE);
+            LOGGER.info("Uploading Course activity media content file:> {} to physical location:> {}", fileName, fileUploadDirectory);
 
             File mediaContentFile = writeFileToDisk(multipartFile, fileUploadDirectory);
             if (mediaContentFile != null) {

@@ -1,28 +1,21 @@
 package com.quaza.solutions.qpalx.elearning.ci.prepaidsubscription;
-import com.quaza.solutions.qpalx.QPalXServiceApplicationBootstrapper;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.prepaidsubscription.IQPalxPrepaidIDService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
-import org.joda.time.DateTime;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
 /**
  * Created by Trading_1 on 4/29/2016.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {QPalXServiceApplicationBootstrapper.class})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringApplicationConfiguration(classes = {QPalXServiceApplicationBootstrapper.class})
 public class PrepaidSubscriptionCITest {
 
     @Autowired
@@ -41,13 +34,13 @@ public class PrepaidSubscriptionCITest {
 
     private QPalXSubscription qPalXSubscription;
 
-    @Before
+//    @Before
     public void testObjectCreation(){
      qPalXMunicipality = iQPalXMunicipalityService.findQPalXMunicipalityByID(1L);
      qPalXSubscription = iQPalxSubscriptionService.findQPalXSubscriptionByID(1L);
     }
 
-    @Test//working
+//    @Test//working
     public void testGenerateAndWriteToExcel(){
        // iQpalxPrepaidIDService.generateAndWritePrepaidIdsToExcel(10, qPalXMunicipality, qPalXSubscription, "PrepaidCodeOutputStreamFile801201699");
     }
@@ -73,7 +66,7 @@ public class PrepaidSubscriptionCITest {
         Assert.assertNotNull(prepaidSubscription);
     }
 
-    @Test //- Working -
+//    @Test //- Working -
     public void testSavePrepaidId(){
 //        PrepaidSubscription prepaidSubscription = new PrepaidSubscription();
 //        prepaidSubscription.setUniqueID("random");

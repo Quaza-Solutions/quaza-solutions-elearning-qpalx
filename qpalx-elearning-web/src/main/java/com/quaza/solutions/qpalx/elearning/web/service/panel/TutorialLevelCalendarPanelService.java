@@ -57,12 +57,19 @@ public class TutorialLevelCalendarPanelService implements ITutorialLevelCalendar
         Assert.notNull(model, "model cannot be null");
         Assert.notNull(selectedTutorialLevelCalendarID, "selectedTutorialLevelCalendarID cannot be null");
 
+        // Lookup the selected tutorial level calendar
+        TutorialLevelCalendar selectedTutorialLevelCalendar = iTutorialLevelCalendarService.findByID(selectedTutorialLevelCalendarID);
+        addCalendarPanelInfo(model, selectedTutorialLevelCalendar);
+    }
+
+    @Override
+    public void addCalendarPanelInfo(Model model, TutorialLevelCalendar selectedTutorialLevelCalendar) {
+        Assert.notNull(model, "model cannot be null");
+        Assert.notNull(selectedTutorialLevelCalendar, "selectedTutorialLevelCalendar cannot be null");
+
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
         if(optionalUser.isPresent()) {
             LOGGER.debug("adding calendar panel infor for student: {}", optionalUser.get().getEmail());
-
-            // Lookup the selected tutorial level calendar
-            TutorialLevelCalendar selectedTutorialLevelCalendar = iTutorialLevelCalendarService.findByID(selectedTutorialLevelCalendarID);
 
             // Get the student enrolment record to determine their tutorial level and grade.
             StudentEnrolmentRecord studentEnrolmentRecord = iStudentEnrolmentRecordService.findCurrentStudentEnrolmentRecord(optionalUser.get());
@@ -75,5 +82,6 @@ public class TutorialLevelCalendarPanelService implements ITutorialLevelCalendar
             iWebAttributesUtil.addWebAttributes(model, tutorialLevelPanelAttributes);
         }
     }
+
 
 }

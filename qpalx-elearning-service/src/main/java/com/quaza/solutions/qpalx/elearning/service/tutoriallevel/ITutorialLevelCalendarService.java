@@ -20,5 +20,4 @@ public interface ITutorialLevelCalendarService {
 
     public Map<TutorialLevelCalendar, ELearningCourseActivity> findAllCourseELearningActivities(ELearningCourse eLearningCourse);
 
-    public List<ELearningCourseActivity> findAllCourseELearningActivities(TutorialLevelCalendar tutorialLevelCalendar, ELearningCourse eLearningCourse);
 }

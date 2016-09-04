@@ -84,7 +84,7 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
         Optional<MediaContentType> optionalMediaContentType = getMediaContentType(mediaContentFile.getName());
 
         // We save file name using symbolic link directory as the actual file will get uploaded to a directory outside web app context
-        String symbolicFileDirectory = getMediaContentTypeSymbolicDirectory(optionalMediaContentType.get(), learningActivityE);
+        String symbolicFileDirectory = getMediaContentTypeVirtualDirectory(optionalMediaContentType.get(), learningActivityE);
         String symbolicFileName = symbolicFileDirectory + mediaContentFile.getName();
 
         return ELearningMediaContent.builder()
@@ -128,7 +128,7 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
     }
 
     @Override
-    public String getMediaContentTypeUploadDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE) {
+    public String getMediaContentTypeUploadPhysicalDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE) {
         Assert.notNull(mediaContentType, "mediaContentType cannot be null");
         Assert.notNull(learningActivityE, "learningActivityE cannot be null");
 
@@ -136,10 +136,19 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
 
         switch (learningActivityE) {
             case Video:
-                uploadDirectory = fileUploadLocationConfiguration.getVideosDirectory();
+                uploadDirectory = fileUploadLocationConfiguration.getELearningContentPhysicalFileResourcesDir() + "videos/";
                 break;
             case Quiz:
-                uploadDirectory = fileUploadLocationConfiguration.getQuizzesDirectory();
+                uploadDirectory = fileUploadLocationConfiguration.getELearningContentPhysicalFileResourcesDir() + "quizzes/";
+                break;
+            case Assesment:
+                uploadDirectory = fileUploadLocationConfiguration.getELearningContentPhysicalFileResourcesDir() + "assesments/";
+                break;
+            case Assignment:
+                uploadDirectory = fileUploadLocationConfiguration.getELearningContentPhysicalFileResourcesDir() + "assignments/";
+                break;
+            case Interactive_Excersise:
+                uploadDirectory = fileUploadLocationConfiguration.getELearningContentPhysicalFileResourcesDir() + "interactive-exercises/";
                 break;
             default:
                 break;
@@ -150,7 +159,7 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
     }
 
     @Override
-    public String getMediaContentTypeSymbolicDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE) {
+    public String getMediaContentTypeVirtualDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE) {
         Assert.notNull(mediaContentType, "mediaContentType cannot be null");
         Assert.notNull(learningActivityE, "learningActivityE cannot be null");
 
@@ -158,10 +167,19 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
 
         switch (learningActivityE) {
             case Video:
-                uploadDirectory = fileUploadLocationConfiguration.getVideosSymbolicDirectory();
+                uploadDirectory = fileUploadLocationConfiguration.geteLearningContentVideosDir();
                 break;
             case Quiz:
-                uploadDirectory = fileUploadLocationConfiguration.getQuizzesSymbolicDirectory();
+                uploadDirectory = fileUploadLocationConfiguration.geteLearningContentQuizzesDir();
+                break;
+            case Assesment:
+                uploadDirectory = fileUploadLocationConfiguration.geteLearningContentAssesmentsDir();
+                break;
+            case Assignment:
+                uploadDirectory = fileUploadLocationConfiguration.geteLearningContentAssignmentsDir();
+                break;
+            case Interactive_Excersise:
+                uploadDirectory = fileUploadLocationConfiguration.geteLearningContentInteractiveExercisesDir();
                 break;
             default:
                 break;
@@ -183,6 +201,14 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
         Assert.notNull(eLearningCourse, "eLearningCourse cannot be null");
         LOGGER.info("Finding all ELearning course activities for eLearningCours:> {}", eLearningCourse.getCourseName());
         return ieLearningCourseActivityRepository.findELearningCourseActivities(eLearningCourse);
+    }
+
+    @Override
+    public List<ELearningCourseActivity> findCourseAcitivitiesByCalendarAndCourse(TutorialLevelCalendar tutorialLevelCalendar, ELearningCourse eLearningCourse) {
+        Assert.notNull(tutorialLevelCalendar, "tutorialLevelCalendar cannot be null");
+        Assert.notNull(eLearningCourse, "eLearningCourse cannot be null");
+        LOGGER.debug("Finding all ELearning Course Activities for tutorialLevelCalendar: {} and eLearningCourse: {}", tutorialLevelCalendar, eLearningCourse);
+        return ieLearningCourseActivityRepository.findELearningCourseActivitiesByTutorialCalendarAndCourse(tutorialLevelCalendar, eLearningCourse);
     }
 
     @Override

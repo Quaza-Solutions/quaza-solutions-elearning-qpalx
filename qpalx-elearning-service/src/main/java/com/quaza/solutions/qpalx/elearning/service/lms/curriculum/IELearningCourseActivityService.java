@@ -5,6 +5,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.MediaContentType;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.IELearningCourseActivityVO;
 
 import java.io.File;
@@ -25,13 +26,15 @@ public interface IELearningCourseActivityService {
 
     public Optional<MediaContentType> getMediaContentType(String mediaContentFileName);
 
-    public String getMediaContentTypeUploadDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE);
+    public String getMediaContentTypeUploadPhysicalDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE);
 
-    public String getMediaContentTypeSymbolicDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE);
+    public String getMediaContentTypeVirtualDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE);
 
     public ELearningCourseActivity findByID(Long id);
 
     public List<ELearningCourseActivity> findELearningCourseAcitivitiesByCourse(ELearningCourse eLearningCourse);
+
+    public List<ELearningCourseActivity> findCourseAcitivitiesByCalendarAndCourse(TutorialLevelCalendar tutorialLevelCalendar, ELearningCourse eLearningCourse);
 
     public ELearningCourseActivity findELearningCourseActivityByCourseAndActivityName(String activityName, ELearningCourse eLearningCourse);
 

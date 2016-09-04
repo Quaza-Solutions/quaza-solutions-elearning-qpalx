@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 /**
  * Contains configurations that determine the different directories used through the application for file uploads.
  *
@@ -15,40 +17,65 @@ import org.springframework.stereotype.Component;
 public class FileUploadLocationConfiguration {
 
 
+    @Value("${elearning.content.resource.handler}")
+    private String eLearningContentResourceHandler;
 
-    @Value("${elearning.course.activity.videos.dir}")
-    private String videosDirectory;
+    @Value("${elearning.content.physical.file.resources.dir}")
+    private String eLearningContentPhysicalFileResourcesDir;
 
-    @Value("${elearning.course.activity.quizzes.dir}")
-    private String quizzesDirectory;
+    @Value("${elearning.content.resource.videos.dir}")
+    private String eLearningContentVideosDir;
 
-    @Value("${elearning.course.activity.symbolic.videos.dir}")
-    private String videosSymbolicDirectory;
+    @Value("${elearning.content.resource.quizzes.dir}")
+    private String eLearningContentQuizzesDir;
 
-    @Value("${elearning.course.activity.symbolic.quizzes.dir}")
-    private String quizzesSymbolicDirectory;
+    @Value("${elearning.content.resource.assesments.dir}")
+    private String eLearningContentAssesmentsDir;
+
+    @Value("${elearning.content.resource.assignments.dir}")
+    private String eLearningContentAssignmentsDir;
+
+    @Value("${elearning.content.resource.interactive-exercises.dir}")
+    private String eLearningContentInteractiveExercisesDir;
 
     @Value("${application.temp.file.dir}")
     private String tempFileDirectory;
+
 
     public FileUploadLocationConfiguration() {
 
     }
 
-    public String getVideosDirectory() {
-        return videosDirectory;
+    public String geteLearningContentResourceHandler() {
+        return eLearningContentResourceHandler;
     }
 
-    public String getQuizzesDirectory() {
-        return quizzesDirectory;
+    public String getELearningContentPhysicalFileResourcesDir() {
+        return eLearningContentPhysicalFileResourcesDir;
     }
 
-    public String getVideosSymbolicDirectory() {
-        return videosSymbolicDirectory;
+    public String geteLearningContentVideosDir() {
+        return eLearningContentVideosDir;
     }
 
-    public String getQuizzesSymbolicDirectory() {
-        return quizzesSymbolicDirectory;
+    public String geteLearningContentQuizzesDir() {
+        return eLearningContentQuizzesDir;
+    }
+
+    public String geteLearningContentPhysicalFileResourcesDir() {
+        return eLearningContentPhysicalFileResourcesDir;
+    }
+
+    public String geteLearningContentAssesmentsDir() {
+        return eLearningContentAssesmentsDir;
+    }
+
+    public String geteLearningContentAssignmentsDir() {
+        return eLearningContentAssignmentsDir;
+    }
+
+    public String geteLearningContentInteractiveExercisesDir() {
+        return eLearningContentInteractiveExercisesDir;
     }
 
     public String getTempFileDirectory() {
@@ -58,11 +85,20 @@ public class FileUploadLocationConfiguration {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("videosDirectory", videosDirectory)
-                .append("quizzesDirectory", quizzesDirectory)
-                .append("videosSymbolicDirectory", videosSymbolicDirectory)
-                .append("quizzesSymbolicDirectory", quizzesSymbolicDirectory)
+                .append("eLearningContentResourceHandler", eLearningContentResourceHandler)
+                .append("eLearningContentPhysicalFileResourcesDir", eLearningContentPhysicalFileResourcesDir)
+                .append("eLearningContentVideosDir", eLearningContentVideosDir)
+                .append("eLearningContentQuizzesDir", eLearningContentQuizzesDir)
+                .append("eLearningContentAssesmentsDir", eLearningContentAssesmentsDir)
+                .append("eLearningContentAssignmentsDir", eLearningContentAssignmentsDir)
+                .append("eLearningContentInteractiveExercisesDir", eLearningContentInteractiveExercisesDir)
                 .append("tempFileDirectory", tempFileDirectory)
                 .toString();
     }
+
+    @PostConstruct
+    public void post() {
+        System.out.println();
+    }
+
 }
