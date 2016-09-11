@@ -31,7 +31,7 @@ public class TutorialLevelCalendar {
     private String calendarItemStartMonth;
 
     @Column(name="CalendarItemEndMonth", nullable=true)
-    private String calendarItemonth;
+    private String calendarItemEndMonth;
 
     @Column(name="CalendarItemOrder", nullable=false)
     private Integer calendarItemOrder;
@@ -78,12 +78,12 @@ public class TutorialLevelCalendar {
         this.calendarItemStartMonth = calendarItemStartMonth;
     }
 
-    public String getCalendarItemonth() {
-        return calendarItemonth;
+    public String getCalendarItemEndMonth() {
+        return calendarItemEndMonth;
     }
 
-    public void setCalendarItemonth(String calendarItemonth) {
-        this.calendarItemonth = calendarItemonth;
+    public void setCalendarItemEndMonth(String calendarItemEndMonth) {
+        this.calendarItemEndMonth = calendarItemEndMonth;
     }
 
     public Integer getCalendarItemOrder() {
@@ -115,7 +115,7 @@ public class TutorialLevelCalendar {
                 .append(calendarItemName, that.calendarItemName)
                 .append(calendarItemDescripiton, that.calendarItemDescripiton)
                 .append(calendarItemStartMonth, that.calendarItemStartMonth)
-                .append(calendarItemonth, that.calendarItemonth)
+                .append(calendarItemEndMonth, that.calendarItemEndMonth)
                 .append(calendarItemOrder, that.calendarItemOrder)
                 .append(studentTutorialLevel, that.studentTutorialLevel)
                 .isEquals();
@@ -128,7 +128,7 @@ public class TutorialLevelCalendar {
                 .append(calendarItemName)
                 .append(calendarItemDescripiton)
                 .append(calendarItemStartMonth)
-                .append(calendarItemonth)
+                .append(calendarItemEndMonth)
                 .append(calendarItemOrder)
                 .append(studentTutorialLevel)
                 .toHashCode();
@@ -141,7 +141,7 @@ public class TutorialLevelCalendar {
                 .append("calendarItemName", calendarItemName)
                 .append("calendarItemDescripiton", calendarItemDescripiton)
                 .append("calendarItemStartMonth", calendarItemStartMonth)
-                .append("calendarItemonth", calendarItemonth)
+                .append("calendarItemEndMonth", calendarItemEndMonth)
                 .append("calendarItemOrder", calendarItemOrder)
                 .append("studentTutorialLevel", studentTutorialLevel)
                 .toString();
