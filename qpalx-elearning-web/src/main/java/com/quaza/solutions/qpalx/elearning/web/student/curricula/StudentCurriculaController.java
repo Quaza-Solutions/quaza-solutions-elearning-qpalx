@@ -3,6 +3,7 @@ package com.quaza.solutions.qpalx.elearning.web.student.curricula;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseActivityService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseService;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author manyce400
@@ -51,6 +53,7 @@ public class StudentCurriculaController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultTutorialLevelCalendarService")
     private ITutorialLevelCalendarService iTutorialLevelCalendarService;
 
+
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
     private IQPalXUserInfoPanelService qPalXUserInfoPanelService;
@@ -78,20 +81,21 @@ public class StudentCurriculaController {
     public String displayQPalXCourseActivities(final Model model, @RequestParam("qCourseID") String qCourseID) {
         LOGGER.info("Retrieving all learning activities in courseID: {}", qCourseID);
 
+        Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
+
         Long id = NumberUtils.toLong(qCourseID);
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(id);
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
-        // Find course activities for this specific cours and tutorial level
-        TutorialLevelCalendar selectedTutorialLevelCalendar = iTutorialLevelCalendarService.findByID(1L);
-        List<ELearningCourseActivity> eLearningCourseActivities = ieLearningCourseActivityService.findCourseAcitivitiesByCalendarAndCourse(selectedTutorialLevelCalendar, eLearningCourse);
+        // Find the current default TutorialLevelCalendar based on the current month
+        Optional<TutorialLevelCalendar> selectedTutorialLevelCalendar = iTutorialLevelCalendarService.findCurrentCalendarByTutorialLevel(optionalUser.get());
+        List<ELearningCourseActivity> eLearningCourseActivities = ieLearningCourseActivityService.findCourseAcitivitiesByCalendarAndCourse(selectedTutorialLevelCalendar.get(), eLearningCourse);
         model.addAttribute("SelectedELearningCourseActivities", eLearningCourseActivities);
 
         // Add all attributes required for Student tutorial level calendar panel.  By Default we load only first term if no calendar is specified
-        // TODO implement method to get default calendar based on current date
-        iTutorialLevelCalendarPanelService.addCalendarPanelInfo(model, selectedTutorialLevelCalendar);
+        iTutorialLevelCalendarPanelService.addCalendarPanelInfo(model, selectedTutorialLevelCalendar.get());
 
         addSelectedCourseInfoToResponse(model, qCourseID);
         addSelectedCurriculumInfoToResponse(model, eLearningCourse.geteLearningCurriculum().getId().toString());
@@ -106,11 +110,17 @@ public class StudentCurriculaController {
         Long calendarID = NumberUtils.toLong(tutorialLevelCalendarID);
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(courseID);
 
+        TutorialLevelCalendar selectedTutorialLevelCalendar = iTutorialLevelCalendarService.findByID(calendarID);
+
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
         // Add all attributes required for Student tutorial level calendar panel.
         iTutorialLevelCalendarPanelService.addCalendarPanelInfo(model, calendarID);
+
+        // Add all course activities for tutorial level and ELearning course
+        List<ELearningCourseActivity> eLearningCourseActivities = ieLearningCourseActivityService.findCourseAcitivitiesByCalendarAndCourse(selectedTutorialLevelCalendar, eLearningCourse);
+        model.addAttribute("SelectedELearningCourseActivities", eLearningCourseActivities);
 
         addSelectedCourseInfoToResponse(model, qCourseID);
         addSelectedCurriculumInfoToResponse(model, eLearningCourse.geteLearningCurriculum().getId().toString());
