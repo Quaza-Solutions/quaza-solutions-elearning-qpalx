@@ -82,7 +82,7 @@ public class QPalXGlobalSecurityConfiguration extends WebSecurityConfigurerAdapt
                 "/", "/css/**", "/css/**/**", "/js/**", "/img/**", "/images/**", "/font/**", "/videos/**", "/QGatewaySignup", "/QPalxSubscribptionEducatioProfile",
                 "/QPalxSubscribptionPayment", "/QPalxSubscribptionConfirm", "/QPalxSubscribptionMobilePaySetup", "/QPalxSubscribptionCancel", "/QPalxSubscribptionProcess",
                 "/QPalxSubscribptionComplete", "/QPalXGateway", "/qpalx-access-failure", "/ConfirmSubscriptionRenewal", "/GetSubscriptionRenewalToken", "/SubscribptionRenewalComplete",
-                "/PerformanceSnapshot", "/qpalx-sign-up", "/sign-up-type-select", "/select-signup-payment", "/customize-proficiency-ranking", "/complete-qpalx-signup", "/testQuiz", "/generateIds"
+                "/PerformanceSnapshot", "/qpalx-sign-up", "/sign-up-type-select", "/select-signup-payment", "/customize-proficiency-ranking", "/complete-qpalx-signup", "/save-captivate-quiz-score", "/generateIds"
         );
 
         LOGGER.info("Paths to exclude from Global Security Authentication:> {}", exclustionList);

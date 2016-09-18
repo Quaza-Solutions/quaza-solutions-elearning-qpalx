@@ -8,6 +8,8 @@ public enum  UserInfoPanelAttributesE {
 
     LoggedInQPalXUser,
 
+    AdpativeProficiencyRankings,
+
     QPalXUserType;
 
 

@@ -5,7 +5,7 @@ $('.floor').blur(function() {
 	var inp2 = $(".ceiling").val();
 	if (inp1 >= inp2){
 		var txt3 = "Floor must be less than ceiling";
-		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		var newDiv3 = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
 		
 		$('#floor').append(newDiv3);
 	}
@@ -17,7 +17,7 @@ $('.ceiling').blur(function() {
 	var inp2 = $(".ceiling").val();
 	if (inp1 >= inp2){
 		var txt3 = "Floor must be less than ceiling";
-		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		var newDiv3 = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
 		
 		$('#ceiling').append(newDiv3);
 	}
@@ -29,7 +29,7 @@ if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt3 = "Please don't leave the field blank";
-		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		var newDiv3 = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
 		
 		$('#first-name').append(newDiv3);
 	  // Prevent form submission
@@ -46,7 +46,7 @@ if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt3 = "Please don't leave the field blank";
-		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		var newDiv3 = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
 		
 		$('.course-length').append(newDiv3);
 	  // Prevent form submission
@@ -64,7 +64,7 @@ if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt3 = "Please don't leave the field blank";
-		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		var newDiv3 = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
 		
 		$('.name').append(newDiv3);
 	  // Prevent form submission
@@ -81,7 +81,7 @@ if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt3 = "Please don't leave the field blank";
-		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		var newDiv3 = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
 		
 		$('.minutes').append(newDiv3);
 	  // Prevent form submission
@@ -99,7 +99,7 @@ if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt3 = "Please don't leave the field blank";
-		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		var newDiv3 = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
 		
 		$('#zip-code').append(newDiv3);
 	  // Prevent form submission
@@ -117,7 +117,7 @@ if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt3 = "Please don't leave the field blank";
-		var newDiv3 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
+		var newDiv3 = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt3);
 		
 		$('#phone-number').append(newDiv3);
 	  // Prevent form submission
@@ -135,7 +135,7 @@ if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt4 = "Please don't leave the field blank";
-		var newDiv4 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt4);
+		var newDiv4 = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt4);
 		
 		$('#last-name').append(newDiv4);
 	  // Prevent form submission
@@ -153,7 +153,7 @@ if ( $.trim(inp).length == 0 )
 {
    $(this).removeClass("blur-2").addClass("focus-2");
    		var txt4 = "Please don't leave the field blank";
-		var newDiv4 = $('<div style=\"position: relative; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt4);
+		var newDiv4 = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt4);
 		
 		$('.description').append(newDiv4);
 	  // Prevent form submission
@@ -169,7 +169,7 @@ if ( $.trim(inp).length == 0 )
   if (!validateEmail($(this).val()) || ( $.trim(input).length == 0 )) {
 	  $(this).removeClass("blur").addClass("focus");
 	  var txt = "Please enter a valid email address.";
-		var newDiv = $('<div style=\"position: relative; top: -20px; right: -300px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt);
+		var newDiv = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt);
 		
 		$('#tooltip-1').append(newDiv);
 	  // Prevent form submission
@@ -185,7 +185,7 @@ if ( $.trim(inp).length == 0 )
   if (!validateEmail($(this).val()) || ( $.trim(input).length == 0 )) {
 	  $(this).removeClass("blur").addClass("focus");
 	  var txt = "Please enter a valid email address.";
-		var newDiv = $('<div style=\"position: relative; top: -20px; right: -300px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt);
+		var newDiv = $('<div style=\"position: absolute; top: 0px; right: 0px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt);
 		
 		$('.tooltip-2').append(newDiv);
 	  // Prevent form submission
@@ -245,7 +245,7 @@ $(this).removeClass("focus-3").addClass("blur-3");
 $('#password-2').blur(function() {
 		$("#password-confirm").empty();
 		var txt2 = "Please enter the same password";
-		var newDiv2 = $('<div style=\"position: relative; top: 0px; right: -300px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt2);
+		var newDiv2 = $('<div style=\"position: absolute; top: 0px; right: -300px; background-color: #444; padding: 6px; width: 180px; height: 60px; color: #fff;\"></div>').text(txt2);
 		
 		   if($('#password-1').val() != $('#password-2').val()) {
 		  $(this).removeClass("blur").addClass("focus");

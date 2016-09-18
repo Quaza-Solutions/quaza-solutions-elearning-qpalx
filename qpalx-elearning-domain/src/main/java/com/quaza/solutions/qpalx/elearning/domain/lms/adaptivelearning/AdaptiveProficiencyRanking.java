@@ -42,7 +42,7 @@ public class AdaptiveProficiencyRanking {
     private QPalXUser qpalxUser;
 
     // Link back to ELearningCurriculum.
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ELearningCurriculumID", nullable = false)
     private ELearningCurriculum eLearningCurriculum;
 
