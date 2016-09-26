@@ -1,10 +1,10 @@
-package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning;
+package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
 /**
- *
  * @author manyce400
  */
-public enum LearningActivityE {
+public enum MicroLessonActivityTypeE {
+
 
     Quiz,
 

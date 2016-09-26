@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -146,6 +147,13 @@ public class StudentCurriculaController {
         model.addAttribute("SelectedELearningCourseActivityFile", eLearningCourseActivity.geteLearningMediaContent().getELearningMediaFile());
         model.addAttribute("SelectedMediaContentType", eLearningCourseActivity.geteLearningMediaContent().getELearningMediaType());
         return ContentRootE.Student_Home.getContentRootPagePath("video-widget");
+    }
+
+    @RequestMapping(value = "/testQuiz", method = RequestMethod.POST)
+    public void testSubmit(Model model, @RequestParam("name") String fileName, @RequestParam("file") MultipartFile imageFile){
+        System.out.println("Ping: "+imageFile);
+//        String imageUploadedFile = iFileUploadUtil.uploadTestScores(imageFile);
+//        System.out.println("imageUploadedFile = " + imageUploadedFile);
     }
 
 
