@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
 import com.google.common.collect.ImmutableSet;
+import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -53,6 +54,11 @@ public class QPalXELesson {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ELearningCourseID", nullable = false)
     private ELearningCourse eLearningCourse;
+
+    // Optional QPalXEducationalInstitution.  A Lesson could be developed for a specific educational institution
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "QPalXEducationalInstitutionID", nullable = true)
+    private QPalXEducationalInstitution qPalXEducationalInstitution;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TutorialLevelCalendarID", nullable = false)
@@ -133,6 +139,14 @@ public class QPalXELesson {
         this.eLearningCourse = eLearningCourse;
     }
 
+    public QPalXEducationalInstitution getQPalXEducationalInstitution() {
+        return qPalXEducationalInstitution;
+    }
+
+    public void setQPalXEducationalInstitution(QPalXEducationalInstitution qPalXEducationalInstitution) {
+        this.qPalXEducationalInstitution = qPalXEducationalInstitution;
+    }
+
     public TutorialLevelCalendar getTutorialLevelCalendar() {
         return tutorialLevelCalendar;
     }
@@ -183,6 +197,7 @@ public class QPalXELesson {
                 .append(proficiencyRankingScaleFloor, that.proficiencyRankingScaleFloor)
                 .append(proficiencyRankingScaleCeiling, that.proficiencyRankingScaleCeiling)
                 .append(eLearningCourse, that.eLearningCourse)
+                .append(qPalXEducationalInstitution, that.qPalXEducationalInstitution)
                 .append(tutorialLevelCalendar, that.tutorialLevelCalendar)
                 .append(entryDate, that.entryDate)
                 .isEquals();
@@ -198,6 +213,7 @@ public class QPalXELesson {
                 .append(proficiencyRankingScaleFloor)
                 .append(proficiencyRankingScaleCeiling)
                 .append(eLearningCourse)
+                .append(qPalXEducationalInstitution)
                 .append(tutorialLevelCalendar)
                 .append(entryDate)
                 .append(lessonActive)
@@ -214,6 +230,7 @@ public class QPalXELesson {
                 .append("proficiencyRankingScaleFloor", proficiencyRankingScaleFloor)
                 .append("proficiencyRankingScaleCeiling", proficiencyRankingScaleCeiling)
                 .append("eLearningCourse", eLearningCourse)
+                .append("qPalXEducationalInstitution", qPalXEducationalInstitution)
                 .append("tutorialLevelCalendar", tutorialLevelCalendar)
                 .append("entryDate", entryDate)
                 .append("lessonActive", lessonActive)
@@ -260,6 +277,11 @@ public class QPalXELesson {
             return this;
         }
 
+        public Builder qPalXEducationalInstitution(QPalXEducationalInstitution qPalXEducationalInstitution) {
+            qPalXELesson.qPalXEducationalInstitution = qPalXEducationalInstitution;
+            return this;
+        }
+
         public Builder tutorialLevelCalendar(TutorialLevelCalendar tutorialLevelCalendar) {
             qPalXELesson.tutorialLevelCalendar = tutorialLevelCalendar;
             return this;
@@ -278,6 +300,10 @@ public class QPalXELesson {
         public Builder qPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson) {
             qPalXELesson.addQPalXEMicroLesson(qPalXEMicroLesson);
             return this;
+        }
+
+        public QPalXELesson build() {
+            return qPalXELesson;
         }
     }
 }

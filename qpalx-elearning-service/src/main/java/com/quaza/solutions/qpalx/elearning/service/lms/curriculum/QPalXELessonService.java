@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXELessonVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IQPalXELessonRepository;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
@@ -47,5 +48,16 @@ public class QPalXELessonService implements IQPalXELessonService {
         return qPalXELessons;
     }
 
+    @Override
+    public void saveQPalXELesson(QPalXELesson qPalXELesson) {
+        Assert.notNull(qPalXELesson, "qPalXELesson");
+        LOGGER.debug("Saving qPalXELesson: {}", qPalXELesson);
+        iqPalXELessonRepository.save(qPalXELesson);
+    }
 
+    @Override
+    public void createAndSaveQPalXELesson(IQPalXELessonVO iqPalXELessonVO) {
+        Assert.notNull(iqPalXELessonVO, "iqPalXELessonVO");
+        LOGGER.info("Creating new QPalXELesson with value object iqPalXELessonVO: {}", iqPalXELessonVO);
+    }
 }
