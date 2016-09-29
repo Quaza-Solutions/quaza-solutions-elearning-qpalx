@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.web.service.panel;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import org.springframework.ui.Model;
 
 /**
@@ -10,15 +11,8 @@ import org.springframework.ui.Model;
 public interface IContentAdminTutorialGradePanelService {
 
 
-    /**
-     * Add all attributes required to display the Admin display panel
-     *
-     * @param model
-     * @param addCoursesEnabled
-     * @param addCourseActivitiesEnabled
-     * @param studentTutorialGradeID
-     * @param curriculumType
-     */
+    public void addDisplayPanelAttributes(Model model, Boolean addCoursesEnabled, Boolean addCourseActivitiesEnabled, ELearningCourse eLearningCourse);
+
     public void addDisplayPanelAttributes(Model model, Boolean addCoursesEnabled, Boolean addCourseActivitiesEnabled, String studentTutorialGradeID, String curriculumType);
 
 }

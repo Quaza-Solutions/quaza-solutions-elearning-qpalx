@@ -1,4 +1,4 @@
-package om.quaza.solutions.qpalx.elearning.web.curriculum.vo;
+package com.quaza.solutions.qpalx.elearning.web.curriculum.vo;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXELessonVO;
