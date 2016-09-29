@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -36,6 +37,14 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultAdaptiveProficiencyRankingService.class);
 
+
+
+    @Override
+    public List<AdaptiveProficiencyRanking> findStudentAdaptiveProficiencyRankings(QPalXUser qPalXUser) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        LOGGER.info("Finding all adaptive proficiency rankings for qPalxUser: {}", qPalXUser.getEmail());
+        return iAdaptiveProficiencyRankingRepository.findStudentAdaptiveProficiencyRankings(qPalXUser);
+    }
 
     @Override
     @Transactional

@@ -18,6 +18,12 @@
         <!-- QPalX dependencies -->
         <dependency>
             <groupId>com.quaza.solutions.qpalx.elearning</groupId>
+            <artifactId>qpalx-elearning-config</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.quaza.solutions.qpalx.elearning</groupId>
             <artifactId>qpalx-elearning-domain</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>

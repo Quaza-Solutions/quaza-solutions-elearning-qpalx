@@ -1,0 +1,222 @@
+package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
+
+import com.google.common.collect.ImmutableSet;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+import org.springframework.util.Assert;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * @author manyce400
+ */
+@Entity
+@Table(name="QPalXEMicroLesson")
+public class QPalXEMicroLesson {
+
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID", nullable=false)
+    private Long id;
+
+    @Column(name="MicroLessonName", nullable=false, length=255)
+    private String microLessonName;
+
+    @Column(name="MicroLessonDescription", nullable=false, length=255)
+    private String microLessonDescription;
+
+    // Provides information on Media Content that is associated with this activity.
+    @Embedded
+    private ELearningMediaContent eLearningMediaContent;
+
+    // Always fetch this Eager as we always need the parent QPalXELesson always avaialable
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "QPalXELessonID", nullable = false)
+    private QPalXELesson qPalXELesson;
+
+
+    // DateTime that the ELearning Media Content was uploaded on the QPalX platform.
+    @Column(name="EntryDate", nullable=true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime entryDate;
+
+    // IF set to true then this QPalXEMicroLesson is currently active
+    @Column(name="MicroLessonActive", nullable = true, columnDefinition = "TINYINT", length = 1)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean microLessonActive;
+
+
+    // Collection of all the QPalXEMicroLessonActivity available as part of this micro lesson
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qPalXEMicroLesson")
+    private Set<QPalXEMicroLessonActivity> qPalXEMicroLessonActivities = new HashSet<>();
+
+
+    public QPalXEMicroLesson() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getMicroLessonName() {
+        return microLessonName;
+    }
+
+    public void setMicroLessonName(String microLessonName) {
+        this.microLessonName = microLessonName;
+    }
+
+    public String getMicroLessonDescription() {
+        return microLessonDescription;
+    }
+
+    public void setMicroLessonDescription(String microLessonDescription) {
+        this.microLessonDescription = microLessonDescription;
+    }
+
+    public ELearningMediaContent geteLearningMediaContent() {
+        return eLearningMediaContent;
+    }
+
+    public void seteLearningMediaContent(ELearningMediaContent eLearningMediaContent) {
+        this.eLearningMediaContent = eLearningMediaContent;
+    }
+
+    public QPalXELesson getQPalXELesson() {
+        return qPalXELesson;
+    }
+
+    public void setQPalXELesson(QPalXELesson qPalXELesson) {
+        this.qPalXELesson = qPalXELesson;
+    }
+
+    public DateTime getEntryDate() {
+        return entryDate;
+    }
+
+    public void setEntryDate(DateTime entryDate) {
+        this.entryDate = entryDate;
+    }
+
+    public boolean isMicroLessonActive() {
+        return microLessonActive;
+    }
+
+    public void setMicroLessonActive(boolean microLessonActive) {
+        this.microLessonActive = microLessonActive;
+    }
+
+    public Set<QPalXEMicroLessonActivity> getQPalXEMicroLessonActivities() {
+        return ImmutableSet.copyOf(qPalXEMicroLessonActivities);
+    }
+
+    public void addQPalXEMicroLessonActivity(QPalXEMicroLessonActivity qPalXEMicroLessonActivity) {
+        Assert.notNull(qPalXEMicroLessonActivity, "qPalXEMicroLessonActivity cannot be null");
+        qPalXEMicroLessonActivities.add(qPalXEMicroLessonActivity);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        QPalXEMicroLesson that = (QPalXEMicroLesson) o;
+
+        return new EqualsBuilder()
+                .append(microLessonActive, that.microLessonActive)
+                .append(id, that.id)
+                .append(microLessonName, that.microLessonName)
+                .append(microLessonDescription, that.microLessonDescription)
+                .append(eLearningMediaContent, that.eLearningMediaContent)
+                .append(qPalXELesson, that.qPalXELesson)
+                .append(entryDate, that.entryDate)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(microLessonName)
+                .append(microLessonDescription)
+                .append(eLearningMediaContent)
+                .append(qPalXELesson)
+                .append(entryDate)
+                .append(microLessonActive)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("microLessonName", microLessonName)
+                .append("microLessonDescription", microLessonDescription)
+                .append("eLearningMediaContent", eLearningMediaContent)
+                .append("qPalXELesson", qPalXELesson)
+                .append("entryDate", entryDate)
+                .append("microLessonActive", microLessonActive)
+                .toString();
+    }
+
+    public static final Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+
+        private final QPalXEMicroLesson qpalxMicroLesson = new QPalXEMicroLesson();
+
+        public Builder microLessonName(String microLessonName) {
+            qpalxMicroLesson.microLessonName = microLessonName;
+            return this;
+        }
+
+        public Builder microLessonDescription(String microLessonDescription) {
+            qpalxMicroLesson.microLessonDescription = microLessonDescription;
+            return this;
+        }
+
+        public Builder eLearningMediaContent(ELearningMediaContent eLearningMediaContent) {
+            qpalxMicroLesson.eLearningMediaContent = eLearningMediaContent;
+            return this;
+        }
+
+        public Builder qPalXELesson(QPalXELesson qPalXELesson) {
+            qpalxMicroLesson.qPalXELesson = qPalXELesson;
+            return this;
+        }
+
+        public Builder entryDate(DateTime entryDate) {
+            qpalxMicroLesson.entryDate = entryDate;
+            return this;
+        }
+
+        public Builder microLessonActive(boolean microLessonActive) {
+            qpalxMicroLesson.microLessonActive = microLessonActive;
+            return this;
+        }
+
+        public Builder qPalXEMicroLessonActivity(QPalXEMicroLessonActivity qPalXEMicroLessonActivity) {
+            qpalxMicroLesson.addQPalXEMicroLessonActivity(qPalXEMicroLessonActivity);
+            return this;
+        }
+
+        public QPalXEMicroLesson build() {
+            return qpalxMicroLesson;
+        }
+    }
+}

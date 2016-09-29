@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.subscription;
 
+import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+
 /**
  * Created by Trading_1 on 4/25/2016.
  */
@@ -19,13 +21,11 @@ public class PrepaidSubscription {
     @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="CountryCode", nullable=false, length=255)
-    private String countryCode;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "QPalXMunicipalityID", nullable = false)
+    private QPalXMunicipality qPalXMunicipality;
 
-    @Column(name="CityCode", nullable=false, length=255)
-    private String cityCode;
-
-    @Column(name="UniqueID", nullable=false, length=10, unique = true)
+    @Column(name="UniqueID", nullable=false, length=12, unique = true)
     private String uniqueID;
 
     @Column(name="AlreadyUsed", nullable=false, length = 6)
@@ -39,13 +39,21 @@ public class PrepaidSubscription {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime redemptionDate;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "QPalXSubscriptionTypeID", nullable = false)
+    private QPalXSubscription qPalXSubscription;
+
+    public void setqPalXMunicipality(QPalXMunicipality qPalXMunicipality) { this.qPalXMunicipality = qPalXMunicipality; }
+
+    public QPalXMunicipality getqPalXMunicipality(){ return qPalXMunicipality; }
+
+    public void setqPalXSubscription(QPalXSubscription qPalXSubscription) { this.qPalXSubscription = qPalXSubscription; }
+
+    public QPalXSubscription getqPalXSubscription(){ return qPalXSubscription; }
+
     public long getID(){ return this.id; };
 
     public String getuniqueId(){ return this.uniqueID; };
-
-    public String getcountryCode(){ return this.countryCode; };
-
-    public String getcityCode(){ return this.cityCode; };
 
     public boolean getAlreadyUsed(){ return this.alreadyUsed; };
 
@@ -55,14 +63,6 @@ public class PrepaidSubscription {
 
     public void setUniqueID(String e_uniqueID){
         this.uniqueID = e_uniqueID;
-    }
-
-    public void setCountryCode(String e_countryCode){
-        this.countryCode = e_countryCode;
-    }
-
-    public void setCityCode(String e_cityCode){
-        this.cityCode = e_cityCode;
     }
 
     public void setAlreadyUsed(boolean e_alreadyUsed){
@@ -89,11 +89,11 @@ public class PrepaidSubscription {
         return new EqualsBuilder()
                 .append(alreadyUsed, that.alreadyUsed)
                 .append(id, that.id)
-                .append(countryCode, that.countryCode)
-                .append(cityCode, that.cityCode)
                 .append(uniqueID, that.uniqueID)
                 .append(dateCreated, that.dateCreated)
                 .append(redemptionDate, that.redemptionDate)
+                .append(qPalXSubscription, that.qPalXSubscription)
+                .append(qPalXMunicipality, that.qPalXMunicipality)
                 .isEquals();
     }
 
@@ -101,12 +101,12 @@ public class PrepaidSubscription {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(countryCode)
-                .append(cityCode)
                 .append(uniqueID)
                 .append(alreadyUsed)
                 .append(dateCreated)
                 .append(redemptionDate)
+                .append(qPalXSubscription)
+                .append(qPalXMunicipality)
                 .toHashCode();
     }
 
@@ -115,12 +115,12 @@ public class PrepaidSubscription {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("countryCode", countryCode)
-                .append("cityCode", cityCode)
                 .append("uniqueID", uniqueID)
                 .append("alreadyUsed", alreadyUsed)
                 .append("dateCreated", dateCreated)
                 .append("redemptionDate", redemptionDate)
+                .append("qPalXSubscription", qPalXSubscription)
+                .append("qPalXMunicipality", qPalXMunicipality)
                 .toString();
     }
 
@@ -129,16 +129,6 @@ public class PrepaidSubscription {
         private final PrepaidSubscription prepaidSubscription = new PrepaidSubscription();
 
         public Builder() {
-        }
-
-        public PrepaidSubscription.Builder countryCode(String countryCode) {
-            prepaidSubscription.countryCode = countryCode;
-            return this;
-        }
-
-        public PrepaidSubscription.Builder cityCode(String cityCode) {
-            prepaidSubscription.cityCode =cityCode;
-            return this;
         }
 
         public PrepaidSubscription.Builder alreadyUsed(boolean alreadyUsed) {
@@ -158,6 +148,16 @@ public class PrepaidSubscription {
 
         public PrepaidSubscription.Builder remptionDate(DateTime redemptionDate){
             prepaidSubscription.redemptionDate = redemptionDate;
+            return this;
+        }
+
+        public PrepaidSubscription.Builder qpalxSubscription(QPalXSubscription qPalXSubscription){
+            prepaidSubscription.qPalXSubscription = qPalXSubscription;
+            return this;
+        }
+
+        public PrepaidSubscription.Builder qpalxMunicipality(QPalXMunicipality qPalXMunicipality){
+            prepaidSubscription.qPalXMunicipality = qPalXMunicipality;
             return this;
         }
 

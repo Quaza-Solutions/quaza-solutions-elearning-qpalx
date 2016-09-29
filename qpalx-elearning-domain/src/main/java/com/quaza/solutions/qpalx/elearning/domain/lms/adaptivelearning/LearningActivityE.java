@@ -14,7 +14,9 @@ public enum LearningActivityE {
 
     Assignment,
 
-    Interactive_Excersise
+    Interactive_Excersise,
+
+    Question_Bank
 
     ;
 }

@@ -37,6 +37,18 @@
             </div>
             <div class="col-md-8"></div>
         </div>
+
+        <!-- Display Overall Student Proficiency -->
+        <div class="row" th:each="AdpativeProficiencyRanking,rowStat : ${AdpativeProficiencyRankings}">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <span class="small" th:text="${AdpativeProficiencyRanking.geteLearningCurriculum().getCurriculumName()}"></span>
+            </div>
+            <div class="col-md-9">
+                <progress class="progressbar" value="0" max="100"  th:attr="data-max=${AdpativeProficiencyRanking.getProficiencyRankingScaleE().getProficiencyScoreRangeE().getScoreRange().getMinimum()}"></progress>
+                <span class="progress-value">0%</span>
+            </div>
+        </div>
     </div>
 
     <!-- CONTENT_DEVELOPER User information panel -->

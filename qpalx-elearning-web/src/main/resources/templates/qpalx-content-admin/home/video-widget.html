@@ -19,7 +19,7 @@
 <div th:replace="fragments/qpalx-user-info-panel :: general-account-info"/>
 
 <!-- Include Student User general Account information panel -->
-<div th:replace="fragments/admin/admin-course-activity-panel :: admin-course-activity-panel"/>
+<div th:replace="fragments/admin/admin-tutorialgrade-panel :: tutorialgrade-panel"/>
 
 
 <div class="clearfix"></div>
@@ -32,6 +32,9 @@
 
     <div class="col-md-2 med-text"><b th:text="${SelectedELearningCourseActivity.activityName}"></b></div>
     <div class="col-md-9"></div>
+    <div class="col-md-1 med-text">
+        <a th:href="@{/view-admin-course-activities(eLearningCourseID=${SelectedELearningCourse.id})}">Close</a>
+    </div>
 
     <div class="padded">
         <div class="row">
@@ -40,9 +43,11 @@
                 <p th:text="${SelectedELearningCourseActivity.activityDescription}"></p>
                 <br/>
 
-                <video width="720" height="540" controls="controls">
-                    <source th:src="${SelectedELearningCourseActivityFile}" type="video/mp4"/>
-                </video>
+                <div align="center" class="well well-lg">
+                    <video width="720" height="540" controls="controls">
+                        <source th:src="${SelectedELearningCourseActivityFile}" type="video/mp4"/>
+                    </video>
+                </div>
             </div>
         </div>
 
@@ -51,7 +56,10 @@
                 <hr/>
                 <p th:text="${SelectedELearningCourseActivity.activityDescription}"></p>
                 <br/>
-                <object width="700" height="800" th:data="${SelectedELearningCourseActivityFile}"></object>
+
+                <div align="center" class="well well-lg">
+                    <object width="700" height="800" th:data="${SelectedELearningCourseActivityFile}"></object>
+                </div>
             </div>
         </div>
     </div>

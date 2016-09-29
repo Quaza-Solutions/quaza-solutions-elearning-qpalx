@@ -19,7 +19,7 @@
 <div th:replace="fragments/qpalx-user-info-panel :: general-account-info"/>
 
 <!-- Include Student User general Account information panel -->
-<div th:replace="fragments/admin/admin-course-activity-panel :: admin-course-activity-panel"/>
+<div th:replace="fragments/admin/admin-tutorialgrade-panel :: tutorialgrade-panel"/>
 
 
 <div class="clearfix"></div>
@@ -39,13 +39,16 @@
 
         <div class="col-md-1 num" th:text="${rowStat.count}"></div>
 
-        <div class="col-md-1"></div>
-        <div class="col-md-2 name" >
+        <!-- Display corresponding video, quiz, interactive exercise based on the learnint activity type -->
+        <div class="col-md-1 num" th:if="${ELearningCourseActivity.learningActivityE.toString()} == 'Video'"><img src="images/learning-activity/video.png"/></div>
+        <div class="col-md-1 num" th:if="${ELearningCourseActivity.learningActivityE.toString()} == 'Quiz'"><img src="images/learning-activity/Quiz.png"/></div>
+
+        <div class="col-md-3 name" align="left">
              <a th:href="@{/view-course-activity(activityID=${ELearningCourseActivity.id})}"><b th:text="${ELearningCourseActivity.activityName}"></b></a>
              <br/>
-             100% - A
+            <div class="small" th:text="${ELearningCourseActivity.proficiencyRankingScaleFloor.getProficiencyScoreRangeE()}"></div>
+             <!--<div th:inline="text" class="small">[[${ELearningCourseActivity.proficiencyRankingScaleFloor}]] - [[${ELearningCourseActivity.proficiencyRankingScaleCeiling}]]</div>-->
         </div>
-        <div class="col-md-1"></div>
         <div class="col-md-6"></div>
         <div class="col-md-1">
             <div class="default-btn-1"></div>
@@ -55,19 +58,6 @@
         </div>
     </div>
 
-    <!--<div>-->
-    <!--<div>-->
-    <!--<div class="col-md-12">-->
-    <!--<hr/>-->
-    <!--<br/>-->
-    <!--<table width="100%" border="0">-->
-    <!--<tr th:each="CurriculumELearningCourses,rowStat : ${CurriculumELearningCourses}">-->
-    <!--<td class="cell-padded" th:inline="text"><a th:href="@{/qpalx-course-details(qCourseID=${CurriculumELearningCourses.id})}">[[${CurriculumELearningCourses.courseName}]]</a></td>-->
-    <!--</tr>-->
-    <!--</table>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
 
 </div>
 <div class="clearfix bottom-space"></div>

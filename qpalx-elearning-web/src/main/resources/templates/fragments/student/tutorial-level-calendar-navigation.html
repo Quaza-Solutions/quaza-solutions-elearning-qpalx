@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+<body>
+<!-- Navigation fragment templates designed specifically for letting students browse Course activities for different tutorial level calendars -->
+<div th:fragment="academic-calendar-navigation">
+
+    <!-- Start main tutorial level calendar section -->
+    <div class="row">
+        <div th:each="TutorialCalendar,rowStat : ${TutorialCalendarList}">
+
+            <div class="col-md-3" th:if="${SelectedTutorialCalendar.calendarItemName} == ${TutorialCalendar.calendarItemName}">
+                <b class="green" th:text="${TutorialCalendar.calendarItemName}"></b>
+                <hr class="green-hr-1a"/>
+            </div>
+
+            <div class="col-md-3" style="cursor: pointer;" th:if="${SelectedTutorialCalendar.calendarItemName} != ${TutorialCalendar.calendarItemName}">
+                <a th:href="@{/qpalx-course-by-calendar-details(qCourseID=${SelectedELearningCourse.id},tutorialLevelCalendarID=${TutorialCalendar.id})}"><b th:text="${TutorialCalendar.calendarItemName}"></b></a>
+                <hr class="black-hr-1a"/>
+            </div>
+
+        </div>
+        <!-- End main tutorial level calendar section -->
+
+    </div>
+
+</div>
+</body>
+</html>

@@ -35,14 +35,13 @@
             </div>
             <div class="col-md-4"></div>
 
-            <div class="col-md-2" style="cursor: pointer;" th:onClick="|document.location.href='/add-curriculum-course?curriculumID=${SelectedELearningCurriculum.id}'|" th:if="${AddCoursesEnabled} == 'true'">
-                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Add&nbsp;Course</span>
+            <div class="col-md-2" style="cursor: pointer;" th:if="${AddCoursesEnabled} == 'true'">
+                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i><a th:href="@{/add-curriculum-course(curriculumID=${SelectedELearningCurriculum.id})}">&nbsp;&nbsp;Add&nbsp;Course</a></span>
             </div>
 
-            <div class="col-md-3" style="cursor: pointer;" th:onClick="|document.location.href='/add-curriculum-course-activity?eLearningCourseID=${SelectedELearningCourse.id}'|" th:if="${AddCourseActivitiesEnabled} == 'true'">
-                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>Add Course Activity</span>
+            <div class="col-md-2" style="cursor: pointer;" th:if="${AddCourseActivitiesEnabled} == 'true'">
+                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i><a th:href="@{/add-curriculum-course-activity(eLearningCourseID=${SelectedELearningCourse.id})}">Add Course Activity</a></span>
             </div>
-
         </div>
 
         <!-- SHS2 is selected -->
@@ -63,8 +62,12 @@
             </div>
             <div class="col-md-4"></div>
 
-            <div class="col-md-2" style="cursor: pointer;" onClick="document.location.href='/add-curriculum-course?curriculumID=1'" th:if="${AddCoursesEnabled} == 'true'">
-                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Add&nbsp;Course</span>
+            <div class="col-md-2" style="cursor: pointer;" th:if="${AddCoursesEnabled} == 'true'">
+                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i><a th:href="@{/add-curriculum-course(curriculumID=${SelectedELearningCurriculum.id})}">&nbsp;&nbsp;Add&nbsp;Course</a></span>
+            </div>
+
+            <div class="col-md-2" style="cursor: pointer;" th:if="${AddCourseActivitiesEnabled} == 'true'">
+                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i><a th:href="@{/add-curriculum-course-activity(eLearningCourseID=${SelectedELearningCourse.id})}">Add Course Activity</a></span>
             </div>
         </div>
 
@@ -86,8 +89,12 @@
             </div>
             <div class="col-md-4"></div>
 
-            <div class="col-md-2" style="cursor: pointer;" onClick="document.location.href='/add-curriculum-course?curriculumID=1'" th:if="${AddCoursesEnabled} == 'true'">
-                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Add&nbsp;Course</span>
+            <div class="col-md-2" style="cursor: pointer;" th:if="${AddCoursesEnabled} == 'true'">
+                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i><a th:href="@{/add-curriculum-course(curriculumID=${SelectedELearningCurriculum.id})}">&nbsp;&nbsp;Add&nbsp;Course</a></span>
+            </div>
+
+            <div class="col-md-2" style="cursor: pointer;" th:if="${AddCourseActivitiesEnabled} == 'true'">
+                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i><a th:href="@{/add-curriculum-course-activity(eLearningCourseID=${SelectedELearningCourse.id})}">Add Course Activity</a></span>
             </div>
         </div>
 

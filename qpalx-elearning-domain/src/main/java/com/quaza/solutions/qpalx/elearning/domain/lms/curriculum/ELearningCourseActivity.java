@@ -256,6 +256,21 @@ public class ELearningCourseActivity {
             return this;
         }
 
+        public Builder tutorialLevelCalendar(TutorialLevelCalendar tutorialLevelCalendar) {
+            eLearningCourseActivity.tutorialLevelCalendar = tutorialLevelCalendar;
+            return this;
+        }
+
+        public Builder proficiencyRankingScaleFloor(ProficiencyRankingScaleE proficiencyRankingScaleFloor) {
+            eLearningCourseActivity.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
+            return this;
+        }
+
+        public Builder proficiencyRankingScaleCeiling(ProficiencyRankingScaleE proficiencyRankingScaleCeiling) {
+            eLearningCourseActivity.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
+            return this;
+        }
+
         public Builder entryDate(DateTime entryDate) {
             eLearningCourseActivity.entryDate = entryDate;
             return this;

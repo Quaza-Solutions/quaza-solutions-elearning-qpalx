@@ -2,10 +2,7 @@ package com.quaza.solutions.qpalx.elearning.web.student.curricula;
 
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningActivityE;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.*;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
@@ -17,6 +14,7 @@ import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurr
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.service.enums.AdminTutorialGradePanelE;
+import com.quaza.solutions.qpalx.elearning.web.service.enums.UserInputValidationAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IContentAdminTutorialGradePanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
@@ -31,6 +29,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -111,31 +110,6 @@ public class StudentCurriculaAdminController {
         return ContentRootE.Content_Admin_Home.getContentRootPagePath("home");
     }
 
-    @RequestMapping(value = "/view-admin-curricula-by-type", method = RequestMethod.GET)
-    public String viewAdminCurriculaByType(final Model model, @RequestParam("curricumlumType") String curricumlumType) {
-        LOGGER.info("Administrator curricula view by curricumlumType:> {} requested", curricumlumType);
-        CurriculumType curriculumType = CurriculumType.valueOf(curricumlumType);
-        Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
-
-        if(optionalUser.isPresent() && curriculumType != null) {
-            LOGGER.info("Current user logged in with email:> {}", optionalUser.get().getEmail());
-
-            if (QPalxUserTypeE.STUDENT == optionalUser.get().getUserType()) {
-                // Add all attributes required for User information panel
-                qPalXUserInfoPanelService.addUserInfoAttributes(model);
-
-//                addQPalXUserDetailsToResponse(model, curriculumType, optionalUser.get());
-                return ContentRootE.Student_Home.getContentRootPagePath("home");
-            }
-
-            LOGGER.info("Only Student QPalX users currently supported");
-            return ContentRootE.Home.getContentRootPagePath("launch");
-        } else {
-            LOGGER.info("Valid logged in QPalxUser session not found, redirecting to main home page.");
-            return ContentRootE.Home.getContentRootPagePath("launch");
-        }
-    }
-
 
     @RequestMapping(value = "/view-admin-curriculum-courses", method = RequestMethod.GET)
     public String displayAllCurriculumCourses(final Model model, @RequestParam("curriculumID") String curriculumID) {
@@ -173,7 +147,7 @@ public class StudentCurriculaAdminController {
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
         // Add all attributes required for content admin tutorial panel
-        contentAdminTutorialGradePanelService.addDisplayPanelAttributes(model, Boolean.FALSE, Boolean.FALSE, studentTutorialGradeID, curriculumType);
+        contentAdminTutorialGradePanelService.addDisplayPanelAttributes(model, Boolean.FALSE, Boolean.TRUE, studentTutorialGradeID, curriculumType);
 
         // find all the ELearning activities for this course
         List<ELearningCourseActivity> eLearningCourseActivities = ieLearningCourseActivityService.findELearningCourseAcitivitiesByCourse(eLearningCourse);
@@ -257,6 +231,13 @@ public class StudentCurriculaAdminController {
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
+        // Add error message if present
+        Object errorMessage = request.getSession().getAttribute(UserInputValidationAttributesE.Invalid_FORM_Submission.toString());
+        if(errorMessage != null) {
+            model.addAttribute(UserInputValidationAttributesE.Invalid_FORM_Submission.toString(), errorMessage.toString());
+            request.getSession().removeAttribute(UserInputValidationAttributesE.Invalid_FORM_Submission.toString());
+        }
+
         // Add all attributes required for add elearning course page
         model.addAttribute("SelectedELearningCourse", eLearningCourse);
         model.addAttribute("ProficiencyRankings", ProficiencyRankingScaleE.values());
@@ -294,27 +275,35 @@ public class StudentCurriculaAdminController {
     public void saveELearningCourseActivity(Model model,
                                             HttpServletRequest request, HttpServletResponse response,
                                             @RequestParam("eLearningCourseID") String eLearningCourseID,
-                                            @ModelAttribute("ELearningCourseWebVO") ELearningCourseActivityWebVO eLearningCourseActivityWebVO) {
+                                            @ModelAttribute("ELearningCourseWebVO") ELearningCourseActivityWebVO eLearningCourseActivityWebVO,
+                                            @RequestParam("file") MultipartFile multipartFile) {
         LOGGER.info("Attempting to create new ELearningCourse Activity from eLearningCourseWebVO:> {}", eLearningCourseActivityWebVO);
         Long courseID = NumberUtils.toLong(eLearningCourseID);
 
-        ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(courseID);
-        System.out.println("eLearningCourse = " + eLearningCourse);
+        // Upload file and create the ELearningMediaContent
+        ELearningMediaContent eLearningMediaContent = iFileUploadUtil.uploadELearningCourseActivityContent(multipartFile, eLearningCourseActivityWebVO.getLearningActivityE());
 
-//
-//        // Make sure that this course hasn't all ready been created for this curriculum
-//        ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseNameAndELearningCurriculum(eLearningCourseWebVO.getCourseName(), eLearningCurriculum);
-//        if(eLearningCourse == null) {
-//            ieLearningCourseService.createELearningCourse(eLearningCourseWebVO);
-//            String targetURL = "/view-admin-curriculum-courses?curriculumID=" + eLearningCurriculum.getId();
-//            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
-//        } else {
-//            LOGGER.warn("Content Admin user attempted to create an already existing course:> {} returning back to Add Elearning course", eLearningCourseWebVO.getCourseName());
-//            String targetURL = "/add-curriculum-course?curriculumID=" + eLearningCurriculum.getId();
-//            String errorMessage = eLearningCourseWebVO.getCourseName() + " ELearningCourse already created.";
-//            request.getSession().setAttribute("ELearningCourseAddError", errorMessage);
-//            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
-//        }
+        if(eLearningMediaContent == null) {
+            LOGGER.warn("Selected ELearning Media content could not be uploaded.  Check selected file content.");
+            String targetURL = "/add-curriculum-course-activity?eLearningCourseID=" + courseID;
+            String errorMessage = "Failed to upload file: Check the contents of the file";
+            request.getSession().setAttribute(UserInputValidationAttributesE.Invalid_FORM_Submission.toString(), errorMessage);
+            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+        } else if(eLearningMediaContent == ELearningMediaContent.NOT_SUPPORTED_MEDIA_CONTENT) {
+            LOGGER.warn("Uploaded course activity media content file is currently not supported...");
+            String targetURL = "/add-curriculum-course-activity?eLearningCourseID=" + courseID;
+            String errorMessage = "Uploaded file is not supported: Only Files of type(MP4, SWF) supported";
+            request.getSession().setAttribute(UserInputValidationAttributesE.Invalid_FORM_Submission.toString(), errorMessage);
+            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+        } else {
+            LOGGER.info("ELearningMediaContent was succesfully uploaded, building and saving ELearningContentActivity details....");
+            eLearningCourseActivityWebVO.setELearningMediaContent(eLearningMediaContent);
+            ieLearningCourseActivityService.buildNew(eLearningCourseActivityWebVO);
+
+            // On Succesful save redirect back to course activities page.
+            String targetURL = "/view-admin-course-activities?eLearningCourseID=" + courseID;
+            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+        }
     }
 
     @RequestMapping(value = "/delete-elearning-course", method = RequestMethod.GET)

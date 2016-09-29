@@ -1,5 +1,9 @@
 package com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningActivityE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
+
 /**
  * @author manyce400
  */
@@ -14,12 +18,20 @@ public interface IELearningCourseActivityVO {
 
     public String getActivityFile();
 
-    public Integer getProficiencyRankingScaleFloor();
+    public String getProficiencyRankingScaleFloor();
 
-    public Integer getProficiencyRankingScaleCeiling();
+    public String getProficiencyRankingScaleCeiling();
 
     public Long getELearningCourseID();
 
     public Long getTutorialLevelCalendarID();
+
+    public LearningActivityE getLearningActivityE();
+
+    public ELearningMediaContent getELearningMediaContent();
+
+    public ProficiencyRankingScaleE getproficiencyRankingScaleFloorE();
+
+    public ProficiencyRankingScaleE getProficiencyRankingScaleCeilingE();
 
 }

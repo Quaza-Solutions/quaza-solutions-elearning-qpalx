@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency;
 
 import org.springframework.util.Assert;
 
+import java.util.Comparator;
 import java.util.Optional;
 
 /**
@@ -93,5 +94,15 @@ public enum ProficiencyRankingScaleE {
         }
 
         return Optional.empty();
+    }
+
+
+    public static final class ProficiencyComparator implements Comparator<ProficiencyRankingScaleE> {
+        @Override
+        public int compare(ProficiencyRankingScaleE o1, ProficiencyRankingScaleE o2) {
+            Integer i1 = o1.getProficiencyRanking();
+            Integer i2 = o2.getProficiencyRanking();
+            return i1.compareTo(i2);
+        }
     }
 }
