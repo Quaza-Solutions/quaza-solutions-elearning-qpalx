@@ -19,4 +19,14 @@ public enum MicroLessonActivityTypeE {
     Question_Bank
 
     ;
+
+    public static MicroLessonActivityTypeE getByStringValue(String value) {
+        for(MicroLessonActivityTypeE microLessonActivityTypeE : values()) {
+            if(microLessonActivityTypeE.toString().equals(value)) {
+                return microLessonActivityTypeE;
+            }
+        }
+
+        return null;
+    }
 }

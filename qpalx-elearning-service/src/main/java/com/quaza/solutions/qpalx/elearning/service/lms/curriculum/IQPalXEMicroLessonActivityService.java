@@ -16,5 +16,5 @@ public interface IQPalXEMicroLessonActivityService {
 
     public List<QPalXEMicroLessonActivity> findAllMicroLessonActivities(QPalXEMicroLesson qPalXEMicroLesson);
 
-    public QPalXEMicroLessonActivity createAndSaveQPalXEMicroLessonActivity(IQPalXEMicroLessonActivityVO iqPalXEMicroLessonActivityVO);
+    public void createAndSaveQPalXEMicroLessonActivity(IQPalXEMicroLessonActivityVO iqPalXEMicroLessonActivityVO);
 }

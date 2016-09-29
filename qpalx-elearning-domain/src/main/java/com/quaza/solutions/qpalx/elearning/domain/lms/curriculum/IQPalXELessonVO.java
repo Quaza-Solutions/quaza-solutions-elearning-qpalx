@@ -26,7 +26,7 @@ public interface IQPalXELessonVO {
 
     public ELearningMediaContent getELearningMediaContent();
 
-    public ProficiencyRankingScaleE getproficiencyRankingScaleFloorE();
+    public ProficiencyRankingScaleE getProficiencyRankingScaleFloorE();
 
     public ProficiencyRankingScaleE getProficiencyRankingScaleCeilingE();
 

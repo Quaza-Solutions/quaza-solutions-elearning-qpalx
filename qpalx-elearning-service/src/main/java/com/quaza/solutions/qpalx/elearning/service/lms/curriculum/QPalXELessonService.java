@@ -95,7 +95,7 @@ public class QPalXELessonService implements IQPalXELessonService {
                 .tutorialLevelCalendar(tutorialLevelCalendar)
                 .qPalXEducationalInstitution(qPalXEducationalInstitution)
                 .eLearningMediaContent(iqPalXELessonVO.getELearningMediaContent())
-                .proficiencyRankingScaleFloor(iqPalXELessonVO.getproficiencyRankingScaleFloorE())
+                .proficiencyRankingScaleFloor(iqPalXELessonVO.getProficiencyRankingScaleFloorE())
                 .proficiencyRankingScaleCeiling(iqPalXELessonVO.getProficiencyRankingScaleCeilingE())
                 .lessonActive(true)
                 .entryDate(new DateTime())

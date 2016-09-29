@@ -3,7 +3,12 @@ package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXEMicroLessonActivityVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLessonActivity;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IQPalXEMicroLessonActivityRepository;
+import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -15,13 +20,20 @@ public class QPalXEMicroLessonActivityService implements IQPalXEMicroLessonActiv
 
 
 
+    @Autowired
+    private IQPalXEMicroLessonActivityRepository iqPalXEMicroLessonActivityRepository;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.QPalXEMicroLessonService")
+    private IQPalXEMicroLessonService iqPalXEMicroLessonService;
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXEMicroLessonActivityService.class);
 
 
     @Override
     public QPalXEMicroLessonActivity findByID(Long id) {
-        return null;
+        Assert.notNull(id, "id cannot be null");
+        return iqPalXEMicroLessonActivityRepository.findOne(id);
     }
 
     @Override
@@ -30,7 +42,23 @@ public class QPalXEMicroLessonActivityService implements IQPalXEMicroLessonActiv
     }
 
     @Override
-    public QPalXEMicroLessonActivity createAndSaveQPalXEMicroLessonActivity(IQPalXEMicroLessonActivityVO iqPalXEMicroLessonActivityVO) {
-        return null;
+    public void createAndSaveQPalXEMicroLessonActivity(IQPalXEMicroLessonActivityVO iqPalXEMicroLessonActivityVO) {
+        Assert.notNull(iqPalXEMicroLessonActivityVO, "iqPalXEMicroLessonActivityVO");
+        LOGGER.info("Creating and saving  iqPalXEMicroLessonActivityVO: {}", iqPalXEMicroLessonActivityVO);
+
+        // Load up the EMicro Lesson
+        QPalXEMicroLesson qPalXEMicroLesson =  iqPalXEMicroLessonService.findByID(iqPalXEMicroLessonActivityVO.getQPalXEMicroLessonID());
+
+        QPalXEMicroLessonActivity qPalXEMicroLessonActivity = QPalXEMicroLessonActivity.builder()
+                .microLessonActivityName(iqPalXEMicroLessonActivityVO.getMicroLessonActivityName())
+                .microLessonActivityDescription(iqPalXEMicroLessonActivityVO.getMicroLessonActivityDescription())
+                .microLessonActivityActive(true)
+                .microLessonActivityType(iqPalXEMicroLessonActivityVO.getMicroLessonActivityTypeE())
+                .eLearningMediaContent(iqPalXEMicroLessonActivityVO.getELearningMediaContent())
+                .entryDate(new DateTime())
+                .qPalXEMicroLesson(qPalXEMicroLesson)
+                .build();
+
+        iqPalXEMicroLessonActivityRepository.save(qPalXEMicroLessonActivity);
     }
 }
