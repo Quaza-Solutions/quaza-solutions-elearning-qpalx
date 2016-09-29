@@ -1,9 +1,13 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXEMicroLessonVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IQPalXEMicroLessonRepository;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -11,12 +15,17 @@ import java.util.List;
 /**
  * @author manyce400
  */
+@Service("quaza.solutions.qpalx.elearning.service.QPalXEMicroLessonService")
 public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
 
 
 
     @Autowired
     private IQPalXEMicroLessonRepository iqPalXEMicroLessonRepository;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.QPalXELessonService")
+    private IQPalXELessonService iqPalXELessonService;
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXEMicroLessonService.class);
 
@@ -35,5 +44,22 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
         return iqPalXEMicroLessonRepository.findAllQPalxMicroLessons(qPalXELesson);
     }
 
+    @Override
+    public void createAndSaveQPalXEMicroLesson(IQPalXEMicroLessonVO iqPalXEMicroLessonVO) {
+        Assert.notNull(iqPalXEMicroLessonVO, "iqPalXEMicroLessonVO cannot be null");
+        LOGGER.debug("Creating and saving new iqPalXEMicroLessonVO: {}", iqPalXEMicroLessonVO);
 
+        QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(iqPalXEMicroLessonVO.getQPalXELessonID());
+
+        QPalXEMicroLesson qPalXEMicroLesson = QPalXEMicroLesson.builder()
+                .microLessonName(iqPalXEMicroLessonVO.getMicroLessonName())
+                .microLessonDescription(iqPalXEMicroLessonVO.getMicroLessonDescription())
+                .eLearningMediaContent(iqPalXEMicroLessonVO.getELearningMediaContent())
+                .qPalXELesson(qPalXELesson)
+                .microLessonActive(true)
+                .entryDate(new DateTime())
+                .build();
+
+        iqPalXEMicroLessonRepository.save(qPalXEMicroLesson);
+    }
 }

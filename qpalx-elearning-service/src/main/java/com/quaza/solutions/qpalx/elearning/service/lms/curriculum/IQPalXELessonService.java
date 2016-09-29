@@ -15,9 +15,9 @@ public interface IQPalXELessonService {
 
     public QPalXELesson findQPalXELessonByID(Long id);
 
-    public List<QPalXELesson> findQPalxELessonByCourse(ELearningCourse eLearningCourse);
+    public List<QPalXELesson> findQPalXELessonByCourse(ELearningCourse eLearningCourse);
 
-    public List<QPalXELesson> findQPalxELessonByCalendarAndCourse(TutorialLevelCalendar tutorialLevelCalendar, ELearningCourse eLearningCourse);
+    public List<QPalXELesson> findQPalXELessonByCalendarAndCourse(TutorialLevelCalendar tutorialLevelCalendar, ELearningCourse eLearningCourse);
 
     public void saveQPalXELesson(QPalXELesson qPalXELesson);
 
