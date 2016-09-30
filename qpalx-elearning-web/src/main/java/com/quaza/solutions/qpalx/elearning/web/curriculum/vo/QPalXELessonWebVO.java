@@ -25,6 +25,8 @@ public class QPalXELessonWebVO implements IQPalXELessonVO {
 
     private Long educationalInstitutionID;
 
+    private String activeFlag;
+
     public ELearningMediaContent eLearningMediaContent;
 
     @Override
@@ -87,6 +89,14 @@ public class QPalXELessonWebVO implements IQPalXELessonVO {
 
     public void setEducationalInstitutionID(Long educationalInstitutionID) {
         this.educationalInstitutionID = educationalInstitutionID;
+    }
+
+    public String getActiveFlag() {
+        return activeFlag;
+    }
+
+    public void setActiveFlag(String activeFlag) {
+        this.activeFlag = activeFlag;
     }
 
     public ELearningMediaContent getELearningMediaContent() {

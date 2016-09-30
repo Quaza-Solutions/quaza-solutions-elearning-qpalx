@@ -6,7 +6,9 @@ package com.quaza.solutions.qpalx.elearning.web.lms.curriculum.enums;
 public enum LessonsAdminAttributesE {
 
 
-    QPalXELessons
+    QPalXELessons,
+
+    QPalXEMicroLessons,
     ;
 
 }
