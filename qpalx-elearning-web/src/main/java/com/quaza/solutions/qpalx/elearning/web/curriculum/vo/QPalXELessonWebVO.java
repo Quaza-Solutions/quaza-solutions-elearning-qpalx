@@ -99,6 +99,10 @@ public class QPalXELessonWebVO implements IQPalXELessonVO {
         this.activeFlag = activeFlag;
     }
 
+    public boolean isActive() {
+        return Boolean.valueOf(activeFlag);
+    }
+
     public ELearningMediaContent getELearningMediaContent() {
         return eLearningMediaContent;
     }
@@ -128,6 +132,7 @@ public class QPalXELessonWebVO implements IQPalXELessonVO {
                 .append("tutorialLevelCalendarID", tutorialLevelCalendarID)
                 .append("educationalInstitutionID", educationalInstitutionID)
                 .append("eLearningMediaContent", eLearningMediaContent)
+                .append("activeFlag", activeFlag)
                 .toString();
     }
 }

@@ -30,4 +30,6 @@ public interface IQPalXELessonVO {
 
     public ProficiencyRankingScaleE getProficiencyRankingScaleCeilingE();
 
+    public boolean isActive();
+
 }

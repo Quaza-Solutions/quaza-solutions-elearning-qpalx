@@ -100,8 +100,8 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <input type="radio" value="active" th:field="*{activeFlag}"/> Active&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" value="inactive" th:field="*{activeFlag}"/> Inactive
+                <input type="radio" value="TRUE" th:field="*{activeFlag}"/> Active&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" value="FALSE" th:field="*{activeFlag}"/> Inactive
             </div>
         </div>
 
@@ -109,7 +109,7 @@
         <div class="clearfix bottom-space"></div>
 
         <!-- Hidden field to pass back the value of the current ELearningCourseID-->
-        <input type="hidden" name="eLearningCourseID" th:value="${SelectedELearningCourse.id}"/>
+        <input type="hidden" th:value="${SelectedELearningCourse.id}" name="eLearningCourseID"/>
 
         <div class="col-md-12 continue">
             <button type="submit" id="submit" class="btn btn-success">Add QPalX ELesson</button>
