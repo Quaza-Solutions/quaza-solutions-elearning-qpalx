@@ -14,11 +14,11 @@ import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurr
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.service.enums.AdminTutorialGradePanelE;
-import com.quaza.solutions.qpalx.elearning.web.service.enums.UserInputValidationAttributesE;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.WebOperationErrorAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IContentAdminTutorialGradePanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
-import com.quaza.solutions.qpalx.elearning.web.service.utils.IRedirectStrategyExecutor;
+import com.quaza.solutions.qpalx.elearning.web.utils.IRedirectStrategyExecutor;
 import com.quaza.solutions.qpalx.elearning.web.utils.IFileUploadUtil;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -232,10 +232,10 @@ public class StudentCurriculaAdminController {
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
         // Add error message if present
-        Object errorMessage = request.getSession().getAttribute(UserInputValidationAttributesE.Invalid_FORM_Submission.toString());
+        Object errorMessage = request.getSession().getAttribute(WebOperationErrorAttributesE.Invalid_FORM_Submission.toString());
         if(errorMessage != null) {
-            model.addAttribute(UserInputValidationAttributesE.Invalid_FORM_Submission.toString(), errorMessage.toString());
-            request.getSession().removeAttribute(UserInputValidationAttributesE.Invalid_FORM_Submission.toString());
+            model.addAttribute(WebOperationErrorAttributesE.Invalid_FORM_Submission.toString(), errorMessage.toString());
+            request.getSession().removeAttribute(WebOperationErrorAttributesE.Invalid_FORM_Submission.toString());
         }
 
         // Add all attributes required for add elearning course page
@@ -287,13 +287,13 @@ public class StudentCurriculaAdminController {
             LOGGER.warn("Selected ELearning Media content could not be uploaded.  Check selected file content.");
             String targetURL = "/add-curriculum-course-activity?eLearningCourseID=" + courseID;
             String errorMessage = "Failed to upload file: Check the contents of the file";
-            request.getSession().setAttribute(UserInputValidationAttributesE.Invalid_FORM_Submission.toString(), errorMessage);
+            request.getSession().setAttribute(WebOperationErrorAttributesE.Invalid_FORM_Submission.toString(), errorMessage);
             iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
         } else if(eLearningMediaContent == ELearningMediaContent.NOT_SUPPORTED_MEDIA_CONTENT) {
             LOGGER.warn("Uploaded course activity media content file is currently not supported...");
             String targetURL = "/add-curriculum-course-activity?eLearningCourseID=" + courseID;
             String errorMessage = "Uploaded file is not supported: Only Files of type(MP4, SWF) supported";
-            request.getSession().setAttribute(UserInputValidationAttributesE.Invalid_FORM_Submission.toString(), errorMessage);
+            request.getSession().setAttribute(WebOperationErrorAttributesE.Invalid_FORM_Submission.toString(), errorMessage);
             iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
         } else {
             LOGGER.info("ELearningMediaContent was succesfully uploaded, building and saving ELearningContentActivity details....");

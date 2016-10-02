@@ -1,11 +1,11 @@
-package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
+package com.quaza.solutions.qpalx.elearning.domain.lms.media;
 
 /**
  * Defines all the currently supported Elearning media content type used across the application.
  *
  * @author manyce400
  */
-public enum MediaContentType {
+public enum MediaContentTypeE {
 
     mp4,
 

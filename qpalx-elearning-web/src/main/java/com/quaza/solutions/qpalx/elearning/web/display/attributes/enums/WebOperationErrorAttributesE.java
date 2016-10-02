@@ -1,12 +1,14 @@
-package com.quaza.solutions.qpalx.elearning.web.service.enums;
+package com.quaza.solutions.qpalx.elearning.web.display.attributes.enums;
 
 import com.google.common.collect.ImmutableMap;
 import org.springframework.ui.Model;
 
 /**
+ * Enumeration that defines all the possible Error attributes that could have been generated as part of a QPalX web operation.
+ *
  * @author manyce400
  */
-public enum UserInputValidationAttributesE {
+public enum WebOperationErrorAttributesE {
 
 
     Invalid_FORM_Submission,

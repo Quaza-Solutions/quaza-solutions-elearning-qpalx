@@ -9,6 +9,8 @@ public enum ValueObjectDataDisplayAttributeE {
 
     QPalXELessonWebVO,
 
+    SupportedQPalXTutorialContentTypes,
+
     ;
 
 }

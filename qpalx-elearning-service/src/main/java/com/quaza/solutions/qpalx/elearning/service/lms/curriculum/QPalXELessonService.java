@@ -76,14 +76,19 @@ public class QPalXELessonService implements IQPalXELessonService {
 
     @Override
     public void createAndSaveQPalXELesson(IQPalXELessonVO iqPalXELessonVO) {
-        Assert.notNull(iqPalXELessonVO, "iqPalXELessonVO");
+        Assert.notNull(iqPalXELessonVO, "iqPalXELessonVO cannot be null");
+        Assert.notNull(iqPalXELessonVO.getELearningCourseID(), "Non null ELearningCourse ID required");
+        Assert.notNull(iqPalXELessonVO.getTutorialLevelCalendarID(), "Non null valid TutorialLevelCalendar ID required");
         LOGGER.info("Creating new QPalXELesson with value object iqPalXELessonVO: {}", iqPalXELessonVO);
 
         // Load up ELearningCourse instance
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(iqPalXELessonVO.getELearningCourseID());
 
         // Load up the EducationalInstitution for this course.  Only initialized if this course was only designed for an institution.
-        QPalXEducationalInstitution qPalXEducationalInstitution = iqPalXEducationalInstitutionService.findByID(iqPalXELessonVO.getEducationalInstitutionID());
+        QPalXEducationalInstitution qPalXEducationalInstitution = null;
+        if (iqPalXELessonVO.getEducationalInstitutionID() != null) {
+            qPalXEducationalInstitution = iqPalXEducationalInstitutionService.findByID(iqPalXELessonVO.getEducationalInstitutionID());
+        }
 
         // Load up the TutorialLevel calendar
         TutorialLevelCalendar tutorialLevelCalendar = iTutorialLevelCalendarService.findByID(iqPalXELessonVO.getTutorialLevelCalendarID());
@@ -97,7 +102,7 @@ public class QPalXELessonService implements IQPalXELessonService {
                 .eLearningMediaContent(iqPalXELessonVO.getELearningMediaContent())
                 .proficiencyRankingScaleFloor(iqPalXELessonVO.getProficiencyRankingScaleFloorE())
                 .proficiencyRankingScaleCeiling(iqPalXELessonVO.getProficiencyRankingScaleCeilingE())
-                .lessonActive(true)
+                .lessonActive(iqPalXELessonVO.isActive())
                 .entryDate(new DateTime())
                 .build();
 

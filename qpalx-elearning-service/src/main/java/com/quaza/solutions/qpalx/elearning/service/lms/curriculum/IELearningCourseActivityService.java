@@ -4,7 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningA
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.MediaContentType;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.MediaContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.IELearningCourseActivityVO;
 
@@ -24,11 +24,11 @@ public interface IELearningCourseActivityService {
 
     public boolean isCourseActivityTypeSupported(String mediaContentFileName);
 
-    public Optional<MediaContentType> getMediaContentType(String mediaContentFileName);
+    public Optional<MediaContentTypeE> getMediaContentType(String mediaContentFileName);
 
-    public String getMediaContentTypeUploadPhysicalDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE);
+    public String getMediaContentTypeUploadPhysicalDirectory(MediaContentTypeE mediaContentTypeE, LearningActivityE learningActivityE);
 
-    public String getMediaContentTypeVirtualDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE);
+    public String getMediaContentTypeVirtualDirectory(MediaContentTypeE mediaContentTypeE, LearningActivityE learningActivityE);
 
     public ELearningCourseActivity findByID(Long id);
 

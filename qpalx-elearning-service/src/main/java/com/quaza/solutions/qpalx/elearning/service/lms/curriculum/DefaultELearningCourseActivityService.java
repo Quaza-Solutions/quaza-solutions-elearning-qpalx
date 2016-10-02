@@ -5,7 +5,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningA
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.MediaContentType;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.MediaContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCourseActivityRepository;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.IELearningCourseActivityVO;
@@ -81,7 +81,7 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
         LOGGER.debug("Creating new ELearningMediaContent from file: {}", mediaContentFile);
 
         // Get the file extension to figure out the media content type
-        Optional<MediaContentType> optionalMediaContentType = getMediaContentType(mediaContentFile.getName());
+        Optional<MediaContentTypeE> optionalMediaContentType = getMediaContentType(mediaContentFile.getName());
 
         // We save file name using symbolic link directory as the actual file will get uploaded to a directory outside web app context
         String symbolicFileDirectory = getMediaContentTypeVirtualDirectory(optionalMediaContentType.get(), learningActivityE);
@@ -98,10 +98,10 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
         Assert.notNull(mediaContentFileName, "mediaContentFileName cannot be null");
         LOGGER.debug("Checking media content file with name: {} to see if its a supported type", mediaContentFileName);
 
-        Optional<MediaContentType> optionalMediaContentType = getMediaContentType(mediaContentFileName);
+        Optional<MediaContentTypeE> optionalMediaContentType = getMediaContentType(mediaContentFileName);
 
         if (optionalMediaContentType.isPresent()) {
-            for (MediaContentType mType : MediaContentType.values()) {
+            for (MediaContentTypeE mType : MediaContentTypeE.values()) {
                 if(mType.equals(optionalMediaContentType.get())) {
                     return true;
                 }
@@ -112,13 +112,13 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
     }
 
     @Override
-    public Optional<MediaContentType> getMediaContentType(String mediaContentFileName) {
+    public Optional<MediaContentTypeE> getMediaContentType(String mediaContentFileName) {
         Assert.notNull(mediaContentFileName, "mediaContentFileName cannot be null");
 
         if(mediaContentFileName.lastIndexOf(".") != -1 && mediaContentFileName.lastIndexOf(".") != 0) {
             String fileType = mediaContentFileName.substring(mediaContentFileName.lastIndexOf(".")+1);
             try {
-                return Optional.of(MediaContentType.valueOf(fileType));
+                return Optional.of(MediaContentTypeE.valueOf(fileType));
             } catch (IllegalArgumentException e) {
                 LOGGER.warn("Could not find matching media content type for file: {}", mediaContentFileName);
             }
@@ -128,8 +128,8 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
     }
 
     @Override
-    public String getMediaContentTypeUploadPhysicalDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE) {
-        Assert.notNull(mediaContentType, "mediaContentType cannot be null");
+    public String getMediaContentTypeUploadPhysicalDirectory(MediaContentTypeE mediaContentTypeE, LearningActivityE learningActivityE) {
+        Assert.notNull(mediaContentTypeE, "mediaContentTypeE cannot be null");
         Assert.notNull(learningActivityE, "learningActivityE cannot be null");
 
         String uploadDirectory = null;
@@ -159,8 +159,8 @@ public class DefaultELearningCourseActivityService implements IELearningCourseAc
     }
 
     @Override
-    public String getMediaContentTypeVirtualDirectory(MediaContentType mediaContentType, LearningActivityE learningActivityE) {
-        Assert.notNull(mediaContentType, "mediaContentType cannot be null");
+    public String getMediaContentTypeVirtualDirectory(MediaContentTypeE mediaContentTypeE, LearningActivityE learningActivityE) {
+        Assert.notNull(mediaContentTypeE, "mediaContentTypeE cannot be null");
         Assert.notNull(learningActivityE, "learningActivityE cannot be null");
 
         String uploadDirectory = null;

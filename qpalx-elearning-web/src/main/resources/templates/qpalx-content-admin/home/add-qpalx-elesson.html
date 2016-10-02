@@ -30,16 +30,16 @@
         <div class="row">
             <div class="col-md-3">Lesson name</div>
             <div class="col-md-3">Lesson Description</div>
-            <div class="col-md-6">Educational Institution</div>
+            <div class="col-md-6">QPalX Content Type</div>
         </div>
 
         <div class="row">
             <div class="col-md-3"><input type="text" size="26" id="name" name="name" th:field="*{lessonName}"/><span class="name"></span></div>
             <div class="col-md-3"><input type="text" size="26" id="description" name="description" th:field="*{lessonDescription}"/><span class="description"></span></div>
             <div class="col-md-6">
-                <select class="activity" th:field="*{educationalInstitutionID}">
+                <select class="activity" th:field="*{qPalXTutorialContentType}">
                     <option value=""></option>
-                    <option th:each="QPalXEducationalInstitution : ${AvailableQPalXEducationalInstitutions}" th:value="${QPalXEducationalInstitution.id}" th:text="${QPalXEducationalInstitution.name}"></option>
+                    <option th:each="SupportedQPalXTutorialContentType : ${SupportedQPalXTutorialContentTypes}" th:value="${SupportedQPalXTutorialContentType}" th:text="${SupportedQPalXTutorialContentType}"></option>
                 </select>
             </div>
         </div>
@@ -57,7 +57,6 @@
                 <select class="ceiling" th:field="*{proficiencyRankingScaleFloor}">
                     <option th:each="ProficiencyRanking : ${ProficiencyRankings}" th:value="${ProficiencyRanking}" th:text="${ProficiencyRanking}"></option>
                 </select>
-
             </div>
             <div class="col-md-6">
                 <span></span>
@@ -94,14 +93,21 @@
         <div class="clearfix bottom-space"></div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 Newly Added Course Activity
             </div>
+            <div class="col-md-6">Educational Institution</div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <input type="radio" value="TRUE" th:field="*{activeFlag}"/> Active&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" value="FALSE" th:field="*{activeFlag}"/> Inactive
+            </div>
+            <div class="col-md-6">
+                <select class="activity" th:field="*{educationalInstitutionID}">
+                    <option value=""></option>
+                    <option th:each="QPalXEducationalInstitution : ${AvailableQPalXEducationalInstitutions}" th:value="${QPalXEducationalInstitution.id}" th:text="${QPalXEducationalInstitution.name}"></option>
+                </select>
             </div>
         </div>
 

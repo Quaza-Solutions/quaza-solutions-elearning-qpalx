@@ -2,8 +2,10 @@ package com.quaza.solutions.qpalx.elearning.web.utils;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningActivityE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.MediaContentType;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.ILMSMediaContentVO;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.MediaContentTypeE;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseActivityService;
+import com.quaza.solutions.qpalx.elearning.service.lms.media.IQPalXTutorialContentService;
 import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +32,10 @@ public class FileUploadUtil implements IFileUploadUtil {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultELearningCourseActivityService")
     private IELearningCourseActivityService ieLearningCourseActivityService;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.QPalXTutorialContentService")
+    private IQPalXTutorialContentService iqPalXTutorialContentService;
 
 
     public static final String IMAGES_UPLOAD_DIRECTORY = "/Users/manyce400/QuazaSolutions/quaza-solutions-elearning-qpalx/qpalx-elearning-web/src/main/resources/static/img/students/";
@@ -79,6 +85,36 @@ public class FileUploadUtil implements IFileUploadUtil {
     }
 
     @Override
+    public ELearningMediaContent uploadELearningMediaContent(MultipartFile multipartFile, ILMSMediaContentVO ilmsMediaContentVO) {
+        Assert.notNull(multipartFile, "multipartFile cannot be null");
+        Assert.notNull(ilmsMediaContentVO, "ilmsMediaContentVO cannot be null");
+
+        LOGGER.info("Creating new ELearningMediaContent for ilmsMediaContentVO: {}", ilmsMediaContentVO);
+
+        // Check to see if the File type uploaded is supported by
+        String fileName = multipartFile.getOriginalFilename();
+        Optional<MediaContentTypeE> optional =  iqPalXTutorialContentService.getMediaContentType(fileName);
+
+        if(optional.isPresent()) {
+            boolean supportedMediaType = ilmsMediaContentVO.getMediaContentTypes().contains(optional.get());
+            if(supportedMediaType) {
+                String fileUploadDirectory = iqPalXTutorialContentService.getTutorialContentTypeUploadPhysicalDirectory(optional.get(), ilmsMediaContentVO.getSelectedQPalXTutorialContentTypeE());
+                LOGGER.info("LMS Media content file will be uploaded to directory: {}", fileUploadDirectory);
+
+                File mediaContentFile = writeFileToDisk(multipartFile, fileUploadDirectory);
+                if (mediaContentFile != null) {
+                    ELearningMediaContent eLearningMediaContent = iqPalXTutorialContentService.buildELearningMediaContent(mediaContentFile, ilmsMediaContentVO.getSelectedQPalXTutorialContentTypeE());
+                    return eLearningMediaContent;
+                }
+
+                return null;
+            }
+        }
+
+        return ELearningMediaContent.NOT_SUPPORTED_MEDIA_CONTENT;
+    }
+
+    @Override
     public ELearningMediaContent uploadELearningCourseActivityContent(MultipartFile multipartFile, LearningActivityE learningActivityE) {
         Assert.notNull(multipartFile, "multipartFile cannot be null");
         Assert.notNull(learningActivityE, "learningActivityE cannot be null");
@@ -89,11 +125,11 @@ public class FileUploadUtil implements IFileUploadUtil {
 
         if (isSupported) {
             // Get the actual media content type and the actual directory to upload this file to
-            Optional<MediaContentType> optionalMediaContentType = ieLearningCourseActivityService.getMediaContentType(fileName);
-            MediaContentType mediaContentType = optionalMediaContentType.get();
+            Optional<MediaContentTypeE> optionalMediaContentType = ieLearningCourseActivityService.getMediaContentType(fileName);
+            MediaContentTypeE mediaContentTypeE = optionalMediaContentType.get();
 
             // Get the actual pyshical file directory location where this file should be uploaded to
-            String fileUploadDirectory = ieLearningCourseActivityService.getMediaContentTypeUploadPhysicalDirectory(mediaContentType, learningActivityE);
+            String fileUploadDirectory = ieLearningCourseActivityService.getMediaContentTypeUploadPhysicalDirectory(mediaContentTypeE, learningActivityE);
             LOGGER.info("Uploading Course activity media content file:> {} to physical location:> {}", fileName, fileUploadDirectory);
 
             File mediaContentFile = writeFileToDisk(multipartFile, fileUploadDirectory);

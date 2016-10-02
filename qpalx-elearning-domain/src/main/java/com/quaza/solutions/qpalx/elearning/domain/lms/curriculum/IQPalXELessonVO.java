@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.ILMSMediaContentVO;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 
 /**
@@ -7,7 +8,7 @@ import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.Prof
  *
  * @author manyce400
  */
-public interface IQPalXELessonVO {
+public interface IQPalXELessonVO extends ILMSMediaContentVO {
 
 
     public String getLessonName();

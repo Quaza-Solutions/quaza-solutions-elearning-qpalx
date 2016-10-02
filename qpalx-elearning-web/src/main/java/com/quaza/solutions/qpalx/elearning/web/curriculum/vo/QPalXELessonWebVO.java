@@ -1,14 +1,20 @@
 package com.quaza.solutions.qpalx.elearning.web.curriculum.vo;
 
+import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXELessonVO;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.AbstractILMSMediaContentVO;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.MediaContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.Set;
 
 /**
  * @author manyce400
  */
-public class QPalXELessonWebVO implements IQPalXELessonVO {
+public class QPalXELessonWebVO extends AbstractILMSMediaContentVO implements IQPalXELessonVO {
 
 
     public String lessonName;
@@ -122,6 +128,16 @@ public class QPalXELessonWebVO implements IQPalXELessonVO {
     }
 
     @Override
+    public Set<MediaContentTypeE> getMediaContentTypes() {
+        return ImmutableSet.of(MediaContentTypeE.mp4);
+    }
+
+    @Override
+    public Set<QPalXTutorialContentTypeE> getQPalXTutorialContentTypes() {
+        return ImmutableSet.of(QPalXTutorialContentTypeE.Video);
+    }
+
+    @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("lessonName", lessonName)
@@ -131,8 +147,9 @@ public class QPalXELessonWebVO implements IQPalXELessonVO {
                 .append("eLearningCourseID", eLearningCourseID)
                 .append("tutorialLevelCalendarID", tutorialLevelCalendarID)
                 .append("educationalInstitutionID", educationalInstitutionID)
-                .append("eLearningMediaContent", eLearningMediaContent)
                 .append("activeFlag", activeFlag)
+                .append("qPalXTutorialContentType", qPalXTutorialContentType)
+                .append("eLearningMediaContent", eLearningMediaContent)
                 .toString();
     }
 }
