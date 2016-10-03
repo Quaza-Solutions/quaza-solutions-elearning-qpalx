@@ -1,7 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.web.curriculum.vo;
 
 import com.google.common.collect.ImmutableSet;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXELessonVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.AbstractILMSMediaContentVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.MediaContentTypeE;
@@ -31,9 +30,6 @@ public class QPalXELessonWebVO extends AbstractILMSMediaContentVO implements IQP
 
     private Long educationalInstitutionID;
 
-    private String activeFlag;
-
-    public ELearningMediaContent eLearningMediaContent;
 
     @Override
     public String getLessonName() {
@@ -95,26 +91,6 @@ public class QPalXELessonWebVO extends AbstractILMSMediaContentVO implements IQP
 
     public void setEducationalInstitutionID(Long educationalInstitutionID) {
         this.educationalInstitutionID = educationalInstitutionID;
-    }
-
-    public String getActiveFlag() {
-        return activeFlag;
-    }
-
-    public void setActiveFlag(String activeFlag) {
-        this.activeFlag = activeFlag;
-    }
-
-    public boolean isActive() {
-        return Boolean.valueOf(activeFlag);
-    }
-
-    public ELearningMediaContent getELearningMediaContent() {
-        return eLearningMediaContent;
-    }
-
-    public void setELearningMediaContent(ELearningMediaContent eLearningMediaContent) {
-        this.eLearningMediaContent = eLearningMediaContent;
     }
 
     @Override

@@ -1,14 +1,21 @@
 package com.quaza.solutions.qpalx.elearning.web.lms.curriculum.admin;
 
+import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXELessonService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXEMicroLessonService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
+import com.quaza.solutions.qpalx.elearning.web.curriculum.vo.QPalXELessonWebVO;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.DomainDataDisplayAttributeE;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.ValueObjectDataDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.lms.curriculum.enums.LessonsAdminAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IContentAdminTutorialGradePanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
+import com.quaza.solutions.qpalx.elearning.web.utils.IRedirectStrategyExecutor;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -48,6 +57,10 @@ public class QPalXMicroLessonAdminController {
     @Qualifier("quaza.solutions.qpalx.elearning.web.ContentAdminTutorialGradePanelService")
     private IContentAdminTutorialGradePanelService contentAdminTutorialGradePanelService;
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.web.DefaultRedirectStrategyExecutor")
+    private IRedirectStrategyExecutor iRedirectStrategyExecutor;
+
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXLessonAdminController.class);
 
@@ -61,30 +74,40 @@ public class QPalXMicroLessonAdminController {
         // Add all attributes required for content admin tutorial panel
         Long lessonID = NumberUtils.toLong(qpalxELessonID);
         QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(lessonID);
-        contentAdminTutorialGradePanelService.addDisplayPanelAttributes(model, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, qPalXELesson);
+        contentAdminTutorialGradePanelService.addDisplayPanelAttributes(model, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, qPalXELesson);
 
         // Find all the QPalXELesson's currently available
         List<QPalXEMicroLesson> qPalXEMicroLessons = iqPalXEMicroLessonService.findQPalXEMicroLessons(qPalXELesson);
         model.addAttribute(LessonsAdminAttributesE.QPalXEMicroLessons.toString(), qPalXEMicroLessons);
-        return ContentRootE.Content_Admin_Home.getContentRootPagePath("view-micro-lessons");
+        return ContentRootE.Content_Admin_Lessons.getContentRootPagePath("view-qpalx-microlessons");
     }
 
-//    @RequestMapping(value = "/add-qpalx-elesson", method = RequestMethod.GET)
-//    public String addCurriculumCourse(final Model model, @RequestParam("eLearningCourseID") String eLearningCourseID, HttpServletRequest request, HttpServletResponse response) {
-//        LOGGER.info("Building add QPalxELesson page options for eLearningCourseID: {}", eLearningCourseID);
-//
-//        // Add all required attributes to dispaly add qpalx elesson page
-//        Long courseID = NumberUtils.toLong(eLearningCourseID);
-//        ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(courseID);
-//        List<QPalXEducationalInstitution> qPalXEducationalInstitutions = iqPalXEducationalInstitutionService.findAll();
-//        model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCourse.toString(), eLearningCourse);
-//        model.addAttribute(DomainDataDisplayAttributeE.AvailableQPalXEducationalInstitutions.toString(), qPalXEducationalInstitutions);
-//        model.addAttribute(DomainDataDisplayAttributeE.ProficiencyRankings.toString(), ProficiencyRankingScaleE.lowestToHighest());
-//        model.addAttribute(ValueObjectDataDisplayAttributeE.QPalXELessonWebVO.toString(), new QPalXELessonWebVO());
-//
-//        // Add all attributes required for User information panel
-//        qPalXUserInfoPanelService.addUserInfoAttributes(model);
-//
-//        return ContentRootE.Content_Admin_Home.getContentRootPagePath("add-qpalx-elesson");
-//    }
+
+    @RequestMapping(value = "/add-qpalx-microlesson", method = RequestMethod.GET)
+    public String addQPalXELessonsView(final Model model, @RequestParam("qpalxELessonID") String qpalxELessonID, HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("Building add QPalxELesson page options for qpalxELessonID: {}", qpalxELessonID);
+
+        // IF this is a result of a redirect add any web operations errrors to model
+        iRedirectStrategyExecutor.addWebOperationRedirectErrorsToModel(model, request);
+
+        // Create value object used to bind form elements
+        QPalXELessonWebVO qPalXELessonWebVO = new QPalXELessonWebVO();
+
+        // Add all required attributes to dispaly add qpalx elesson page
+        Long lessonID = NumberUtils.toLong(qpalxELessonID);
+        QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(lessonID);
+        List<QPalXEducationalInstitution> qPalXEducationalInstitutions = iqPalXEducationalInstitutionService.findAll();
+        model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXELesson.toString(), qPalXELesson);
+        model.addAttribute(DomainDataDisplayAttributeE.AvailableQPalXEducationalInstitutions.toString(), qPalXEducationalInstitutions);
+        model.addAttribute(DomainDataDisplayAttributeE.ProficiencyRankings.toString(), ProficiencyRankingScaleE.lowestToHighest());
+        model.addAttribute(ValueObjectDataDisplayAttributeE.QPalXELessonWebVO.toString(), qPalXELessonWebVO);
+        model.addAttribute(ValueObjectDataDisplayAttributeE.SupportedQPalXTutorialContentTypes.toString(), qPalXELessonWebVO.getQPalXTutorialContentTypes());
+
+        // Add all attributes required for User information panel
+        qPalXUserInfoPanelService.addUserInfoAttributes(model);
+        return ContentRootE.Content_Admin_Lessons.getContentRootPagePath("add-qpalx-elesson");
+    }
+
+
+
 }

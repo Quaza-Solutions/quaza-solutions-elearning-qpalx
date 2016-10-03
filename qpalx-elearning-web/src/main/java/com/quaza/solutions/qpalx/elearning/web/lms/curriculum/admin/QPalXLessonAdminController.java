@@ -88,7 +88,7 @@ public class QPalXLessonAdminController {
         // Find all the QPalXELesson's currently available
         List<QPalXELesson> qPalXELessons = iqPalXELessonService.findQPalXELessonByCourse(eLearningCourse);
         model.addAttribute(LessonsAdminAttributesE.QPalXELessons.toString(), qPalXELessons);
-        return ContentRootE.Content_Admin_Home.getContentRootPagePath("view-qpalx-elessons");
+        return ContentRootE.Content_Admin_Lessons.getContentRootPagePath("view-qpalx-elessons");
     }
 
     @RequestMapping(value = "/add-qpalx-elesson", method = RequestMethod.GET)
@@ -113,8 +113,7 @@ public class QPalXLessonAdminController {
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
-
-        return ContentRootE.Content_Admin_Home.getContentRootPagePath("add-qpalx-elesson");
+        return ContentRootE.Content_Admin_Lessons.getContentRootPagePath("add-qpalx-elesson");
     }
 
     @RequestMapping(value = "/save-qpalx-elesson", method = RequestMethod.POST)

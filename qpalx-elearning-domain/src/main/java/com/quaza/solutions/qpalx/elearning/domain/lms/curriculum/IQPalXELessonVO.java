@@ -25,8 +25,6 @@ public interface IQPalXELessonVO extends ILMSMediaContentVO {
 
     public Long getEducationalInstitutionID();
 
-    public ELearningMediaContent getELearningMediaContent();
-
     public ProficiencyRankingScaleE getProficiencyRankingScaleFloorE();
 
     public ProficiencyRankingScaleE getProficiencyRankingScaleCeilingE();

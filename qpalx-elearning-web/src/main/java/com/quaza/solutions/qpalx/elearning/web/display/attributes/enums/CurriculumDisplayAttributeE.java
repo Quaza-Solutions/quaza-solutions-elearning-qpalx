@@ -9,6 +9,8 @@ public enum CurriculumDisplayAttributeE {
 
     SelectedELearningCourse,
 
-    SelectedQPalXELesson
+    SelectedQPalXELesson,
+
+    SelectedQPalXMicroLesson
     ;
 }

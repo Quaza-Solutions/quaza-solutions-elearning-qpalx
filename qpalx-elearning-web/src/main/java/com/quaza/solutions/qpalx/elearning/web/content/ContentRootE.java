@@ -18,7 +18,9 @@ public enum ContentRootE {
 
     Parent_Signup("qpalx-parent/signup/"),
 
-    Content_Admin_Home("qpalx-content-admin/home/");
+    Content_Admin_Home("qpalx-content-admin/home/"),
+
+    Content_Admin_Lessons("qpalx-content-admin/lessons/");
     ;
 
     private final String rootDirectory;

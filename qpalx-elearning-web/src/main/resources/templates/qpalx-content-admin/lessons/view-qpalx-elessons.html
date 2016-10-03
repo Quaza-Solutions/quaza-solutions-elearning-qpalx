@@ -40,7 +40,7 @@
         <div class="col-md-1 num" th:text="${rowStat.count}"></div>
 
         <div class="col-md-3 name" align="left">
-            <a th:href="@{/view-course-activity(activityID=${QPalXELesson.id})}"><b th:text="${QPalXELesson.lessonName}"></b></a>
+            <a th:href="@{/view-admin-qpalx-micro-elessons(qpalxELessonID=${QPalXELesson.id})}"><b th:text="${QPalXELesson.lessonName}"></b></a>
             <br/>
             <div class="small" th:text="${QPalXELesson.proficiencyRankingScaleFloor.getProficiencyScoreRangeE()}"></div>
             <!--<div th:inline="text" class="small">[[${ELearningCourseActivity.proficiencyRankingScaleFloor}]] - [[${ELearningCourseActivity.proficiencyRankingScaleCeiling}]]</div>-->
