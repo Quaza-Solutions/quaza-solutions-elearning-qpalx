@@ -47,6 +47,8 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
     @Override
     public void createAndSaveQPalXEMicroLesson(IQPalXEMicroLessonVO iqPalXEMicroLessonVO) {
         Assert.notNull(iqPalXEMicroLessonVO, "iqPalXEMicroLessonVO cannot be null");
+        Assert.notNull(iqPalXEMicroLessonVO.getQPalXELessonID(), "Valid non null QPalXELessonID required");
+        Assert.notNull(iqPalXEMicroLessonVO.getELearningMediaContent(), "Valid non null ELearningMediaContent required");
         LOGGER.debug("Creating and saving new iqPalXEMicroLessonVO: {}", iqPalXEMicroLessonVO);
 
         QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(iqPalXEMicroLessonVO.getQPalXELessonID());
@@ -56,7 +58,7 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
                 .microLessonDescription(iqPalXEMicroLessonVO.getMicroLessonDescription())
                 .eLearningMediaContent(iqPalXEMicroLessonVO.getELearningMediaContent())
                 .qPalXELesson(qPalXELesson)
-                .microLessonActive(true)
+                .microLessonActive(iqPalXEMicroLessonVO.isActive())
                 .entryDate(new DateTime())
                 .build();
 
