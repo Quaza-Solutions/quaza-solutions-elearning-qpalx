@@ -44,6 +44,9 @@ public class QPalXEMicroLessonActivityService implements IQPalXEMicroLessonActiv
     @Override
     public void createAndSaveQPalXEMicroLessonActivity(IQPalXEMicroLessonActivityVO iqPalXEMicroLessonActivityVO) {
         Assert.notNull(iqPalXEMicroLessonActivityVO, "iqPalXEMicroLessonActivityVO");
+        Assert.notNull(iqPalXEMicroLessonActivityVO.getQPalXEMicroLessonID(), "Non null valid QPalXEMicroLessonID required");
+        Assert.notNull(iqPalXEMicroLessonActivityVO.getELearningMediaContent(), "Non null valid ELearningMediaContent ID required");
+
         LOGGER.info("Creating and saving  iqPalXEMicroLessonActivityVO: {}", iqPalXEMicroLessonActivityVO);
 
         // Load up the EMicro Lesson
@@ -52,7 +55,7 @@ public class QPalXEMicroLessonActivityService implements IQPalXEMicroLessonActiv
         QPalXEMicroLessonActivity qPalXEMicroLessonActivity = QPalXEMicroLessonActivity.builder()
                 .microLessonActivityName(iqPalXEMicroLessonActivityVO.getMicroLessonActivityName())
                 .microLessonActivityDescription(iqPalXEMicroLessonActivityVO.getMicroLessonActivityDescription())
-                .microLessonActivityActive(true)
+                .microLessonActivityActive(iqPalXEMicroLessonActivityVO.isActive())
                 .microLessonActivityType(iqPalXEMicroLessonActivityVO.getMicroLessonActivityTypeE())
                 .eLearningMediaContent(iqPalXEMicroLessonActivityVO.getELearningMediaContent())
                 .entryDate(new DateTime())

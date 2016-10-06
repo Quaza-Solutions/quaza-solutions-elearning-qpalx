@@ -1,13 +1,19 @@
 package com.quaza.solutions.qpalx.elearning.web.curriculum.vo;
 
+import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXEMicroLessonActivityVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.MicroLessonActivityTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.AbstractILMSMediaContentVO;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.MediaContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
+
+import java.util.Set;
 
 /**
  * @author manyce400
  */
-public class QPalXEMicroLessonActivityVO implements IQPalXEMicroLessonActivityVO {
+public class QPalXEMicroLessonActivityVO extends AbstractILMSMediaContentVO implements IQPalXEMicroLessonActivityVO {
 
 
     public String microLessonActivityName;
@@ -66,5 +72,15 @@ public class QPalXEMicroLessonActivityVO implements IQPalXEMicroLessonActivityVO
     @Override
     public MicroLessonActivityTypeE getMicroLessonActivityTypeE() {
         return MicroLessonActivityTypeE.getByStringValue(microLessonActivityType);
+    }
+
+    @Override
+    public Set<MediaContentTypeE> getMediaContentTypes() {
+        return ImmutableSet.of(MediaContentTypeE.mp4);
+    }
+
+    @Override
+    public Set<QPalXTutorialContentTypeE> getQPalXTutorialContentTypes() {
+        return ImmutableSet.of(QPalXTutorialContentTypeE.Video);
     }
 }

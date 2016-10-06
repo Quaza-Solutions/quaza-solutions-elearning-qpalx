@@ -1,11 +1,13 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.ILMSMediaContentVO;
+
 /**
  * Value object interface for QPalXEMicroLessonActivity domain object.
  *
  * @author manyce400
  */
-public interface IQPalXEMicroLessonActivityVO {
+public interface IQPalXEMicroLessonActivityVO extends ILMSMediaContentVO {
 
     public String getMicroLessonActivityName();
 

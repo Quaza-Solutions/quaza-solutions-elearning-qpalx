@@ -1,29 +1,31 @@
 package com.quaza.solutions.qpalx.elearning.web.lms.curriculum.admin;
 
-import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
-import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXELessonService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXEMicroLessonService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
-import com.quaza.solutions.qpalx.elearning.web.curriculum.vo.QPalXELessonWebVO;
+import com.quaza.solutions.qpalx.elearning.web.curriculum.vo.QPalXEMicroLessonVO;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
-import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.DomainDataDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.ValueObjectDataDisplayAttributeE;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.WebOperationErrorAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.lms.curriculum.enums.LessonsAdminAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IContentAdminTutorialGradePanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
+import com.quaza.solutions.qpalx.elearning.web.utils.IFileUploadUtil;
 import com.quaza.solutions.qpalx.elearning.web.utils.IRedirectStrategyExecutor;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +60,10 @@ public class QPalXMicroLessonAdminController {
     private IContentAdminTutorialGradePanelService contentAdminTutorialGradePanelService;
 
     @Autowired
+    @Qualifier("com.quaza.solutions.qpalx.elearning.web.FileUploadUtil")
+    private IFileUploadUtil iFileUploadUtil;
+
+    @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.DefaultRedirectStrategyExecutor")
     private IRedirectStrategyExecutor iRedirectStrategyExecutor;
 
@@ -84,28 +90,53 @@ public class QPalXMicroLessonAdminController {
 
 
     @RequestMapping(value = "/add-qpalx-microlesson", method = RequestMethod.GET)
-    public String addQPalXELessonsView(final Model model, @RequestParam("qpalxELessonID") String qpalxELessonID, HttpServletRequest request, HttpServletResponse response) {
+    public String addMicroLessonsView(final Model model, @RequestParam("qpalxELessonID") String qpalxELessonID, HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("Building add QPalxELesson page options for qpalxELessonID: {}", qpalxELessonID);
 
         // IF this is a result of a redirect add any web operations errrors to model
         iRedirectStrategyExecutor.addWebOperationRedirectErrorsToModel(model, request);
 
         // Create value object used to bind form elements
-        QPalXELessonWebVO qPalXELessonWebVO = new QPalXELessonWebVO();
+        QPalXEMicroLessonVO qPalXEMicroLessonVO = new QPalXEMicroLessonVO();
 
         // Add all required attributes to dispaly add qpalx elesson page
         Long lessonID = NumberUtils.toLong(qpalxELessonID);
         QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(lessonID);
-        List<QPalXEducationalInstitution> qPalXEducationalInstitutions = iqPalXEducationalInstitutionService.findAll();
         model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXELesson.toString(), qPalXELesson);
-        model.addAttribute(DomainDataDisplayAttributeE.AvailableQPalXEducationalInstitutions.toString(), qPalXEducationalInstitutions);
-        model.addAttribute(DomainDataDisplayAttributeE.ProficiencyRankings.toString(), ProficiencyRankingScaleE.lowestToHighest());
-        model.addAttribute(ValueObjectDataDisplayAttributeE.QPalXELessonWebVO.toString(), qPalXELessonWebVO);
-        model.addAttribute(ValueObjectDataDisplayAttributeE.SupportedQPalXTutorialContentTypes.toString(), qPalXELessonWebVO.getQPalXTutorialContentTypes());
+        model.addAttribute(ValueObjectDataDisplayAttributeE.QPalXEMicroLessonVO.toString(), qPalXEMicroLessonVO);
+        model.addAttribute(ValueObjectDataDisplayAttributeE.SupportedQPalXTutorialContentTypes.toString(), qPalXEMicroLessonVO.getQPalXTutorialContentTypes());
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
-        return ContentRootE.Content_Admin_Lessons.getContentRootPagePath("add-qpalx-elesson");
+        return ContentRootE.Content_Admin_Lessons.getContentRootPagePath("add-qpalx-microlesson");
+    }
+
+
+    @RequestMapping(value = "/save-qpalx-microlesson", method = RequestMethod.POST)
+    public void saveMicroLesson(Model model, @ModelAttribute("QPalXEMicroLessonVO") QPalXEMicroLessonVO qPalXEMicroLessonVO,
+                                 HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile multipartFile) {
+        LOGGER.info("Saving QPalX micro lesson with VO attributes: {}", qPalXEMicroLessonVO);
+
+        // Upload file and create the ELearningMediaContent
+        ELearningMediaContent eLearningMediaContent = iFileUploadUtil.uploadELearningMediaContent(multipartFile, qPalXEMicroLessonVO);
+
+        if(eLearningMediaContent == null) {
+            LOGGER.warn("Selected ELearning Media content could not be uploaded.  Check selected file content.");
+            String targetURL = "/add-qpalx-microlesson?qpalxELessonID=" + qPalXEMicroLessonVO.getQPalXELessonID();
+            String errorMessage = "Failed to upload file: Check the contents of the file";
+            iRedirectStrategyExecutor.sendRedirectWithError(targetURL, errorMessage, WebOperationErrorAttributesE.Invalid_FORM_Submission, request, response);
+        } else if(eLearningMediaContent == ELearningMediaContent.NOT_SUPPORTED_MEDIA_CONTENT) {
+            LOGGER.warn("Uploaded course activity media content file is currently not supported...");
+            String targetURL = "/add-qpalx-microlesson?qpalxELessonID=" + qPalXEMicroLessonVO.getQPalXELessonID();
+            String errorMessage = "Uploaded file is not supported: Only Files of type(MP4, SWF) supported";
+            iRedirectStrategyExecutor.sendRedirectWithError(targetURL, errorMessage, WebOperationErrorAttributesE.Invalid_FORM_Submission, request, response);
+        } else {
+            LOGGER.info("QPalX Lesson media content was succesfully uploaded, saving micro lesson details...");
+            qPalXEMicroLessonVO.setELearningMediaContent(eLearningMediaContent);
+            iqPalXEMicroLessonService.createAndSaveQPalXEMicroLesson(qPalXEMicroLessonVO);
+            String targetURL = "/view-admin-qpalx-micro-elessons?qpalxELessonID=" + qPalXEMicroLessonVO.getQPalXELessonID();
+            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+        }
     }
 
 
