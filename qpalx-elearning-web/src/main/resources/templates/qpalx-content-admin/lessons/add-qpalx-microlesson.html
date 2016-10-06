@@ -22,20 +22,20 @@
         <div class="alert alert-danger fade in" th:text="${Invalid_FORM_Submission}"/>
     </div>
 
-    <form method="post" enctype="multipart/form-data" th:action="@{save-qpalx-elesson}" th:object="${QPalXELessonWebVO}">
+    <form method="post" enctype="multipart/form-data" th:action="@{save-qpalx-microlesson}" th:object="${QPalXEMicroLessonVO}">
 
         <!-- hidden field is a spring-security feature which generates a hidden token checked on submission to make sure submission is from this website directly -->
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
         <div class="row">
-            <div class="col-md-3">Lesson name</div>
-            <div class="col-md-3">Lesson Description</div>
+            <div class="col-md-3">Micro Lesson name</div>
+            <div class="col-md-3">Micro Lesson Description</div>
             <div class="col-md-6">QPalX Content Type</div>
         </div>
 
         <div class="row">
-            <div class="col-md-3"><input type="text" size="26" id="name" name="name" th:field="*{lessonName}"/><span class="name"></span></div>
-            <div class="col-md-3"><input type="text" size="26" id="description" name="description" th:field="*{lessonDescription}"/><span class="description"></span></div>
+            <div class="col-md-3"><input type="text" size="26" id="name" name="name" th:field="*{microLessonName}"/><span class="name"></span></div>
+            <div class="col-md-3"><input type="text" size="26" id="description" name="description" th:field="*{microLessonDescription}"/><span class="description"></span></div>
             <div class="col-md-6">
                 <select class="activity" th:field="*{qPalXTutorialContentType}">
                     <option value=""></option>
@@ -47,47 +47,17 @@
         <div class="clearfix bottom-space"></div>
 
         <div class="row">
-            <div class="col-md-6">Proficiency Rating Floor</div>
-            <div class="col-md-6">Proficiency Rating Ceiling</div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <span></span>
-                <select class="ceiling" th:field="*{proficiencyRankingScaleFloor}">
-                    <option th:each="ProficiencyRanking : ${ProficiencyRankings}" th:value="${ProficiencyRanking}" th:text="${ProficiencyRanking}"></option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <span></span>
-                <select class="ceiling" th:field="*{proficiencyRankingScaleCeiling}">
-                    <option th:each="ProficiencyRanking : ${ProficiencyRankings}" th:value="${ProficiencyRanking}" th:text="${ProficiencyRanking}"></option>
-                </select>
-            </div>
-        </div>
-
-        <div class="clearfix bottom-space"></div>
-
-        <div class="row">
             <div class="col-md-6">
                 Upload file:
             </div>
-            <div class="col-md-6">
-                Tutorial Calendar:
-            </div>
+            <div class="col-md-6"></div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
                 <input type="file" name="file"/>
             </div>
-            <div class="col-md-6">
-                <select id="term" class="ceiling" th:field="*{tutorialLevelCalendarID}">
-                    <option value="1">First Term</option>
-                    <option value="2">Second Term</option>
-                    <option value="3">Third Term</option>
-                </select>
-            </div>
+            <div class="col-md-6"></div>
         </div>
 
         <div class="clearfix bottom-space"></div>
@@ -96,29 +66,24 @@
             <div class="col-md-6">
                 Newly Added Course Activity
             </div>
-            <div class="col-md-6">Educational Institution</div>
+            <div class="col-md-6"></div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <input type="radio" value="TRUE" th:field="*{activeFlag}"/> Active&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" value="FALSE" th:field="*{activeFlag}"/> Inactive
             </div>
-            <div class="col-md-6">
-                <select class="activity" th:field="*{educationalInstitutionID}">
-                    <option value=""></option>
-                    <option th:each="QPalXEducationalInstitution : ${AvailableQPalXEducationalInstitutions}" th:value="${QPalXEducationalInstitution.id}" th:text="${QPalXEducationalInstitution.name}"></option>
-                </select>
-            </div>
+            <div class="col-md-6"></div>
         </div>
 
         <div class="clearfix bottom-space"></div>
         <div class="clearfix bottom-space"></div>
 
         <!-- Hidden field to pass back the value of the current ELearningCourseID-->
-        <input type="hidden" th:value="${SelectedELearningCourse.id}" name="eLearningCourseID"/>
+        <input type="hidden" th:value="${SelectedQPalXELesson.id}" name="qPalXELessonID"/>
 
         <div class="col-md-12 continue">
-            <button type="submit" id="submit" class="btn btn-success">Add QPalX ELesson</button>
+            <button type="submit" id="submit" class="btn btn-success">Add Micro Lesson</button>
         </div>
     </form>
 </div>

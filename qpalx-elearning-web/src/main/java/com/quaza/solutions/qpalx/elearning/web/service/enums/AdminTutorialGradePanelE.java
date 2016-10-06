@@ -40,8 +40,8 @@ public enum AdminTutorialGradePanelE {
     public static ImmutableMap<String, Object> buildAttributes(Boolean addLessonsEnabled, Boolean addMicroLessonsEnabled, Boolean addMicroLessonsActivitiesEnabled, StudentTutorialGrade studentTutorialGrade, String curriculumType) {
         ImmutableMap<String, Object> attributes = ImmutableMap.of(
                 AddLessonsEnabled.toString(), addLessonsEnabled.toString(),
-                AddMicroLessonsEnabled.toString(), addMicroLessonsEnabled,
-                AddMicroLessonActivitiesEnabled.toString(), addMicroLessonsEnabled.toString(),
+                AddMicroLessonsEnabled.toString(), addMicroLessonsEnabled.toString(),
+                AddMicroLessonActivitiesEnabled.toString(), addMicroLessonsActivitiesEnabled.toString(),
                 StudentTutorialGrade.toString(), studentTutorialGrade,
                 CurriculumType.toString(), curriculumType
         );
