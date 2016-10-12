@@ -1,7 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning;
 
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveLearningExperience;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.repository.IAdaptiveLearningExperienceRepository;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningExperience;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.repository.IAdaptiveLearningExperienceRepository;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyScoreRangeE;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.springframework.beans.factory.annotation.Autowired;

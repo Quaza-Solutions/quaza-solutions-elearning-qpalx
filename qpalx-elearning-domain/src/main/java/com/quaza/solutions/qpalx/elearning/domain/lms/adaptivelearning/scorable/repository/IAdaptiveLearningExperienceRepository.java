@@ -1,6 +1,6 @@
-package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.repository;
+package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.repository;
 
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveLearningExperience;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningExperience;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import org.springframework.data.jpa.repository.Query;

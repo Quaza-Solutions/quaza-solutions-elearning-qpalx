@@ -1,8 +1,8 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning;
 
 import com.google.common.collect.ImmutableList;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveLearningExperience;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.repository.IAdaptiveLearningExperienceRepository;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningExperience;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.repository.IAdaptiveLearningExperienceRepository;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyScoreRangeE;
 import org.junit.Assert;
 import org.junit.Test;
