@@ -9,6 +9,8 @@ public enum LessonsAdminAttributesE {
     QPalXELessons,
 
     QPalXEMicroLessons,
+
+    QPalXMicroLessonActivities
     ;
 
 }

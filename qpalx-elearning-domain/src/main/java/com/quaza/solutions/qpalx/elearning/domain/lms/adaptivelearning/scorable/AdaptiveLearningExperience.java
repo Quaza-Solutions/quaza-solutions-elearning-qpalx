@@ -1,6 +1,5 @@
-package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning;
+package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable;
 
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyScoreRangeE;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -33,10 +32,9 @@ public class AdaptiveLearningExperience {
     private QPalXUser qpalxUser;
 
 
-    // Tracks the actual ELearningCourseActivity that was taken as part of this
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ELearningCourseActivityID", nullable = false)
-    private ELearningCourseActivity eLearningCourseActivity;
+    // Provides information on Media Content that is associated with this activity.
+    @Embedded
+    private EmbedabbleScorableELearningActivity embedabbleScorableELearningActivity;
 
     // Calculated proficiency score that the user got on completion of this proficiencyScore
     @Column(name="ProficiencyScore", nullable=false)
@@ -78,12 +76,12 @@ public class AdaptiveLearningExperience {
     }
 
 
-    public ELearningCourseActivity getELearningCourseActivity() {
-        return eLearningCourseActivity;
+    public EmbedabbleScorableELearningActivity getEmbedabbleScorableELearningActivity() {
+        return embedabbleScorableELearningActivity;
     }
 
-    public void setELearningCourseActivity(ELearningCourseActivity eLearningCourseActivity) {
-        this.eLearningCourseActivity = eLearningCourseActivity;
+    public void setEmbedabbleScorableELearningActivity(EmbedabbleScorableELearningActivity embedabbleScorableELearningActivity) {
+        this.embedabbleScorableELearningActivity = embedabbleScorableELearningActivity;
     }
 
     public Double getProficiencyScore() {
@@ -130,7 +128,7 @@ public class AdaptiveLearningExperience {
 
         return new EqualsBuilder()
                 .append(id, that.id)
-                .append(eLearningCourseActivity, that.eLearningCourseActivity)
+                .append(embedabbleScorableELearningActivity, that.embedabbleScorableELearningActivity)
                 .append(proficiencyScore, that.proficiencyScore)
                 .append(proficiencyScoreRangeE, that.proficiencyScoreRangeE)
                 .append(learningExperienceStartDate, that.learningExperienceStartDate)
@@ -142,7 +140,7 @@ public class AdaptiveLearningExperience {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(eLearningCourseActivity)
+                .append(embedabbleScorableELearningActivity)
                 .append(proficiencyScore)
                 .append(proficiencyScoreRangeE)
                 .append(learningExperienceStartDate)
@@ -154,7 +152,7 @@ public class AdaptiveLearningExperience {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("eLearningCourseActivity", eLearningCourseActivity)
+                .append("embedabbleScorableELearningActivity", embedabbleScorableELearningActivity)
                 .append("proficiencyScore", proficiencyScore)
                 .append("proficiencyScoreRangeE", proficiencyScoreRangeE)
                 .append("learningExperienceStartDate", learningExperienceStartDate)
@@ -169,13 +167,8 @@ public class AdaptiveLearningExperience {
         private Builder() {
         }
 
-//        public Builder adaptiveLearningProfile(final AdaptiveLearningProfile adaptiveLearningProfile) {
-//            instance.adaptiveLearningProfile = adaptiveLearningProfile;
-//            return this;
-//        }
-
-        public Builder eLearningCourseActivity(final ELearningCourseActivity eLearningCourseActivity) {
-            instance.eLearningCourseActivity = eLearningCourseActivity;
+        public Builder embedabbleScorableELearningActivity(final EmbedabbleScorableELearningActivity embedabbleScorableELearningActivity) {
+            instance.embedabbleScorableELearningActivity = embedabbleScorableELearningActivity;
             return this;
         }
 
