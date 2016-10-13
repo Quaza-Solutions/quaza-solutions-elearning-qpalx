@@ -19,6 +19,7 @@ public class ProProfQuiz implements IScorableActivity {
 
 
 
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID", nullable=false)
     private Long id;
@@ -220,4 +221,70 @@ public class ProProfQuiz implements IScorableActivity {
                 .append("qPalXEMicroLesson", qPalXEMicroLesson)
                 .toString();
     }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+
+    public static final class Builder {
+
+        private ProProfQuiz proProfQuiz = new ProProfQuiz();
+
+        public Builder scorableActivityID(Long scorableActivityID) {
+            proProfQuiz.scorableActivityID = scorableActivityID;
+            return this;
+        }
+
+        public Builder scorableActivityName(String scorableActivityName) {
+            proProfQuiz.scorableActivityName = scorableActivityName;
+            return this;
+        }
+
+        public Builder scorableActivityDescription(String scorableActivityDescription) {
+            proProfQuiz.scorableActivityDescription = scorableActivityDescription;
+            return this;
+        }
+
+        public Builder maxPossibleActivityScore(Double maxPossibleActivityScore) {
+            proProfQuiz.maxPossibleActivityScore = maxPossibleActivityScore;
+            return this;
+        }
+
+        public Builder qPalXEmbedURL(String qPalXEmbedURL) {
+            proProfQuiz.qPalXEmbedURL = qPalXEmbedURL;
+            return this;
+        }
+
+        public Builder proficiencyRankingScaleFloor(ProficiencyRankingScaleE proficiencyRankingScaleFloor) {
+            proProfQuiz.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
+            return this;
+        }
+
+        public Builder proficiencyRankingScaleCeiling(ProficiencyRankingScaleE proficiencyRankingScaleCeiling) {
+            proProfQuiz.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
+            return this;
+        }
+
+        public Builder entryDate(DateTime entryDate) {
+            proProfQuiz.entryDate = entryDate;
+            return this;
+        }
+
+        public Builder active(boolean active) {
+            proProfQuiz.active = active;
+            return this;
+        }
+
+        public Builder qPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson) {
+            proProfQuiz.qPalXEMicroLesson = qPalXEMicroLesson;
+            return this;
+        }
+
+        public ProProfQuiz build() {
+            return proProfQuiz;
+        }
+    }
+
+
 }

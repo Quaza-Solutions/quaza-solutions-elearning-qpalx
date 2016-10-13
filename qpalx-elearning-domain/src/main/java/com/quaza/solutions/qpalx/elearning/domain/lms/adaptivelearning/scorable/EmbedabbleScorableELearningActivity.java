@@ -76,4 +76,28 @@ public class EmbedabbleScorableELearningActivity {
                 .append("qPalXTutorialContentTypeE", qPalXTutorialContentTypeE)
                 .toString();
     }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+
+        public EmbedabbleScorableELearningActivity embedabbleScorableELearningActivity = new EmbedabbleScorableELearningActivity();
+
+        public Builder scorableActivityID(Long scorableActivityID) {
+            embedabbleScorableELearningActivity.scorableActivityID = scorableActivityID;
+            return this;
+        }
+
+        public Builder qPalXTutorialContentTypeE(QPalXTutorialContentTypeE qPalXTutorialContentTypeE) {
+            embedabbleScorableELearningActivity.qPalXTutorialContentTypeE = qPalXTutorialContentTypeE;
+            return this;
+        }
+
+        public EmbedabbleScorableELearningActivity build() {
+            return embedabbleScorableELearningActivity;
+        }
+
+    }
 }
