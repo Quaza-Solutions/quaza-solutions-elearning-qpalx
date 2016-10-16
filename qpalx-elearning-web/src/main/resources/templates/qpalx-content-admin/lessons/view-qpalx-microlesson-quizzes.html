@@ -35,12 +35,12 @@
     <!--<b th:text="${SelectedELearningCurriculum.curriculumName}"></b><br/>-->
     <!--</div>-->
 
-    <div class="row" th:each="QPalXMicroLessonActivity,rowStat : ${QPalXMicroLessonActivities}">
+    <div class="row" th:each="AdaptiveLearningQuiz,rowStat : ${AdaptiveLearningQuizzes}">
 
         <div class="col-md-1 num" th:text="${rowStat.count}"></div>
 
         <div class="col-md-3 name" align="left">
-            <a th:href="@{/view-course-activity(activityID=${QPalXMicroLessonActivity.id})}"><b th:text="${QPalXMicroLessonActivity.microLessonActivityName}"></b></a>
+            <a th:href="@{/view-course-activity(activityID=${AdaptiveLearningQuiz.id})}"><b th:text="${AdaptiveLearningQuiz.scorableActivityName}"></b></a>
         </div>
         <div class="col-md-6"></div>
         <div class="col-md-2">

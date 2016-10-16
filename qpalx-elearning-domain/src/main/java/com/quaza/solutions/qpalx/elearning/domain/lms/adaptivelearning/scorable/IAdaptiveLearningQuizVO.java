@@ -5,7 +5,7 @@ import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.Prof
 /**
  * @author manyce400
  */
-public interface IProProfQuizVO {
+public interface IAdaptiveLearningQuizVO {
 
 
     public Long getScorableActivityID();

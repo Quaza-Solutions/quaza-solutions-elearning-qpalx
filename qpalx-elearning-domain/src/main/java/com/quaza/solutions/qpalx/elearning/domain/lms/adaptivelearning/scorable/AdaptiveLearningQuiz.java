@@ -1,7 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
-import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -14,8 +13,8 @@ import javax.persistence.*;
  * @author manyce400
  */
 @Entity
-@Table(name="ProProfQuiz")
-public class ProProfQuiz implements IScorableActivity {
+@Table(name="AdaptiveLearningQuiz")
+public class AdaptiveLearningQuiz implements IScorableActivity {
 
 
 
@@ -41,19 +40,6 @@ public class ProProfQuiz implements IScorableActivity {
     @Column(name="QPalXEmbedURL", nullable=false, length=255)
     private String qPalXEmbedURL;
 
-    // Floor ProficiencyRankingScale should always be specified for each ELearningCourse.
-    // Students can only take quizzes inclusive between the specified ceiling and floor ProficiencyRanking
-    @Column(name="ProficiencyRankingScaleFloor", nullable=false, length=10)
-    @Enumerated(EnumType.STRING)
-    private ProficiencyRankingScaleE proficiencyRankingScaleFloor;
-
-    // Ceiling ProficiencyRankingScale should always be specified for each ELearningCourse.
-    // Students can only take quizzes inclusive between the specified ceiling and floor ProficiencyRanking
-    @Column(name="ProficiencyRankingScaleCeiling", nullable=false, length=10)
-    @Enumerated(EnumType.STRING)
-    private ProficiencyRankingScaleE proficiencyRankingScaleCeiling;
-
-
     @Column(name="EntryDate", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime entryDate;
@@ -63,11 +49,11 @@ public class ProProfQuiz implements IScorableActivity {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QPalXEMicroLessonID", nullable = false)
     private QPalXEMicroLesson qPalXEMicroLesson;
 
-    public ProProfQuiz() {
+    public AdaptiveLearningQuiz() {
 
     }
 
@@ -123,24 +109,6 @@ public class ProProfQuiz implements IScorableActivity {
         this.qPalXEmbedURL = qPalXEmbedURL;
     }
 
-    @Override
-    public ProficiencyRankingScaleE getProficiencyRankingScaleFloor() {
-        return proficiencyRankingScaleFloor;
-    }
-
-    public void setProficiencyRankingScaleFloor(ProficiencyRankingScaleE proficiencyRankingScaleFloor) {
-        this.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
-    }
-
-    @Override
-    public ProficiencyRankingScaleE getProficiencyRankingScaleCeiling() {
-        return proficiencyRankingScaleCeiling;
-    }
-
-    public void setProficiencyRankingScaleCeiling(ProficiencyRankingScaleE proficiencyRankingScaleCeiling) {
-        this.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
-    }
-
     public DateTime getEntryDate() {
         return entryDate;
     }
@@ -171,7 +139,7 @@ public class ProProfQuiz implements IScorableActivity {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProProfQuiz that = (ProProfQuiz) o;
+        AdaptiveLearningQuiz that = (AdaptiveLearningQuiz) o;
 
         return new EqualsBuilder()
                 .append(active, that.active)
@@ -181,8 +149,6 @@ public class ProProfQuiz implements IScorableActivity {
                 .append(scorableActivityDescription, that.scorableActivityDescription)
                 .append(maxPossibleActivityScore, that.maxPossibleActivityScore)
                 .append(qPalXEmbedURL, that.qPalXEmbedURL)
-                .append(proficiencyRankingScaleFloor, that.proficiencyRankingScaleFloor)
-                .append(proficiencyRankingScaleCeiling, that.proficiencyRankingScaleCeiling)
                 .append(entryDate, that.entryDate)
                 .append(qPalXEMicroLesson, that.qPalXEMicroLesson)
                 .isEquals();
@@ -197,8 +163,6 @@ public class ProProfQuiz implements IScorableActivity {
                 .append(scorableActivityDescription)
                 .append(maxPossibleActivityScore)
                 .append(qPalXEmbedURL)
-                .append(proficiencyRankingScaleFloor)
-                .append(proficiencyRankingScaleCeiling)
                 .append(entryDate)
                 .append(active)
                 .append(qPalXEMicroLesson)
@@ -214,8 +178,6 @@ public class ProProfQuiz implements IScorableActivity {
                 .append("scorableActivityDescription", scorableActivityDescription)
                 .append("maxPossibleActivityScore", maxPossibleActivityScore)
                 .append("qPalXEmbedURL", qPalXEmbedURL)
-                .append("proficiencyRankingScaleFloor", proficiencyRankingScaleFloor)
-                .append("proficiencyRankingScaleCeiling", proficiencyRankingScaleCeiling)
                 .append("entryDate", entryDate)
                 .append("active", active)
                 .append("qPalXEMicroLesson", qPalXEMicroLesson)
@@ -229,60 +191,50 @@ public class ProProfQuiz implements IScorableActivity {
 
     public static final class Builder {
 
-        private ProProfQuiz proProfQuiz = new ProProfQuiz();
+        private AdaptiveLearningQuiz adaptiveLearningQuiz = new AdaptiveLearningQuiz();
 
         public Builder scorableActivityID(Long scorableActivityID) {
-            proProfQuiz.scorableActivityID = scorableActivityID;
+            adaptiveLearningQuiz.scorableActivityID = scorableActivityID;
             return this;
         }
 
         public Builder scorableActivityName(String scorableActivityName) {
-            proProfQuiz.scorableActivityName = scorableActivityName;
+            adaptiveLearningQuiz.scorableActivityName = scorableActivityName;
             return this;
         }
 
         public Builder scorableActivityDescription(String scorableActivityDescription) {
-            proProfQuiz.scorableActivityDescription = scorableActivityDescription;
+            adaptiveLearningQuiz.scorableActivityDescription = scorableActivityDescription;
             return this;
         }
 
         public Builder maxPossibleActivityScore(Double maxPossibleActivityScore) {
-            proProfQuiz.maxPossibleActivityScore = maxPossibleActivityScore;
+            adaptiveLearningQuiz.maxPossibleActivityScore = maxPossibleActivityScore;
             return this;
         }
 
         public Builder qPalXEmbedURL(String qPalXEmbedURL) {
-            proProfQuiz.qPalXEmbedURL = qPalXEmbedURL;
-            return this;
-        }
-
-        public Builder proficiencyRankingScaleFloor(ProficiencyRankingScaleE proficiencyRankingScaleFloor) {
-            proProfQuiz.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
-            return this;
-        }
-
-        public Builder proficiencyRankingScaleCeiling(ProficiencyRankingScaleE proficiencyRankingScaleCeiling) {
-            proProfQuiz.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
+            adaptiveLearningQuiz.qPalXEmbedURL = qPalXEmbedURL;
             return this;
         }
 
         public Builder entryDate(DateTime entryDate) {
-            proProfQuiz.entryDate = entryDate;
+            adaptiveLearningQuiz.entryDate = entryDate;
             return this;
         }
 
         public Builder active(boolean active) {
-            proProfQuiz.active = active;
+            adaptiveLearningQuiz.active = active;
             return this;
         }
 
         public Builder qPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson) {
-            proProfQuiz.qPalXEMicroLesson = qPalXEMicroLesson;
+            adaptiveLearningQuiz.qPalXEMicroLesson = qPalXEMicroLesson;
             return this;
         }
 
-        public ProProfQuiz build() {
-            return proProfQuiz;
+        public AdaptiveLearningQuiz build() {
+            return adaptiveLearningQuiz;
         }
     }
 

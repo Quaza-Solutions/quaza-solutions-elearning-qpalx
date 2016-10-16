@@ -1,12 +1,12 @@
 package com.quaza.solutions.qpalx.elearning.web.adaptivelearning.vo;
 
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.IProProfQuizVO;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.IAdaptiveLearningQuizVO;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 
 /**
  * @author manyce400
  */
-public class ProProfQuizWebVO implements IProProfQuizVO {
+public class AdaptiveLearningQuizWebVO implements IAdaptiveLearningQuizVO {
 
 
     private Long scorableActivityID;
@@ -25,10 +25,10 @@ public class ProProfQuizWebVO implements IProProfQuizVO {
 
     private String proficiencyRankingScaleCeiling;
 
-    private boolean active;
+    protected String activeFlag;
 
 
-    public ProProfQuizWebVO() {
+    public AdaptiveLearningQuizWebVO() {
 
     }
 
@@ -115,10 +115,15 @@ public class ProProfQuizWebVO implements IProProfQuizVO {
 
     @Override
     public boolean isActive() {
-        return active;
+        return Boolean.valueOf(activeFlag);
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public String getActiveFlag() {
+        return activeFlag;
     }
+
+    public void setActiveFlag(String activeFlag) {
+        this.activeFlag = activeFlag;
+    }
+
 }
