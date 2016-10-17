@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/global-style.css"/>
+</head>
+<body>
+
+<!-- Include general header for when a valid logged in user session is found -->
+<div th:replace="fragments/header-usersession :: header-usersession"></div>
+
+
+<div class="container" style="margin: 20px auto 20px auto;">
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <img src="images/personalization/student/student-icon.png"/>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <br/>
+            <div class="large-font">Emmanuel Addy Lamptey</div>
+            Success ID: GH-ACC-1230037<br/>
+            <div class="large-font" th:text="${SelectedQPalXELessonTitle}"></div>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <img src="images/assets/adaptive-learning/progress-bar-circle.jpg"/>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" onClick="hrFunctionAB()" style="cursor: pointer;">
+            <span class="three-text-blue" id="text-1">First Term</span>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" onClick="hrFunctionBB()" style="cursor: pointer;">
+            <span id="text-2">Second Term</span>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" onClick="hrFunctionCB()" style="cursor: pointer;">
+            <span id="text-3">Third Term</span>
+        </div>
+    </div>
+
+    <br/><br/>
+
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><br/>1</div>
+
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 large-fonts topmargin">
+            <a class="anchor-1" href="#" data-modal-id="popup1">
+                <div class="anchor-default-1"></div>
+                Chemistry Discipline I
+            </a>
+        </div>
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="topmargin-2">
+                <progress class="progressbar" value="0" max="100" data-max="80"></progress>
+                <span class="progress-value">0%</span>
+            </div>
+        </div>
+
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 large-fonts">
+            <a class="pop-up-2" href="#" data-modal-id="popup1" style="position: absolute; top: -20px; left: 36%;">
+                Lesson Intro Video
+            </a>
+            <br/>
+            <a class="pop-up-2" href="#" data-modal-id="popup1">
+                <img style="position: absolute; top: 20px; left: 36%;" src="images/assets/adaptive-learning/video-icon.png" id="video-icon-2"/>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><br/>2</div>
+
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 large-fonts topmargin">
+            <a class="anchor-2" href="#" data-modal-id="popup2">
+                <div class="anchor-default-2"></div>
+                Chemistry Discipline II
+            </a>
+        </div>
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="topmargin-2">
+                <progress class="progressbar" value="0" max="100" data-max="20"></progress>
+                <span class="progress-value">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><br/>3</div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 large-fonts topmargin">
+            <a class="anchor-3" href="#" data-modal-id="popup1">
+                <div class="anchor-default-3"></div>
+                Micro Lesson 3
+            </a>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="topmargin-2">
+                <progress class="progressbar" value="0" max="100" data-max="30"></progress>
+                <span class="progress-value">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><br/>4
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 large-fonts topmargin">
+            <a class="anchor-4" href="#" data-modal-id="popup1">
+                <div class="anchor-default-4"></div>
+                Micro Lesson 4
+            </a>
+        </div>
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="topmargin-2">
+                <progress class="progressbar" value="0" max="100" data-max="10"></progress>
+                <span class="progress-value">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><br/>5</div>
+
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 large-fonts topmargin">
+            <a class="anchor-5" href="#" data-modal-id="popup1">
+                <div class="anchor-default-5"></div>
+                Micro Lesson 5
+            </a>
+        </div>
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="topmargin-2">
+                <progress class="progressbar" value="0" max="100" data-max="20"></progress>
+                <span class="progress-value">0%</span>
+            </div>
+        </div>
+
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="large-fonts-2">Quizzes</div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><br/>6</div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 large-fonts topmargin">
+            <a class="anchor-6" href="#" data-modal-id="popup1">
+                <div class="anchor-default-6"></div>
+                Micro Lesson 6
+            </a>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="topmargin-2">
+                <progress class="progressbar" value="0" max="100" data-max="20"></progress>
+                <span class="progress-value">0%</span>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="large-fonts">
+                <a class="anchor-6" href="#" data-modal-id="popup-quiz1">
+                    Quiz 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </a>
+                <span style="color: #06bfd3;">80%</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><br/>7</div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 large-fonts topmargin">
+            <a class="anchor-7" href="#" data-modal-id="popup1">
+                <div class="anchor-default-7"></div>
+                Micro Lesson 7
+            </a>
+        </div>
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="topmargin-2">
+                <progress class="progressbar" value="0" max="100" data-max="20"></progress>
+                <span class="progress-value">0%</span>
+            </div>
+        </div>
+
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="large-fonts">
+                Quiz 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="color: #06bfd3;">100%</span>
+            </div>
+        </div>
+
+    </div>
+
+    <br/>
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <img src="images/assets/platform/question-bank-button.png" class="question-bank"/>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <img src="images/assets/platform/all-lessons.png" class="all-lessons"/>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div id="popup1" class="modal-box youtube">
+
+    <div class="bar-1"></div>
+    <div class="row">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10"></div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <a href="#" style="float:right;" class="btn btn-small js-modal-close" onClick="stopVideo();">Close</a>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <video width="700" controls="controls" id="modal-box">
+            <source src="/elearning-content/videos/lesson 1 with audio.mp4" type="video/mp4"/>
+            Your browser does not support HTML5 video.
+        </video>
+        <div class="bar-3"></div>
+    </div>
+</div>
+
+<div id="popup2" class="modal-box youtube">
+
+    <div class="bar-1"></div>
+    <div class="row">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10"></div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <a href="#" style="float:right;" class="btn btn-small js-modal-close" onClick="stopVideo2();">Close</a>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <video width="700" controls="controls" id="modal-box-2">
+            <source src="/elearning-content/videos/lesson 2 with aduio.mp4" type="video/mp4"/>
+            Your browser does not support HTML5 video.
+        </video>
+        <div class="bar-3"></div>
+    </div>
+</div>
+
+<div id="popup-quiz1" class="modal-box quiz-popup">
+    <div class="row">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10"></div>
+
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <a href="#" style="float:right;" class="btn btn-small js-modal-close" onClick="stopVideo2();">Close</a>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <iframe name="proprofs" width="970" height="615" frameborder="0" marginwidth="0" marginheight="0" src="https://www.proprofs.com/quiz-school/story.php?title=mtcxode2nqrx1e&amp;id=1717908&amp;=430"></iframe>
+    </div>
+</div>
+
+
+<!-- Include Footer for when user is logged in -->
+<div th:replace="fragments/footer-usersession :: footer-usersession"/>
+
+<!-- jQuery first, then Bootstrap JS. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/hr.js"></script>
+<script src="js/hover.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/progress-bar.js" type="text/javascript"></script>
+<script src="js/modernizr.js" type="text/javascript"></script>
+<script>
+
+     function stopVideo(){
+        $("#modal-box")[0].pause();
+     }
+     function stopVideo2(){
+        $("#modal-box-2")[0].pause();
+     }
+
+</script>
+</body>
+</html>
