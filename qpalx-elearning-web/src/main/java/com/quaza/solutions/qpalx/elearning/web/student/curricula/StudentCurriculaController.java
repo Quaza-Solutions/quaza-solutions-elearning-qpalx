@@ -74,8 +74,10 @@ public class StudentCurriculaController {
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
         addSelectedCurriculumInfoToResponse(model, curriculumID);
-        return ContentRootE.Student_Home.getContentRootPagePath("selected-curriculum");
+        return ContentRootE.Student_Home.getContentRootPagePath("curriciculum-courses");
     }
+
+
 
     @RequestMapping(value = "/qpalx-course-details", method = RequestMethod.GET)
     public String displayQPalXCourseActivities(final Model model, @RequestParam("qCourseID") String qCourseID) {

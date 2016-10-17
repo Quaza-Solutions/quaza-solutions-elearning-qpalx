@@ -56,16 +56,21 @@
         </div>
     </div>
 
-    <div class="row" th:each="CurriculumELearningCourse,rowStat : ${CurriculumELearningCourses}">
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+    <div class="row" th:each="StudentUserCurriculum,rowStat : ${StudentUserCurricula}">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
             <span class="number" th:text="${rowStat.count}"></span>
         </div>
 
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 large-fonts topmargin">
-            <a th:href="@{/view-course-lessons(eLearningCourseID=${CurriculumELearningCourse.id})}">
-                <span class="blue courses" th:text="${CurriculumELearningCourse.courseName}"></span>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <img th:src="${StudentUserCurriculum.curriculumIcon}" class="courses-image"/>
+        </div>
+
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 large-fonts topmargin">
+            <a th:href="@{/curriculum-courses(curriculumID=${StudentUserCurriculum.id})}">
+                <span class="blue courses" th:text="${StudentUserCurriculum.curriculumName}"></span>
             </a>
-            <!--<p th:text="${CurriculumELearningCourse.courseDescription}"></p>-->
+            <span class="small" th:text="${StudentUserCurriculum.curriculumDescription}"></span>
+            <!--<p th:text="${StudentUserCurriculum.curriculumDescription}"></p>-->
         </div>
     </div>
 

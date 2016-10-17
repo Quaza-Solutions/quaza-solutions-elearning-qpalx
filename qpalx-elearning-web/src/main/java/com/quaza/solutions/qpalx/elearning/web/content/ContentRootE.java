@@ -14,6 +14,8 @@ public enum ContentRootE {
 
     Student_Signup("qpalx-student/signup/"),
 
+    Student_Adaptive_Learning("qpalx-student/adaptive-learning/"),
+
     Parent_Home("qpalx-parent/home/"),
 
     Parent_Signup("qpalx-parent/signup/"),

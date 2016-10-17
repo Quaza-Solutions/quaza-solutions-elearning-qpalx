@@ -82,7 +82,7 @@ public class ApplicationHomeController {
                 qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
                 addQPalXUserDetailsToResponse(model, CurriculumType.CORE, optionalUser.get());
-                return ContentRootE.Student_Home.getContentRootPagePath("home");
+                return ContentRootE.Student_Home.getContentRootPagePath("homepage");
             } else if(QPalxUserTypeE.CONTENT_DEVELOPER == optionalUser.get().getUserType()) {
                 String redirectUrl = "/curriculum-by-tutorialgrade?tutorialGradeID=1&curriculumType=CORE";
                 LOGGER.info("Logged in user is a Content Developer, redirecting to:> {}", redirectUrl);
@@ -90,10 +90,10 @@ public class ApplicationHomeController {
             }
 
             LOGGER.info("Only Student QPalX users currently supported");
-            return ContentRootE.Home.getContentRootPagePath("launch");
+            return ContentRootE.Home.getContentRootPagePath("homepage");
         } else {
             LOGGER.info("Valid logged in QPalxUser session not found, redirecting to main home page.");
-            return ContentRootE.Home.getContentRootPagePath("launch");
+            return ContentRootE.Home.getContentRootPagePath("homepage");
         }
     }
 
