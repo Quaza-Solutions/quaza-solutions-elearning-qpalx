@@ -68,22 +68,23 @@ public class StudentAdaptiveLearningController {
 
 
     @RequestMapping(value = "/view-course-lessons", method = RequestMethod.GET)
-    public String viewAdaptiveLessons(final Model model, @RequestParam("eLearningCourseID") String qCourseID) {
-        LOGGER.info("Finding and displaying all lessons foe courseID: {}", qCourseID);
+    public String viewAdaptiveLessons(final Model model, @RequestParam("eLearningCourseID") String eLearningCourseID, @RequestParam("tutorialLevelID") String tutorialLevelID) {
+        LOGGER.info("Finding and displaying all lessons for courseID: {} and tutorialLevelID: {}", eLearningCourseID, tutorialLevelID);
 
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
 
-        Long id = NumberUtils.toLong(qCourseID);
-        ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(id);
+        Long cId = NumberUtils.toLong(eLearningCourseID);
+        ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(cId);
         model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCourse.toString(), eLearningCourse);
 
         // Find the current default TutorialLevelCalendar based on the current month
-        Optional<TutorialLevelCalendar> selectedTutorialLevelCalendar = iTutorialLevelCalendarService.findCurrentCalendarByTutorialLevel(optionalUser.get());
-        List<QPalXELesson> qPalXELessons = iqPalXELessonService.findQPalXELessonByCalendarAndCourse(selectedTutorialLevelCalendar.get(), eLearningCourse);
+        Long tId = NumberUtils.toLong(tutorialLevelID);
+        TutorialLevelCalendar selectedTutorialLevelCalendar = iTutorialLevelCalendarService.findByID(tId);
+        List<QPalXELesson> qPalXELessons = iqPalXELessonService.findQPalXELessonByCalendarAndCourse(selectedTutorialLevelCalendar, eLearningCourse);
         model.addAttribute(LessonsAdminAttributesE.QPalXELessons.toString(), qPalXELessons);
 
         // Add all attributes required for Student tutorial level calendar panel.  By Default we load only first term if no calendar is specified
-        iTutorialLevelCalendarPanelService.addCalendarPanelInfo(model, selectedTutorialLevelCalendar.get());
+        iTutorialLevelCalendarPanelService.addCalendarPanelInfo(model, selectedTutorialLevelCalendar);
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);

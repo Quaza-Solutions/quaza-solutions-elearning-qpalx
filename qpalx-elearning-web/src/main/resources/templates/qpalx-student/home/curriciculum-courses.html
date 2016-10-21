@@ -16,65 +16,26 @@
 <div th:replace="fragments/header-usersession :: header-usersession"></div>
 
 <!-- Main Student details overview panel -->
-<div class="container" style="margin: 20px auto 20px auto;">
-    <div class="row">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <img src="images/personalization/student/student-icon.png"/>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <br/>
-            <div class="large-font">Emmanuel Addy Lamptey</div>
-            Success ID: GH-ACC-1230037<br/>
-            <!--<div class="large-font">Physics</div>-->
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <img src="images/assets/adaptive-learning/progress-bar-circle.jpg"/>
-        </div>
-    </div>
-</div>
+<div th:replace="fragments/student/user-overview-panel :: overview"></div>
 
 <div class="container" style="margin: 20px auto 20px auto;">
 
     <!-- Curriculum navigation panel -->
-    <div class="row">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" onClick="hrFunctionAB()" style="cursor: pointer;"><span
-                class="three-text-blue" id="text-1">Core Courses</span>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" onClick="hrFunctionBB()" style="cursor: pointer;"><span
-                id="text-2">Elective Courses</span>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" onClick="hrFunctionCB()" style="cursor: pointer;"><span
-                id="text-3">E-Books</span>
-        </div>
-    </div>
-    <!--<br/><br/>-->
+    <div th:replace="fragments/student/curriculum-navigation-panel :: curriculum-nav"></div>
 
-    <!-- All Student available curriculum panel -->
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <hr/>
-        </div>
-    </div>
-
+    <!-- All selected curriculum courses -->
     <div class="row" th:each="CurriculumELearningCourse,rowStat : ${CurriculumELearningCourses}">
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
             <span class="number" th:text="${rowStat.count}"></span>
         </div>
 
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 large-fonts topmargin">
-            <a th:href="@{/view-course-lessons(eLearningCourseID=${CurriculumELearningCourse.id})}">
+            <a th:href="@{/view-course-lessons(eLearningCourseID=${CurriculumELearningCourse.id}, tutorialLevelID=${SelectedTutorialCalendar.id})}">
                 <span class="blue courses" th:text="${CurriculumELearningCourse.courseName}"></span>
             </a>
             <!--<p th:text="${CurriculumELearningCourse.courseDescription}"></p>-->
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <hr/>
-        </div>
-    </div>
-
 
 </div>
 

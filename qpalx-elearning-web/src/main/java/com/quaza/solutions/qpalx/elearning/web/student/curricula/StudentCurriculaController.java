@@ -10,6 +10,8 @@ import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCour
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.ITutorialLevelCalendarService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
+import com.quaza.solutions.qpalx.elearning.web.service.enums.TutorialCalendarPanelE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.ITutorialLevelCalendarPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
@@ -69,6 +71,11 @@ public class StudentCurriculaController {
     @RequestMapping(value = "/curriculum-courses", method = RequestMethod.GET)
     public String displayAllCurriculumCourses(final Model model, @RequestParam("curriculumID") String curriculumID) {
         LOGGER.info("Finding all courses for curriculumID: {}", curriculumID);
+
+        // Find the current default TutorialLevelCalendar based on the current month
+        Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
+        Optional<TutorialLevelCalendar> selectedTutorialLevelCalendar = iTutorialLevelCalendarService.findCurrentCalendarByTutorialLevel(optionalUser.get());
+        model.addAttribute(TutorialCalendarPanelE.SelectedTutorialCalendar.toString(), selectedTutorialLevelCalendar.get());
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
@@ -143,7 +150,7 @@ public class StudentCurriculaController {
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
         addSelectedCurriculumInfoToResponse(model, eLearningCourseActivity.geteLearningCourse().geteLearningCurriculum().getId().toString());
-        model.addAttribute("SelectedELearningCurriculum", eLearningCurriculum);
+        model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCurriculum.toString(), eLearningCurriculum);
         model.addAttribute("SelectedELearningCourse", eLearningCourse);
         model.addAttribute("SelectedELearningCourseActivity", eLearningCourseActivity);
         model.addAttribute("SelectedELearningCourseActivityFile", eLearningCourseActivity.geteLearningMediaContent().getELearningMediaFile());
@@ -162,7 +169,7 @@ public class StudentCurriculaController {
     private void addSelectedCurriculumInfoToResponse(final Model model, String curriculumID) {
         Long id = NumberUtils.toLong(curriculumID);
         ELearningCurriculum eLearningCurriculum = ieLearningCurriculumService.findByELearningCurriculumID(id);
-        model.addAttribute("SelectedELearningCurriculum", eLearningCurriculum);
+        model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCurriculum.toString(), eLearningCurriculum);
 
         // Find all E-Learning courses for this curriculum
         List<ELearningCourse> eLearningCourses =  ieLearningCourseService.findByELearningCurriculum(eLearningCurriculum);
