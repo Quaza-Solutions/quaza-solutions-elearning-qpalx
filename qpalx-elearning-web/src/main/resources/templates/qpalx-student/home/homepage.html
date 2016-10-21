@@ -17,45 +17,15 @@
 
 <!-- Main Student details overview panel -->
 <div th:replace="fragments/student/user-overview-panel :: overview"></div>
-<!--<div class="container" style="margin: 20px auto 20px auto;">-->
-    <!--<div class="row">-->
-        <!--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 circular&#45;&#45;landscape">-->
-            <!--<img src="images/personalization/student/manny.jpg"/>-->
-        <!--</div>-->
-        <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
-            <!--<br/>-->
-            <!--<div class="large-font">Emmanuel Addy Lamptey</div>-->
-            <!--Success ID: GH-ACC-1230037<br/>-->
-            <!--&lt;!&ndash;<div class="large-font">Physics</div>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">-->
-            <!--<img src="images/assets/adaptive-learning/progress-bar-circle.jpg"/>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
+
 
 <div class="container" style="margin: 20px auto 20px auto;">
 
     <!-- Curriculum navigation panel -->
-    <div class="row">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" onClick="hrFunctionAB()" style="cursor: pointer;"><span
-                class="three-text-blue" id="text-1">Core Courses</span>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" onClick="hrFunctionBB()" style="cursor: pointer;"><span
-                id="text-2">Elective Courses</span>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" onClick="hrFunctionCB()" style="cursor: pointer;"><span
-                id="text-3">E-Books</span>
-        </div>
-    </div>
-    <!--<br/><br/>-->
+    <div th:replace="fragments/student/curriculum-navigation-panel :: curriculum-nav"></div>
 
     <!-- All Student available curriculum panel -->
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <hr/>
-        </div>
-    </div>
+
 
     <div class="row" th:each="StudentUserCurriculum,rowStat : ${StudentUserCurricula}">
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
@@ -72,12 +42,6 @@
             </a>
             <span class="small" th:text="${StudentUserCurriculum.curriculumDescription}"></span>
             <!--<p th:text="${StudentUserCurriculum.curriculumDescription}"></p>-->
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <hr/>
         </div>
     </div>
 

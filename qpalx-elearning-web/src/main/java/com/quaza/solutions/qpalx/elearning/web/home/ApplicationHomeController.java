@@ -111,14 +111,14 @@ public class ApplicationHomeController {
                 qPalXUserInfoPanelService.addUserInfoAttributes(model);
 
                 addQPalXUserDetailsToResponse(model, curriculumType, optionalUser.get());
-                return ContentRootE.Student_Home.getContentRootPagePath("home");
+                return ContentRootE.Student_Home.getContentRootPagePath("homepage");
             }
 
             LOGGER.info("Only Student QPalX users currently supported");
-            return ContentRootE.Home.getContentRootPagePath("launch");
+            return ContentRootE.Home.getContentRootPagePath("homepage");
         } else {
             LOGGER.info("Valid logged in QPalxUser session not found, redirecting to main home page.");
-            return ContentRootE.Home.getContentRootPagePath("launch");
+            return ContentRootE.Home.getContentRootPagePath("homepage");
         }
     }
 

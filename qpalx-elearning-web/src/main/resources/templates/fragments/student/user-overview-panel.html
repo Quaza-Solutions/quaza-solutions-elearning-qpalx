@@ -13,7 +13,14 @@
                 <br/>
                 <div class="large-font" th:text="${LoggedInQPalXUser.getFullName()}"></div>
                 Success ID: <span th:text="${LoggedInQPalXUser.getSuccessID()}"></span><br/>
-                <div class="large-font" th:if="${SelectedELearningCourse != null}" th:text="${SelectedELearningCourse.courseName}"></div>
+
+                <!-- Display ELearning Curriculum if a course has been selected -->
+                <div class="large-font" th:if="${SelectedELearningCurriculum != null}" th:inline="text">Curriculum || [[${SelectedELearningCurriculum.curriculumName}]]</div>
+
+                <!-- Display ELearning Course if a course has been selected -->
+                <div class="large-font" th:if="${SelectedELearningCourse != null}" th:inline="text">Course || [[${SelectedELearningCourse.courseName}]]</div>
+
+
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <img src="images/assets/adaptive-learning/progress-bar-circle.jpg"/>
