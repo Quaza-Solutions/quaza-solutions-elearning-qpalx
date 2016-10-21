@@ -33,7 +33,7 @@
         </div>
 
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 large-fonts topmargin">
-            <a th:href="@{/view-micro-lessons(eLessonID=${QPalXELesson.id}, user_name='manyce400@gmail.com', user_email='manyce400@gmail.com', user_id='manyce400@gmail.com')}">
+            <a th:href="@{/view-micro-lessons(eLessonID=${QPalXELesson.id}, tutorialLevelID=${SelectedTutorialCalendar.id})}">
                 <span class="blue" th:text="${QPalXELesson.lessonName}"></span>
             </a>
         </div>
@@ -53,20 +53,20 @@
 
 </div>
 
-<!-- Build modals to popup on clicking lessons -->
-<div id="popup1" class="modal-box youtube">
+<!-- Build modals to popup on clicking QPalx lessons displayed above.  We used the id of modal attributes to link a lesson to its introductory video -->
+<div th:id="'popup' + ${rowStat.count}" class="modal-box youtube" th:each="QPalXELesson,rowStat : ${QPalXELessons}">
     <div class="bar-1"></div>
     <div class="row">
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><a href="#" style="float:right;" class="btn btn-small js-modal-close" onClick="stopVideo();">Close</a>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <a href="#" style="float:right;" class="btn btn-small js-modal-close" onClick="stopVideo();">Close</a>
         </div>
     </div>
 
-
     <div class="modal-body">
         <video width="700" controls="controls" id="modal-box">
-            <source src="/elearning-content/videos/intro.mp4" type="video/mp4"/>
+            <source th:src="${QPalXELesson.geteLearningMediaContent().getELearningMediaFile()}" type="video/mp4"/>
             Your browser does not support HTML5 video.
         </video>
         <div class="bar-3"></div>
@@ -74,25 +74,6 @@
 </div>
 
 
-<!--<div id="popup2" class="modal-box youtube">-->
-    <!--<div class="bar-1"></div>-->
-    <!--<div class="row">-->
-        <!--<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">-->
-        <!--</div>-->
-        <!--<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><a href="#" style="float:right;"-->
-                                                            <!--class="btn btn-small js-modal-close">Close</a>-->
-        <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="modal-body">-->
-        <!--<video width="700" controls="controls">-->
-            <!--<source src="videos/Lesson 2 - modulo arithmetic - video.mp4" type="video/mp4"/>-->
-            <!--Your browser does not support HTML5 video.-->
-        <!--</video>-->
-        <!--<div class="bar-3"></div>-->
-    <!--</div>-->
-<!--</div>-->
-<!-- End modals to popup on clicking lessons -->
 
 
 <!-- Include Footer for when user is logged in -->
