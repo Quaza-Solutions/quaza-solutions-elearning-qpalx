@@ -4,7 +4,7 @@
 <!-- Navigation fragment templates designed specifically for letting students browse Course activities for different tutorial level calendars -->
 <div th:fragment="academic-calendar">
 
-    <!-- Start main tutorial level calendar section -->
+    <!-- Display Tutorial Level calendar under Lessons display page -->
     <div class="row">
         <div th:each="TutorialCalendar,rowStat : ${TutorialCalendarList}">
 
@@ -17,7 +17,6 @@
             </div>
 
         </div>
-        <!-- End main tutorial level calendar section -->
     </div>
 
     <br/><br/>
