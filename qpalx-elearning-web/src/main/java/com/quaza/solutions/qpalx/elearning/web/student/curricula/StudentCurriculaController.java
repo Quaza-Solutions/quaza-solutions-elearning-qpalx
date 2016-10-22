@@ -13,6 +13,7 @@ import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.service.enums.TutorialCalendarPanelE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
+import com.quaza.solutions.qpalx.elearning.web.service.panel.IStudentInfoOverviewPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.ITutorialLevelCalendarPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -23,7 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +63,10 @@ public class StudentCurriculaController {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.TutorialLevelCalendarPanelService")
     private ITutorialLevelCalendarPanelService iTutorialLevelCalendarPanelService;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.web.StudentInfoOverviewPanelService")
+    private IStudentInfoOverviewPanelService iStudentInfoOverviewPanelService;
 
 
 
@@ -158,18 +162,11 @@ public class StudentCurriculaController {
         return ContentRootE.Student_Home.getContentRootPagePath("video-widget");
     }
 
-    @RequestMapping(value = "/testQuiz", method = RequestMethod.POST)
-    public void testSubmit(Model model, @RequestParam("name") String fileName, @RequestParam("file") MultipartFile imageFile){
-        System.out.println("Ping: "+imageFile);
-//        String imageUploadedFile = iFileUploadUtil.uploadTestScores(imageFile);
-//        System.out.println("imageUploadedFile = " + imageUploadedFile);
-    }
-
 
     private void addSelectedCurriculumInfoToResponse(final Model model, String curriculumID) {
         Long id = NumberUtils.toLong(curriculumID);
         ELearningCurriculum eLearningCurriculum = ieLearningCurriculumService.findByELearningCurriculumID(id);
-        model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCurriculum.toString(), eLearningCurriculum);
+        iStudentInfoOverviewPanelService.addStudentInfoOverviewWithCurriculum(model, eLearningCurriculum);
 
         // Find all E-Learning courses for this curriculum
         List<ELearningCourse> eLearningCourses =  ieLearningCourseService.findByELearningCurriculum(eLearningCurriculum);

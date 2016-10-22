@@ -9,9 +9,11 @@ import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXELessonS
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXEMicroLessonService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.ITutorialLevelCalendarService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.AdaptiveLearningDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.lms.curriculum.enums.LessonsAdminAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
+import com.quaza.solutions.qpalx.elearning.web.service.panel.IStudentInfoOverviewPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.ITutorialLevelCalendarPanelService;
 import com.quaza.solutions.qpalx.elearning.web.student.curricula.StudentCurriculaController;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -57,6 +59,10 @@ public class StudentAdaptiveLearningController {
     @Qualifier("quaza.solutions.qpalx.elearning.web.TutorialLevelCalendarPanelService")
     private ITutorialLevelCalendarPanelService iTutorialLevelCalendarPanelService;
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.web.StudentInfoOverviewPanelService")
+    private IStudentInfoOverviewPanelService iStudentInfoOverviewPanelService;
+
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentCurriculaController.class);
 
 
@@ -67,6 +73,7 @@ public class StudentAdaptiveLearningController {
         Long cId = NumberUtils.toLong(eLearningCourseID);
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(cId);
         model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCourse.toString(), eLearningCourse);
+        iStudentInfoOverviewPanelService.addStudentInfoOverviewWithCourse(model, eLearningCourse);
 
         // Find the current default TutorialLevelCalendar based on the selected value
         Long tId = NumberUtils.toLong(tutorialLevelID);
@@ -79,6 +86,10 @@ public class StudentAdaptiveLearningController {
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
+
+        // Add Lessons display attributes
+        model.addAttribute(AdaptiveLearningDisplayAttributeE.LessonsDisplayEnabled.toString(), Boolean.TRUE.toString());
+
         return ContentRootE.Student_Adaptive_Learning.getContentRootPagePath("lesson-display-page");
     }
 
@@ -88,11 +99,10 @@ public class StudentAdaptiveLearningController {
 
         Long id = NumberUtils.toLong(eLessonID);
         QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(id);
+        iStudentInfoOverviewPanelService.addStudentInfoOverviewWithLesson(model, qPalXELesson);
+
         ELearningCourse eLearningCourse = qPalXELesson.geteLearningCourse();
-        String selectedTitle = eLearningCourse.getCourseName() + " - Lesson: " + qPalXELesson.getLessonName();
-        model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXELesson.toString(), qPalXELesson);
         model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCourse.toString(), eLearningCourse);
-        model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXELessonTitle.toString(), selectedTitle);
 
         // Find all micro lessons for this lesson
         List<QPalXEMicroLesson> qPalXEMicroLessons = iqPalXEMicroLessonService.findQPalXEMicroLessons(qPalXELesson);
@@ -104,6 +114,10 @@ public class StudentAdaptiveLearningController {
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
+
+        // Add Micro-Lessons display attributes
+        model.addAttribute(AdaptiveLearningDisplayAttributeE.MicroLessonsDisplayEnabled.toString(), Boolean.TRUE.toString());
+
         LOGGER.info("Returning micro lessons display page ==> micro-lesson-display");
         return ContentRootE.Student_Adaptive_Learning.getContentRootPagePath("micro-lesson-display");
     }

@@ -5,14 +5,28 @@ package com.quaza.solutions.qpalx.elearning.web.display.attributes.enums;
  */
 public enum CurriculumDisplayAttributeE {
 
+    DisplayUserInfo,
+
+    DisplayCurriculum,
+
+    DisplayCourse,
+
+    DisplayLesson,
+
+    CurriculumType,
+
     SelectedELearningCurriculum,
 
     SelectedELearningCourse,
 
     SelectedQPalXELesson,
 
-    SelectedQPalXELessonTitle,
+    SelectedQPalXMicroLesson,
 
-    SelectedQPalXMicroLesson
+    SelectedELearningCurriculumTitle,
+
+    SelectedELearningCourseTitle,
+
+    SelectedQPalXELessonTitle,
     ;
 }

@@ -8,6 +8,7 @@ import com.quaza.solutions.qpalx.elearning.service.geographical.IGeographicalDat
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IStudentCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IContentAdminWebService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
@@ -80,7 +81,7 @@ public class ApplicationHomeController {
             if (QPalxUserTypeE.STUDENT == optionalUser.get().getUserType()) {
                 // Add all attributes required for User information panel
                 qPalXUserInfoPanelService.addUserInfoAttributes(model);
-
+                model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
                 addQPalXUserDetailsToResponse(model, CurriculumType.CORE, optionalUser.get());
                 return ContentRootE.Student_Home.getContentRootPagePath("homepage");
             } else if(QPalxUserTypeE.CONTENT_DEVELOPER == optionalUser.get().getUserType()) {
