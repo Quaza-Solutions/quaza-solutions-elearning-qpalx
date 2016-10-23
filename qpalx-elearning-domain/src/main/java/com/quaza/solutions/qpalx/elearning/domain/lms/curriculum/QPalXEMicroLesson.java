@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
 import com.google.common.collect.ImmutableSet;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningQuiz;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -55,7 +56,7 @@ public class QPalXEMicroLesson {
 
     // Collection of all the QPalXEMicroLessonActivity available as part of this micro lesson
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qPalXEMicroLesson")
-    private Set<QPalXEMicroLessonActivity> qPalXEMicroLessonActivities = new HashSet<>();
+    private Set<AdaptiveLearningQuiz> adaptiveLearningQuizzes = new HashSet<>();
 
 
     public QPalXEMicroLesson() {
@@ -118,13 +119,13 @@ public class QPalXEMicroLesson {
         this.microLessonActive = microLessonActive;
     }
 
-    public Set<QPalXEMicroLessonActivity> getQPalXEMicroLessonActivities() {
-        return ImmutableSet.copyOf(qPalXEMicroLessonActivities);
+    public Set<AdaptiveLearningQuiz> getAdaptiveLearningQuizzes() {
+        return ImmutableSet.copyOf(adaptiveLearningQuizzes);
     }
 
-    public void addQPalXEMicroLessonActivity(QPalXEMicroLessonActivity qPalXEMicroLessonActivity) {
-        Assert.notNull(qPalXEMicroLessonActivity, "qPalXEMicroLessonActivity cannot be null");
-        qPalXEMicroLessonActivities.add(qPalXEMicroLessonActivity);
+    public void addAdaptiveLearningQuiz(AdaptiveLearningQuiz adaptiveLearningQuiz) {
+        Assert.notNull(adaptiveLearningQuiz, "adaptiveLearningQuiz cannot be null");
+        adaptiveLearningQuizzes.add(adaptiveLearningQuiz);
     }
 
     @Override
@@ -210,8 +211,8 @@ public class QPalXEMicroLesson {
             return this;
         }
 
-        public Builder qPalXEMicroLessonActivity(QPalXEMicroLessonActivity qPalXEMicroLessonActivity) {
-            qpalxMicroLesson.addQPalXEMicroLessonActivity(qPalXEMicroLessonActivity);
+        public Builder adaptiveLearningQuiz(AdaptiveLearningQuiz adaptiveLearningQuiz) {
+            qpalxMicroLesson.addAdaptiveLearningQuiz(adaptiveLearningQuiz);
             return this;
         }
 

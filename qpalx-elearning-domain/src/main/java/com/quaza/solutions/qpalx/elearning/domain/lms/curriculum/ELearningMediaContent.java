@@ -25,13 +25,13 @@ public class ELearningMediaContent {
     private String eLearningMediaType;
 
 
-    @Column(name="QPalXTutorialContentType", nullable=false, length=10)
+    @Column(name="QPalXTutorialContentType", nullable=true, length=10)
     @Enumerated(EnumType.STRING)
     private QPalXTutorialContentTypeE qPalXTutorialContentTypeE;
 
 
     // Full path and file name of the media content
-    @Column(name="ELearningMediaFile", nullable=false, length=255)
+    @Column(name="ELearningMediaFile", nullable=true, length=255)
     private String eLearningMediaFile;
 
 

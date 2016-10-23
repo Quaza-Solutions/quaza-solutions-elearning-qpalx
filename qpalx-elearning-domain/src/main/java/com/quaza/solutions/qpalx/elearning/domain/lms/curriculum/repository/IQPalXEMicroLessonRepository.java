@@ -13,6 +13,13 @@ import java.util.List;
 public interface IQPalXEMicroLessonRepository extends CrudRepository<QPalXEMicroLesson, Long> {
 
 
+    @Query("Select               count(*) From QPalXEMicroLesson qPalXEMicroLesson "+
+            "INNER JOIN          qPalXEMicroLesson.qPalXELesson qPalXELesson " +
+            "Where               qPalXELesson =?1 "
+    )
+    public Long countQPalXEMicroLessonByLesson(QPalXELesson qPalXELesson);
+
+
     @Query("Select              qPalXEMicroLesson From QPalXEMicroLesson qPalXEMicroLesson "+
             "INNER JOIN FETCH    qPalXEMicroLesson.qPalXELesson qPalXELesson " +
             "Where               qPalXELesson =?1 "
