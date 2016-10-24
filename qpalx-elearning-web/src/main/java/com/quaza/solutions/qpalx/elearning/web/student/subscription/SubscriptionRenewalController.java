@@ -12,6 +12,7 @@ import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalXUserSubscript
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
+import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.QPalXWebUserVO;
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.WebQPalXUser;
 import com.quaza.solutions.qpalx.elearning.web.utils.IFileUploadUtil;
@@ -107,7 +108,7 @@ public class SubscriptionRenewalController {
         } else {
             LOGGER.info("Invalid Qpalx User login detected, redirecting to home page...");
             model.addAttribute("CredentialsAuthentication", "Invalid Login Detected");
-            return qPalXStudentSubscriptionHTMLPath.goToHomePage();
+            return ContentRootE.Home.getContentRootPagePath("homepage");
         }
     }
 

@@ -52,9 +52,9 @@
 
 
     <!--  Populate TutorialLevelCalendar For Senior High School -->
-    <TutorialLevelCalendar ID="1" CalendarItemName="First Term"  CalendarItemDescripiton="WAEC SHS First Term" CalendarItemStartMonth="August" CalendarItemEndMonth="September" CalendarItemOrder="1" StudentTutorialLevelID="4" />
-    <TutorialLevelCalendar ID="2" CalendarItemName="Second Term" CalendarItemDescripiton="WAEC SHS SecondTerm Term" CalendarItemStartMonth="October" CalendarItemEndMonth="November" CalendarItemOrder="2" StudentTutorialLevelID="4" />
-    <TutorialLevelCalendar ID="3" CalendarItemName="Third Term"  CalendarItemDescripiton="WAEC SHS Third Term" CalendarItemStartMonth="December" CalendarItemEndMonth="February" CalendarItemOrder="3" StudentTutorialLevelID="4" />
+    <TutorialLevelCalendar ID="1" CalendarItemName="First Term"  CalendarItemDescripiton="WAEC SHS First Term" CalendarItemStartMonth="August" CalendarItemEndMonth="December" CalendarItemOrder="1" StudentTutorialLevelID="4" />
+    <TutorialLevelCalendar ID="2" CalendarItemName="Second Term" CalendarItemDescripiton="WAEC SHS SecondTerm Term" CalendarItemStartMonth="January" CalendarItemEndMonth="March" CalendarItemOrder="2" StudentTutorialLevelID="4" />
+    <TutorialLevelCalendar ID="3" CalendarItemName="Third Term"  CalendarItemDescripiton="WAEC SHS Third Term" CalendarItemStartMonth="April" CalendarItemEndMonth="June" CalendarItemOrder="3" StudentTutorialLevelID="4" />
 
 
 

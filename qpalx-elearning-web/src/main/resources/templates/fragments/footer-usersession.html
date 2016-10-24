@@ -37,6 +37,35 @@
     </div>
     <footer>
     </footer>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/hr.js"></script>
+    <script src="js/hover.js"></script>
+
+    <script src="js/progress-bar.js" type="text/javascript"></script>
+    <script src="js/modernizr.js" type="text/javascript"></script>
+    <script src="js/circle-progress.js"></script>
+    <script>
+
+     function stopVideo(){
+        $("#modal-box")[0].pause();
+     }
+     function stopVideo2(){
+        $("#modal-box-2")[0].pause();
+     }
+     function stopVideo3(){
+        $("#modal-box-3")[0].pause();
+     }
+
+	 $('.third.circle-bar').circleProgress({
+  value: 1.00,
+  fill: {gradient: [['#06bfd3', .5], ['#06bfd3', .5]], gradientAngle: Math.PI / 4}
+}).on('circle-animation-progress', function(event, progress, stepValue) {
+  $(this).find('strong').html(parseInt(100 * progress) + '<i>%</i>');
+});
+</script>
 </div>
 </body>
 </html>
