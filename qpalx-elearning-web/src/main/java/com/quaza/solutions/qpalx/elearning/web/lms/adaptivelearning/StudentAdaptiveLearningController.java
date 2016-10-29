@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.progress.IAdaptiveLessonProgressStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXELessonService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXEMicroLessonService;
@@ -63,12 +64,18 @@ public class StudentAdaptiveLearningController {
     @Qualifier("quaza.solutions.qpalx.elearning.web.StudentInfoOverviewPanelService")
     private IStudentInfoOverviewPanelService iStudentInfoOverviewPanelService;
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.QPalXELessonProgressStatisticsService")
+    private IAdaptiveLessonProgressStatisticsService IAdaptiveLessonProgressStatisticsService;
+
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentCurriculaController.class);
 
 
     @RequestMapping(value = "/view-course-lessons", method = RequestMethod.GET)
     public String viewAdaptiveLessons(final Model model, @RequestParam("eLearningCourseID") String eLearningCourseID, @RequestParam("tutorialLevelID") String tutorialLevelID) {
         LOGGER.info("Finding and displaying all lessons for courseID: {} and tutorialLevelID: {}", eLearningCourseID, tutorialLevelID);
+
+        IAdaptiveLessonProgressStatisticsService.calculateLessonProgressPercent(null, null);
 
         Long cId = NumberUtils.toLong(eLearningCourseID);
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(cId);
