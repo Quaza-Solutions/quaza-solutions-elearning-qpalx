@@ -13,13 +13,14 @@ import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCour
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
-import com.quaza.solutions.qpalx.elearning.web.service.enums.AdminTutorialGradePanelE;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.WebOperationErrorAttributesE;
+import com.quaza.solutions.qpalx.elearning.web.service.enums.AdminTutorialGradePanelE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IContentAdminTutorialGradePanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
-import com.quaza.solutions.qpalx.elearning.web.utils.IRedirectStrategyExecutor;
 import com.quaza.solutions.qpalx.elearning.web.utils.IFileUploadUtil;
+import com.quaza.solutions.qpalx.elearning.web.utils.IRedirectStrategyExecutor;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -101,6 +102,7 @@ public class StudentCurriculaAdminController {
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
         // Add all attributes required for content admin tutorial panel
         contentAdminTutorialGradePanelService.addDisplayPanelAttributes(model, Boolean.FALSE, Boolean.FALSE, tutorialGradeID, curriculumType);
@@ -121,6 +123,7 @@ public class StudentCurriculaAdminController {
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
         // Add all attributes required for content admin tutorial panel
         contentAdminTutorialGradePanelService.addDisplayPanelAttributes(model, Boolean.TRUE, Boolean.FALSE, studentTutorialGradeID, curriculumType);

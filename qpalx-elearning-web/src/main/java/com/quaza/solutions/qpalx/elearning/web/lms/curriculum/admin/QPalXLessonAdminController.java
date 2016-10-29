@@ -79,6 +79,7 @@ public class QPalXLessonAdminController {
 
         // Add information required for Users account info display panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
         // Add all attributes required for content admin tutorial panel
         Long courseID = NumberUtils.toLong(eLearningCourseID);
@@ -97,6 +98,7 @@ public class QPalXLessonAdminController {
 
         // IF this is a result of a redirect add any web operations errrors to model
         iRedirectStrategyExecutor.addWebOperationRedirectErrorsToModel(model, request);
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
         // Create value object used to bind form elements
         QPalXELessonWebVO qPalXELessonWebVO = new QPalXELessonWebVO();

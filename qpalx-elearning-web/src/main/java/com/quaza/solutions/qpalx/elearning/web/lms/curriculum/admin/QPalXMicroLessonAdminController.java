@@ -76,6 +76,7 @@ public class QPalXMicroLessonAdminController {
 
         // Add information required for Users account info display panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
         // Add all attributes required for content admin tutorial panel
         Long lessonID = NumberUtils.toLong(qpalxELessonID);
@@ -98,6 +99,7 @@ public class QPalXMicroLessonAdminController {
 
         // Create value object used to bind form elements
         QPalXEMicroLessonVO qPalXEMicroLessonVO = new QPalXEMicroLessonVO();
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
         // Add all required attributes to dispaly add qpalx elesson page
         Long lessonID = NumberUtils.toLong(qpalxELessonID);
