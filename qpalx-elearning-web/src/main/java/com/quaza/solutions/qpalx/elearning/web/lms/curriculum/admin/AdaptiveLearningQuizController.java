@@ -72,6 +72,7 @@ public class AdaptiveLearningQuizController {
 
         // Add information required for Users account info display panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
         model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXMicroLesson.toString(), qPalXEMicroLesson);
 
@@ -87,6 +88,8 @@ public class AdaptiveLearningQuizController {
         Long microLessonID = NumberUtils.toLong(microlessonID);
         QPalXEMicroLesson qPalXEMicroLesson = iqPalXEMicroLessonService.findByID(microLessonID);
         model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXMicroLesson.toString(), qPalXEMicroLesson);
+
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
         AdaptiveLearningQuizWebVO adaptiveLearningQuizWebVO = new AdaptiveLearningQuizWebVO();
         model.addAttribute(ValueObjectDataDisplayAttributeE.AdaptiveLearningQuizVO.toString(), adaptiveLearningQuizWebVO);
