@@ -35,14 +35,14 @@
             </div>
 
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 large-fonts topmargin">
-                <a th:href="@{/view-micro-lessons(eLessonID=${QPalXELesson.id}, tutorialLevelID=${SelectedTutorialCalendar.id})}">
-                    <span class="blue" th:text="${QPalXELesson.lessonName}"></span>
+                <a th:href="@{/view-micro-lessons(eLessonID=${QPalXELesson.getLessonID()}, tutorialLevelID=${SelectedTutorialCalendar.id})}">
+                    <span class="blue" th:text="${QPalXELesson.getLessonName()}"></span>
                 </a>
             </div>
 
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <div class="topmargin-3">
-                    <progress class="progressbar" value="0" max="100" data-max="80"></progress>
+                    <progress class="progressbar" value="0" max="100" th:attr="data-max=${QPalXELesson.getTotalLessonCompletionRate()}"></progress>
                     <span class="progress-value">0%</span>
                 </div>
             </div>
@@ -66,7 +66,7 @@
             <a href="#" style="float:right; margin: 20px 40px 20px 0;" onClick="stopVideo();">Close</a>
             <div class="modalBody">
                 <video width="800" id="modal-box" controls="controls">
-                    <source th:src="${QPalXELesson.geteLearningMediaContent().getELearningMediaFile()}" type="video/mp4"/>
+                    <source th:src="${QPalXELesson.getLessonMediaFile()}" type="video/mp4"/>
                     Your browser does not support HTML5 video.
                 </video>
             </div>
