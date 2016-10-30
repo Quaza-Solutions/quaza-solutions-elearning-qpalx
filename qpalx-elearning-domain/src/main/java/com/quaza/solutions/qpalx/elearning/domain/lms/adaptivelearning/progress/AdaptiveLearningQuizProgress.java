@@ -19,9 +19,6 @@ public class AdaptiveLearningQuizProgress {
     @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="QPalxLessonID", nullable=false)
-    private Long qPalxLessonID;
-
     @Column(name="MicroLessonID", nullable=false)
     private Long microLessonID;
 
@@ -52,14 +49,6 @@ public class AdaptiveLearningQuizProgress {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getqPalxLessonID() {
-        return qPalxLessonID;
-    }
-
-    public void setqPalxLessonID(Long qPalxLessonID) {
-        this.qPalxLessonID = qPalxLessonID;
     }
 
     public Long getMicroLessonID() {
@@ -116,10 +105,6 @@ public class AdaptiveLearningQuizProgress {
             return this;
         }
 
-        public Builder qPalxLessonID(Long qPalxLessonID) {
-            adaptiveLearningQuizProgress.qPalxLessonID = qPalxLessonID;
-            return this;
-        }
 
         public Builder microLessonID(Long microLessonID) {
             adaptiveLearningQuizProgress.microLessonID = microLessonID;

@@ -1,10 +1,11 @@
 package com.quaza.solutions.qpalx.elearning.web.lms.adaptivelearning;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveLessonStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
-import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.progress.IAdaptiveLessonProgressStatisticsService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveLessonStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXELessonService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXEMicroLessonService;
@@ -49,6 +50,10 @@ public class StudentAdaptiveLearningController {
     private IQPalXEMicroLessonService iqPalXEMicroLessonService;
 
     @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.AdaptiveLessonStatisticsService")
+    private IAdaptiveLessonStatisticsService iAdaptiveLessonStatisticsService;
+
+    @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultTutorialLevelCalendarService")
     private ITutorialLevelCalendarService iTutorialLevelCalendarService;
 
@@ -64,9 +69,6 @@ public class StudentAdaptiveLearningController {
     @Qualifier("quaza.solutions.qpalx.elearning.web.StudentInfoOverviewPanelService")
     private IStudentInfoOverviewPanelService iStudentInfoOverviewPanelService;
 
-    @Autowired
-    @Qualifier("quaza.solutions.qpalx.elearning.service.QPalXELessonProgressStatisticsService")
-    private IAdaptiveLessonProgressStatisticsService IAdaptiveLessonProgressStatisticsService;
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentCurriculaController.class);
 
@@ -74,8 +76,6 @@ public class StudentAdaptiveLearningController {
     @RequestMapping(value = "/view-course-lessons", method = RequestMethod.GET)
     public String viewAdaptiveLessons(final Model model, @RequestParam("eLearningCourseID") String eLearningCourseID, @RequestParam("tutorialLevelID") String tutorialLevelID) {
         LOGGER.info("Finding and displaying all lessons for courseID: {} and tutorialLevelID: {}", eLearningCourseID, tutorialLevelID);
-
-        IAdaptiveLessonProgressStatisticsService.calculateLessonProgressPercent(null, null);
 
         Long cId = NumberUtils.toLong(eLearningCourseID);
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(cId);
@@ -85,8 +85,8 @@ public class StudentAdaptiveLearningController {
         // Find the current default TutorialLevelCalendar based on the selected value
         Long tId = NumberUtils.toLong(tutorialLevelID);
         TutorialLevelCalendar selectedTutorialLevelCalendar = iTutorialLevelCalendarService.findByID(tId);
-        List<QPalXELesson> qPalXELessons = iqPalXELessonService.findQPalXELessonByCalendarAndCourse(selectedTutorialLevelCalendar, eLearningCourse);
-        model.addAttribute(LessonsAdminAttributesE.QPalXELessons.toString(), qPalXELessons);
+        List<AdaptiveLessonStatistics> adaptiveLessonStatisticsList = iAdaptiveLessonStatisticsService.findAdaptiveLessonStatisticsByCourseIDAndTutorialLevel(selectedTutorialLevelCalendar, eLearningCourse);
+        model.addAttribute(LessonsAdminAttributesE.QPalXELessons.toString(), adaptiveLessonStatisticsList);
 
         // Add all attributes required for Student tutorial level calendar panel.  By Default we load only first term if no calendar is specified
         iTutorialLevelCalendarPanelService.addCalendarPanelInfo(model, selectedTutorialLevelCalendar);

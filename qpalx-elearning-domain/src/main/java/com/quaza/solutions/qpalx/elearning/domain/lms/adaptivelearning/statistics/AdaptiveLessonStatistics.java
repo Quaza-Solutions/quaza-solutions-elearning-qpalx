@@ -1,4 +1,4 @@
-package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.progress;
+package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
@@ -11,46 +11,61 @@ import java.sql.SQLException;
 /**
  * @author manyce400
  */
-public class AdaptiveLessonProgressStatistics {
+public class AdaptiveLessonStatistics {
 
 
-    private final int microLessonsAttempted;
 
-    private final int totalMicroLessons;
-
-    private final int uniqueQuizzesAttempted;
-
-    private final int totalQuizzes;
+    private final Long LessonID;
 
     private final String lessonName;
 
+    private final String lessonMediaFile;
 
-    public AdaptiveLessonProgressStatistics(int microLessonsAttempted, int totalMicroLessons, int uniqueQuizzesAttempted, int totalQuizzes, String lessonName) {
+    private final Integer microLessonsAttempted;
+
+    private final Integer totalMicroLessons;
+
+    private final Integer uniqueQuizzesAttempted;
+
+    private final Integer totalQuizzes;
+
+
+    public AdaptiveLessonStatistics(Long lessonID, String lessonName, String lessonMediaFile, Integer microLessonsAttempted, Integer totalMicroLessons, Integer uniqueQuizzesAttempted, Integer totalQuizzes) {
+        LessonID = lessonID;
+        this.lessonName = lessonName;
+        this.lessonMediaFile = lessonMediaFile;
         this.microLessonsAttempted = microLessonsAttempted;
         this.totalMicroLessons = totalMicroLessons;
         this.uniqueQuizzesAttempted = uniqueQuizzesAttempted;
         this.totalQuizzes = totalQuizzes;
-        this.lessonName = lessonName;
     }
 
-    public int getMicroLessonsAttempted() {
-        return microLessonsAttempted;
-    }
-
-    public int getTotalMicroLessons() {
-        return totalMicroLessons;
-    }
-
-    public int getUniqueQuizzesAttempted() {
-        return uniqueQuizzesAttempted;
-    }
-
-    public int getTotalQuizzes() {
-        return totalQuizzes;
+    public Long getLessonID() {
+        return LessonID;
     }
 
     public String getLessonName() {
         return lessonName;
+    }
+
+    public String getLessonMediaFile() {
+        return lessonMediaFile;
+    }
+
+    public Integer getMicroLessonsAttempted() {
+        return microLessonsAttempted;
+    }
+
+    public Integer getTotalMicroLessons() {
+        return totalMicroLessons;
+    }
+
+    public Integer getUniqueQuizzesAttempted() {
+        return uniqueQuizzesAttempted;
+    }
+
+    public Integer getTotalQuizzes() {
+        return totalQuizzes;
     }
 
     public double getTotalLessonCompletionRate() {
@@ -82,11 +97,13 @@ public class AdaptiveLessonProgressStatistics {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .append("LessonID", LessonID)
+                .append("lessonName", lessonName)
+                .append("lessonMediaFile", lessonMediaFile)
                 .append("microLessonsAttempted", microLessonsAttempted)
                 .append("totalMicroLessons", totalMicroLessons)
                 .append("uniqueQuizzesAttempted", uniqueQuizzesAttempted)
                 .append("totalQuizzes", totalQuizzes)
-                .append("lessonName", lessonName)
                 .toString();
     }
 
@@ -95,15 +112,17 @@ public class AdaptiveLessonProgressStatistics {
     }
 
 
-    public static class AdaptiveLessonProgressStatisticsRowMapper implements RowMapper<AdaptiveLessonProgressStatistics> {
+    public static class AdaptiveLessonProgressStatisticsRowMapper implements RowMapper<AdaptiveLessonStatistics> {
         @Override
-        public AdaptiveLessonProgressStatistics mapRow(ResultSet resultSet, int i) throws SQLException {
-            int microLessonsAttempted = resultSet.getInt("UniqueMicroLessonsAttempted");
-            int totalMicroLessons = resultSet.getInt("TotalNumberOfLessons");
-            int uniqueQuizzesAttempted = resultSet.getInt("UniqueQuizzesAttempted");
-            int totalQuizzes = resultSet.getInt("TotalNumberOfQuizzes");
+        public AdaptiveLessonStatistics mapRow(ResultSet resultSet, int i) throws SQLException {
+            long lessonID = resultSet.getLong("LessonID");
             String lessonName = resultSet.getString("LessonName");
-            return new AdaptiveLessonProgressStatistics(microLessonsAttempted, totalMicroLessons, uniqueQuizzesAttempted, totalQuizzes, lessonName);
+            String lessonMediaFile = resultSet.getString("qpl.ELearningMediaFile");
+            Integer microLessonsAttempted = resultSet.getInt("UniqueMicroLessonsAttempted");
+            Integer totalMicroLessons = resultSet.getInt("TotalNumberOfMicroLessons");
+            Integer uniqueQuizzesAttempted = resultSet.getInt("UniqueQuizzesAttempted");
+            Integer totalQuizzes = resultSet.getInt("TotalNumberOfQuizzes");
+            return new AdaptiveLessonStatistics(lessonID, lessonName, lessonMediaFile, microLessonsAttempted, totalMicroLessons, uniqueQuizzesAttempted, totalQuizzes);
         }
     }
 }

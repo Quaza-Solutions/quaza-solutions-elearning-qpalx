@@ -12,13 +12,6 @@ import java.util.List;
 public interface IQuestionBankProgressRepository extends CrudRepository<QuestionBankProgress, Long> {
 
 
-    @Query("Select               count(*) From QuestionBankProgress questionBankProgress "+
-            "Where               questionBankProgress.qPalxUserID =?1 "+
-            "And                 questionBankProgress.qPalxELessonID =?2"
-    )
-    public Long countQuestionBankProgressByLesson(Long qPalxUserID, Long qPalxELessonID);
-
-
     @Query("Select               questionBankProgress From QuestionBankProgress questionBankProgress "+
             "Where               questionBankProgress.qPalxUserID =?1 "+
             "And                 questionBankProgress.qPalxELessonID =?2"

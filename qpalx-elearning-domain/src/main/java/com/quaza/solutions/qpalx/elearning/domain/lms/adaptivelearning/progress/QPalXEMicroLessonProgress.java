@@ -25,15 +25,9 @@ public class QPalXEMicroLessonProgress {
     @Column(name="MicroLessonID", nullable=false)
     private Long microLessonID;
 
-    @Column(name="QPalxELessonID", nullable=false)
-    private Long qPalxELessonID;
-
-    @Column(name="ELearningCourseID", nullable=false)
-    private Long eLearningCourseID;
-
     // Number of times Student user has attempted/taken this micro lesson
     @Column(name="NumberOfAttempts", nullable=false)
-    private Long numberOfAttempts;
+    private Integer numberOfAttempts;
 
     // DateTime that the attempt was made
     @Column(name="LastAttemptEntryDate", nullable=true)
@@ -64,28 +58,16 @@ public class QPalXEMicroLessonProgress {
         this.microLessonID = microLessonID;
     }
 
-    public Long getQPalxELessonID() {
-        return qPalxELessonID;
-    }
-
-    public void setQPalxELessonID(Long qPalxELessonID) {
-        this.qPalxELessonID = qPalxELessonID;
-    }
-
-    public Long getELearningCourseID() {
-        return eLearningCourseID;
-    }
-
-    public void setELearningCourseID(Long eLearningCourseID) {
-        this.eLearningCourseID = eLearningCourseID;
-    }
-
-    public Long getNumberOfAttempts() {
+    public Integer getNumberOfAttempts() {
         return numberOfAttempts;
     }
 
-    public void setNumberOfAttempts(Long numberOfAttempts) {
+    public void setNumberOfAttempts(Integer numberOfAttempts) {
         this.numberOfAttempts = numberOfAttempts;
+    }
+
+    public synchronized void increaseNumberOfAttempts() {
+        numberOfAttempts++;
     }
 
     public DateTime getLastAttemptEntryDate() {
@@ -115,8 +97,6 @@ public class QPalXEMicroLessonProgress {
         return new EqualsBuilder()
                 .append(id, that.id)
                 .append(microLessonID, that.microLessonID)
-                .append(qPalxELessonID, that.qPalxELessonID)
-                .append(eLearningCourseID, that.eLearningCourseID)
                 .append(numberOfAttempts, that.numberOfAttempts)
                 .append(lastAttemptEntryDate, that.lastAttemptEntryDate)
                 .append(qPalxUserID, that.qPalxUserID)
@@ -128,8 +108,6 @@ public class QPalXEMicroLessonProgress {
         return new HashCodeBuilder(17, 37)
                 .append(id)
                 .append(microLessonID)
-                .append(qPalxELessonID)
-                .append(eLearningCourseID)
                 .append(numberOfAttempts)
                 .append(lastAttemptEntryDate)
                 .append(qPalxUserID)
@@ -141,8 +119,6 @@ public class QPalXEMicroLessonProgress {
         return new ToStringBuilder(this)
                 .append("id", id)
                 .append("microLessonID", microLessonID)
-                .append("qPalxELessonID", qPalxELessonID)
-                .append("eLearningCourseID", eLearningCourseID)
                 .append("numberOfAttempts", numberOfAttempts)
                 .append("lastAttemptEntryDate", lastAttemptEntryDate)
                 .append("qPalxUserID", qPalxUserID)
@@ -164,17 +140,7 @@ public class QPalXEMicroLessonProgress {
             return this;
         }
 
-        public Builder qPalxELessonID(Long qPalxELessonID) {
-            qPalXEMicroLessonProgress.qPalxELessonID = qPalxELessonID;
-            return this;
-        }
-
-        public Builder eLearningCourseID(Long eLearningCourseID) {
-            qPalXEMicroLessonProgress.eLearningCourseID = eLearningCourseID;
-            return this;
-        }
-
-        public Builder numberOfAttempts(Long numberOfAttempts) {
+        public Builder numberOfAttempts(Integer numberOfAttempts) {
             qPalXEMicroLessonProgress.numberOfAttempts = numberOfAttempts;
             return this;
         }

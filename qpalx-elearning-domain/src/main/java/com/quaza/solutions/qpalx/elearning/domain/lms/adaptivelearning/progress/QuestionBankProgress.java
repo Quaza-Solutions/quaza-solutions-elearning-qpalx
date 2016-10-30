@@ -21,6 +21,9 @@ public class QuestionBankProgress {
     @Column(name="ID", nullable=false)
     private Long id;
 
+    @Column(name="QuestionBankItemID", nullable=false)
+    private Long questionBankItemID;
+
     @Column(name="QPalxELessonID", nullable=false)
     private Long qPalxELessonID;
 
@@ -48,12 +51,20 @@ public class QuestionBankProgress {
         this.id = id;
     }
 
-    public Long getqPalxELessonID() {
+    public Long getQPalxELessonID() {
         return qPalxELessonID;
     }
 
-    public void setqPalxELessonID(Long qPalxELessonID) {
+    public void setQPalxELessonID(Long qPalxELessonID) {
         this.qPalxELessonID = qPalxELessonID;
+    }
+
+    public Long getQuestionBankItemID() {
+        return questionBankItemID;
+    }
+
+    public void setQuestionBankItemID(Long questionBankItemID) {
+        this.questionBankItemID = questionBankItemID;
     }
 
     public Long getNumberOfAttempts() {
@@ -90,6 +101,7 @@ public class QuestionBankProgress {
 
         return new EqualsBuilder()
                 .append(id, that.id)
+                .append(questionBankItemID, that.questionBankItemID)
                 .append(qPalxELessonID, that.qPalxELessonID)
                 .append(numberOfAttempts, that.numberOfAttempts)
                 .append(lastAttemptEntryDate, that.lastAttemptEntryDate)
@@ -101,6 +113,7 @@ public class QuestionBankProgress {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
+                .append(questionBankItemID)
                 .append(qPalxELessonID)
                 .append(numberOfAttempts)
                 .append(lastAttemptEntryDate)
@@ -112,6 +125,7 @@ public class QuestionBankProgress {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
+                .append("questionBankItemID", questionBankItemID)
                 .append("qPalxELessonID", qPalxELessonID)
                 .append("numberOfAttempts", numberOfAttempts)
                 .append("lastAttemptEntryDate", lastAttemptEntryDate)
