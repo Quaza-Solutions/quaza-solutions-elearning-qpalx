@@ -14,7 +14,7 @@ html {
 
 @font-face {
 font-family: 'myriadpro';
-src: url('../web fonts/Myriad Pro/MyriadPro-Regular copy.otf');
+src: url('../fonts/Myriad Pro/MyriadPro-Regular copy.otf');
 }
 
 b, strong, h1, h2, h3, h4, h5, h6 {
@@ -23,12 +23,12 @@ font-family: 'myriadprobold', sans-serif;
 
 @font-face {
 font-family: 'myriadprobold';
-src: url('../web fonts/Myriad Pro/MyriadPro-Bold copy.otf');
+src: url('../fonts/Myriad Pro/MyriadPro-Bold copy.otf');
 }
 
 @font-face {
 font-family: 'myriadprolight';
-src: url('../web fonts/Myriad Pro/MyriadPro-Regular copy.otf');
+src: url('../fonts/Myriad Pro/MyriadPro-Regular copy.otf');
 }
 
 header {
@@ -783,20 +783,12 @@ height: 40px;
 
 .my-container-2 {
 	background-color: #fff;
-
 	padding: 20px;
 	position: absolute;
-/*	top: 410px;
-	margin-left: -2%;*/
-	top: 480px;
-
-	width: 18%;
-
-
-/*	top: 410px;
-	left: 920px;
-	width: 325px;
-	*/
+	width: 380px;
+	top: 410px;
+	left: -2%;
+	margin-left: -2%;
 }
 
 .my-container-3 {
@@ -1091,7 +1083,17 @@ margin: 100px 0 0 50px;
 	width: 520px;
 }
 
+.audio {
+	width: 40px;
+	margin-top: 10px;
+	margin-left: -80px;
+}
 
+.hand {
+	width: 40px;
+	margin-top: 8px;
+	margin-left: -100px;
+}
 
 @-moz-document url-prefix() {
 .email  {

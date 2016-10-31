@@ -11,6 +11,8 @@ public enum ValueObjectDataDisplayAttributeE {
 
     QPalXEMicroLessonVO,
 
+    QuestionBankVO,
+
     AdaptiveLearningQuizVO,
 
     SupportedQPalXTutorialContentTypes,

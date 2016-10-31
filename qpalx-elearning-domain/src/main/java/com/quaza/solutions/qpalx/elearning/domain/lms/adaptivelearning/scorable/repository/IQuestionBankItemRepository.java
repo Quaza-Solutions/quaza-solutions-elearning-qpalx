@@ -5,16 +5,18 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
- * Created by manyce400 on 10/22/16.
+ * @author manyce400
  */
 public interface IQuestionBankItemRepository extends CrudRepository<QuestionBankItem, Long> {
 
 
-    @Query("Select               count(*) From QuestionBankItem questionBankItem "+
+    @Query("Select               questionBankItem From QuestionBankItem questionBankItem "+
             "INNER JOIN          questionBankItem.qPalXELesson qPalXELesson " +
             "Where               qPalXELesson =?1 "
     )
-    public Long countQuestionBankItemByLesson(QPalXELesson qPalXELesson);
+    public List<QuestionBankItem> findAllQuestionBankItemByLesson(QPalXELesson qPalXELesson);
 
 }

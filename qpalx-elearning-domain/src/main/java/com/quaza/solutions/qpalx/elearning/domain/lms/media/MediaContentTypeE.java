@@ -11,6 +11,8 @@ public enum MediaContentTypeE {
 
     swf,
 
-    html;
+    html,
+
+    text;
 
 }

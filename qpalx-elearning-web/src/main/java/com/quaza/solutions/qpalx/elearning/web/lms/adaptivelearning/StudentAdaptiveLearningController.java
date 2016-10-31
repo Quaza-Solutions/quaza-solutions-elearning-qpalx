@@ -1,11 +1,12 @@
 package com.quaza.solutions.qpalx.elearning.web.lms.adaptivelearning;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveLessonStatistics;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveMicroLessonStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveLessonStatisticsService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveMicroLessonStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXELessonService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXEMicroLessonService;
@@ -52,6 +53,10 @@ public class StudentAdaptiveLearningController {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.AdaptiveLessonStatisticsService")
     private IAdaptiveLessonStatisticsService iAdaptiveLessonStatisticsService;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.AdaptiveMicroLessonStatisticsService")
+    private IAdaptiveMicroLessonStatisticsService iAdaptiveMicroLessonStatisticsService;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultTutorialLevelCalendarService")
@@ -112,8 +117,10 @@ public class StudentAdaptiveLearningController {
         model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCourse.toString(), eLearningCourse);
 
         // Find all micro lessons for this lesson
-        List<QPalXEMicroLesson> qPalXEMicroLessons = iqPalXEMicroLessonService.findQPalXEMicroLessons(qPalXELesson);
-        model.addAttribute(LessonsAdminAttributesE.QPalXEMicroLessons.toString(), qPalXEMicroLessons);
+        //List<QPalXEMicroLesson> qPalXEMicroLessons = iqPalXEMicroLessonService.findQPalXEMicroLessons(qPalXELesson);
+        List<AdaptiveMicroLessonStatistics> adaptiveMicroLessonStatisticsList = iAdaptiveMicroLessonStatisticsService.findAdaptiveMicroLessonStatisticsByLessonAndCourse(qPalXELesson);
+
+        model.addAttribute(LessonsAdminAttributesE.QPalXEMicroLessons.toString(), adaptiveMicroLessonStatisticsList);
 
         // Find the current default TutorialLevelCalendar based on the selected value
         Long tId = NumberUtils.toLong(tutorialLevelID);

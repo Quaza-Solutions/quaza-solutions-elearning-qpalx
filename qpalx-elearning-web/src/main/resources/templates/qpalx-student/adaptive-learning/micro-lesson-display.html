@@ -24,44 +24,32 @@
     <!-- Tutorial Level navigation panel -->
     <div th:replace="fragments/student/tutorial-level-calendar-nav :: academic-calendar"></div>
 
-    <div class="row">
-
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
-
-        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 large-fonts">
-            <a class="pop-up-2" href="#" data-modal-id="popup1">
-                Lesson Intro Video
-            </a>
-            <br/>
-            <a class="pop-up-2" href="#" data-modal-id="popup1">
-                <img src="images/assets/adaptive-learning/video-icon.png" id="video-icon-2"/>
-            </a>
-        </div>
-
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
-
-    </div>
-
-
-    <br/><br/>
-
     <!-- Display all micro lessons -->
     <div class="row" th:each="QPalXEMicroLesson,rowStat : ${QPalXEMicroLessons}">
-        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" th:inline="text">
-            [[${rowStat.count}]] &nbsp; <img src="images/assets/adaptive-learning/micro-lesson-narration.png"/>
-        </div>
 
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 large-fonts topmargin">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" th:inline="text"><br/>[[${rowStat.count}]]</div>
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 large-fonts topmargin">
             <a class="anchor-1" th:attr="href='#popup' + ${rowStat.count}">
-                <div th:text="${QPalXEMicroLesson.microLessonName}"></div>
+                <span th:text="${QPalXEMicroLesson.getMicroLessonName()}"></span>
             </a>
         </div>
 
-        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 topmargin-2">
-            <progress class="progressbar" value="0" max="100" data-max="80"></progress>
-            <span class="progress-value" style="margin-right: 140px;">0%</span>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <img src="images/assets/adaptive-learning/audio.png" class="audio" />
         </div>
+
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <img src="images/assets/adaptive-learning/hand.png" class="hand" />
+        </div>
+
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><div class="topmargin-2">
+            <progress class="progressbar" value="0" max="100" th:attr="data-max=${QPalXEMicroLesson.getQuizzesCompletionRate()}"></progress>
+            <span class="progress-value">0%</span></div>
+        </div>
+
     </div>
+
 
     <br /><br />
 
@@ -81,6 +69,27 @@
 
 </div>
 
+<div class="my-container-2 large-fonts">
+    <a class="pop-up-2" href="#popup2">Lesson Intro Video</a>
+    <br />
+    <a class="pop-up-2" href="#popup2">
+        <img src="images/assets/adaptive-learning/video-icon.png" id="video-icon-2" />
+    </a>
+    <br /><br />
+
+    <div class="large-fonts-2">Quizzes</div>
+
+    <div class="large-fonts">Quiz 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #06bfd3;">80%</span>
+    </div>
+
+
+    <div class="large-fonts">Quiz 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #06bfd3;">100%</span>
+    </div>
+    <div class="large-fonts">Quiz 3</div>
+    <div class="large-fonts">Quiz 4</div>
+    <div class="large-fonts">Quiz 5</div>
+</div>
+
 
 <!-- Build modal displays for all Micro lessons displayed above -->
 <div th:each="QPalXEMicroLesson,rowStat : ${QPalXEMicroLessons}">
@@ -91,7 +100,7 @@
             <a href="#" style="float:right; margin: 20px 40px 20px 0;" onClick="stopVideo();">Close</a>
             <div class="modalBody">
                 <video width="800" id="modal-box" controls="controls">
-                    <source th:src="${QPalXEMicroLesson.geteLearningMediaContent().getELearningMediaFile()}" type="video/mp4"/>
+                    <source th:src="${QPalXEMicroLesson.getNarrationMediaFile()}" type="video/mp4"/>
                     Your browser does not support HTML5 video.
                 </video>
             </div>
@@ -125,20 +134,6 @@
         <!--<div class="bar-3"></div>-->
     </div>
 </div>
-
-<!--<div id="popup-quiz1" class="modal-box quiz-popup">-->
-    <!--<div class="row">-->
-        <!--<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10"></div>-->
-
-        <!--<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">-->
-            <!--<a href="#" style="float:right;" class="btn btn-small js-modal-close" onClick="stopVideo2();">Close</a>-->
-        <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="modal-body">-->
-        <!--<iframe name="proprofs" width="970" height="615" frameborder="0" marginwidth="0" marginheight="0" src="https://www.proprofs.com/quiz-school/story.php?title=mtcxode2nqrx1e&amp;id=1717908&amp;=430"></iframe>-->
-    <!--</div>-->
-<!--</div>-->
 
 
 <!-- Include Footer for when user is logged in -->

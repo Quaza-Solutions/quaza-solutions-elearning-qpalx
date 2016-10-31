@@ -46,27 +46,27 @@ public class AdaptiveLessonStatisticsService implements IAdaptiveLessonStatistic
         Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
 
-        Runnable statisticsRecordTask = () -> {
+        //Runnable statisticsRecordTask = () -> {
             LOGGER.info("Recording Lesson statistics on MicroLesson with ID: {} for User: {}", qPalXEMicroLesson.getId(), qPalXUser.getEmail());
 
             QPalXEMicroLessonProgress qPalXEMicroLessonProgress = iqPalXEMicroLessonProgressRepository.findByUserAndMicroLessonID(qPalXUser.getId(), qPalXEMicroLesson.getId());
             if(qPalXEMicroLessonProgress != null) {
                 qPalXEMicroLessonProgress.increaseNumberOfAttempts();
                 qPalXEMicroLessonProgress.setLastAttemptEntryDate(new DateTime());
-                iqPalXEMicroLessonProgressRepository.save(qPalXEMicroLessonProgress);
             } else {
                 // create a mew one and save
-                QPalXEMicroLessonProgress qPalXEMicroLessonProgress1 = QPalXEMicroLessonProgress.builder()
+                qPalXEMicroLessonProgress = QPalXEMicroLessonProgress.builder()
                         .microLessonID(qPalXEMicroLesson.getId())
                         .qPalxUserID(qPalXUser.getId())
                         .numberOfAttempts(1)
                         .lastAttemptEntryDate(new DateTime())
                         .build();
-                iqPalXEMicroLessonProgressRepository.save(qPalXEMicroLessonProgress);
             }
-        };
+        iqPalXEMicroLessonProgressRepository.save(qPalXEMicroLessonProgress);
+        //};
 
-        listeningExecutorService.submit(statisticsRecordTask);
+
+        //listeningExecutorService.submit(statisticsRecordTask);
     }
 
     @Override

@@ -51,12 +51,16 @@
 
      function stopVideo(){
         $("#modal-box")[0].pause();
-     }
-     function stopVideo2(){
-        $("#modal-box-2")[0].pause();
-     }
-     function stopVideo3(){
-        $("#modal-box-3")[0].pause();
+
+		 alert('Making API call.');
+         $.ajax({
+             type: "GET",
+             dataType: "json",
+             url: "http://localhost:8080/micro-lesson-progress-tracker?microLessonID=1&amp;uniqueQPalxUserKey=manyce400@gmail.com",
+             success: function(data){
+                alert(data);
+             }
+         });
      }
 
 	 $('.third.circle-bar').circleProgress({

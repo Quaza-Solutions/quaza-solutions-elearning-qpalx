@@ -12,7 +12,7 @@ import javax.persistence.*;
  * @author manyce400
  */
 @Entity
-@Table(name="QPalXEMicroLessonProgress")
+@Table(name="QuestionBankProgress")
 public class QuestionBankProgress {
 
 

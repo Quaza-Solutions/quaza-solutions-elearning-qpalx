@@ -153,4 +153,49 @@ public class QuestionBankItem {
                 .append("active", active)
                 .toString();
     }
+
+    public static final Builder builder() {
+        return new Builder();
+    }
+
+
+    public static final class Builder {
+
+        private QuestionBankItem questionBankItem = new QuestionBankItem();
+
+        public Builder questionTitle(String questionTitle) {
+            questionBankItem.questionTitle = questionTitle;
+            return this;
+        }
+
+        public Builder questionDescription(String questionDescription) {
+            questionBankItem.questionDescription = questionDescription;
+            return this;
+        }
+
+        public Builder eLearningMediaContent(ELearningMediaContent eLearningMediaContent) {
+            questionBankItem.eLearningMediaContent = eLearningMediaContent;
+            return this;
+        }
+
+        public Builder qPalXELesson(QPalXELesson qPalXELesson) {
+            questionBankItem.qPalXELesson = qPalXELesson;
+            return this;
+        }
+
+        public Builder entryDate(DateTime entryDate) {
+            questionBankItem.entryDate = entryDate;
+            return this;
+        }
+
+        public Builder active(boolean active) {
+            questionBankItem.active = active;
+            return this;
+        }
+
+        public QuestionBankItem build() {
+            return questionBankItem;
+        }
+    }
+
 }
