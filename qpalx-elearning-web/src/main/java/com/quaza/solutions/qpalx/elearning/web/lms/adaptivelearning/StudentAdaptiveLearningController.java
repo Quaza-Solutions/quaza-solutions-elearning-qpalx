@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistic
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveMicroLessonStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveLessonStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveMicroLessonStatisticsService;
@@ -18,6 +19,7 @@ import com.quaza.solutions.qpalx.elearning.web.lms.curriculum.enums.LessonsAdmin
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IStudentInfoOverviewPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.ITutorialLevelCalendarPanelService;
+import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
 import com.quaza.solutions.qpalx.elearning.web.student.curricula.StudentCurriculaController;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author manyce400
@@ -37,6 +40,10 @@ import java.util.List;
 public class StudentAdaptiveLearningController {
 
 
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserWebService")
+    private IQPalXUserWebService iqPalXUserWebService;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultELearningCourseService")
@@ -82,6 +89,8 @@ public class StudentAdaptiveLearningController {
     public String viewAdaptiveLessons(final Model model, @RequestParam("eLearningCourseID") String eLearningCourseID, @RequestParam("tutorialLevelID") String tutorialLevelID) {
         LOGGER.info("Finding and displaying all lessons for courseID: {} and tutorialLevelID: {}", eLearningCourseID, tutorialLevelID);
 
+        Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
+
         Long cId = NumberUtils.toLong(eLearningCourseID);
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(cId);
         model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCourse.toString(), eLearningCourse);
@@ -90,7 +99,7 @@ public class StudentAdaptiveLearningController {
         // Find the current default TutorialLevelCalendar based on the selected value
         Long tId = NumberUtils.toLong(tutorialLevelID);
         TutorialLevelCalendar selectedTutorialLevelCalendar = iTutorialLevelCalendarService.findByID(tId);
-        List<AdaptiveLessonStatistics> adaptiveLessonStatisticsList = iAdaptiveLessonStatisticsService.findAdaptiveLessonStatisticsByCourseIDAndTutorialLevel(selectedTutorialLevelCalendar, eLearningCourse);
+        List<AdaptiveLessonStatistics> adaptiveLessonStatisticsList = iAdaptiveLessonStatisticsService.findAdaptiveLessonStatisticsByCourseIDAndTutorialLevel(optionalUser.get(), selectedTutorialLevelCalendar, eLearningCourse);
         model.addAttribute(LessonsAdminAttributesE.QPalXELessons.toString(), adaptiveLessonStatisticsList);
 
         // Add all attributes required for Student tutorial level calendar panel.  By Default we load only first term if no calendar is specified

@@ -16,6 +16,6 @@ public interface IAdaptiveLessonStatisticsService {
 
     public void recordAdaptiveLessonStatistics(QPalXEMicroLesson qPalXEMicroLesson, QPalXUser qPalXUser);
 
-    public List<AdaptiveLessonStatistics> findAdaptiveLessonStatisticsByCourseIDAndTutorialLevel(TutorialLevelCalendar tutorialLevelCalendar, ELearningCourse eLearningCourse);
+    public List<AdaptiveLessonStatistics> findAdaptiveLessonStatisticsByCourseIDAndTutorialLevel(QPalXUser qPalXUser, TutorialLevelCalendar tutorialLevelCalendar, ELearningCourse eLearningCourse);
 
 }
