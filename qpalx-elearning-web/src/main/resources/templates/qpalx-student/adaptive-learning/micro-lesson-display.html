@@ -93,11 +93,11 @@
 
 <!-- Build modal displays for all Micro lessons displayed above -->
 <div th:each="QPalXEMicroLesson,rowStat : ${QPalXEMicroLessons}">
-    <div th:id="'popup' + ${rowStat.count}" class="modalBox">
-        <a href="#" class="modalCloseOuter" onClick="stopVideo();"></a>
+    <div th:id="'popup' + ${rowStat.count}"  th:with="uniqueID=${rowStat.count}" class="modalBox" th:href="@{/micro-lesson-progress-tracker(microLessonID=${QPalXEMicroLesson.getMicroLessonID()}, uniqueQPalxUserKey=${LoggedInQPalXUser.getEmail()})}">
+        <a href="#" class="modalCloseOuter" th:attr="onclick='javascript:stopVideo(\'' + ${rowStat.count} +'\');'"></a>
         <div class="mp4">
             <div class="bar-1"></div>
-            <a href="#" style="float:right; margin: 20px 40px 20px 0;" onClick="stopVideo();">Close</a>
+            <a href="#" style="float:right; margin: 20px 40px 20px 0;"   th:attr="onclick='javascript:stopVideo(\'' + ${rowStat.count} +'\');'">Close</a>
             <div class="modalBody">
                 <video width="800" id="modal-box" controls="controls">
                     <source th:src="${QPalXEMicroLesson.getNarrationMediaFile()}" type="video/mp4"/>

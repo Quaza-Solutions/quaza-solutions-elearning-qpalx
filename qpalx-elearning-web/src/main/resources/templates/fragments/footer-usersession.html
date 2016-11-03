@@ -49,14 +49,19 @@
     <script src="js/circle-progress.js"></script>
     <script>
 
-     function stopVideo(){
+     function stopVideo(id){
         $("#modal-box")[0].pause();
 
-		 alert('Making API call.');
+         // Get dynamic href value from modal box
+         var popupID = 'popup' + id;
+         alert(popupID);
+
+		 var href = parent.document.getElementById(popupID).getAttribute("href");
+
          $.ajax({
              type: "GET",
              dataType: "json",
-             url: "http://localhost:8080/micro-lesson-progress-tracker?microLessonID=1&amp;uniqueQPalxUserKey=manyce400@gmail.com",
+             url: href,
              success: function(data){
                 alert(data);
              }
