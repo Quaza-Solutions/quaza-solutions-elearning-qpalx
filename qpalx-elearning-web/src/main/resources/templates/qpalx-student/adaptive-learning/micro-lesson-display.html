@@ -79,7 +79,20 @@
 
     <div class="large-fonts-2">Quizzes</div>
 
-    <div class="large-fonts">Quiz 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #06bfd3;">80%</span>
+    <div class="large-fonts">
+        <a href="/view-quiz?user_name=manyce400@gmail.com&amp;user_email=manyce400@gmail.com&amp;user_id=manyce400@gmail.com" onclick="window.open(this.href,'targetWindow',
+                                   'toolbar=no,
+                                    location=no,
+                                    status=no,
+                                    menubar=no,
+                                    scrollbars=yes,
+                                    resizable=yes,
+                                    width=980,
+                                    height=680');
+                                    return false;">
+            Quiz 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </a>
+        <span style="color: #06bfd3;">80%</span>
     </div>
 
 
@@ -109,23 +122,23 @@
     </div>
 </div>
 
-<div id="QuestionBank" class="modalBox">
-    <a href="#" class="modalCloseOuter" onClick="stopVideo();"></a>
+<div id="QuestionBank" class="modalBox" th:if="${RandomQuestionBankItem != null}">
+    <a href="#" class="modalCloseOuter" onClick="stopVideo('test');"></a>
     <div class="mp4">
         <div class="bar-1"></div>
-        <a href="#" style="float:right; margin: 20px 40px 20px 0;" onClick="stopVideo();">Close</a>
+        <a href="#" style="float:right; margin: 20px 40px 20px 0;" onClick="stopVideo('test');">Close</a>
         <div class="modalBody">
             <div class="question-bank-top-bar">
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h3>Question Bank Question 1</h3>
+                        <h3 th:text="${RandomQuestionBankItem.questionTitle}"/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <p>What is the best way to get the most out of your brainstorming and Outlining techniques?</p>
+                        <p th:text="${RandomQuestionBankItem.questionDescription}"/>
                     </div>
                 </div>
 

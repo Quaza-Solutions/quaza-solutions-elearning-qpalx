@@ -1,9 +1,11 @@
 package com.quaza.solutions.qpalx.elearning.web.lms.curriculum.admin;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.QuestionBankItem;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IQuestionBankService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXELessonService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXEMicroLessonService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
@@ -56,6 +58,10 @@ public class QPalXMicroLessonAdminController {
     private IQPalXUserInfoPanelService qPalXUserInfoPanelService;
 
     @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.QuestionBankService")
+    private IQuestionBankService iQuestionBankService;
+
+    @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.ContentAdminTutorialGradePanelService")
     private IContentAdminTutorialGradePanelService contentAdminTutorialGradePanelService;
 
@@ -86,6 +92,10 @@ public class QPalXMicroLessonAdminController {
         // Find all the QPalXELesson's currently available
         List<QPalXEMicroLesson> qPalXEMicroLessons = iqPalXEMicroLessonService.findQPalXEMicroLessons(qPalXELesson);
         model.addAttribute(LessonsAdminAttributesE.QPalXEMicroLessons.toString(), qPalXEMicroLessons);
+
+        // Add all Question banks for this Lesson
+        List<QuestionBankItem> questionBankItems = iQuestionBankService.findQuestionBankItems(qPalXELesson);
+        model.addAttribute(LessonsAdminAttributesE.QuestionBankItems.toString(), questionBankItems);
         return ContentRootE.Content_Admin_Lessons.getContentRootPagePath("view-qpalx-microlessons");
     }
 

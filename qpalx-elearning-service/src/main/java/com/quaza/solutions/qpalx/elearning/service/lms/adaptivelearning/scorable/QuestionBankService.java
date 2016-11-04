@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author manyce400
@@ -27,9 +28,18 @@ public class QuestionBankService implements IQuestionBankService {
     @Qualifier("quaza.solutions.qpalx.elearning.service.QPalXELessonService")
     private IQPalXELessonService iqPalXELessonService;
 
+    private static final Random RANDOM_GEN = new Random();
+
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QuestionBankService.class);
 
+
+    @Override
+    public void deleteQuestionBankItemByID(Long questionBankID) {
+        Assert.notNull(questionBankID, "questionBankID cannot be null");
+        LOGGER.debug("Deleting QuestionBankItem with ID: {}", questionBankID);
+        iQuestionBankItemRepository.delete(questionBankID);
+    }
 
     @Override
     public QuestionBankItem findByID(Long questionBankID) {
@@ -45,7 +55,24 @@ public class QuestionBankService implements IQuestionBankService {
 
         // Find all question bank items
         List<QuestionBankItem> questionBankItemList =  iQuestionBankItemRepository.findAllQuestionBankItemByLesson(qPalXELesson);
+
+        if (questionBankItemList.size() > 1) {
+            int low = 0;
+            int high = questionBankItemList.size();
+            int randomIndex = RANDOM_GEN.nextInt(high - low) + low;
+            return questionBankItemList.get(randomIndex);
+        } else if(questionBankItemList.size() == 1) {
+            return questionBankItemList.get(0);
+        }
+
         return null;
+    }
+
+    @Override
+    public List<QuestionBankItem> findQuestionBankItems(QPalXELesson qPalXELesson) {
+        Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+        LOGGER.debug("Finding all QuestionBankItems for qPalXELesson {}", qPalXELesson.getLessonName());
+        return iQuestionBankItemRepository.findAllQuestionBankItemByLesson(qPalXELesson);
     }
 
     @Override
@@ -64,5 +91,13 @@ public class QuestionBankService implements IQuestionBankService {
                 .build();
 
         iQuestionBankItemRepository.save(questionBankItem);
+    }
+
+    public static void main(String[] args) {
+        Random rand = new Random();
+        int randomIndex = rand.nextInt((9 - 0) + 1) + 0;
+        System.out.println("randomIndex = " + randomIndex);
+
+
     }
 }

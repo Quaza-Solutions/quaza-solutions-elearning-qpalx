@@ -76,10 +76,19 @@ public class QuestionBankAdminController {
     }
 
     @RequestMapping(value = "/save-question-bank", method = RequestMethod.POST)
-    public void saveMicroLesson(Model model, @ModelAttribute("QuestionBankVO") QuestionBankVO questionBankVO, HttpServletRequest request, HttpServletResponse response) {
+    public void saveQuestionBankItem(Model model, @ModelAttribute("QuestionBankVO") QuestionBankVO questionBankVO, HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("Saving QuestionBank with VO attributes: {}", questionBankVO);
         iQuestionBankService.createAndSaveQuestionBankItem(questionBankVO);
         String targetURL = "/view-admin-qpalx-micro-elessons?qpalxELessonID=" + questionBankVO.getQPalXELessonID();
+        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+    }
+
+    @RequestMapping(value = "/delete-question-bank", method = RequestMethod.GET)
+    public void deleteQuestionBankItem(Model model, @RequestParam("questionBankItemID") String questionBankItemID, @RequestParam("qpalxELessonID") String qpalxELessonID, HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("Attempting to delete QuestionBankItem with ID: {}", questionBankItemID);
+        Long id = NumberUtils.toLong(questionBankItemID);
+        iQuestionBankService.deleteQuestionBankItemByID(id);
+        String targetURL = "/view-admin-qpalx-micro-elessons?qpalxELessonID=" + qpalxELessonID;
         iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
     }
 

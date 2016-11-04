@@ -5,6 +5,7 @@ import org.apache.commons.math3.util.Precision;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -21,6 +22,10 @@ public class AdaptiveLessonStatistics {
 
     private final String lessonMediaFile;
 
+    private final Integer questionBankItemsAttempted;
+
+    private final Integer totalQuestionBankItems;
+
     private final Integer microLessonsAttempted;
 
     private final Integer totalMicroLessons;
@@ -30,10 +35,14 @@ public class AdaptiveLessonStatistics {
     private final Integer totalQuizzes;
 
 
-    public AdaptiveLessonStatistics(Long lessonID, String lessonName, String lessonMediaFile, Integer microLessonsAttempted, Integer totalMicroLessons, Integer uniqueQuizzesAttempted, Integer totalQuizzes) {
+    public AdaptiveLessonStatistics(Long lessonID, String lessonName, String lessonMediaFile,
+                                    Integer questionBankItemsAttempted, Integer totalQuestionBankItems,
+                                    Integer microLessonsAttempted, Integer totalMicroLessons, Integer uniqueQuizzesAttempted, Integer totalQuizzes) {
         LessonID = lessonID;
         this.lessonName = lessonName;
         this.lessonMediaFile = lessonMediaFile;
+        this.questionBankItemsAttempted = questionBankItemsAttempted;
+        this.totalQuestionBankItems = totalQuestionBankItems;
         this.microLessonsAttempted = microLessonsAttempted;
         this.totalMicroLessons = totalMicroLessons;
         this.uniqueQuizzesAttempted = uniqueQuizzesAttempted;
@@ -50,6 +59,14 @@ public class AdaptiveLessonStatistics {
 
     public String getLessonMediaFile() {
         return lessonMediaFile;
+    }
+
+    public Integer getQuestionBankItemsAttempted() {
+        return questionBankItemsAttempted;
+    }
+
+    public Integer getTotalQuestionBankItems() {
+        return totalQuestionBankItems;
     }
 
     public Integer getMicroLessonsAttempted() {
@@ -70,9 +87,9 @@ public class AdaptiveLessonStatistics {
 
     public double getTotalLessonCompletionRate() {
         // completion rate = (unique_micro_lessons_attempt + quiz_attempts) / (total_microlessons + total_quizzes)
-        BigDecimal totalAdaptiveItems = new BigDecimal(totalMicroLessons).add(new BigDecimal(totalQuizzes));
-        BigDecimal totalAttempted = new BigDecimal(microLessonsAttempted).add(new BigDecimal(uniqueQuizzesAttempted));
-        double completionRate = totalAttempted.divide(totalAdaptiveItems).doubleValue() * 100;
+        BigDecimal totalAdaptiveItems = new BigDecimal(totalQuestionBankItems).add(new BigDecimal(totalMicroLessons)).add(new BigDecimal(totalQuizzes));
+        BigDecimal totalAttempted = new BigDecimal(questionBankItemsAttempted).add(new BigDecimal(microLessonsAttempted)).add(new BigDecimal(uniqueQuizzesAttempted));
+        double completionRate = totalAttempted.divide(totalAdaptiveItems, 2, RoundingMode.HALF_UP).doubleValue() * 100;
         return Precision.round(completionRate, 0);
     }
 
@@ -100,6 +117,8 @@ public class AdaptiveLessonStatistics {
                 .append("LessonID", LessonID)
                 .append("lessonName", lessonName)
                 .append("lessonMediaFile", lessonMediaFile)
+                .append("questionBankItemsAttempted", questionBankItemsAttempted)
+                .append("totalQuestionBankItems", totalQuestionBankItems)
                 .append("microLessonsAttempted", microLessonsAttempted)
                 .append("totalMicroLessons", totalMicroLessons)
                 .append("uniqueQuizzesAttempted", uniqueQuizzesAttempted)
@@ -118,17 +137,21 @@ public class AdaptiveLessonStatistics {
             long lessonID = resultSet.getLong("LessonID");
             String lessonName = resultSet.getString("LessonName");
             String lessonMediaFile = resultSet.getString("LessonIntroVideo");
+
+            Integer uniqueQuestionBankItemsAttempted = resultSet.getInt("UniqueQuestionBankItemsAttempted");
+            Integer totalNumberOfQuestionBankItems = resultSet.getInt("TotalNumberOfQuestionBankItems");
+
             Integer microLessonsAttempted = resultSet.getInt("UniqueMicroLessonsAttempted");
             Integer totalMicroLessons = resultSet.getInt("TotalNumberOfMicroLessons");
             Integer uniqueQuizzesAttempted = resultSet.getInt("UniqueQuizzesAttempted");
             Integer totalQuizzes = resultSet.getInt("TotalNumberOfQuizzes");
-            return new AdaptiveLessonStatistics(lessonID, lessonName, lessonMediaFile, microLessonsAttempted, totalMicroLessons, uniqueQuizzesAttempted, totalQuizzes);
+            return new AdaptiveLessonStatistics(lessonID, lessonName, lessonMediaFile, uniqueQuestionBankItemsAttempted, totalNumberOfQuestionBankItems, microLessonsAttempted, totalMicroLessons, uniqueQuizzesAttempted, totalQuizzes);
         }
     }
 
 
     public static void main(String[] args) {
-        AdaptiveLessonStatistics ad = new AdaptiveLessonStatistics(100L, "", "", 1, 2, 0, 0);
+        AdaptiveLessonStatistics ad = new AdaptiveLessonStatistics(100L, "", "", 1, 5, 1, 2, 0, 0);
         System.out.println("Completion Rate = " + ad.getTotalLessonCompletionRate());
     }
 }

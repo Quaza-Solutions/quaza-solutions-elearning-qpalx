@@ -85,7 +85,7 @@ public class CaptivateQuizReportingController {
 
         addQPalXUserDetailsToResponse(model, CurriculumType.CORE, optionalUser.get());
 
-        model.addAttribute("Quiz", "https://www.proprofs.com/quiz-school/story.php?title=mtcxmdqxmw8z2o&id=1710156&ew=430");
+        model.addAttribute("Quiz", "https://www.proprofs.com/quiz-school/story.php?title=mtcxode2nqrx1e&id=1717908&ew=430");
 
         return ContentRootE.Student_Home.getContentRootPagePath("video-widget");
     }

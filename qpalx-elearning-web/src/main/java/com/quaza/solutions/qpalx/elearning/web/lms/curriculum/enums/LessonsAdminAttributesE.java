@@ -12,6 +12,8 @@ public enum LessonsAdminAttributesE {
 
     QPalXMicroLessonActivities,
 
+    QuestionBankItems,
+
     AdaptiveLearningQuizzes
     ;
 

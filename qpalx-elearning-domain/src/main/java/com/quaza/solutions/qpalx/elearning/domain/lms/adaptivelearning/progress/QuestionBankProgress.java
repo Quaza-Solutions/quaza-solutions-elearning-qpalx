@@ -24,9 +24,6 @@ public class QuestionBankProgress {
     @Column(name="QuestionBankItemID", nullable=false)
     private Long questionBankItemID;
 
-    @Column(name="QPalxELessonID", nullable=false)
-    private Long qPalxELessonID;
-
     // Number of times Student user has attempted/taken this micro lesson
     @Column(name="NumberOfAttempts", nullable=false)
     private Long numberOfAttempts;
@@ -49,14 +46,6 @@ public class QuestionBankProgress {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getQPalxELessonID() {
-        return qPalxELessonID;
-    }
-
-    public void setQPalxELessonID(Long qPalxELessonID) {
-        this.qPalxELessonID = qPalxELessonID;
     }
 
     public Long getQuestionBankItemID() {
@@ -102,7 +91,6 @@ public class QuestionBankProgress {
         return new EqualsBuilder()
                 .append(id, that.id)
                 .append(questionBankItemID, that.questionBankItemID)
-                .append(qPalxELessonID, that.qPalxELessonID)
                 .append(numberOfAttempts, that.numberOfAttempts)
                 .append(lastAttemptEntryDate, that.lastAttemptEntryDate)
                 .append(qPalxUserID, that.qPalxUserID)
@@ -114,7 +102,6 @@ public class QuestionBankProgress {
         return new HashCodeBuilder(17, 37)
                 .append(id)
                 .append(questionBankItemID)
-                .append(qPalxELessonID)
                 .append(numberOfAttempts)
                 .append(lastAttemptEntryDate)
                 .append(qPalxUserID)
@@ -126,7 +113,6 @@ public class QuestionBankProgress {
         return new ToStringBuilder(this)
                 .append("id", id)
                 .append("questionBankItemID", questionBankItemID)
-                .append("qPalxELessonID", qPalxELessonID)
                 .append("numberOfAttempts", numberOfAttempts)
                 .append("lastAttemptEntryDate", lastAttemptEntryDate)
                 .append("qpalxUser", qPalxUserID)

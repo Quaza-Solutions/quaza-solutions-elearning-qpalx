@@ -1,11 +1,13 @@
 package com.quaza.solutions.qpalx.elearning.web.lms.adaptivelearning;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.QuestionBankItem;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveLessonStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveMicroLessonStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IQuestionBankService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveLessonStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveMicroLessonStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseService;
@@ -68,6 +70,10 @@ public class StudentAdaptiveLearningController {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultTutorialLevelCalendarService")
     private ITutorialLevelCalendarService iTutorialLevelCalendarService;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.QuestionBankService")
+    private IQuestionBankService iQuestionBankService;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
@@ -140,6 +146,10 @@ public class StudentAdaptiveLearningController {
 
         // Add Micro-Lessons display attributes
         model.addAttribute(AdaptiveLearningDisplayAttributeE.MicroLessonsDisplayEnabled.toString(), Boolean.TRUE.toString());
+
+        // Add randomly selected question bank item
+        QuestionBankItem questionBankItem = iQuestionBankService.findRandomQuestionBankItem(qPalXELesson);
+        model.addAttribute(CurriculumDisplayAttributeE.RandomQuestionBankItem.toString(), questionBankItem);
 
         LOGGER.info("Returning micro lessons display page ==> micro-lesson-display");
         return ContentRootE.Student_Adaptive_Learning.getContentRootPagePath("micro-lesson-display");
