@@ -80,6 +80,10 @@ public class QuestionBankProgress {
         this.qPalxUserID = qPalxUserID;
     }
 
+    public synchronized void increaseNumberOfAttempts() {
+        numberOfAttempts++;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -118,4 +122,39 @@ public class QuestionBankProgress {
                 .append("qpalxUser", qPalxUserID)
                 .toString();
     }
+
+    public static final Builder builder() {
+        return new Builder();
+    }
+
+
+    public static final class Builder {
+
+        private final QuestionBankProgress questionBankProgress = new QuestionBankProgress();
+
+        public Builder questionBankItemID(Long questionBankItemID) {
+            questionBankProgress.questionBankItemID = questionBankItemID;
+            return this;
+        }
+
+        public Builder numberOfAttempts(Long numberOfAttempts) {
+            questionBankProgress.numberOfAttempts = numberOfAttempts;
+            return this;
+        }
+
+        public Builder lastAttemptEntryDate(DateTime lastAttemptEntryDate) {
+            questionBankProgress.lastAttemptEntryDate =lastAttemptEntryDate;
+            return this;
+        }
+
+        public Builder qPalxUserID(Long qPalxUserID) {
+            questionBankProgress.qPalxUserID = qPalxUserID;
+            return this;
+        }
+
+        public QuestionBankProgress build() {
+            return questionBankProgress;
+        }
+    }
+
 }

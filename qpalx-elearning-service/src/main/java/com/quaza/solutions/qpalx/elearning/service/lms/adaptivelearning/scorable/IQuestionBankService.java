@@ -3,6 +3,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorabl
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.IQuestionBankVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.QuestionBankItem;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface IQuestionBankService {
     public List<QuestionBankItem> findQuestionBankItems(QPalXELesson qPalXELesson);
 
     public void createAndSaveQuestionBankItem(IQuestionBankVO iQuestionBankVO);
+
+    public void recordAdaptiveLessonStatistics(QuestionBankItem questionBankItem, QPalXUser qPalXUser);
 }

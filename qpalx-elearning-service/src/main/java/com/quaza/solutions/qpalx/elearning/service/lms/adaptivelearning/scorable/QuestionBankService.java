@@ -1,14 +1,18 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.progress.QuestionBankProgress;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.progress.repository.IQuestionBankProgressRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.IQuestionBankVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.QuestionBankItem;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.repository.IQuestionBankItemRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXELessonService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -23,6 +27,9 @@ public class QuestionBankService implements IQuestionBankService {
 
     @Autowired
     private IQuestionBankItemRepository iQuestionBankItemRepository;
+
+    @Autowired
+    private IQuestionBankProgressRepository iQuestionBankProgressRepository;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.QPalXELessonService")
@@ -93,11 +100,27 @@ public class QuestionBankService implements IQuestionBankService {
         iQuestionBankItemRepository.save(questionBankItem);
     }
 
-    public static void main(String[] args) {
-        Random rand = new Random();
-        int randomIndex = rand.nextInt((9 - 0) + 1) + 0;
-        System.out.println("randomIndex = " + randomIndex);
+    @Transactional
+    @Override
+    public void recordAdaptiveLessonStatistics(QuestionBankItem questionBankItem, QPalXUser qPalXUser) {
+        Assert.notNull(questionBankItem, "questionBankItem cannot be null");
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
 
+        LOGGER.info("Recording QuestionBankItem with ID: {} progress for user: {}", questionBankItem.getId(), qPalXUser.getEmail());
 
+        QuestionBankProgress questionBankProgress = iQuestionBankProgressRepository.findByQuestionBankItemAndUser(questionBankItem.getId(), qPalXUser.getId());
+        if(questionBankProgress != null) {
+            questionBankProgress.increaseNumberOfAttempts();
+            questionBankProgress.setLastAttemptEntryDate(new DateTime());
+        } else {
+            questionBankProgress = QuestionBankProgress.builder()
+                    .questionBankItemID(questionBankItem.getId())
+                    .qPalxUserID(qPalXUser.getId())
+                    .numberOfAttempts(1L)
+                    .lastAttemptEntryDate(new DateTime())
+                    .build();
+        }
+
+        iQuestionBankProgressRepository.save(questionBankProgress);
     }
 }
