@@ -54,9 +54,25 @@
 
          // Get dynamic href value from modal box
          var popupID = 'popup' + id;
-         alert(popupID);
+         //alert(popupID);
 
 		 var href = parent.document.getElementById(popupID).getAttribute("href");
+
+         $.ajax({
+             type: "GET",
+             dataType: "json",
+             url: href,
+             success: function(data){
+                alert(data);
+             }
+         });
+     }
+
+     function stopQuestionBankItem(questionBankControl){
+        $("#modal-box")[0].pause();
+
+		 var href = parent.document.getElementById(questionBankControl).getAttribute("href");
+		 //alert(href);
 
          $.ajax({
              type: "GET",

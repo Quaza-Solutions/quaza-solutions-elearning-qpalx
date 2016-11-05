@@ -122,11 +122,11 @@
     </div>
 </div>
 
-<div id="QuestionBank" class="modalBox" th:if="${RandomQuestionBankItem != null}">
-    <a href="#" class="modalCloseOuter" onClick="stopVideo('test');"></a>
+<div id="QuestionBank" class="modalBox" th:if="${RandomQuestionBankItem != null}" th:href="@{/question-bank-progress-tracker(questionBankItemID=${RandomQuestionBankItem.id}, uniqueQPalxUserKey=${LoggedInQPalXUser.getEmail()})}">
+    <a href="#" class="modalCloseOuter" onClick="stopQuestionBankItem('QuestionBank');"></a>
     <div class="mp4">
         <div class="bar-1"></div>
-        <a href="#" style="float:right; margin: 20px 40px 20px 0;" onClick="stopVideo('test');">Close</a>
+        <a href="#" style="float:right; margin: 20px 40px 20px 0;" onClick="stopQuestionBankItem('QuestionBank');">Close All</a>
         <div class="modalBody">
             <div class="question-bank-top-bar">
 
