@@ -124,6 +124,8 @@ public class StudentAdaptiveLearningController {
     public String viewAdaptiveMicroLessons(final Model model, @RequestParam("eLessonID") String eLessonID, @RequestParam("tutorialLevelID") String tutorialLevelID) {
         LOGGER.info("Finding and displaying all micro lessons foe eLessonID: {}", eLessonID);
 
+        Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
+
         Long id = NumberUtils.toLong(eLessonID);
         QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(id);
         iStudentInfoOverviewPanelService.addStudentInfoOverviewWithLesson(model, qPalXELesson);
@@ -133,7 +135,7 @@ public class StudentAdaptiveLearningController {
 
         // Find all micro lessons for this lesson
         //List<QPalXEMicroLesson> qPalXEMicroLessons = iqPalXEMicroLessonService.findQPalXEMicroLessons(qPalXELesson);
-        List<AdaptiveMicroLessonStatistics> adaptiveMicroLessonStatisticsList = iAdaptiveMicroLessonStatisticsService.findAdaptiveMicroLessonStatisticsByLessonAndCourse(qPalXELesson);
+        List<AdaptiveMicroLessonStatistics> adaptiveMicroLessonStatisticsList = iAdaptiveMicroLessonStatisticsService.findAdaptiveMicroLessonStatisticsByLessonAndCourse(qPalXELesson, optionalUser.get());
 
         model.addAttribute(LessonsAdminAttributesE.QPalXEMicroLessons.toString(), adaptiveMicroLessonStatisticsList);
 

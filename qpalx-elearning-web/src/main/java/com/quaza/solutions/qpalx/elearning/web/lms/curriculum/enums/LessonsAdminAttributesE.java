@@ -14,6 +14,8 @@ public enum LessonsAdminAttributesE {
 
     QuestionBankItems,
 
+    AdaptiveLearningQuiz,
+
     AdaptiveLearningQuizzes
     ;
 

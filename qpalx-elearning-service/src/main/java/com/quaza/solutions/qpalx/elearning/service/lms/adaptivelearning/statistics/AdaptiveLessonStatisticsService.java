@@ -137,12 +137,13 @@ public class AdaptiveLessonStatisticsService implements IAdaptiveLessonStatistic
                 "       Left    Outer Join TutorialLevelCalendar tlc on tlc.ID = qpl.TutorialLevelCalendarID  " +
                 "       Where   qpl.ELearningCourseID = ?  " +
                 "       And     tlc.ID = ?  " +
+                "       And     quizprog.QPalxUserID = ?  " +
                 "       Group   By mlp.QPalxUserID, qpl.ID, qpl.LessonName, qpl.ELearningMediaFile   " +
                 ") As AllUserMicroLessonAndQuizAttemptsInCourse on AllUserMicroLessonAndQuizAttemptsInCourse.QPalxUserID = StudentLessonsMicroLessonsAndQuizzesInCourse.StudentID  ";
 
         LOGGER.info("Running SQL:=>  {}", sql);
 
-        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId()};
+        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), qPalXUser.getId()};
         List<AdaptiveLessonStatistics> results = jdbcTemplate.query(sql, uniqueIDs, AdaptiveLessonStatistics.newRowMapper());
         return results;
     }
