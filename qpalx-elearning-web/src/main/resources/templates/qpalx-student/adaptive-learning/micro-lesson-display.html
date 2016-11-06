@@ -80,7 +80,7 @@
     <div class="large-fonts-2">Quizzes</div>
 
     <div class="large-fonts">
-        <a href="/view-quiz?user_name=manyce400@gmail.com&amp;user_email=manyce400@gmail.com&amp;user_id=manyce400@gmail.com" onclick="window.open(this.href,'targetWindow',
+        <a th:href="@{/view-microlesson-quiz(quizID=1, user_name=${LoggedInQPalXUser.firstName}, user_email=${LoggedInQPalXUser.getEmail()}, user_id=${LoggedInQPalXUser.getEmail()})}" onclick="window.open(this.href,'targetWindow',
                                    'toolbar=no,
                                     location=no,
                                     status=no,
