@@ -96,8 +96,10 @@ public class AdaptiveLessonStatisticsService implements IAdaptiveLessonStatistic
                 "       Join    QPalXELesson qPell on qPell.ELearningCourseID = eCors.ID   " +
                 "       Join    QPalXEMicroLesson qMell on qMell.QPalXELessonID = qPell.ID  " +
                 "       Left    Outer Join AdaptiveLearningQuiz alqz on alqz.QPalXEMicroLessonID = qMell.ID " +
+                "       Left    Outer Join TutorialLevelCalendar tlc on tlc.ID = qPell.TutorialLevelCalendarID  " +
                 "       Where   qUser.ID = ?  " +
                 "       And     eCors.ID = ?  " +
+                "       And     tlc.ID = ?  " +
                 "       Group   By qUser.ID, qPell.ID, qPell.LessonName, qPell.ELearningMediaFile " +
                 "       ) As StudentLessonsMicroLessonsAndQuizzesInCourse " +
 
@@ -110,8 +112,10 @@ public class AdaptiveLessonStatisticsService implements IAdaptiveLessonStatistic
                 "       Join    ELearningCourse eCors on eCors.ELearningCurriculumID = eCurr.ID    " +
                 "       Join    QPalXELesson qPell on qPell.ELearningCourseID = eCors.ID    " +
                 "       Join    QuestionBankItem qBit on qBit.QPalXELessonID = qPell.ID   " +
+                "       Left    Outer Join TutorialLevelCalendar tlc on tlc.ID = qPell.TutorialLevelCalendarID   " +
                 "       Where   qUser.ID = ?  " +
                 "       And     eCors.ID = ?  " +
+                "       And     tlc.ID = ?   " +
                 "      Group    By  qUser.ID, qPell.ID, qPell.LessonName    " +
                 ")  As StudentQuestionBankItemsInLesson  on StudentQuestionBankItemsInLesson.StudentID = StudentLessonsMicroLessonsAndQuizzesInCourse.StudentID   " +
 
@@ -131,19 +135,18 @@ public class AdaptiveLessonStatisticsService implements IAdaptiveLessonStatistic
                 "       Select  mlp.QPalxUserID, qpl.ID As LessonID, qpl.LessonName, qpl.ELearningMediaFile As LessonIntroVideo, count(mlp.MicroLessonID) As UniqueMicroLessonsAttempted, count(quizprog.ID) as UniqueQuizzesAttempted " +
                 "       From    QPalXELesson qpl " +
                 "       Left    Outer Join  QPalXEMicroLesson ml on ml.QPalXELessonID = qpl.ID  " +
-                "       Left    Outer Join  AdaptiveLearningQuiz alqz on alqz.QPalXEMicroLessonID = ml.ID  " +
                 "       Left    Outer Join  QPalXEMicroLessonProgress mlp on mlp.MicroLessonID = ml.ID    " +
+                "       Left    Outer Join AdaptiveLearningQuiz alqz on alqz.QPalXEMicroLessonID = ml.ID  " +
                 "       Left    Outer Join AdaptiveLearningQuizProgress quizprog on quizprog.MicroLessonID = ml.ID    " +
                 "       Left    Outer Join TutorialLevelCalendar tlc on tlc.ID = qpl.TutorialLevelCalendarID  " +
                 "       Where   qpl.ELearningCourseID = ?  " +
                 "       And     tlc.ID = ?  " +
-                "       And     quizprog.QPalxUserID = ?  " +
                 "       Group   By mlp.QPalxUserID, qpl.ID, qpl.LessonName, qpl.ELearningMediaFile   " +
                 ") As AllUserMicroLessonAndQuizAttemptsInCourse on AllUserMicroLessonAndQuizAttemptsInCourse.QPalxUserID = StudentLessonsMicroLessonsAndQuizzesInCourse.StudentID  ";
 
         LOGGER.info("Running SQL:=>  {}", sql);
 
-        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), qPalXUser.getId()};
+        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), qPalXUser.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId()};
         List<AdaptiveLessonStatistics> results = jdbcTemplate.query(sql, uniqueIDs, AdaptiveLessonStatistics.newRowMapper());
         return results;
     }

@@ -124,27 +124,17 @@
 
 <div id="QuestionBank" class="modalBox" th:if="${RandomQuestionBankItem != null}" th:href="@{/question-bank-progress-tracker(questionBankItemID=${RandomQuestionBankItem.id}, uniqueQPalxUserKey=${LoggedInQPalXUser.getEmail()})}">
     <a href="#" class="modalCloseOuter" onClick="stopQuestionBankItem('QuestionBank');"></a>
-    <div class="mp4">
-        <div class="bar-1"></div>
-        <a href="#" style="float:right; margin: 20px 40px 20px 0;" onClick="stopQuestionBankItem('QuestionBank');">Close All</a>
-        <div class="modalBody">
-            <div class="question-bank-top-bar">
+    <div class="qBank">
+        <div class="question-bank-top-bar">
+            <div class="question-bank-top-text" th:text="${RandomQuestionBankItem.questionTitle}"/>
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h3 th:text="${RandomQuestionBankItem.questionTitle}"/>
-                    </div>
-                </div>
+                <a href="#" style="float:right; margin: -30px 40px 20px 0;" onClick="stopQuestionBankItem('QuestionBank');">Close</a>
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <p th:text="${RandomQuestionBankItem.questionDescription}"/>
-                    </div>
+                <div class="questionBankModalBody">
+                    <div class="whiteBody" th:text="${RandomQuestionBankItem.questionDescription}"></div>
                 </div>
 
             </div>
-        </div>
-        <!--<div class="bar-3"></div>-->
     </div>
 </div>
 
