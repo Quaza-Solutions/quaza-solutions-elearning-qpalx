@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-            <img src="images/assets/adaptive-learning/hand.png" class="hand" />
+            <!--<img src="images/assets/adaptive-learning/hand.png" class="hand" />-->
         </div>
 
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><div class="topmargin-2">
@@ -79,10 +79,22 @@
     </a>
     <br /><br />
 
+    <!--  Display all Adaptive Quizzes for the currently selected Micro Lesson -->
     <div class="large-fonts-2">Quizzes</div>
 
     <div class="large-fonts" th:each="AdaptiveLearningQuiz,rowStat : ${AdaptiveLearningQuizzes}">
-        <span th:text="${AdaptiveLearningQuiz.scorableActivityName}"></span>
+        <a th:href="@{/view-microlesson-quiz(quizID=${AdaptiveLearningQuiz.id}, user_name=${LoggedInQPalXUser.firstName}, user_email=${LoggedInQPalXUser.getEmail()}, user_id=${LoggedInQPalXUser.getEmail()})}" onclick="window.open(this.href,'targetWindow',
+                                   'toolbar=no,
+                                    location=no,
+                                    status=no,
+                                    menubar=no,
+                                    scrollbars=yes,
+                                    resizable=yes,
+                                    width=1280,
+                                    height=980');
+                                    return false;">
+            <span th:text="${AdaptiveLearningQuiz.scorableActivityName}">&nbsp;&nbsp;&nbsp;</span>
+        </a>
     </div>
 
     <!--<div class="large-fonts">-->
