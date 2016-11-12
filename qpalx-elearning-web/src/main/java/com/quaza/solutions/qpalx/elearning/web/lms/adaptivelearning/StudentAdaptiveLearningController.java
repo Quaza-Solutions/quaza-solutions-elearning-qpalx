@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.web.lms.adaptivelearning;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningQuiz;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.QuestionBankItem;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveLessonStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveMicroLessonStatistics;
@@ -7,6 +8,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IAdaptiveLearningQuizService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IQuestionBankService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveLessonStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveMicroLessonStatisticsService;
@@ -76,6 +78,10 @@ public class StudentAdaptiveLearningController {
     private IQuestionBankService iQuestionBankService;
 
     @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.AdaptiveLearningQuizService")
+    private IAdaptiveLearningQuizService iAdaptiveLearningQuizService;
+
+    @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
     private IQPalXUserInfoPanelService qPalXUserInfoPanelService;
 
@@ -122,7 +128,7 @@ public class StudentAdaptiveLearningController {
 
     @RequestMapping(value = "/view-micro-lessons", method = RequestMethod.GET)
     public String viewAdaptiveMicroLessons(final Model model, @RequestParam("eLessonID") String eLessonID, @RequestParam("tutorialLevelID") String tutorialLevelID) {
-        LOGGER.info("Finding and displaying all micro lessons foe eLessonID: {}", eLessonID);
+        LOGGER.info("Finding and displaying all micro lessons for eLessonID: {}", eLessonID);
 
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
 
@@ -134,10 +140,11 @@ public class StudentAdaptiveLearningController {
         model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCourse.toString(), eLearningCourse);
 
         // Find all micro lessons for this lesson
-        //List<QPalXEMicroLesson> qPalXEMicroLessons = iqPalXEMicroLessonService.findQPalXEMicroLessons(qPalXELesson);
         List<AdaptiveMicroLessonStatistics> adaptiveMicroLessonStatisticsList = iAdaptiveMicroLessonStatisticsService.findAdaptiveMicroLessonStatisticsByLessonAndCourse(qPalXELesson, optionalUser.get());
-
         model.addAttribute(LessonsAdminAttributesE.QPalXEMicroLessons.toString(), adaptiveMicroLessonStatisticsList);
+
+        List<AdaptiveLearningQuiz> adaptiveLearningQuizList = iAdaptiveLearningQuizService.findAllByQPalXEMicroLesson(adaptiveMicroLessonStatisticsList.get(0).getMicroLessonID());
+        model.addAttribute(LessonsAdminAttributesE.AdaptiveLearningQuizzes.toString(), adaptiveLearningQuizList);
 
         // Find the current default TutorialLevelCalendar based on the selected value
         Long tId = NumberUtils.toLong(tutorialLevelID);
@@ -156,4 +163,45 @@ public class StudentAdaptiveLearningController {
         LOGGER.info("Returning micro lessons display page ==> micro-lesson-display");
         return ContentRootE.Student_Adaptive_Learning.getContentRootPagePath("micro-lesson-display");
     }
+
+    @RequestMapping(value = "/view-micro-lessons-with-quiz", method = RequestMethod.GET)
+    public String viewAdaptiveMicroLessonsByMicroLesson(final Model model, @RequestParam("eLessonID") String eLessonID, @RequestParam("tutorialLevelID") String tutorialLevelID, @RequestParam("microLessonID") String microLessonID) {
+        LOGGER.info("Finding and displaying all micro lessons for eLessonID: {}.  Displaying quizzes for microLessonID: {}", eLessonID, microLessonID);
+
+        Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
+
+        Long id = NumberUtils.toLong(eLessonID);
+        QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(id);
+        iStudentInfoOverviewPanelService.addStudentInfoOverviewWithLesson(model, qPalXELesson);
+
+        ELearningCourse eLearningCourse = qPalXELesson.geteLearningCourse();
+        model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCourse.toString(), eLearningCourse);
+
+        // Find all micro lessons for this lesson
+        List<AdaptiveMicroLessonStatistics> adaptiveMicroLessonStatisticsList = iAdaptiveMicroLessonStatisticsService.findAdaptiveMicroLessonStatisticsByLessonAndCourse(qPalXELesson, optionalUser.get());
+        model.addAttribute(LessonsAdminAttributesE.QPalXEMicroLessons.toString(), adaptiveMicroLessonStatisticsList);
+
+        Long microLessonIDToLoad = NumberUtils.toLong(microLessonID);
+        List<AdaptiveLearningQuiz> adaptiveLearningQuizList = iAdaptiveLearningQuizService.findAllByQPalXEMicroLesson(microLessonIDToLoad);
+        model.addAttribute(LessonsAdminAttributesE.AdaptiveLearningQuizzes.toString(), adaptiveLearningQuizList);
+
+        // Find the current default TutorialLevelCalendar based on the selected value
+        Long tId = NumberUtils.toLong(tutorialLevelID);
+        iTutorialLevelCalendarPanelService.addCalendarPanelInfo(model, tId);
+
+        // Add all attributes required for User information panel
+        qPalXUserInfoPanelService.addUserInfoAttributes(model);
+
+        // Add Micro-Lessons display attributes
+        model.addAttribute(AdaptiveLearningDisplayAttributeE.MicroLessonsDisplayEnabled.toString(), Boolean.TRUE.toString());
+
+        // Add randomly selected question bank item
+        QuestionBankItem questionBankItem = iQuestionBankService.findRandomQuestionBankItem(qPalXELesson);
+        model.addAttribute(CurriculumDisplayAttributeE.RandomQuestionBankItem.toString(), questionBankItem);
+
+        LOGGER.info("Returning micro lessons display page ==> micro-lesson-display");
+        return ContentRootE.Student_Adaptive_Learning.getContentRootPagePath("micro-lesson-display");
+    }
+
+
 }
