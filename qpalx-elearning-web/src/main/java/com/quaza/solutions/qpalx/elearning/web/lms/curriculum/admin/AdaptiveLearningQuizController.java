@@ -66,7 +66,7 @@ public class AdaptiveLearningQuizController {
 
         Long microLessonID = NumberUtils.toLong(microlessonID);
         QPalXEMicroLesson qPalXEMicroLesson = iqPalXEMicroLessonService.findByID(microLessonID);
-        List<AdaptiveLearningQuiz> adaptiveLearningQuizzes = iAdaptiveLearningQuizService.findAllByQPalXEMicroLesson(qPalXEMicroLesson);
+        List<AdaptiveLearningQuiz> adaptiveLearningQuizzes = iAdaptiveLearningQuizService.findAllByQPalXEMicroLesson(qPalXEMicroLesson.getId());
 
         model.addAttribute(LessonsAdminAttributesE.AdaptiveLearningQuizzes.toString(), adaptiveLearningQuizzes);
 

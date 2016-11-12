@@ -48,10 +48,10 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
     }
 
     @Override
-    public List<AdaptiveLearningQuiz> findAllByQPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson) {
-        Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
-        LOGGER.debug("Finding all AdaptiveLearningQuiz for qPalXEMicroLesson: {}", qPalXEMicroLesson);
-        return iAdaptiveLearningQuizRepository.findByQPalXEMicroLesson(qPalXEMicroLesson);
+    public List<AdaptiveLearningQuiz> findAllByQPalXEMicroLesson(Long qPalXEMicroLessonID) {
+        Assert.notNull(qPalXEMicroLessonID, "qPalXEMicroLessonID cannot be null");
+        LOGGER.debug("Finding all AdaptiveLearningQuiz for qPalXEMicroLesson: {}", qPalXEMicroLessonID);
+        return iAdaptiveLearningQuizRepository.findByQPalXEMicroLesson(qPalXEMicroLessonID);
     }
 
     @Transactional
