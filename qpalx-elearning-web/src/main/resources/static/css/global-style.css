@@ -55,16 +55,16 @@ color: #84c756;
 }
 
 .logo {
-	background-image:url("../images/assets/platform/qpalx-ecosystem-log.png");
+	background-image:url("../images/assets/platform/qpalx-ecosystem-logo.png");
 	background-attachment: scroll;
-	background-repeat: no-repeat;
-	background-origin: border-box;
-    background-position: left top;
-	background-size: cover;
-	position: relative;
-	top: 40px;
-	height: 80px;
-	width: 273px;
+    	background-repeat: no-repeat;
+    	background-origin: border-box;
+        background-position: left top;
+    	background-size: cover;
+    	position: relative;
+    	top: 20px;
+    	height: 107px;
+    	width: 274px;
 }
 .middle {
 	background-image:url("../images/assets/homepage/explainer-background.png");

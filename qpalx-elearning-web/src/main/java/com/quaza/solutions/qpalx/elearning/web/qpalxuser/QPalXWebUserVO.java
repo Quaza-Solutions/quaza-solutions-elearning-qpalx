@@ -44,6 +44,8 @@ public class QPalXWebUserVO implements IQPalXUserVO {
 //    @Size(min=2, max=10)
     private String password;
 
+    private String passwordConfirm;
+
     private Long registeredByUserID;
 
     //    @NotNull
@@ -131,6 +133,14 @@ public class QPalXWebUserVO implements IQPalXUserVO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     public Long getRegisteredByUserID() {
@@ -297,6 +307,7 @@ public class QPalXWebUserVO implements IQPalXUserVO {
                 .append("email", email)
                 .append("mobilePhoneNumber", mobilePhoneNumber)
                 .append("password", password)
+                .append("passwordConfirm", passwordConfirm)
                 .append("registeredByUserID", registeredByUserID)
                 .append("municipalityID", municipalityID)
                 .append("subscriptionID", subscriptionID)

@@ -9,6 +9,13 @@ public enum DomainDataDisplayAttributeE {
 
     ProficiencyRankings,
 
+    SubscriptionInfo,
+
+    SubscriptionPurchaseDate,
+
+    DaysTillSubscriptionExpire,
+
+    DisplaySubscriptionRenewal
     ;
 
 }

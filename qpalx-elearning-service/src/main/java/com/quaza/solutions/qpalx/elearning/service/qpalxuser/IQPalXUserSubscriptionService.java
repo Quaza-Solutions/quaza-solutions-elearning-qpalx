@@ -15,6 +15,8 @@ public interface IQPalXUserSubscriptionService {
 
 
 
+    public void updateQPalXUserInfo(QPalXUser qPalXUser, IQPalXUserVO iqPalXUserVO);
+
     /**
      * Create a brand new QPalXUser without a Tutorial Subscription.  This is generally used to create all non Student users.
      *

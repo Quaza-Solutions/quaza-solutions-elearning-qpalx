@@ -17,6 +17,7 @@
     <!-- Main Header section -->
     <header>
         <form id="QPalXLoginForm" method="post" th:action="@{/login}">
+
             <div class="row">
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 logo"></div>
@@ -34,6 +35,14 @@
                 </div>
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
             </div>
+
+            <!-- Display invalid login information panel -->
+            <div class="row" th:if="${CredentialsAuthentication} == 'Invalid Login Detected'">
+                <div class="alert alert-danger fade in">
+                    Login details could not be verified, please try again.
+                </div>
+            </div>
+
         </form>
     </header>
 

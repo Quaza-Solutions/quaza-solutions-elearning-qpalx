@@ -16,7 +16,11 @@ public enum LessonsAdminAttributesE {
 
     AdaptiveLearningQuiz,
 
-    AdaptiveLearningQuizzes
+    AdaptiveLearningQuizzes,
+
+    CoreCurriculumOverallProgress,
+
+    ElectiveCurriculumOverallProgress
     ;
 
 }
