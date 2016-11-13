@@ -144,4 +144,17 @@ public class QPalXLessonAdminController {
             iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
         }
     }
+
+    @RequestMapping(value = "/delete-lesson", method = RequestMethod.GET)
+    public void deleteQPalXELessons(final Model model, @RequestParam("qpalxELessonID") String qpalxELessonID, HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("Attempting to delete QPalX Lesson with ID: {}", qpalxELessonID);
+
+        // Load up the lesson and then delete
+        Long lessonID = NumberUtils.toLong(qpalxELessonID);
+        QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(lessonID);
+        ELearningCourse eLearningCourse = qPalXELesson.geteLearningCourse();
+
+        String targetURL = "/view-admin-qpalx-elessons?eLearningCourseID=" + eLearningCourse.getId();
+        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+    }
 }

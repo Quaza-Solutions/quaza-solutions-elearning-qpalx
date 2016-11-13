@@ -92,7 +92,7 @@ public class FileUploadUtil implements IFileUploadUtil {
         LOGGER.info("Creating new ELearningMediaContent for ilmsMediaContentVO: {}", ilmsMediaContentVO);
 
         // Check to see if the File type uploaded is supported by
-        String fileName = multipartFile.getOriginalFilename();
+        String fileName = getUniqueSafeFileName(multipartFile.getOriginalFilename());
         Optional<MediaContentTypeE> optional =  iqPalXTutorialContentService.getMediaContentType(fileName);
 
         if(optional.isPresent()) {
@@ -101,7 +101,7 @@ public class FileUploadUtil implements IFileUploadUtil {
                 String fileUploadDirectory = iqPalXTutorialContentService.getTutorialContentTypeUploadPhysicalDirectory(optional.get(), ilmsMediaContentVO.getSelectedQPalXTutorialContentTypeE());
                 LOGGER.info("LMS Media content file will be uploaded to directory: {}", fileUploadDirectory);
 
-                File mediaContentFile = writeFileToDisk(multipartFile, fileUploadDirectory);
+                File mediaContentFile = writeFileToDisk(multipartFile, fileName, fileUploadDirectory);
                 if (mediaContentFile != null) {
                     ELearningMediaContent eLearningMediaContent = iqPalXTutorialContentService.buildELearningMediaContent(mediaContentFile, ilmsMediaContentVO.getSelectedQPalXTutorialContentTypeE());
                     return eLearningMediaContent;
@@ -132,7 +132,7 @@ public class FileUploadUtil implements IFileUploadUtil {
             String fileUploadDirectory = ieLearningCourseActivityService.getMediaContentTypeUploadPhysicalDirectory(mediaContentTypeE, learningActivityE);
             LOGGER.info("Uploading Course activity media content file:> {} to physical location:> {}", fileName, fileUploadDirectory);
 
-            File mediaContentFile = writeFileToDisk(multipartFile, fileUploadDirectory);
+            File mediaContentFile = writeFileToDisk(multipartFile, fileName, fileUploadDirectory);
             if (mediaContentFile != null) {
                 ELearningMediaContent eLearningMediaContent = ieLearningCourseActivityService.buildELearningMediaContent(mediaContentFile, learningActivityE);
                 return eLearningMediaContent;
@@ -145,8 +145,25 @@ public class FileUploadUtil implements IFileUploadUtil {
     }
 
 
-    private File writeFileToDisk(MultipartFile multipartFile, String fileLocation) {
-        String fileName = multipartFile.getOriginalFilename();
+    protected String getUniqueSafeFileName(String originalFileName) {
+        // Replace all spaces with underscore
+        String newFileName = originalFileName.replace(" ", "_");
+        String actualName = newFileName.substring(0, newFileName.indexOf("."));
+        String fileExtension = newFileName.substring(newFileName.indexOf(".") + 1);
+
+        // This will append current time in millis to make sure that file name will always be unique.
+        return new StringBuffer()
+                .append(actualName)
+                .append("_")
+                .append(System.currentTimeMillis())
+                .append(".")
+                .append(fileExtension)
+                .toString();
+    }
+
+
+    private File writeFileToDisk(MultipartFile multipartFile, String uniqueSafefileName, String fileLocation) {
+        String fileName = uniqueSafefileName;
 
         try {
             // First we need to upload and output to local directory

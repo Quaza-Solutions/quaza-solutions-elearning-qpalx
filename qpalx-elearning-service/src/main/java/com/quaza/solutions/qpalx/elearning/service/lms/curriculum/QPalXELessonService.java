@@ -111,4 +111,13 @@ public class QPalXELessonService implements IQPalXELessonService {
 
         iqPalXELessonRepository.save(qPalXELesson);
     }
+
+    @Transactional
+    @Override
+    public void deleteQPalXELesson(QPalXELesson qPalXELesson) {
+        Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+        LOGGER.debug("Attempting to delete qPalXELesson with ID: {}", qPalXELesson.getId());
+
+        // First check to see if there are any micro lesson attempts, quiz attempts, question bank attempts etc
+    }
 }
