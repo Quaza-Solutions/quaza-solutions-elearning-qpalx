@@ -89,7 +89,10 @@ public class AdaptiveLessonStatisticsService implements IAdaptiveLessonStatistic
         LOGGER.info("Finding all AdaptiveLessonStatistics for tutorialLevelCalendar: {} and eLearningCourse: {}", tutorialLevelCalendar.getCalendarItemName(), eLearningCourse.getCourseName());
         LOGGER.info("Running SQL:=>  {}", lessonStatisticsSql);
 
-        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(),  qPalXUser.getId(), eLearningCourse.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), qPalXUser.getId()};
+        Long [] uniqueIDs = new Long[] {
+                qPalXUser.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(),
+                qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId()
+        };
         List<AdaptiveLessonStatistics> results = jdbcTemplate.query(lessonStatisticsSql, uniqueIDs, AdaptiveLessonStatistics.newRowMapper());
         return results;
     }

@@ -147,7 +147,7 @@ public class StudentOverallProgressStatistics {
             Integer totalNumberOfQuestionBankItems = resultSet.getInt("TotalNumberOfQuestionBankItems");
             Integer uniqueMicroLessonsAttempted = resultSet.getInt("UniqueMicroLessonsAttempted");
             Integer uniqueQuizzesAttempted = resultSet.getInt("UniqueQuizzesAttempted");
-            Integer uniqueQuestionBankItemsAttempted = resultSet.getInt("UniqueMicroLessonsAttempted");
+            Integer uniqueQuestionBankItemsAttempted = resultSet.getInt("UniqueQuestionBankItemsAttempted");
             return new StudentOverallProgressStatistics(studentID, curriculumID, curriculumName, curriculumDescription, curriculumIcon, curriculumType, totalNumberOfLessons, totalNumberOfMicroLessons, totalNumberOfQuizzes, totalNumberOfQuestionBankItems, uniqueMicroLessonsAttempted, uniqueQuizzesAttempted, uniqueQuestionBankItemsAttempted);
         }
     }
