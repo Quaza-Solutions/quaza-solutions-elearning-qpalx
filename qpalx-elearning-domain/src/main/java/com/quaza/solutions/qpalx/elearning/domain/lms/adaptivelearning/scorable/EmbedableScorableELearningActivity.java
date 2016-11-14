@@ -16,7 +16,7 @@ import javax.persistence.Enumerated;
  * @author manyce400
  */
 @Embeddable
-public class EmbedabbleScorableELearningActivity {
+public class EmbedableScorableELearningActivity {
 
 
 
@@ -27,7 +27,7 @@ public class EmbedabbleScorableELearningActivity {
     @Enumerated(EnumType.STRING)
     private QPalXTutorialContentTypeE qPalXTutorialContentTypeE;
 
-    public EmbedabbleScorableELearningActivity() {
+    public EmbedableScorableELearningActivity() {
 
     }
 
@@ -53,7 +53,7 @@ public class EmbedabbleScorableELearningActivity {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        EmbedabbleScorableELearningActivity that = (EmbedabbleScorableELearningActivity) o;
+        EmbedableScorableELearningActivity that = (EmbedableScorableELearningActivity) o;
 
         return new EqualsBuilder()
                 .append(scorableActivityID, that.scorableActivityID)
@@ -83,7 +83,7 @@ public class EmbedabbleScorableELearningActivity {
 
     public static final class Builder {
 
-        public EmbedabbleScorableELearningActivity embedabbleScorableELearningActivity = new EmbedabbleScorableELearningActivity();
+        public EmbedableScorableELearningActivity embedabbleScorableELearningActivity = new EmbedableScorableELearningActivity();
 
         public Builder scorableActivityID(Long scorableActivityID) {
             embedabbleScorableELearningActivity.scorableActivityID = scorableActivityID;
@@ -95,7 +95,7 @@ public class EmbedabbleScorableELearningActivity {
             return this;
         }
 
-        public EmbedabbleScorableELearningActivity build() {
+        public EmbedableScorableELearningActivity build() {
             return embedabbleScorableELearningActivity;
         }
 

@@ -34,7 +34,7 @@ public class AdaptiveLearningExperience {
 
     // Provides information on Media Content that is associated with this activity.
     @Embedded
-    private EmbedabbleScorableELearningActivity embedabbleScorableELearningActivity;
+    private EmbedableScorableELearningActivity embedableScorableELearningActivity;
 
     // Calculated proficiency score that the user got on completion of this proficiencyScore
     @Column(name="ProficiencyScore", nullable=false)
@@ -76,12 +76,12 @@ public class AdaptiveLearningExperience {
     }
 
 
-    public EmbedabbleScorableELearningActivity getEmbedabbleScorableELearningActivity() {
-        return embedabbleScorableELearningActivity;
+    public EmbedableScorableELearningActivity getEmbedableScorableELearningActivity() {
+        return embedableScorableELearningActivity;
     }
 
-    public void setEmbedabbleScorableELearningActivity(EmbedabbleScorableELearningActivity embedabbleScorableELearningActivity) {
-        this.embedabbleScorableELearningActivity = embedabbleScorableELearningActivity;
+    public void setEmbedableScorableELearningActivity(EmbedableScorableELearningActivity embedableScorableELearningActivity) {
+        this.embedableScorableELearningActivity = embedableScorableELearningActivity;
     }
 
     public Double getProficiencyScore() {
@@ -128,7 +128,7 @@ public class AdaptiveLearningExperience {
 
         return new EqualsBuilder()
                 .append(id, that.id)
-                .append(embedabbleScorableELearningActivity, that.embedabbleScorableELearningActivity)
+                .append(embedableScorableELearningActivity, that.embedableScorableELearningActivity)
                 .append(proficiencyScore, that.proficiencyScore)
                 .append(proficiencyScoreRangeE, that.proficiencyScoreRangeE)
                 .append(learningExperienceStartDate, that.learningExperienceStartDate)
@@ -140,7 +140,7 @@ public class AdaptiveLearningExperience {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(embedabbleScorableELearningActivity)
+                .append(embedableScorableELearningActivity)
                 .append(proficiencyScore)
                 .append(proficiencyScoreRangeE)
                 .append(learningExperienceStartDate)
@@ -152,7 +152,7 @@ public class AdaptiveLearningExperience {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("embedabbleScorableELearningActivity", embedabbleScorableELearningActivity)
+                .append("embedabbleScorableELearningActivity", embedableScorableELearningActivity)
                 .append("proficiencyScore", proficiencyScore)
                 .append("proficiencyScoreRangeE", proficiencyScoreRangeE)
                 .append("learningExperienceStartDate", learningExperienceStartDate)
@@ -167,8 +167,8 @@ public class AdaptiveLearningExperience {
         private Builder() {
         }
 
-        public Builder embedabbleScorableELearningActivity(final EmbedabbleScorableELearningActivity embedabbleScorableELearningActivity) {
-            instance.embedabbleScorableELearningActivity = embedabbleScorableELearningActivity;
+        public Builder embedableScorableELearningActivity(final EmbedableScorableELearningActivity embedableScorableELearningActivity) {
+            instance.embedableScorableELearningActivity = embedableScorableELearningActivity;
             return this;
         }
 

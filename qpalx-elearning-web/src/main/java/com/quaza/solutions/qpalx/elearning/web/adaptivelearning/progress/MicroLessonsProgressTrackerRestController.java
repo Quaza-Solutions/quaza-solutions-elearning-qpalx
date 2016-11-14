@@ -41,7 +41,7 @@ public class MicroLessonsProgressTrackerRestController {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(MicroLessonsProgressTrackerRestController.class);
 
     @RequestMapping(value = "/micro-lesson-progress-tracker", method = RequestMethod.GET)
-    public String recordMicroLessonStatisticsEvent(@RequestParam("microLessonID") String microLessonID, @RequestParam("uniqueQPalxUserKey") String uniqueQPalxUserKey) {
+    public void recordMicroLessonStatisticsEvent(@RequestParam("microLessonID") String microLessonID, @RequestParam("uniqueQPalxUserKey") String uniqueQPalxUserKey) {
         LOGGER.info("Attempting to record MicroLesson with ID: {} progress for QPalXUser with email: {}", microLessonID, uniqueQPalxUserKey);
 
         if(microLessonID != null && uniqueQPalxUserKey != null) {
@@ -55,9 +55,6 @@ public class MicroLessonsProgressTrackerRestController {
             LOGGER.info("Recording adaptive learning statistics event....");
             iAdaptiveLessonStatisticsService.recordAdaptiveLessonStatistics(qPalXEMicroLesson, qPalXUser);
         }
-
-        System.out.println("Recording statistics for microLessonID: "+microLessonID);
-        return "This is a test";
     }
 
 }

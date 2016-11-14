@@ -1,16 +1,37 @@
 package com.quaza.solutions.qpalx.elearning.web.adaptivelearning.progress;
 
-import org.springframework.stereotype.Controller;
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IAdaptiveLearningExperienceService;
+import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author manyce400
  */
-@Controller
+@RestController
 public class AdaptiveQuizScoreProgressController {
 
+
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.StatisticsExecutorService")
+    private ListeningExecutorService listeningExecutorService;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxUserService")
+    private IQPalxUserService iqPalxUserService;
+
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.AdaptiveLearningExperienceService")
+    private IAdaptiveLearningExperienceService iAdaptiveLearningExperienceService;
 
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AdaptiveQuizScoreProgressController.class);
@@ -24,6 +45,23 @@ public class AdaptiveQuizScoreProgressController {
                                                @RequestParam("quiz_id") String quizId, @RequestParam("quiz_name") String quizName, @RequestParam("time_taken") String timeTaken, @RequestParam("user_total_unanswered") String userTotalUnanswered,
                                                @RequestParam("quiz_title") String quizTitle, @RequestParam("status") String status) {
         LOGGER.info("Recording new quiz score for userName: {} userPercentMarks: {}", userName, userPercentMarks);
+
+        // Look up the user that just took this quiz
+        QPalXUser qPalXUser = iqPalxUserService.findQPalXUserBySuccessID(userName);
+        LOGGER.info("Found qPalXUser with userName: {}", userName);
+
+        if(qPalXUser != null) {
+            Runnable quizScoreCaptureTask = () -> {
+                LOGGER.info("Running capture of quiz score task....");
+
+                QPalXTutorialContentTypeE qPalXTutorialContentTypeE = QPalXTutorialContentTypeE.Quiz;
+                Double proficiencyScore = Double.valueOf(userPercentMarks);
+                Long scoreableActivityID = Long.valueOf(quizId);
+                iAdaptiveLearningExperienceService.buildAndSaveAdaptiveLearningExperience(qPalXUser, qPalXTutorialContentTypeE, proficiencyScore, scoreableActivityID);
+            };
+
+            listeningExecutorService.submit(quizScoreCaptureTask);
+        }
     }
 
 }
