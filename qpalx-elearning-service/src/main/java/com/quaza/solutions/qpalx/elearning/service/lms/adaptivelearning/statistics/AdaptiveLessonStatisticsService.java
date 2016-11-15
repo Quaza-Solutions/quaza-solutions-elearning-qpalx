@@ -87,7 +87,7 @@ public class AdaptiveLessonStatisticsService implements IAdaptiveLessonStatistic
         Assert.notNull(eLearningCourse, "eLearningCourse cannot be null");
 
         LOGGER.info("Finding all AdaptiveLessonStatistics for tutorialLevelCalendar: {} and eLearningCourse: {}", tutorialLevelCalendar.getCalendarItemName(), eLearningCourse.getCourseName());
-        LOGGER.info("Running SQL:=>  {}", lessonStatisticsSql);
+        LOGGER.debug("Running SQL:=>  {}", lessonStatisticsSql);
 
         Long [] uniqueIDs = new Long[] {
                 qPalXUser.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(),
