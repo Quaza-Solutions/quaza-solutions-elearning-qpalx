@@ -12,6 +12,7 @@ import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalXUserSubscript
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.DomainDataDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.WebOperationErrorAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.QPalXWebUserVO;
@@ -87,6 +88,7 @@ public class AccountInfoController {
 
         // Add display attributes for Student information panel.
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
         // IF this is a result of a redirect add any error messages to model
         iRedirectStrategyExecutor.addWebOperationRedirectErrorsToModel(model, request);

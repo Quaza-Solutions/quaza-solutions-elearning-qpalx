@@ -110,6 +110,7 @@ public class ApplicationHomeController {
             if (QPalxUserTypeE.STUDENT == optionalUser.get().getUserType()) {
                 // Add all attributes required for User information panel
                 qPalXUserInfoPanelService.addUserInfoAttributes(model);
+                model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
                 addQPalXUserDetailsToResponse(model, curriculumType, optionalUser.get());
                 return ContentRootE.Student_Home.getContentRootPagePath("homepage");

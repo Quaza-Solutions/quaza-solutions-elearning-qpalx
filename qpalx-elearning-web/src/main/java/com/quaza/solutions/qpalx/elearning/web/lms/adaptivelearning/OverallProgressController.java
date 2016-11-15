@@ -5,6 +5,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IStudentOverallProgressStatisticsService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
+import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.lms.curriculum.enums.LessonsAdminAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
@@ -48,6 +49,7 @@ public class OverallProgressController {
 
         // Add display attributes for Student information panel.
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
 
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
 
