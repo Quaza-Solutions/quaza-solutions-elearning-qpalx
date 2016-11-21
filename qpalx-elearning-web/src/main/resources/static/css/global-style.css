@@ -884,7 +884,7 @@ height: 200px;
 
 .cents-box {
 	border: 1px solid gray;
-	width: 300px;
+	width: 50%;
 	height: 400px;
 	border-radius: 20px;
 }
@@ -893,17 +893,16 @@ height: 200px;
 }
 
 .cents-box-2 {
-/*	margin: 60px 0 0 190px;*/
 	position: absolute;
 	top: 60px;
-	left: 190px;
+	left: 36%;
 }
 
 .cents-box-5 {
-/*	margin: 60px 0 0 40px;*/
+/*	margin: 60px 0 0 40px; left: 80px;*/
 position: relative;
 top: 60px;
-left: 80px;
+left: 12%;
 }
 
 .cents {
