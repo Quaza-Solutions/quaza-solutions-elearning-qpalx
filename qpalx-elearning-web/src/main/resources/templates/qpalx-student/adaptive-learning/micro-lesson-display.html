@@ -83,7 +83,7 @@
     <div class="large-fonts-2">Quizzes</div>
 
     <div class="large-fonts" th:each="AdaptiveLearningQuiz,rowStat : ${AdaptiveLearningQuizzes}">
-        <a th:href="@{/view-microlesson-quiz(quizID=${AdaptiveLearningQuiz.id}, user_name=${LoggedInQPalXUser.firstName}, user_email=${LoggedInQPalXUser.getEmail()}, user_id=${LoggedInQPalXUser.getEmail()})}" onclick="window.open(this.href,'targetWindow',
+        <a th:href="@{/view-microlesson-quiz(quizID=${AdaptiveLearningQuiz.id}, user_name=${LoggedInQPalXUser.successID}, user_email=${LoggedInQPalXUser.getEmail()}, user_id=${LoggedInQPalXUser.id})}" onclick="window.open(this.href,'targetWindow',
                                    'toolbar=no,
                                     location=no,
                                     status=no,

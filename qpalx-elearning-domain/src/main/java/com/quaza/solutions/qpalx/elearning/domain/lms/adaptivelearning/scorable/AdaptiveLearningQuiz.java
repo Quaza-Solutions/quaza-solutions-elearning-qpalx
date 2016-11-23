@@ -23,7 +23,8 @@ public class AdaptiveLearningQuiz implements IScorableActivity {
     @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="ScorableActivityID", nullable=false)
+    // Unique scorable activity id
+    @Column(name="ScorableActivityID", nullable=false, unique =true)
     private Long scorableActivityID;
 
     @Column(name="ScorableActivityName", nullable=false, length=255)

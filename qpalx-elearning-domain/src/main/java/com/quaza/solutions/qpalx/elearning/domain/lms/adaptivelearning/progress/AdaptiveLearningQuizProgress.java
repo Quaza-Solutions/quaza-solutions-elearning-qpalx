@@ -27,7 +27,7 @@ public class AdaptiveLearningQuizProgress {
 
     // Number of times Student user has attempted/taken this adaptive quiz
     @Column(name="NumberOfAttempts", nullable=false)
-    private Long numberOfAttempts;
+    private Integer numberOfAttempts;
 
     // DateTime that the attempt was made
     @Column(name="LastAttemptEntryDate", nullable=true)
@@ -67,12 +67,17 @@ public class AdaptiveLearningQuizProgress {
         this.adaptiveLearningQuizID = adaptiveLearningQuizID;
     }
 
-    public Long getNumberOfAttempts() {
+    public Integer getNumberOfAttempts() {
         return numberOfAttempts;
     }
 
-    public void setNumberOfAttempts(Long numberOfAttempts) {
+    public void setNumberOfAttempts(Integer numberOfAttempts) {
         this.numberOfAttempts = numberOfAttempts;
+    }
+
+    public synchronized void incrementNumberOfAttempts() {
+        int incremented = numberOfAttempts.intValue() + 1;
+        setNumberOfAttempts(incremented);
     }
 
     public DateTime getLastAttemptEntryDate() {
@@ -111,7 +116,7 @@ public class AdaptiveLearningQuizProgress {
             return this;
         }
 
-        public Builder numberOfAttempts(Long numberOfAttempts) {
+        public Builder numberOfAttempts(Integer numberOfAttempts) {
             adaptiveLearningQuizProgress.numberOfAttempts = numberOfAttempts;
             return this;
         }
