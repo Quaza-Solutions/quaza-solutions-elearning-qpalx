@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.ListeningExecutorService;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IAdaptiveLearningExperienceService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveLearningQuizStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,10 +29,13 @@ public class AdaptiveQuizScoreProgressController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxUserService")
     private IQPalxUserService iqPalxUserService;
 
-
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.AdaptiveLearningExperienceService")
     private IAdaptiveLearningExperienceService iAdaptiveLearningExperienceService;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.AdaptiveLearningQuizStatisticsService")
+    private IAdaptiveLearningQuizStatisticsService iAdaptiveLearningQuizStatisticsService;
 
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AdaptiveQuizScoreProgressController.class);
@@ -46,7 +50,7 @@ public class AdaptiveQuizScoreProgressController {
                                                @RequestParam("quiz_title") String quizTitle, @RequestParam("status") String status) {
         LOGGER.info("Recording new quiz score for userName: {} userPercentMarks: {}", userName, userPercentMarks);
 
-        // Look up the user that just took this quiz
+        // Look up the user that just took this quiz mapping back using User Success ID.
         QPalXUser qPalXUser = iqPalxUserService.findQPalXUserBySuccessID(userName);
         LOGGER.info("Found qPalXUser with userName: {}", userName);
 
@@ -54,10 +58,41 @@ public class AdaptiveQuizScoreProgressController {
             Runnable quizScoreCaptureTask = () -> {
                 LOGGER.info("Running capture of quiz score task....");
 
+                // Record the AdaptiveLearning Experience
                 QPalXTutorialContentTypeE qPalXTutorialContentTypeE = QPalXTutorialContentTypeE.Quiz;
                 Double proficiencyScore = Double.valueOf(userPercentMarks);
                 Long scoreableActivityID = Long.valueOf(quizId);
                 iAdaptiveLearningExperienceService.buildAndSaveAdaptiveLearningExperience(qPalXUser, qPalXTutorialContentTypeE, proficiencyScore, scoreableActivityID);
+
+                // Record AdaptiveLearning Quiz progress statistics
+                iAdaptiveLearningQuizStatisticsService.recordAdaptiveLearningQuizStatistic(scoreableActivityID, qPalXUser);
+            };
+
+            listeningExecutorService.submit(quizScoreCaptureTask);
+        }
+    }
+
+
+    @RequestMapping(value = "/test-quiz-save", method = RequestMethod.GET)
+    public void testRecordQuiz(@RequestParam("user_name") String userName, @RequestParam("user_percent_marks") String userPercentMarks, @RequestParam("quiz_id") String quizId) {
+        LOGGER.info("Recording new quiz score for userName: {} userPercentMarks: {}", userName, userPercentMarks);
+
+        // Look up the user that just took this quiz mapping back using User Success ID.
+        QPalXUser qPalXUser = iqPalxUserService.findQPalXUserBySuccessID(userName);
+        LOGGER.info("Found qPalXUser with userName: {}", qPalXUser.getEmail());
+
+        if(qPalXUser != null) {
+            Runnable quizScoreCaptureTask = () -> {
+                LOGGER.info("Running capture of quiz score task....");
+
+                // Record the AdaptiveLearning Experience
+                QPalXTutorialContentTypeE qPalXTutorialContentTypeE = QPalXTutorialContentTypeE.Quiz;
+                Double proficiencyScore = Double.valueOf(userPercentMarks);
+                Long scoreableActivityID = Long.valueOf(quizId);
+                iAdaptiveLearningExperienceService.buildAndSaveAdaptiveLearningExperience(qPalXUser, qPalXTutorialContentTypeE, proficiencyScore, scoreableActivityID);
+
+                // Record AdaptiveLearning Quiz progress statistics
+                iAdaptiveLearningQuizStatisticsService.recordAdaptiveLearningQuizStatistic(scoreableActivityID, qPalXUser);
             };
 
             listeningExecutorService.submit(quizScoreCaptureTask);

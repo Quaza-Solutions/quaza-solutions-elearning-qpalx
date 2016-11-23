@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <!-- Required meta tags always come first -->
     <meta charset="utf-8"/>
@@ -29,17 +28,19 @@
     <div class="col-md-2" onClick="hrFunctionC()" style="cursor: pointer;"><span class="three-circle-gray" id="circle-3"><span class="three-gray" id="number-3">3</span></span><span id="text-3"><b> Proficiency</b></span><hr class="black-hr-2" id="hr-3" /></div>
     <div class="clearfix"></div>
 
-    <form action="" method="get">
+    <form th:action="@{/customize-proficiency-ranking}" th:object="${QPalXWebUserVO}" method="post">
         <div class="row">
             <div class="col-md-6">
-                <input type="radio" id="check-box-one" value="a" name="subscriptions" onClick="displayCheckmark1();" />
+                <!-- Note that value of radio is set to ID for monthly on QPalXSubscription.  This needs to be changed if table changes -->
+                <input type="radio" id="check-box-one" value="1" name="subscriptions" onClick="displayCheckmark1();" th:field="*{subscriptionID}"/>
                 <label for="check-box-one" class="cents-box cents-box-2">
                     <img class="cents" src="images/2cents.png" /><span id="one"></span><p class="centered large-text"><b>Monthly</b></p><p class="centered">You will be billed on a monthly basis</p></label>
 
             </div>
 
             <div class="col-md-6">
-                <input type="radio" id="check-box-two" value="b" name="subscriptions" onClick="displayCheckmark2();" />
+                <!-- Note that value of radio is set to ID for Yearly on QPalXSubscription.  This needs to be changed if table changes -->
+                <input type="radio" id="check-box-two" value="3" name="subscriptions" onClick="displayCheckmark2();" th:field="*{subscriptionID}"/>
                 <label for="check-box-two" class="cents-box cents-box-5" id="">
                     <img class="cents" src="images/5cents.png" /><span id="two"></span><p class="centered large-text"><b>Annually</b></p><p class="centered side-margin">You will be charged on a yearly basis at a discounted price.</p>
                 </label>
@@ -106,9 +107,15 @@
             <div class="col-md-2"></div>
         </div>
 
-        <div class="row">
+        <div th:if="${QPalXWebUserVO.redemptionFailure == true}" class="row">
             <div class="col-md-3"></div>
-            <div class="col-md-6"><input type="text" class="form-control" id="form-text-2" />
+            <div class="col-md-6"> <label for="redemptionFail" style="color:#FF0000;">Non-Existent/Already-Used Value Please Try Again</label><input type="text" th:field="*{prepaidValue}" class="form-control" style="border:1px solid #ff0000" id="redemptionFail"/>
+                <div class="col-md-3"></div></div>
+        </div>
+
+        <div th:if="${QPalXWebUserVO.redemptionFailure == false}" class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6"> <input type="text" th:field="*{prepaidValue}" class="form-control"/>
                 <div class="col-md-3"></div></div>
         </div>
 
