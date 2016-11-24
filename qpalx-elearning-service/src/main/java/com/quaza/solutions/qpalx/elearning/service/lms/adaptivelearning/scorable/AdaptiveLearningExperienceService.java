@@ -42,6 +42,8 @@ public class AdaptiveLearningExperienceService implements IAdaptiveLearningExper
         Assert.notNull(proficiencyScore, "proficiencyScore cannot be null");
         Assert.notNull(scoreableActivityID, "scorableActivityID cannot be null");
 
+        LOGGER.info("Saving new AdaptiveLearningExperience for qPalXUser: {}", qPalXUser.getEmail());
+
         EmbedableScorableELearningActivity embedableScorableELearningActivity = EmbedableScorableELearningActivity.builder()
                 .scorableActivityID(scoreableActivityID)
                 .qPalXTutorialContentTypeE(qPalXTutorialContentTypeE)
