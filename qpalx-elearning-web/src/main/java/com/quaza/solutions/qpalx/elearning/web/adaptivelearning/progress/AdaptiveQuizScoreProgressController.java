@@ -65,7 +65,7 @@ public class AdaptiveQuizScoreProgressController {
                 iAdaptiveLearningExperienceService.buildAndSaveAdaptiveLearningExperience(qPalXUser, qPalXTutorialContentTypeE, proficiencyScore, scoreableActivityID);
 
                 // Record AdaptiveLearning Quiz progress statistics
-                iAdaptiveLearningQuizStatisticsService.recordAdaptiveLearningQuizStatistic(scoreableActivityID, qPalXUser);
+                iAdaptiveLearningQuizStatisticsService.recordAdaptiveLearningQuizProgress(scoreableActivityID, qPalXUser);
             };
 
             listeningExecutorService.submit(quizScoreCaptureTask);
@@ -92,7 +92,7 @@ public class AdaptiveQuizScoreProgressController {
                 iAdaptiveLearningExperienceService.buildAndSaveAdaptiveLearningExperience(qPalXUser, qPalXTutorialContentTypeE, proficiencyScore, scoreableActivityID);
 
                 // Record AdaptiveLearning Quiz progress statistics
-                iAdaptiveLearningQuizStatisticsService.recordAdaptiveLearningQuizStatistic(scoreableActivityID, qPalXUser);
+                iAdaptiveLearningQuizStatisticsService.recordAdaptiveLearningQuizProgress(scoreableActivityID, qPalXUser);
             };
 
             listeningExecutorService.submit(quizScoreCaptureTask);

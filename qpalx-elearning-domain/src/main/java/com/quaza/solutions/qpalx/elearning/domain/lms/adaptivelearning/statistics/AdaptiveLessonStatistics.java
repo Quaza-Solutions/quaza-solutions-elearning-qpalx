@@ -149,9 +149,4 @@ public class AdaptiveLessonStatistics {
         }
     }
 
-
-    public static void main(String[] args) {
-        AdaptiveLessonStatistics ad = new AdaptiveLessonStatistics(100L, "", "", 1, 5, 1, 2, 0, 0);
-        System.out.println("Completion Rate = " + ad.getTotalLessonCompletionRate());
-    }
 }
