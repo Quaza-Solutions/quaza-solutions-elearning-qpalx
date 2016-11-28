@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.web.lms.adaptivelearning;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningQuiz;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLessonQuizStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.QuestionBankItem;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveLessonStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveMicroLessonStatistics;
@@ -10,6 +11,7 @@ import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IAdaptiveLearningQuizService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IQuestionBankService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveLearningQuizStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveLessonStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveMicroLessonStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseService;
@@ -82,6 +84,10 @@ public class StudentAdaptiveLearningController {
     private IAdaptiveLearningQuizService iAdaptiveLearningQuizService;
 
     @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.AdaptiveLearningQuizStatisticsService")
+    private IAdaptiveLearningQuizStatisticsService iAdaptiveLearningQuizStatisticsService;
+
+    @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
     private IQPalXUserInfoPanelService qPalXUserInfoPanelService;
 
@@ -143,8 +149,8 @@ public class StudentAdaptiveLearningController {
         List<AdaptiveMicroLessonStatistics> adaptiveMicroLessonStatisticsList = iAdaptiveMicroLessonStatisticsService.findAdaptiveMicroLessonStatisticsByLessonAndCourse(qPalXELesson, optionalUser.get());
         model.addAttribute(LessonsAdminAttributesE.QPalXEMicroLessons.toString(), adaptiveMicroLessonStatisticsList);
 
-        List<AdaptiveLearningQuiz> adaptiveLearningQuizList = iAdaptiveLearningQuizService.findAllByQPalXEMicroLesson(adaptiveMicroLessonStatisticsList.get(0).getMicroLessonID());
-        model.addAttribute(LessonsAdminAttributesE.AdaptiveLearningQuizzes.toString(), adaptiveLearningQuizList);
+        List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatisticsList = iAdaptiveLearningQuizStatisticsService.findMicroLessonStudentQuizStatistics(optionalUser.get(), adaptiveMicroLessonStatisticsList.get(0).getMicroLessonID());
+        model.addAttribute(LessonsAdminAttributesE.AdaptiveLearningQuizzes.toString(), adaptiveLessonQuizStatisticsList);
 
         // Find the current default TutorialLevelCalendar based on the selected value
         Long tId = NumberUtils.toLong(tutorialLevelID);

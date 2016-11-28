@@ -3,6 +3,8 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -34,6 +36,8 @@ public class AdaptiveLessonQuizStatistics {
     private DateTime learningExperienceCompletedDate;
 
     private QPalXTutorialContentTypeE qpalxTutorialContentType;
+
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-mm-dd HH:mm:ss.SSS");
 
 
     public AdaptiveLessonQuizStatistics() {
@@ -154,12 +158,23 @@ public class AdaptiveLessonQuizStatistics {
             adaptiveLessonQuizStatistics.setScorableActivityName(resultSet.getString("ScorableActivityName"));
             adaptiveLessonQuizStatistics.setProficiencyScore(resultSet.getDouble("ProficiencyScore"));
 
-            DateTime startDate = DateTime.parse(resultSet.getString("LearningExperienceStartDate"));
-            DateTime endDate = DateTime.parse(resultSet.getString("LearningExperienceCompletedDate"));
+            String date1 = resultSet.getString("LearningExperienceStartDate");
+            String date2 = resultSet.getString("LearningExperienceCompletedDate");
+            if (date1 != null && date2 != null) {
+                DateTime startDate = dateTimeFormatter.parseDateTime(date1);
+                DateTime endDate = dateTimeFormatter.parseDateTime(date2);
+                adaptiveLessonQuizStatistics.setLearningExperienceStartDate(startDate);
+                adaptiveLessonQuizStatistics.setLearningExperienceCompletedDate(endDate);
+            }
 
-            adaptiveLessonQuizStatistics.setLearningExperienceStartDate(startDate);
-            adaptiveLessonQuizStatistics.setLearningExperienceCompletedDate(endDate);
             return adaptiveLessonQuizStatistics;
         }
+    }
+
+
+    public static void main(String[] args) {
+        String test = "2016-11-27 19:34:26.0";
+        DateTime startDate = dateTimeFormatter.parseDateTime(test);
+        System.out.println("startDate = " + startDate);
     }
 }

@@ -88,14 +88,14 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
 
 
     @Override
-    public List<AdaptiveLessonQuizStatistics> findMicroLessonStudentQuizStatistics(QPalXUser qPalXUser, QPalXEMicroLesson qPalXEMicroLesson) {
+    public List<AdaptiveLessonQuizStatistics> findMicroLessonStudentQuizStatistics(QPalXUser qPalXUser, Long microLessonID) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
-        Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
+        Assert.notNull(microLessonID, "microLessonID cannot be null");
 
-        LOGGER.info("Finding Quizzes with statistics with microLessoID: {} for qPalXUser: {}", qPalXEMicroLesson.getId(), qPalXUser.getEmail());
-        LOGGER.debug("Running SQL:=>  {}", quizStatisticsSql);
+        LOGGER.info("Finding Quizzes with statistics with microLessoID: {} for qPalXUser: {}", microLessonID, qPalXUser.getEmail());
+        LOGGER.info("Running SQL:=>  {}", quizStatisticsSql);
 
-        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), qPalXEMicroLesson.getId()};
+        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), microLessonID};
         List<AdaptiveLessonQuizStatistics> results = jdbcTemplate.query(quizStatisticsSql, uniqueIDs, AdaptiveLessonQuizStatistics.newRowMapper());
         return results;
     }
