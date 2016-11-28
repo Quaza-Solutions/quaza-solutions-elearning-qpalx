@@ -95,7 +95,7 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
         LOGGER.info("Finding Quizzes with statistics with microLessoID: {} for qPalXUser: {}", microLessonID, qPalXUser.getEmail());
         LOGGER.info("Running SQL:=>  {}", quizStatisticsSql);
 
-        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), microLessonID};
+        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), microLessonID, qPalXUser.getId()};
         List<AdaptiveLessonQuizStatistics> results = jdbcTemplate.query(quizStatisticsSql, uniqueIDs, AdaptiveLessonQuizStatistics.newRowMapper());
         return results;
     }
