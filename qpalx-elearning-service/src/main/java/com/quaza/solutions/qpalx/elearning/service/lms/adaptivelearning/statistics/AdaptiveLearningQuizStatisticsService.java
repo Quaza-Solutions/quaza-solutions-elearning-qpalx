@@ -93,7 +93,7 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
         Assert.notNull(microLessonID, "microLessonID cannot be null");
 
         LOGGER.info("Finding Quizzes with statistics with microLessoID: {} for qPalXUser: {}", microLessonID, qPalXUser.getEmail());
-        LOGGER.info("Running SQL:=>  {}", quizStatisticsSql);
+        LOGGER.debug("Running SQL:=>  {}", quizStatisticsSql);
 
         Long [] uniqueIDs = new Long[] {qPalXUser.getId(), microLessonID, qPalXUser.getId()};
         List<AdaptiveLessonQuizStatistics> results = jdbcTemplate.query(quizStatisticsSql, uniqueIDs, AdaptiveLessonQuizStatistics.newRowMapper());

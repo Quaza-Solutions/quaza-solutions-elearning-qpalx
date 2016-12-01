@@ -95,7 +95,7 @@
                                     return false;">
             <span th:text="${AdaptiveLearningQuiz.scorableActivityName}">&nbsp;&nbsp;&nbsp;</span>
 
-            <div th:if="${AdaptiveLearningQuiz.proficiencyScore} != null">
+            <div th:if="${AdaptiveLearningQuiz.proficiencyScore != null and AdaptiveLearningQuiz.proficiencyScore &gt; 0}">
                 <span style="color: #06bfd3;" th:text="${AdaptiveLearningQuiz.proficiencyScore} + '%'"></span>
             </div>
         </a>
