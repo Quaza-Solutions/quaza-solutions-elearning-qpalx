@@ -1,5 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXEMicroLessonVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
@@ -7,9 +9,14 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IQPa
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -19,6 +26,14 @@ import java.util.List;
 public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
 
 
+
+    private String quizzesActiveSQL;
+
+    @Value("classpath:/sql/micro-lesson-active-items-count.sql")
+    private Resource sqlResource;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private IQPalXEMicroLessonRepository iqPalXEMicroLessonRepository;
@@ -64,4 +79,27 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
 
         iqPalXEMicroLessonRepository.save(qPalXEMicroLesson);
     }
+
+    @Override
+    public boolean isMicroLessonDeletable(QPalXEMicroLesson qPalXEMicroLesson) {
+        Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
+        LOGGER.info("Checking to see if MicroLesson: {} can be deleted...", qPalXEMicroLesson.getMicroLessonName());
+        Long [] queryParams = new Long[]{qPalXEMicroLesson.getId()};
+        Integer activeItemsCount = jdbcTemplate.queryForObject(quizzesActiveSQL, Integer.class, queryParams);
+        return activeItemsCount != null ? activeItemsCount.intValue() == 0 : false;
+    }
+
+    @Override
+    public void delete(QPalXEMicroLesson qPalXEMicroLesson) {
+        Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
+        LOGGER.info("Deleting MicroLesson with ID: {}", qPalXEMicroLesson.getId());
+        iqPalXEMicroLessonRepository.delete(qPalXEMicroLesson);
+    }
+
+    @PostConstruct
+    private void constructSQL() throws IOException {
+        LOGGER.info("Loading sql from resource: {}", sqlResource);
+        quizzesActiveSQL  = Resources.toString(sqlResource.getURL(), Charsets.UTF_8);
+    }
+
 }

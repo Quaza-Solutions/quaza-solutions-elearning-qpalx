@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.LearningA
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.ILMSMediaContentVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.MediaContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseActivityService;
 import com.quaza.solutions.qpalx.elearning.service.lms.media.IQPalXTutorialContentService;
 import org.imgscalr.Scalr;
@@ -85,6 +86,19 @@ public class FileUploadUtil implements IFileUploadUtil {
     }
 
     @Override
+    public String uploadQPalxUserPhoto(QPalXUser qPalXUser, MultipartFile multipartFile) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(multipartFile, "multipartFile cannot be null");
+
+        LOGGER.debug("Uploading QPalxUser: {} photo file", qPalXUser.getEmail());
+
+        String photoSafeFileName = getQPalxUserSafePhotoFileName(qPalXUser, multipartFile.getOriginalFilename());
+        String fileUploadDirectory = "/Users/manyce400/QuazaSolutions/qpalx-user/photos/";
+        File mediaContentFile = writeFileToDisk(multipartFile, photoSafeFileName, fileUploadDirectory);
+        return mediaContentFile.getAbsolutePath();
+    }
+
+    @Override
     public ELearningMediaContent uploadELearningMediaContent(MultipartFile multipartFile, ILMSMediaContentVO ilmsMediaContentVO) {
         Assert.notNull(multipartFile, "multipartFile cannot be null");
         Assert.notNull(ilmsMediaContentVO, "ilmsMediaContentVO cannot be null");
@@ -159,6 +173,18 @@ public class FileUploadUtil implements IFileUploadUtil {
                 .append(".")
                 .append(fileExtension)
                 .toString();
+    }
+
+    protected String getQPalxUserSafePhotoFileName(QPalXUser qPalXUser, String originalFileName) {
+        String fileExtension = originalFileName.substring(originalFileName.indexOf(".") + 1);
+        StringBuilder sb = new StringBuilder()
+                .append(qPalXUser.getSuccessID())
+                .append("_")
+                .append("photo")
+                .append(".")
+                .append(fileExtension);
+        return sb.toString();
+
     }
 
 

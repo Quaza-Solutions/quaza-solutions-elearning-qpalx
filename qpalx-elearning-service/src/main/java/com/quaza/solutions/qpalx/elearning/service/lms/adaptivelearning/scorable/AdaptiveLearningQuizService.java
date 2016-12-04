@@ -77,4 +77,10 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         iAdaptiveLearningQuizRepository.save(adaptiveLearningQuiz);
     }
 
+    @Override
+    public void delete(AdaptiveLearningQuiz adaptiveLearningQuiz) {
+        Assert.notNull(adaptiveLearningQuiz, "adaptiveLearningQuiz cannot be null");
+        LOGGER.info("Deleting AdaptiveLearningQuiz with ID: {}", adaptiveLearningQuiz.getId());
+        iAdaptiveLearningQuizRepository.delete(adaptiveLearningQuiz);
+    }
 }

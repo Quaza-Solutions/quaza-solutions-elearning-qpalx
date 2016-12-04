@@ -30,6 +30,11 @@
     <!-- Include Admin Curriculum Control Navigation Panel -->
     <div th:replace="fragments/admin/admin-curriculum-nav-panel :: navigation-panel"/>
 
+    <!-- Display warning on trying to delete a resource with active items. -->
+    <div class="row" th:if="${Invalid_Delete_Operation} != null">
+        <div class="alert alert-danger fade in" th:text="${Invalid_Delete_Operation}"/>
+    </div>
+
     <div class="row">
         <div class="large-font">Micro Lessons</div>
     </div>
@@ -44,8 +49,8 @@
         <div class="col-md-6"></div>
         <div class="col-md-2">
             <div class="default-btn-1"></div>
-            <button type="submit" value="0" class="btn btn-default btn-default-1 btn-sm">
-                Remove E-Lesson
+            <button type="submit" value="0" class="btn btn-default btn-default-1 btn-sm" th:onclick="'document.location.href=\'' + @{/delete-qpalx-micro-lesson(microLessonID=${QPalXEMicroLesson.id})} + '\''">
+                Remove Micro-Lesson
             </button>
         </div>
     </div>

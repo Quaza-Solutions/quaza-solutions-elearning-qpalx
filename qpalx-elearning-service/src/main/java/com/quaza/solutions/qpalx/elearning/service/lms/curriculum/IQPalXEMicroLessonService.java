@@ -19,4 +19,8 @@ public interface IQPalXEMicroLessonService {
 
     public void createAndSaveQPalXEMicroLesson(IQPalXEMicroLessonVO iqPalXEMicroLessonVO);
 
+    public boolean isMicroLessonDeletable(QPalXEMicroLesson qPalXEMicroLesson);
+
+    public void delete(QPalXEMicroLesson qPalXEMicroLesson);
+
 }

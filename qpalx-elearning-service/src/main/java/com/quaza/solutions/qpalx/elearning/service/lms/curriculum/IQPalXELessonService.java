@@ -24,4 +24,6 @@ public interface IQPalXELessonService {
     public void createAndSaveQPalXELesson(IQPalXELessonVO iqPalXELessonVO);
 
     public void deleteQPalXELesson(QPalXELesson qPalXELesson);
+
+    public boolean isELessonDeletable(QPalXELesson qPalXELesson);
 }

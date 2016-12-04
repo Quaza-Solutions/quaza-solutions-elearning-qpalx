@@ -18,6 +18,7 @@ import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.WebOpera
 import com.quaza.solutions.qpalx.elearning.web.qpalxuser.QPalXWebUserVO;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.user.IQPalXUserWebService;
+import com.quaza.solutions.qpalx.elearning.web.utils.IFileUploadUtil;
 import com.quaza.solutions.qpalx.elearning.web.utils.IRedirectStrategyExecutor;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -29,6 +30,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,6 +73,10 @@ public class AccountInfoController {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalXUserSubscriptionService")
     private IQPalXUserSubscriptionService iqPalXUserSubscriptionService;
+
+    @Autowired
+    @Qualifier("com.quaza.solutions.qpalx.elearning.web.FileUploadUtil")
+    private IFileUploadUtil iFileUploadUtil;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.DefaultRedirectStrategyExecutor")
@@ -116,6 +123,17 @@ public class AccountInfoController {
         addQPalXUserAccountInfoAttributes(model);
 
         return ContentRootE.Student_Home.getContentRootPagePath("account-info");
+    }
+
+
+    @RequestMapping(value = "/update-student-photo", method = RequestMethod.POST)
+    public void updateAccountWithPhoto(@RequestParam("image-data") MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("Uploading and saving user photo information: {}", multipartFile);
+        Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
+
+        iFileUploadUtil.uploadQPalxUserPhoto(optionalUser.get(), multipartFile);
+        String targetURL = "/account-info";
+        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
     }
 
 

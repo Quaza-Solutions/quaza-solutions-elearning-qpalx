@@ -77,8 +77,11 @@ public class QPalXMicroLessonAdminController {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXLessonAdminController.class);
 
     @RequestMapping(value = "/view-admin-qpalx-micro-elessons", method = RequestMethod.GET)
-    public String viewAdminQPalXLessons(final Model model, @RequestParam("qpalxELessonID") String qpalxELessonID) {
+    public String viewAdminQPalXLessons(final Model model, @RequestParam("qpalxELessonID") String qpalxELessonID, HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("Loading and displaying view for all QPalXMicroLessons for qpalxELessonID: {}", qpalxELessonID);
+
+        // Add any redirect attributes to model
+        iRedirectStrategyExecutor.addWebOperationRedirectErrorsToModel(model, request);
 
         // Add information required for Users account info display panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
@@ -147,6 +150,32 @@ public class QPalXMicroLessonAdminController {
             qPalXEMicroLessonVO.setELearningMediaContent(eLearningMediaContent);
             iqPalXEMicroLessonService.createAndSaveQPalXEMicroLesson(qPalXEMicroLessonVO);
             String targetURL = "/view-admin-qpalx-micro-elessons?qpalxELessonID=" + qPalXEMicroLessonVO.getQPalXELessonID();
+            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+        }
+    }
+
+
+    @RequestMapping(value = "/delete-qpalx-micro-lesson", method = RequestMethod.GET)
+    public void deleteQPalXMicroLessons(final Model model, @RequestParam("microLessonID") String microLessonID, HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("Attempting to delete QPalX Micro Lesson with ID: {}", microLessonID);
+
+        // Load up the lesson and then delete
+        Long id = NumberUtils.toLong(microLessonID);
+        QPalXEMicroLesson qPalXEMicroLesson = iqPalXEMicroLessonService.findByID(id);
+        QPalXELesson qPalXELesson = qPalXEMicroLesson.getQPalXELesson();
+
+        // check to see if this lesson can be deleted first
+        boolean isDeletable = iqPalXEMicroLessonService.isMicroLessonDeletable(qPalXEMicroLesson);
+        if (!isDeletable) {
+            String targetURL = "/view-admin-qpalx-micro-elessons?qpalxELessonID=" + qPalXELesson.getId();
+            String error = new StringBuilder("MicroLesson:  ")
+                    .append(qPalXEMicroLesson.getMicroLessonName()).append("  => ")
+                    .append(" Cannot be deleted.  Remove all Quizzes first")
+                    .toString();
+            iRedirectStrategyExecutor.sendRedirectWithError(targetURL, error, WebOperationErrorAttributesE.Invalid_Delete_Operation, request, response);
+        } else {
+            iqPalXEMicroLessonService.delete(qPalXEMicroLesson);
+            String targetURL = "/view-admin-qpalx-micro-elessons?qpalxELessonID=" + qPalXELesson.getId();
             iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
         }
     }

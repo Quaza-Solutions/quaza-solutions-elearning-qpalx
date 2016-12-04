@@ -45,8 +45,8 @@
         <div class="col-md-6"></div>
         <div class="col-md-2">
             <div class="default-btn-1"></div>
-            <button type="submit" value="0" class="btn btn-default btn-default-1 btn-sm">
-                Remove E-Lesson
+            <button type="submit" value="0" class="btn btn-default btn-default-1 btn-sm" th:onclick="'document.location.href=\'' + @{/delete-adaptive-quiz(adaptiveQuizID=${AdaptiveLearningQuiz.id})} + '\''">
+                Remove Adaptive-Quiz
             </button>
         </div>
     </div>

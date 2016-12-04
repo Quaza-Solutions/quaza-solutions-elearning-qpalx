@@ -1,5 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXELessonVO;
@@ -11,10 +13,15 @@ import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.ITutorialLevelC
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -24,6 +31,15 @@ import java.util.List;
 public class QPalXELessonService implements IQPalXELessonService {
 
 
+
+
+    private String lessonActiveItemsSQL;
+
+    @Value("classpath:/sql/lesson-active-items-count.sql")
+    private Resource sqlResource;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private IQPalXELessonRepository iqPalXELessonRepository;
@@ -112,12 +128,28 @@ public class QPalXELessonService implements IQPalXELessonService {
         iqPalXELessonRepository.save(qPalXELesson);
     }
 
+    @Override
+    public boolean isELessonDeletable(QPalXELesson qPalXELesson) {
+        Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+        LOGGER.info("Checking to see if QPalXLesson with id: {} has active items....", qPalXELesson.getId());
+        Long [] queryParams = new Long[]{qPalXELesson.getId(), qPalXELesson.getId(), qPalXELesson.getId()};
+        Integer activeItemsCount = jdbcTemplate.queryForObject(lessonActiveItemsSQL, Integer.class, queryParams);
+        return activeItemsCount != null ? activeItemsCount.intValue() == 0 : false;
+    }
+
     @Transactional
     @Override
     public void deleteQPalXELesson(QPalXELesson qPalXELesson) {
         Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
-        LOGGER.debug("Attempting to delete qPalXELesson with ID: {}", qPalXELesson.getId());
-
-        // First check to see if there are any micro lesson attempts, quiz attempts, question bank attempts etc
+        LOGGER.info("Attempting to delete qPalXELesson with ID: {}", qPalXELesson.getId());
+        iqPalXELessonRepository.delete(qPalXELesson);
     }
+
+    @PostConstruct
+    private void constructSQL() throws IOException {
+        LOGGER.info("Loading sql from resource: {}", sqlResource);
+        lessonActiveItemsSQL  = Resources.toString(sqlResource.getURL(), Charsets.UTF_8);
+    }
+
+
 }

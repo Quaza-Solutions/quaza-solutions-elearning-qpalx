@@ -13,12 +13,12 @@ import com.quaza.solutions.qpalx.elearning.web.curriculum.vo.QPalXELessonWebVO;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.DomainDataDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.ValueObjectDataDisplayAttributeE;
-import com.quaza.solutions.qpalx.elearning.web.lms.curriculum.enums.LessonsAdminAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.WebOperationErrorAttributesE;
+import com.quaza.solutions.qpalx.elearning.web.lms.curriculum.enums.LessonsAdminAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IContentAdminTutorialGradePanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
-import com.quaza.solutions.qpalx.elearning.web.utils.IRedirectStrategyExecutor;
 import com.quaza.solutions.qpalx.elearning.web.utils.IFileUploadUtil;
+import com.quaza.solutions.qpalx.elearning.web.utils.IRedirectStrategyExecutor;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -74,8 +74,11 @@ public class QPalXLessonAdminController {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXLessonAdminController.class);
 
     @RequestMapping(value = "/view-admin-qpalx-elessons", method = RequestMethod.GET)
-    public String viewAdminQPalXLessons(final Model model, @RequestParam("eLearningCourseID") String eLearningCourseID) {
+    public String viewAdminQPalXLessons(final Model model, @RequestParam("eLearningCourseID") String eLearningCourseID, HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("Loading and displaying view for all QPalXELesson for eLearningCourseID: {}", eLearningCourseID);
+
+        // Add any redirect attributes to model
+        iRedirectStrategyExecutor.addWebOperationRedirectErrorsToModel(model, request);
 
         // Add information required for Users account info display panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
@@ -145,7 +148,7 @@ public class QPalXLessonAdminController {
         }
     }
 
-    @RequestMapping(value = "/delete-lesson", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete-qpalx-elesson", method = RequestMethod.GET)
     public void deleteQPalXELessons(final Model model, @RequestParam("qpalxELessonID") String qpalxELessonID, HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("Attempting to delete QPalX Lesson with ID: {}", qpalxELessonID);
 
@@ -154,7 +157,19 @@ public class QPalXLessonAdminController {
         QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(lessonID);
         ELearningCourse eLearningCourse = qPalXELesson.geteLearningCourse();
 
-        String targetURL = "/view-admin-qpalx-elessons?eLearningCourseID=" + eLearningCourse.getId();
-        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+        // check to see if this lesson can be deleted first
+        boolean isDeletable = iqPalXELessonService.isELessonDeletable(qPalXELesson);
+        if (!isDeletable) {
+            String targetURL = "/view-admin-qpalx-elessons?eLearningCourseID=" + eLearningCourse.getId();
+            String error = new StringBuilder("Lesson:  ")
+                    .append(qPalXELesson.getLessonName()).append("  => ")
+                    .append(" Cannot be deleted.  Remove all MicroLessons, QuestionBanks and Quizzes first")
+                    .toString();
+            iRedirectStrategyExecutor.sendRedirectWithError(targetURL, error, WebOperationErrorAttributesE.Invalid_Delete_Operation, request, response);
+        } else {
+            iqPalXELessonService.deleteQPalXELesson(qPalXELesson);
+            String targetURL = "/view-admin-qpalx-elessons?eLearningCourseID=" + eLearningCourse.getId();
+            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+        }
     }
 }

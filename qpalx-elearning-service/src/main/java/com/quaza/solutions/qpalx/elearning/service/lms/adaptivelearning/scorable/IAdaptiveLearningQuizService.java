@@ -18,4 +18,6 @@ public interface IAdaptiveLearningQuizService {
 
     public void buildAndSaveAdaptiveLearningQuiz(IAdaptiveLearningQuizVO proProfQuizVO);
 
+    public void delete(AdaptiveLearningQuiz adaptiveLearningQuiz);
+
 }

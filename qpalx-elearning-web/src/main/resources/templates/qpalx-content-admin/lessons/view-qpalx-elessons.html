@@ -35,6 +35,10 @@
     <!--<b th:text="${SelectedELearningCurriculum.curriculumName}"></b><br/>-->
     <!--</div>-->
 
+    <div class="row" th:if="${Invalid_Delete_Operation} != null">
+        <div class="alert alert-danger fade in" th:text="${Invalid_Delete_Operation}"/>
+    </div>
+
     <div class="row" th:each="QPalXELesson,rowStat : ${QPalXELessons}">
 
         <div class="col-md-1 num" th:text="${rowStat.count}"></div>
@@ -48,7 +52,7 @@
         <div class="col-md-6"></div>
         <div class="col-md-2">
             <div class="default-btn-1"></div>
-            <button type="button" value="0" class="btn btn-default btn-default-1 btn-sm" th:onclick="'document.location.href=\'' + @{/delete-lesson(qpalxELessonID=${QPalXELesson.id})} + '\''">
+            <button type="button" value="0" class="btn btn-default btn-default-1 btn-sm" th:onclick="'document.location.href=\'' + @{/delete-qpalx-elesson(qpalxELessonID=${QPalXELesson.id})} + '\''">
                 Remove E-Lesson
             </button>
         </div>

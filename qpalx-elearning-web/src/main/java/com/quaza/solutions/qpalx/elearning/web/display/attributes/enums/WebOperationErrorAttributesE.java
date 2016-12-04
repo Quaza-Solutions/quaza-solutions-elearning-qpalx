@@ -13,6 +13,8 @@ public enum WebOperationErrorAttributesE {
 
     Invalid_FORM_Submission,
 
+    Invalid_Delete_Operation
+
     ;
 
     public static ImmutableMap<String, String> buildAttributes(String formSubmissionErrorMessage) {
