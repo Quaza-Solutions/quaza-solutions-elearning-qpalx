@@ -110,4 +110,17 @@ public class AdaptiveLearningQuizController {
         iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
     }
 
+    @RequestMapping(value = "/delete-adaptive-quiz", method = RequestMethod.GET)
+    public void deleteAdminAdaptiveQuiz(@RequestParam("adaptiveQuizID") String adaptiveQuizID, Model model, HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("Deleting AdaptiveLearning Quiz with ID: {}", adaptiveQuizID);
+        Long id = NumberUtils.toLong(adaptiveQuizID);
+        AdaptiveLearningQuiz adaptiveLearningQuiz = iAdaptiveLearningQuizService.findByID(id);
+        QPalXEMicroLesson qPalXEMicroLesson = adaptiveLearningQuiz.getqPalXEMicroLesson();
+        iAdaptiveLearningQuizService.delete(adaptiveLearningQuiz);
+
+        // redirect to view all quizzes
+        String targetURL = "/view-admin-quizzes?microlessonID=" + qPalXEMicroLesson.getId();
+        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+    }
+
 }
