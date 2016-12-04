@@ -168,6 +168,7 @@ public class QPalXLessonAdminController {
             iRedirectStrategyExecutor.sendRedirectWithError(targetURL, error, WebOperationErrorAttributesE.Invalid_Delete_Operation, request, response);
         } else {
             iqPalXELessonService.deleteQPalXELesson(qPalXELesson);
+            iFileUploadUtil.deleteELearningMediaContent(qPalXELesson.geteLearningMediaContent());
             String targetURL = "/view-admin-qpalx-elessons?eLearningCourseID=" + eLearningCourse.getId();
             iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
         }

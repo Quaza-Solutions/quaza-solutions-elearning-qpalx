@@ -22,4 +22,6 @@ public interface IFileUploadUtil {
 
     public ELearningMediaContent uploadELearningCourseActivityContent(MultipartFile multipartFile, LearningActivityE learningActivityE);
 
+    public void deleteELearningMediaContent(ELearningMediaContent eLearningMediaContent);
+
 }

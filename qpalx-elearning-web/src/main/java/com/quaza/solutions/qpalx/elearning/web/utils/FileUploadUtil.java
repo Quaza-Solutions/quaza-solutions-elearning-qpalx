@@ -158,6 +158,23 @@ public class FileUploadUtil implements IFileUploadUtil {
         return ELearningMediaContent.NOT_SUPPORTED_MEDIA_CONTENT;
     }
 
+    @Override
+    public void deleteELearningMediaContent(ELearningMediaContent eLearningMediaContent) {
+        Assert.notNull(eLearningMediaContent, "eLearningMediaContent cannot be null");
+        LOGGER.info("Attempting to delete eLearningMediaContent: {}", eLearningMediaContent);
+
+        String originalFileName = eLearningMediaContent.getELearningMediaFile();
+
+        // Get actual file location on disk
+        Optional<MediaContentTypeE> optional =  iqPalXTutorialContentService.getMediaContentType(eLearningMediaContent.getELearningMediaFile());
+        String fileUploadDirectory = iqPalXTutorialContentService.getTutorialContentTypeUploadPhysicalDirectory(optional.get(), eLearningMediaContent.getQPalXTutorialContentTypeE());
+        if(fileUploadDirectory != null) {
+            int lastIndexOfSeperator = originalFileName.lastIndexOf("/");
+            String newFileName = fileUploadDirectory + originalFileName.substring(lastIndexOfSeperator+1);
+            File file = new File(newFileName);
+            file.delete();
+        }
+    }
 
     protected String getUniqueSafeFileName(String originalFileName) {
         // Replace all spaces with underscore
