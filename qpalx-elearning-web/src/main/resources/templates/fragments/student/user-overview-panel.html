@@ -12,10 +12,10 @@
 
             <!--  Display file upload form -->
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <form action="#">
-                    <!--<form method="post" enctype="multipart/form-data" th:action="@{save-qpalx-elesson}" th:object="${QPalXELessonWebVO}">-->
+                <form enctype="multipart/form-data" method="POST" th:action="@{/update-student-photo}" id="ImageDataForm">
+                <!--<form action="#">-->
                     <div class="image-editor">
-                        <input type="file" class="cropit-image-input"/>
+                        <input type="file" class="cropit-image-input" id="final-image-file-data"/>
 
                         <div class="cropit-preview"></div>
 

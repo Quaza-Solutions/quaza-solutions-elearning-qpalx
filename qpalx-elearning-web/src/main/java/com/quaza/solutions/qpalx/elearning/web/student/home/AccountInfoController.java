@@ -33,10 +33,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+
 
 /**
  * @author manyce400
@@ -128,14 +135,56 @@ public class AccountInfoController {
 
     @RequestMapping(value = "/update-student-photo", method = RequestMethod.POST)
     public void updateAccountWithPhoto(@RequestParam("image-data") MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) {
-        LOGGER.info("Uploading and saving user photo information: {}", multipartFile);
+        LOGGER.info("Uploading and saving user photo information from bytes:");
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
 
-        iFileUploadUtil.uploadQPalxUserPhoto(optionalUser.get(), multipartFile);
-        String targetURL = "/account-info";
-        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
-    }
+        System.out.println("multipartFile = " + multipartFile);
+        
+        // attempt to get the type of image
+        //getImageType(bytes);
 
+//        String imageData = request.getParameter("image-data");
+//        System.out.println("imageData = " + imageData);
+
+
+//
+//        try {
+////            byte[] bytearray = Base64.getMimeDecoder().decode(imageData.getBytes(StandardCharsets.UTF_8));
+//            System.out.println("bytearray = " + bytearray);
+//            System.out.println("Bytes size: "+ bytearray.length);
+//
+//            BufferedImage imag = ImageIO.read(new ByteArrayInputStream(bytearray));
+//            System.out.println("imag = " + imag);
+//            ImageIO.write(imag, "png", new File("/Users/manyce400/QuazaSolutions/qpalx-user/photos","snap.png"));
+//
+////            System.out.println("Attempting to buffer bytes array into image....");
+////            BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(bytearray));
+////            System.out.println("bufferedImage = " + bufferedImage);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        iFileUploadUtil.uploadQPalxUserPhoto(optionalUser.get(), multipartFile);
+//        String targetURL = "/account-info";
+//        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+    }
+    
+    
+    private void getImageType(byte[] picture) {
+        try {
+            ImageInputStream iis = ImageIO.createImageInputStream(new ByteArrayInputStream(picture));
+            System.out.println("iis = " + iis);
+
+            Iterator<ImageReader> readers = ImageIO.getImageReaders(iis);
+            System.out.println("readers = " + readers);
+            while (readers.hasNext()) {
+                ImageReader read = readers.next();
+                System.out.println("format name = " + read.getFormatName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @RequestMapping(value = "/update-account-info", method = RequestMethod.POST)
     public void executeUpdateQPalXUserAccount(final Model model, @ModelAttribute("QPalXWebUserVO") QPalXWebUserVO qPalXWebUserVO, HttpServletRequest request, HttpServletResponse response) {
@@ -151,7 +200,7 @@ public class AccountInfoController {
             iRedirectStrategyExecutor.sendRedirectWithError(targetURL, errorMessage, WebOperationErrorAttributesE.Invalid_FORM_Submission, request, response);
         } else {
             // Save the user details update and redirect to main home page
-            //iqPalXUserSubscriptionService.updateQPalXUserInfo(optionalUser.get(), qPalXWebUserVO);
+            iqPalXUserSubscriptionService.updateQPalXUserInfo(optionalUser.get(), qPalXWebUserVO);
             String targetURL = "/";
             iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
         }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -27,6 +28,11 @@ import java.util.Random;
 @Service("quaza.solutions.qpalx.elearning.service.DefaultQPalxUserService")
 public class DefaultQPalxUserService implements IQPalxUserService {
 
+
+
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private IQPalxUserRepository iqPalxUserRepository;
@@ -116,6 +122,20 @@ public class DefaultQPalxUserService implements IQPalxUserService {
         throw new UnsupportedOperationException("Cannot generate Success ID for User without a valid QPalX Subscription");
     }
 
+    @Override
+    public boolean isUniqueUserMobilePhoneNumber(String mobilePhoneNumber) {
+        Assert.notNull(mobilePhoneNumber, "mobilePhoneNumber cannot be null");
+
+        LOGGER.debug("Finding count of all users with mobilePhoneNumber: {}", mobilePhoneNumber);
+
+        String query = "Select  count(*) "
+                + "From         QPalXUser "
+                + "Where        MobilePhoneNumber = ?";
+        String [] args = new String[]{mobilePhoneNumber};
+
+        Integer count = jdbcTemplate.queryForObject(query, Integer.class, args);
+        return count != null && count.intValue() < 1 ? true : false;
+    }
 
     @Override
     public List<QPalXUser> findAllQPalXUsersWithPageableResults(Pageable pageable) {

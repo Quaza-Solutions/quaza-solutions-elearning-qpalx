@@ -1,14 +1,11 @@
 .cropit-preview {
-        background-color: #f8f8f8;
-        background-size: cover;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        margin-top: 7px;
-        width: 120px;
-        height: 120px;
-		/*
-        width: 250px;
-        height: 250px;*/
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    width: 120px;
+    height: 120px;
 }
 
 .cropit-preview-image-container {
@@ -33,9 +30,15 @@ button[type="submit"] {
 }
 
 #result-data {
-        display: block;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        word-wrap: break-word;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+.round_image {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
 }
