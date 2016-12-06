@@ -9,6 +9,7 @@ import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialL
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalXUserSubscriptionService;
+import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
@@ -72,6 +73,10 @@ public class AccountInfoController {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalXEducationalInstitutionService")
     private IQPalXEducationalInstitutionService iqPalXEducationalInstitutionService;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxUserService")
+    private IQPalxUserService iqPalxUserService;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserInfoPanelService")
@@ -192,11 +197,27 @@ public class AccountInfoController {
 
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
 
+        System.out.println("Currenty user mobile: "+optionalUser.get().getMobilePhoneNumber()+" Incoming Mobile: "+qPalXWebUserVO.getMobilePhoneNumber());
+
+        // check to see if new mobilePhoneNumber will still be unique
+        boolean isUniqueMobileNumber = true;
+        if(qPalXWebUserVO.getMobilePhoneNumber() != null) {
+            // If mobile number matches current number from form no need to check for duplicate
+            if(!qPalXWebUserVO.getMobilePhoneNumber().equals(optionalUser.get().getMobilePhoneNumber())) {
+                isUniqueMobileNumber = iqPalxUserService.isUniqueUserMobilePhoneNumber(qPalXWebUserVO.getMobilePhoneNumber());
+            }
+        }
+
         // Validate passwords, needs to match
         if(!qPalXWebUserVO.getPassword().equals(qPalXWebUserVO.getPasswordConfirm())) {
             LOGGER.info("Submitted password does not match confirm value, redirecting back to account info page");
             String targetURL = "/account-info";
             String errorMessage = "Submitted password does not match confirmation password";
+            iRedirectStrategyExecutor.sendRedirectWithError(targetURL, errorMessage, WebOperationErrorAttributesE.Invalid_FORM_Submission, request, response);
+        } else if(!isUniqueMobileNumber) {
+            LOGGER.info("An existing mobile number was found for Mobile: {}", qPalXWebUserVO.getMobilePhoneNumber());
+            String targetURL = "/account-info";
+            String errorMessage = "Mobile number submitted is currently in use.  Enter a different mobile number.";
             iRedirectStrategyExecutor.sendRedirectWithError(targetURL, errorMessage, WebOperationErrorAttributesE.Invalid_FORM_Submission, request, response);
         } else {
             // Save the user details update and redirect to main home page
