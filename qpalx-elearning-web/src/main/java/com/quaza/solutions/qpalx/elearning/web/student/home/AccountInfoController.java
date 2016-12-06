@@ -197,8 +197,6 @@ public class AccountInfoController {
 
         Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
 
-        System.out.println("Currenty user mobile: "+optionalUser.get().getMobilePhoneNumber()+" Incoming Mobile: "+qPalXWebUserVO.getMobilePhoneNumber());
-
         // check to see if new mobilePhoneNumber will still be unique
         boolean isUniqueMobileNumber = true;
         if(qPalXWebUserVO.getMobilePhoneNumber() != null) {
