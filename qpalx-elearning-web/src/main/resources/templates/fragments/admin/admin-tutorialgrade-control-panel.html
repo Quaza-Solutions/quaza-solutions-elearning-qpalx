@@ -37,7 +37,10 @@
             <div class="col-md-2"></div>
 
             <div class="col-md-2" style="cursor: pointer;" th:if="${AddLessonsEnabled} == 'true'">
-                <span class="course-2"><i style="color: #43484d;" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i><a th:href="@{/add-qpalx-elesson(eLearningCourseID=${SelectedELearningCourse.id})}">Add QPalX Lesson</a></span>
+                <span class="course-2">
+                    <a th:href="@{/add-qpalx-elesson(eLearningCourseID=${SelectedELearningCourse.id})}">Add QPalX Lesson</a>
+                    <span class="glyphicon glyphicon-plus"/>
+                </span>
             </div>
 
             <div th:if="${AddMicroLessonsEnabled} == 'true'">
