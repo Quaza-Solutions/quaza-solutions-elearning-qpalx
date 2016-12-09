@@ -1,6 +1,5 @@
 package com.quaza.solutions.qpalx.elearning.web.lms.adaptivelearning;
 
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningQuiz;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLessonQuizStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.QuestionBankItem;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.AdaptiveLessonStatistics;
@@ -188,8 +187,8 @@ public class StudentAdaptiveLearningController {
         model.addAttribute(LessonsAdminAttributesE.QPalXEMicroLessons.toString(), adaptiveMicroLessonStatisticsList);
 
         Long microLessonIDToLoad = NumberUtils.toLong(microLessonID);
-        List<AdaptiveLearningQuiz> adaptiveLearningQuizList = iAdaptiveLearningQuizService.findAllByQPalXEMicroLesson(microLessonIDToLoad);
-        model.addAttribute(LessonsAdminAttributesE.AdaptiveLearningQuizzes.toString(), adaptiveLearningQuizList);
+        List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatisticsList = iAdaptiveLearningQuizStatisticsService.findMicroLessonStudentQuizStatistics(optionalUser.get(), microLessonIDToLoad);
+        model.addAttribute(LessonsAdminAttributesE.AdaptiveLearningQuizzes.toString(), adaptiveLessonQuizStatisticsList);
 
         // Find the current default TutorialLevelCalendar based on the selected value
         Long tId = NumberUtils.toLong(tutorialLevelID);
