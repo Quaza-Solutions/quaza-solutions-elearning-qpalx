@@ -21,7 +21,7 @@ public class QuestionBankProgress {
     @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="QuestionBankItemID", nullable=false)
+    @Column(name="QuestionBankItemID", nullable=false, unique = true)
     private Long questionBankItemID;
 
     // Number of times Student user has attempted/taken this micro lesson

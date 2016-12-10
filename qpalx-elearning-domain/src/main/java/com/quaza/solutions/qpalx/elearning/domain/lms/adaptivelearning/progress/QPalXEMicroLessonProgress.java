@@ -22,7 +22,7 @@ public class QPalXEMicroLessonProgress {
     @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="MicroLessonID", nullable=false)
+    @Column(name="MicroLessonID", nullable=false, unique = true)
     private Long microLessonID;
 
     // Number of times Student user has attempted/taken this micro lesson

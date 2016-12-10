@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
@@ -89,10 +90,17 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
         return activeItemsCount != null ? activeItemsCount.intValue() == 0 : false;
     }
 
+    @Transactional
     @Override
     public void delete(QPalXEMicroLesson qPalXEMicroLesson) {
         Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
         LOGGER.info("Deleting MicroLesson with ID: {}", qPalXEMicroLesson.getId());
+
+        // Delete micro lessons progress that has been recorded for this lesson.
+        String deleteProgressSQL = "Delete  From QPalXEMicroLessonProgress Where MicroLessonID=? ";
+        jdbcTemplate.update(deleteProgressSQL, qPalXEMicroLesson.getId());
+
+        // Now we can delete the MicroLesson
         iqPalXEMicroLessonRepository.delete(qPalXEMicroLesson);
     }
 

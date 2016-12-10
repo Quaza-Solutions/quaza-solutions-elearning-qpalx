@@ -11,6 +11,7 @@ import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXELessonS
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -24,6 +25,10 @@ import java.util.Random;
 @Service("quaza.solutions.qpalx.elearning.service.QuestionBankService")
 public class QuestionBankService implements IQuestionBankService {
 
+
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private IQuestionBankItemRepository iQuestionBankItemRepository;
@@ -41,10 +46,19 @@ public class QuestionBankService implements IQuestionBankService {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QuestionBankService.class);
 
 
+    @Transactional
     @Override
     public void deleteQuestionBankItemByID(Long questionBankID) {
         Assert.notNull(questionBankID, "questionBankID cannot be null");
         LOGGER.debug("Deleting QuestionBankItem with ID: {}", questionBankID);
+
+        QuestionBankItem questionBankItem = iQuestionBankItemRepository.findOne(questionBankID);
+
+        // Delete all QuestionBankProgress previously recorded for lesson
+        String deleteProgressSQL = "Delete  From  QuestionBankProgress Where QuestionBankItemID=?";
+        jdbcTemplate.update(deleteProgressSQL, questionBankItem.getId());
+
+        // Delete QuestionBakItem
         iQuestionBankItemRepository.delete(questionBankID);
     }
 
