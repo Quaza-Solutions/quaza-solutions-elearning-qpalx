@@ -121,10 +121,10 @@ public class StudentRegistrationController {
 
         if(optionalQPalXUser.isPresent()) {
             LOGGER.info("QPalXUser subscription has been succesfully processed, returning to QPalX home page to signup...");
-            return ContentRootE.Home.getContentRootPagePath("launch");
+            return ContentRootE.Home.getContentRootPagePath("homepage");
         }
 
-        return ContentRootE.Home.getContentRootPagePath("launch");
+        return ContentRootE.Home.getContentRootPagePath("homepage");
     }
 
 }

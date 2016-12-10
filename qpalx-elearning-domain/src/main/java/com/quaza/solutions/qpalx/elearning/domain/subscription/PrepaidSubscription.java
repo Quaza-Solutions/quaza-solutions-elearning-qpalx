@@ -28,7 +28,7 @@ public class PrepaidSubscription {
     @Column(name="UniqueID", nullable=false, length=12, unique = true)
     private String uniqueID;
 
-    @Column(name="AlreadyUsed", nullable=false, length = 6)
+    @Column(name="AlreadyUsed", nullable=false, columnDefinition = "TINYINT", length = 1)
     private boolean alreadyUsed;
 
     @Column(name="DateCreated", nullable=false)
