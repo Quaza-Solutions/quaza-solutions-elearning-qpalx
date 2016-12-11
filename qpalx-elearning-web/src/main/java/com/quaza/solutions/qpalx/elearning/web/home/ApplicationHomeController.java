@@ -124,6 +124,17 @@ public class ApplicationHomeController {
         }
     }
 
+    @RequestMapping(value = "/ebooks-promo", method = RequestMethod.GET)
+    public String dispalyEBooksPromo(final Model model) {
+        LOGGER.debug("Returning Ebooks promo patg....");
+
+        Optional<QPalXUser> optionalUser = iqPalXUserWebService.getLoggedInQPalXUser();
+        qPalXUserInfoPanelService.addUserInfoAttributes(model);
+        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
+        model.addAttribute("CurriculumType", "EBooks-Promo");
+        return ContentRootE.Student_Home.getContentRootPagePath("ebooks-promo");
+    }
+
     private void addQPalXUserDetailsToResponse(final Model model, CurriculumType curriculumType, QPalXUser qPalXUser) {
         List<ELearningCurriculum> eLearningCurricula = null;
         switch (curriculumType) {
