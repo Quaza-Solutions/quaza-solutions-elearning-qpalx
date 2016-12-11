@@ -2,8 +2,7 @@ package com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency;
 
 import org.springframework.util.Assert;
 
-import java.util.Comparator;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Establishes a proficiency rating scale of 1 - 10 to be applied to any Subject Matter Proficiency level.
@@ -104,5 +103,11 @@ public enum ProficiencyRankingScaleE {
             Integer i2 = o2.getProficiencyRanking();
             return i1.compareTo(i2);
         }
+    }
+
+    public static List<ProficiencyRankingScaleE> lowestToHighest() {
+        List<ProficiencyRankingScaleE> proficiencyRankingScaleEs = new ArrayList<>(Arrays.asList(values()));
+        proficiencyRankingScaleEs.sort((ProficiencyRankingScaleE o1, ProficiencyRankingScaleE o2) -> o1.getProficiencyRanking() - o2.getProficiencyRanking());
+        return proficiencyRankingScaleEs;
     }
 }

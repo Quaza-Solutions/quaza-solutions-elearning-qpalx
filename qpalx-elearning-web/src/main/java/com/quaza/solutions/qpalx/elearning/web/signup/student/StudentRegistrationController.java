@@ -70,7 +70,7 @@ public class StudentRegistrationController {
     @RequestMapping(value = "/select-signup-payment", method = RequestMethod.POST)
     public String accessRegistrationPayment(Model model, @ModelAttribute("QPalXWebUserVO") QPalXWebUserVO qPalXWebUserVO) {
         LOGGER.info("Student signup payment requested with qPalXWebUserVO: {}", qPalXWebUserVO);
-        return ContentRootE.Student_Signup.getContentRootPagePath("payment");
+        return ContentRootE.Student_Signup.getContentRootPagePath("payment-selection");
     }
 
     @RequestMapping(value = "/customize-proficiency-ranking", method = RequestMethod.POST)
@@ -103,7 +103,7 @@ public class StudentRegistrationController {
                 qPalXWebUserVO.setIncorrectValueCounter(holder);
                 System.out.println("Failed Attempts: " + qPalXWebUserVO.getIncorrectValueCounter());
                 model.addAttribute("QPalXWebUserVO", qPalXWebUserVO);
-                return ContentRootE.Student_Signup.getContentRootPagePath("payment");
+                return ContentRootE.Student_Signup.getContentRootPagePath("payment-selection");
             }
         }
     }
@@ -121,10 +121,10 @@ public class StudentRegistrationController {
 
         if(optionalQPalXUser.isPresent()) {
             LOGGER.info("QPalXUser subscription has been succesfully processed, returning to QPalX home page to signup...");
-            return ContentRootE.Home.getContentRootPagePath("launch");
+            return ContentRootE.Home.getContentRootPagePath("homepage");
         }
 
-        return ContentRootE.Home.getContentRootPagePath("launch");
+        return ContentRootE.Home.getContentRootPagePath("homepage");
     }
 
 }

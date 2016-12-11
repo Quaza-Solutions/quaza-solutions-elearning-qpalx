@@ -22,37 +22,13 @@
     <!-- Include main QPalx Student navigation panel -->
     <div th:replace="fragments/student-navigation :: student-main-navigation"/>
 
-    <div class="col-md-2 med-text"><b th:text="${SelectedELearningCourseActivity.activityName}"></b></div>
-    <div class="col-md-9"></div>
-    <div class="col-md-1 med-text">
-        <a th:href="@{/qpalx-course-details(qCourseID=${SelectedELearningCourse.id})}">Close</a>
-    </div>
 
     <div class="padded">
         <div class="row">
-            <div class="col-md-12" th:if="${SelectedMediaContentType} == 'mp4'">
-                <hr/>
-                <p th:text="${SelectedELearningCourseActivity.activityDescription}"></p>
-                <br/>
+            <iframe name="proprofs" width="970" height="615" frameborder="0" marginwidth="0" marginheight="0" th:attr="src=${Quiz}"></iframe>
 
-                <div align="center" class="well well-lg">
-                    <video width="720" height="540" controls="controls">
-                        <source th:src="${SelectedELearningCourseActivityFile}" type="video/mp4"/>
-                    </video>
-                </div>
-            </div>
-        </div>
+            <!--<iframe width='100%' height='600px' scrolling='yes' src='https://www.goconqr.com/en-US/p/6667694-Hip-Hop-Fundamentals-quizzes?frame=true' style='border: 1px solid #ccc'></iframe>-->
 
-        <div class="row">
-            <div class="col-md-12" th:if="${SelectedMediaContentType} == 'swf'">
-                <hr/>
-                <p th:text="${SelectedELearningCourseActivity.activityDescription}"></p>
-                <br/>
-
-                <div align="center" class="well well-lg">
-                    <object width="700" height="800" th:data="${SelectedELearningCourseActivityFile}"></object>
-                </div>
-            </div>
         </div>
     </div>
     <div class="clearfix bottom-space"></div>

@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
 import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.QuestionBankItem;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -77,6 +78,10 @@ public class QPalXELesson {
     // Collection of all the QPalXEMicroLesson available as part of this lesson
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qPalXELesson")
     private Set<QPalXEMicroLesson> qPalXEMicroLessons = new HashSet<>();
+
+    // Collection of all the QuestionBankItem available as part of this lesson
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qPalXELesson")
+    private Set<QuestionBankItem> questionBankItems = new HashSet<>();
 
 
     public QPalXELesson() {
@@ -178,6 +183,15 @@ public class QPalXELesson {
     public void addQPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson) {
         Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
         qPalXEMicroLessons.add(qPalXEMicroLesson);
+    }
+
+    public Set<QuestionBankItem> getQuestionBankItems() {
+        return ImmutableSet.copyOf(questionBankItems);
+    }
+
+    public void addQuestionBankItem(QuestionBankItem questionBankItem) {
+        Assert.notNull(questionBankItem, "questionBankItem cannot be null");
+        questionBankItems.add(questionBankItem);
     }
 
     @Override

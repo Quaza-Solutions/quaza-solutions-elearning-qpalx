@@ -14,11 +14,15 @@ public enum ContentRootE {
 
     Student_Signup("qpalx-student/signup/"),
 
+    Student_Adaptive_Learning("qpalx-student/adaptive-learning/"),
+
     Parent_Home("qpalx-parent/home/"),
 
     Parent_Signup("qpalx-parent/signup/"),
 
-    Content_Admin_Home("qpalx-content-admin/home/");
+    Content_Admin_Home("qpalx-content-admin/home/"),
+
+    Content_Admin_Lessons("qpalx-content-admin/lessons/");
     ;
 
     private final String rootDirectory;

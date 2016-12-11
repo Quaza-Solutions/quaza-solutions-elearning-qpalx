@@ -37,6 +37,13 @@
     <QPalXMunicipality Code="VTR" Name="Volta Region" TimeZone="UTC" QPalXCountryID="2" />
     <QPalXMunicipality Code="NOR" Name="Northern Region" TimeZone="UTC" QPalXCountryID="2" />
 
+    <!-- Populate Dummy PrepaidSubscription Codes for Accra -->
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-89393" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-65788" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-23567" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-17809" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-00987" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" />
+
 
     <!-- Populate StudentTutorialLevel data for GeographicalRegion WAF -->
     <StudentTutorialLevel ID="1" TutorialLevel="Elementary School"  TutorialLevelDescription="Elementary Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
@@ -52,9 +59,9 @@
 
 
     <!--  Populate TutorialLevelCalendar For Senior High School -->
-    <TutorialLevelCalendar ID="1" CalendarItemName="First Term"  CalendarItemDescripiton="WAEC SHS First Term" CalendarItemStartMonth="August" CalendarItemEndMonth="September" CalendarItemOrder="1" StudentTutorialLevelID="4" />
-    <TutorialLevelCalendar ID="2" CalendarItemName="Second Term" CalendarItemDescripiton="WAEC SHS SecondTerm Term" CalendarItemStartMonth="October" CalendarItemEndMonth="November" CalendarItemOrder="2" StudentTutorialLevelID="4" />
-    <TutorialLevelCalendar ID="3" CalendarItemName="Third Term"  CalendarItemDescripiton="WAEC SHS Third Term" CalendarItemStartMonth="December" CalendarItemEndMonth="February" CalendarItemOrder="3" StudentTutorialLevelID="4" />
+    <TutorialLevelCalendar ID="1" CalendarItemName="First Term"  CalendarItemDescripiton="WAEC SHS First Term" CalendarItemStartMonth="August" CalendarItemEndMonth="December" CalendarItemOrder="1" StudentTutorialLevelID="4" />
+    <TutorialLevelCalendar ID="2" CalendarItemName="Second Term" CalendarItemDescripiton="WAEC SHS SecondTerm Term" CalendarItemStartMonth="January" CalendarItemEndMonth="March" CalendarItemOrder="2" StudentTutorialLevelID="4" />
+    <TutorialLevelCalendar ID="3" CalendarItemName="Third Term"  CalendarItemDescripiton="WAEC SHS Third Term" CalendarItemStartMonth="April" CalendarItemEndMonth="June" CalendarItemOrder="3" StudentTutorialLevelID="4" />
 
 
 

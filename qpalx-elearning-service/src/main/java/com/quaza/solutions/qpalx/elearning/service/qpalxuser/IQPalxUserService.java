@@ -23,6 +23,8 @@ public interface IQPalxUserService {
 
     public String generateQPalXUserSuccessID(QPalXUser qPalXUser);
 
+    public boolean isUniqueUserMobilePhoneNumber(String mobilePhoneNumber);
+
     public List<QPalXUser> findAllQPalXUsersWithPageableResults(Pageable pageable);
 
 }

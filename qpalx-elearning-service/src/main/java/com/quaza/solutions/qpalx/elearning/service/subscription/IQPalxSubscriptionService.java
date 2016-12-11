@@ -35,4 +35,7 @@ public interface IQPalxSubscriptionService {
      */
     public DateTime calculateSubscriptionExpiryDateFromToday(QPalXSubscription subscription);
 
+
+    public int calculateNumberOfDaysTillExpiration(StudentSubscriptionProfile studentSubscriptionProfile);
+
 }

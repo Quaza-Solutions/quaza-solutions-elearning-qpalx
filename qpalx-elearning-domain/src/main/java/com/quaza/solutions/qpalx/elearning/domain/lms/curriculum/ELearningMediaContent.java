@@ -1,11 +1,15 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.MediaContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  * Elearning media content that can be associated with any ELearning course or Activity.
@@ -19,6 +23,12 @@ public class ELearningMediaContent {
 
     @Column(name="ELearningMediaType", nullable=true, length=255)
     private String eLearningMediaType;
+
+
+    @Column(name="QPalXTutorialContentType", nullable=true, length=10)
+    @Enumerated(EnumType.STRING)
+    private QPalXTutorialContentTypeE qPalXTutorialContentTypeE;
+
 
     // Full path and file name of the media content
     @Column(name="ELearningMediaFile", nullable=true, length=255)
@@ -35,12 +45,21 @@ public class ELearningMediaContent {
         this.eLearningMediaFile = eLearningMediaFile;
     }
 
+
     public String getELearningMediaType() {
         return eLearningMediaType;
     }
 
     public void setELearningMediaType(String eLearningMediaType) {
         this.eLearningMediaType = eLearningMediaType;
+    }
+
+    public QPalXTutorialContentTypeE getQPalXTutorialContentTypeE() {
+        return qPalXTutorialContentTypeE;
+    }
+
+    public void setQPalXTutorialContentTypeE(QPalXTutorialContentTypeE qPalXTutorialContentTypeE) {
+        this.qPalXTutorialContentTypeE = qPalXTutorialContentTypeE;
     }
 
     public String getELearningMediaFile() {
@@ -52,9 +71,9 @@ public class ELearningMediaContent {
     }
 
     public boolean isMediaTypeSupported() {
-        MediaContentType[] mediaContentTypes = MediaContentType.values();
+        MediaContentTypeE[] mediaContentTypeEs = MediaContentTypeE.values();
 
-        for (MediaContentType mType : mediaContentTypes) {
+        for (MediaContentTypeE mType : mediaContentTypeEs) {
             if(mType.toString().equals(eLearningMediaType)) {
                 return true;
             }
@@ -73,6 +92,7 @@ public class ELearningMediaContent {
 
         return new EqualsBuilder()
                 .append(eLearningMediaType, that.eLearningMediaType)
+                .append(qPalXTutorialContentTypeE, that.qPalXTutorialContentTypeE)
                 .append(eLearningMediaFile, that.eLearningMediaFile)
                 .isEquals();
     }
@@ -81,6 +101,7 @@ public class ELearningMediaContent {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(eLearningMediaType)
+                .append(qPalXTutorialContentTypeE)
                 .append(eLearningMediaFile)
                 .toHashCode();
     }
@@ -89,6 +110,7 @@ public class ELearningMediaContent {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("eLearningMediaType", eLearningMediaType)
+                .append("qPalXTutorialContentTypeE", qPalXTutorialContentTypeE)
                 .append("eLearningMediaFile", eLearningMediaFile)
                 .toString();
     }
@@ -99,6 +121,11 @@ public class ELearningMediaContent {
 
         public Builder eLearningMediaType(String eLearningMediaType) {
             eLearningMediaContent.eLearningMediaType = eLearningMediaType;
+            return this;
+        }
+
+        public Builder qPalXTutorialContentTypeE(QPalXTutorialContentTypeE qPalXTutorialContentTypeE) {
+            eLearningMediaContent.qPalXTutorialContentTypeE = qPalXTutorialContentTypeE;
             return this;
         }
 

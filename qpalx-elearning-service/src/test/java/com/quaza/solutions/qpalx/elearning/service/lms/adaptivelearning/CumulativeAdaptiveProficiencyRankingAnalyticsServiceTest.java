@@ -1,15 +1,14 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning;
 
 import com.google.common.collect.ImmutableList;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveLearningExperience;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.repository.IAdaptiveLearningExperienceRepository;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningExperience;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.repository.IAdaptiveLearningExperienceRepository;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyScoreRangeE;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
@@ -63,7 +62,7 @@ public class CumulativeAdaptiveProficiencyRankingAnalyticsServiceTest {
         List<AdaptiveLearningExperience> adaptiveLearningExperiences = ImmutableList.of(adaptiveLearningExperience1, adaptiveLearningExperience2, adaptiveLearningExperience3);
 
         // mock out call to repository object
-        Mockito.when(iAdaptiveLearningExperienceRepository.findAllQPalxUserCurriculumLearningExperiences(Mockito.any(), Mockito.any())).thenReturn(adaptiveLearningExperiences);
+        //Mockito.when(iAdaptiveLearningExperienceRepository.findAllQPalxUserCurriculumLearningExperiences(Mockito.any(), Mockito.any())).thenReturn(adaptiveLearningExperiences);
 
         // build test AdaptiveLearningProfile and ELearningCurriculum
 //        AdaptiveLearningProfile adaptiveLearningProfile = AdaptiveLearningProfile.builder().qpalxUser(new QPalXUser()).build();

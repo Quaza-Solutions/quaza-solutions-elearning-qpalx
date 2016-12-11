@@ -80,6 +80,20 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultQPalXUserSubscriptionService.class);
 
+
+    @Override
+    public void updateQPalXUserInfo(QPalXUser qPalXUser, IQPalXUserVO iqPalXUserVO) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(iqPalXUserVO, "iqPalXUserVO cannot be null");
+
+        LOGGER.info("Updating account info details for user: {} ...", qPalXUser.getEmail());
+
+        qPalXUser.setEmail(iqPalXUserVO.getEmail());
+        qPalXUser.setMobilePhoneNumber(iqPalXUserVO.getMobilePhoneNumber());
+        qPalXUser.setPassword(iqPalXUserVO.getPassword());
+        iqPalxUserRepository.save(qPalXUser);
+    }
+
     @Override
     public Optional<QPalXUser> createNewQPalXUser(IQPalXUserVO iqPalXUserVO) {
         Assert.notNull(iqPalXUserVO, "iqPalXUserVO cannot be null");

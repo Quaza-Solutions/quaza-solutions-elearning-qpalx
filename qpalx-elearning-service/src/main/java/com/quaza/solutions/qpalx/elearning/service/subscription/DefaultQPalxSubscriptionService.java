@@ -102,6 +102,19 @@ public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionServic
         return subscriptionExpiryDate;
     }
 
+    @Override
+    public int calculateNumberOfDaysTillExpiration(StudentSubscriptionProfile studentSubscriptionProfile) {
+        Assert.notNull(studentSubscriptionProfile, "studentSubscriptionProfile cannot be null");
+
+        DateTime now = new DateTime();
+        QPalXSubscription subscription = studentSubscriptionProfile.getqPalXSubscription();
+
+        // Calculate the number of days left between time purchased and the date it should expire.
+        DateTime expiryDate = calculateSubscriptionExpiryDateFromToday(subscription);
+        int numberOfDaysTillExpiry = Days.daysBetween(now, expiryDate).getDays();
+        return numberOfDaysTillExpiry;
+    }
+
     boolean isActiveUserSubscription(StudentSubscriptionProfile studentSubscriptionProfile) {
         DateTime now = new DateTime();
         QPalXSubscription subscription = studentSubscriptionProfile.getqPalXSubscription();
