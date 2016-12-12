@@ -73,6 +73,7 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
                 .microLessonName(iqPalXEMicroLessonVO.getMicroLessonName())
                 .microLessonDescription(iqPalXEMicroLessonVO.getMicroLessonDescription())
                 .eLearningMediaContent(iqPalXEMicroLessonVO.getELearningMediaContent())
+                .staticELearningMediaContent(iqPalXEMicroLessonVO.getStaticELearningMediaContent())
                 .qPalXELesson(qPalXELesson)
                 .microLessonActive(iqPalXEMicroLessonVO.isActive())
                 .entryDate(new DateTime())

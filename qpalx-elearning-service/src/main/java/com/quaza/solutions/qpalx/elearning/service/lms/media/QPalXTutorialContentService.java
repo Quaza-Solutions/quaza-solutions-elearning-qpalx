@@ -54,6 +54,9 @@ public class QPalXTutorialContentService implements IQPalXTutorialContentService
             case Video:
                 uploadDirectory = fileUploadLocationConfiguration.getELearningContentPhysicalFileResourcesDir() + "videos/";
                 break;
+            case Static:
+                uploadDirectory = fileUploadLocationConfiguration.getELearningContentPhysicalFileResourcesDir() + "videos/";
+                break;
             case Quiz:
                 uploadDirectory = fileUploadLocationConfiguration.getELearningContentPhysicalFileResourcesDir() + "quizzes/";
                 break;

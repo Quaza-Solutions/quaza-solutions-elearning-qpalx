@@ -30,36 +30,63 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
         <div class="row">
-            <div class="col-md-3">Micro Lesson name</div>
-            <div class="col-md-3">Micro Lesson Description</div>
-            <div class="col-md-6">QPalX Content Type</div>
+            <div class="col-md-4">Micro Lesson name</div>
+            <div class="col-md-4">Micro Lesson Description</div>
+            <div class="col-md-4"></div>
         </div>
 
         <div class="row">
-            <div class="col-md-3"><input type="text" size="26" id="name" name="name" th:field="*{microLessonName}"/><span class="name"></span></div>
-            <div class="col-md-3"><input type="text" size="26" id="description" name="description" th:field="*{microLessonDescription}"/><span class="description"></span></div>
-            <div class="col-md-6">
-                <select class="activity" th:field="*{qPalXTutorialContentType}">
-                    <option value=""></option>
-                    <option th:each="SupportedQPalXTutorialContentType : ${SupportedQPalXTutorialContentTypes}" th:value="${SupportedQPalXTutorialContentType}" th:text="${SupportedQPalXTutorialContentType}"></option>
-                </select>
-            </div>
+            <div class="col-md-4"><input type="text" size="30" id="name" name="name" th:field="*{microLessonName}"/><span class="name"></span></div>
+            <div class="col-md-4"><input type="text" size="50" id="description" name="description" th:field="*{microLessonDescription}"/><span class="description"></span></div>
+            <div class="col-md-4"></div>
         </div>
 
         <div class="clearfix bottom-space"></div>
 
+        <!-- Header and content row for uploading narration file MP4 -->
         <div class="row">
             <div class="col-md-6">
-                Upload file:
+                Upload Narration (MP4) File:
             </div>
             <div class="col-md-6"></div>
         </div>
 
         <div class="row">
+
             <div class="col-md-6">
-                <input type="file" name="file"/>
+                <input type="file" name="narration_file"/>
+            </div>
+
+            <div class="col-md-6">
+                <select class="activity" th:field="*{qPalXTutorialContentType}">
+                    <option th:each="SupportedQPalXTutorialContentType : ${SupportedQPalXTutorialContentTypes}" th:value="${SupportedQPalXTutorialContentType}" th:text="${SupportedQPalXTutorialContentType}"></option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="clearfix bottom-space"></div>
+
+            <!-- Header and content row for uploading static file SWF -->
+        <div class="row">
+            <div class="col-md-6">
+                Upload Static (SWF) File:
             </div>
             <div class="col-md-6"></div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <input type="file" name="static_file"/>
+            </div>
+
+            <div class="col-md-6">
+                <select class="activity" th:field="*{staticQPalXTutorialContentType}">
+                    <option th:each="SupportedStaticQPalXTutorialContentType : ${SupportedStaticQPalXTutorialContentTypes}" th:value="${SupportedStaticQPalXTutorialContentType}" th:text="${SupportedStaticQPalXTutorialContentType}"></option>
+                </select>
+            </div>
+
         </div>
 
         <div class="clearfix bottom-space"></div>

@@ -11,6 +11,8 @@ public enum QPalXTutorialContentTypeE {
 
     Video,
 
+    Static,
+
     Assesment,
 
     Assignment,

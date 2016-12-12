@@ -90,9 +90,10 @@ public class AdaptiveMicroLessonStatistics {
             long microLessonID = resultSet.getLong("MicroLessonID");
             String microLessonName = resultSet.getString("MicroLessonName");
             String narrationMediaFile = resultSet.getString("ELearningMediaFile");
+            String interactiveMediaFile = resultSet.getString("StaticELearningMediaFile");
             Integer uniqueQuizzesAttempted = resultSet.getInt("UniqueQuizzesAttempted");
             Integer totalQuizzes = resultSet.getInt("TotalNumberOfQuizzes");
-            return new AdaptiveMicroLessonStatistics(microLessonID, microLessonName, uniqueQuizzesAttempted, totalQuizzes, narrationMediaFile, null);
+            return new AdaptiveMicroLessonStatistics(microLessonID, microLessonName, uniqueQuizzesAttempted, totalQuizzes, narrationMediaFile, interactiveMediaFile);
         }
     }
 }

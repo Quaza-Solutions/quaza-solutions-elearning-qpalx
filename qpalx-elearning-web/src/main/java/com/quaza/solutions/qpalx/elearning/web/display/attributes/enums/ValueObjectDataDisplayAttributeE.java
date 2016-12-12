@@ -17,6 +17,8 @@ public enum ValueObjectDataDisplayAttributeE {
 
     SupportedQPalXTutorialContentTypes,
 
+    SupportedStaticQPalXTutorialContentTypes,
+
     ;
 
 }

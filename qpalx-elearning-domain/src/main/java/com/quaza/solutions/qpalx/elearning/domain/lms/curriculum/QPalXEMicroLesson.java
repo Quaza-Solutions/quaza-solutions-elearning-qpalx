@@ -37,6 +37,15 @@ public class QPalXEMicroLesson {
     @Embedded
     private ELearningMediaContent eLearningMediaContent;
 
+    // Provides information on static micro lesson content w/o any narration.  These should be swf files
+    @Embedded
+    @AttributeOverrides( {
+            @AttributeOverride(name="eLearningMediaType", column = @Column(name="StaticELearningMediaType") ),
+            @AttributeOverride(name="qPalXTutorialContentTypeE", column = @Column(name="StaticQPalXTutorialContentType")),
+            @AttributeOverride(name="eLearningMediaFile", column = @Column(name="StaticELearningMediaFile"))
+    } )
+    private ELearningMediaContent staticELearningMediaContent;
+
     // Always fetch this Eager as we always need the parent QPalXELesson always avaialable
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "QPalXELessonID", nullable = false)
@@ -95,6 +104,14 @@ public class QPalXEMicroLesson {
         this.eLearningMediaContent = eLearningMediaContent;
     }
 
+    public ELearningMediaContent getStaticELearningMediaContent() {
+        return staticELearningMediaContent;
+    }
+
+    public void setStaticELearningMediaContent(ELearningMediaContent staticELearningMediaContent) {
+        this.staticELearningMediaContent = staticELearningMediaContent;
+    }
+
     public QPalXELesson getQPalXELesson() {
         return qPalXELesson;
     }
@@ -142,6 +159,7 @@ public class QPalXEMicroLesson {
                 .append(microLessonName, that.microLessonName)
                 .append(microLessonDescription, that.microLessonDescription)
                 .append(eLearningMediaContent, that.eLearningMediaContent)
+                .append(staticELearningMediaContent, that.staticELearningMediaContent)
                 .append(qPalXELesson, that.qPalXELesson)
                 .append(entryDate, that.entryDate)
                 .isEquals();
@@ -154,6 +172,7 @@ public class QPalXEMicroLesson {
                 .append(microLessonName)
                 .append(microLessonDescription)
                 .append(eLearningMediaContent)
+                .append(staticELearningMediaContent)
                 .append(qPalXELesson)
                 .append(entryDate)
                 .append(microLessonActive)
@@ -167,6 +186,7 @@ public class QPalXEMicroLesson {
                 .append("microLessonName", microLessonName)
                 .append("microLessonDescription", microLessonDescription)
                 .append("eLearningMediaContent", eLearningMediaContent)
+                .append("staticELearningMediaContent", staticELearningMediaContent)
                 .append("qPalXELesson", qPalXELesson)
                 .append("entryDate", entryDate)
                 .append("microLessonActive", microLessonActive)
@@ -193,6 +213,11 @@ public class QPalXEMicroLesson {
 
         public Builder eLearningMediaContent(ELearningMediaContent eLearningMediaContent) {
             qpalxMicroLesson.eLearningMediaContent = eLearningMediaContent;
+            return this;
+        }
+
+        public Builder staticELearningMediaContent(ELearningMediaContent staticELearningMediaContent) {
+            qpalxMicroLesson.staticELearningMediaContent = staticELearningMediaContent;
             return this;
         }
 

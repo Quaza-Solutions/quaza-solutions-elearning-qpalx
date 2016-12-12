@@ -120,6 +120,7 @@ public class QPalXMicroLessonAdminController {
         model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXELesson.toString(), qPalXELesson);
         model.addAttribute(ValueObjectDataDisplayAttributeE.QPalXEMicroLessonVO.toString(), qPalXEMicroLessonVO);
         model.addAttribute(ValueObjectDataDisplayAttributeE.SupportedQPalXTutorialContentTypes.toString(), qPalXEMicroLessonVO.getQPalXTutorialContentTypes());
+        model.addAttribute(ValueObjectDataDisplayAttributeE.SupportedStaticQPalXTutorialContentTypes.toString(), qPalXEMicroLessonVO.getStaticQPalXTutorialContentTypes());
 
         // Add all attributes required for User information panel
         qPalXUserInfoPanelService.addUserInfoAttributes(model);
@@ -129,11 +130,14 @@ public class QPalXMicroLessonAdminController {
 
     @RequestMapping(value = "/save-qpalx-microlesson", method = RequestMethod.POST)
     public void saveMicroLesson(Model model, @ModelAttribute("QPalXEMicroLessonVO") QPalXEMicroLessonVO qPalXEMicroLessonVO,
-                                 HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile multipartFile) {
+                                 HttpServletRequest request, HttpServletResponse response, @RequestParam("narration_file") MultipartFile multipartFile, @RequestParam("static_file") MultipartFile staticMultipartFile) {
         LOGGER.info("Saving QPalX micro lesson with VO attributes: {}", qPalXEMicroLessonVO);
+
+        System.out.println("staticMultipartFile = " + staticMultipartFile);
 
         // Upload file and create the ELearningMediaContent
         ELearningMediaContent eLearningMediaContent = iFileUploadUtil.uploadELearningMediaContent(multipartFile, qPalXEMicroLessonVO);
+        ELearningMediaContent staticELearningMediaContent = iFileUploadUtil.uploadELearningMediaContent(staticMultipartFile, qPalXEMicroLessonVO);
 
         if(eLearningMediaContent == null) {
             LOGGER.warn("Selected ELearning Media content could not be uploaded.  Check selected file content.");
@@ -148,6 +152,7 @@ public class QPalXMicroLessonAdminController {
         } else {
             LOGGER.info("QPalX Lesson media content was succesfully uploaded, saving micro lesson details...");
             qPalXEMicroLessonVO.setELearningMediaContent(eLearningMediaContent);
+            qPalXEMicroLessonVO.setStaticELearningMediaContent(staticELearningMediaContent);
             iqPalXEMicroLessonService.createAndSaveQPalXEMicroLesson(qPalXEMicroLessonVO);
             String targetURL = "/view-admin-qpalx-micro-elessons?qpalxELessonID=" + qPalXEMicroLessonVO.getQPalXELessonID();
             iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
