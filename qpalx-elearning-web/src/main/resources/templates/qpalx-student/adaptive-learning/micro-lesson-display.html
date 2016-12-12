@@ -42,7 +42,9 @@
         </div>
 
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-            <!--<img src="images/assets/adaptive-learning/hand.png" class="hand" />-->
+            <a class="anchor-1" th:attr="href='#popup_static' + ${rowStat.count}">
+                <img src="images/assets/adaptive-learning/hand.png" class="hand" />
+            </a>
         </div>
 
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><div class="topmargin-2">
@@ -106,6 +108,8 @@
 
 <!-- Build modal displays for all Micro lessons displayed above -->
 <div th:each="QPalXEMicroLesson,rowStat : ${QPalXEMicroLessons}">
+
+    <!-- Micro lesson with narration -->
     <div th:id="'popup' + ${rowStat.count}"  th:with="uniqueID=${rowStat.count}" class="modalBox" th:href="@{/micro-lesson-progress-tracker(microLessonID=${QPalXEMicroLesson.getMicroLessonID()}, uniqueQPalxUserKey=${LoggedInQPalXUser.getEmail()})}">
         <a href="#" class="modalCloseOuter" th:attr="onclick='javascript:stopVideo(\'' + ${rowStat.count} +'\');'"></a>
         <div class="mp4">
@@ -120,6 +124,20 @@
             <div class="bar-3"></div>
         </div>
     </div>
+
+    <!-- Micro lesson static.  No narration -->
+    <div th:id="'popup_static' + ${rowStat.count}"  th:with="uniqueID=${rowStat.count}" class="modalBox" th:href="@{/micro-lesson-progress-tracker(microLessonID=${QPalXEMicroLesson.getMicroLessonID()}, uniqueQPalxUserKey=${LoggedInQPalXUser.getEmail()})}">
+        <a href="#" class="modalCloseOuter" th:attr="onclick='javascript:stopVideo(\'' + ${rowStat.count} +'\');'"></a>
+        <div class="mp4">
+            <div class="bar-1"></div>
+            <a href="#" style="float:right; margin: 20px 40px 20px 0;"   th:attr="onclick='javascript:stopVideo(\'' + ${rowStat.count} +'\');'">Close</a>
+            <div class="modalBody">
+                <embed th:src="${QPalXEMicroLesson.getInteractiveMediaFile()}" width="800" height="560"  />
+            </div>
+            <div class="bar-3"></div>
+        </div>
+    </div>
+
 </div>
 
 <div id="QuestionBank" class="modalBox" th:if="${RandomQuestionBankItem != null}" th:href="@{/question-bank-progress-tracker(questionBankItemID=${RandomQuestionBankItem.id}, uniqueQPalxUserKey=${LoggedInQPalXUser.getEmail()})}">
