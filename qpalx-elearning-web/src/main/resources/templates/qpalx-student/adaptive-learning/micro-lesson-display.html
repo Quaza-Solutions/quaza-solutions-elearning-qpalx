@@ -76,7 +76,7 @@
 <div class="my-container-2 large-fonts">
     <a class="pop-up-2" href="#popup2">Lesson Intro Video</a>
     <br />
-    <a class="pop-up-2" href="#popup2">
+    <a class="pop-up-2" href="#LessonIntroVideo">
         <img src="images/assets/adaptive-learning/video-icon.png" id="video-icon-2" />
     </a>
     <br /><br />
@@ -154,6 +154,27 @@
 
             </div>
     </div>
+</div>
+
+
+<!-- Popup for Lesson Intro Video -->
+<div class="modalBox" th:if="${SelectedQPalXELesson != null}">
+
+    <div id="LessonIntroVideo" class="modalBox">
+        <a href="#" class="modalCloseOuter" onClick="stopVideo();"></a>
+        <div class="mp4">
+            <div class="bar-1"></div>
+            <a href="#" style="float:right; margin: 20px 40px 20px 0;" onClick="stopVideo();">Close</a>
+            <div class="modalBody">
+                <video width="800" controls="controls">
+                    <source th:src="${SelectedQPalXELesson.geteLearningMediaContent().getELearningMediaFile()}" type="video/mp4"/>
+                    Your browser does not support HTML5 video.
+                </video>
+            </div>
+            <div class="bar-3"></div>
+        </div>
+    </div>
+
 </div>
 
 

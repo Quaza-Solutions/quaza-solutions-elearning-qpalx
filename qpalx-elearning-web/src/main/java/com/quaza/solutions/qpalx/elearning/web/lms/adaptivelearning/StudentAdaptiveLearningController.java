@@ -139,6 +139,7 @@ public class StudentAdaptiveLearningController {
 
         Long id = NumberUtils.toLong(eLessonID);
         QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(id);
+        model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXELesson.toString(), qPalXELesson);
         iStudentInfoOverviewPanelService.addStudentInfoOverviewWithLesson(model, qPalXELesson);
 
         ELearningCourse eLearningCourse = qPalXELesson.geteLearningCourse();
