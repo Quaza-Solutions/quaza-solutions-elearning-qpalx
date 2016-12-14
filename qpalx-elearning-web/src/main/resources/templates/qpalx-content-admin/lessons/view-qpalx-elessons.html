@@ -49,7 +49,16 @@
             <div class="small" th:text="${QPalXELesson.proficiencyRankingScaleFloor.getProficiencyScoreRangeE()}"></div>
             <!--<div th:inline="text" class="small">[[${ELearningCourseActivity.proficiencyRankingScaleFloor}]] - [[${ELearningCourseActivity.proficiencyRankingScaleCeiling}]]</div>-->
         </div>
-        <div class="col-md-6"></div>
+
+        <div class="col-md-4"></div>
+
+        <div class="col-md-2">
+            <div class="default-btn-1"></div>
+            <button type="button" value="0" class="btn btn-default btn-default-1 btn-sm" th:onclick="'document.location.href=\'' + @{/edit-qpalx-elesson(qpalxELessonID=${QPalXELesson.id})} + '\''">
+                Edit E-Lesson
+            </button>
+        </div>
+
         <div class="col-md-2">
             <div class="default-btn-1"></div>
             <button type="button" value="0" class="btn btn-default btn-default-1 btn-sm" th:onclick="'document.location.href=\'' + @{/delete-qpalx-elesson(qpalxELessonID=${QPalXELesson.id})} + '\''">

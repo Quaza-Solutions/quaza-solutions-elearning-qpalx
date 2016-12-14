@@ -121,6 +121,28 @@ public class QPalXLessonAdminController {
         return ContentRootE.Content_Admin_Lessons.getContentRootPagePath("add-qpalx-elesson");
     }
 
+    @RequestMapping(value = "/edit-qpalx-elesson", method = RequestMethod.GET)
+    public String editQPalXELessonsView(final Model model, @RequestParam("qpalxELessonID") String qpalxELessonID, HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("Generating edit Lesson page for qpalxELessonID: {}", qpalxELessonID);
+
+        Long id = NumberUtils.toLong(qpalxELessonID);
+        QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(id);
+        ELearningCourse eLearningCourse = qPalXELesson.geteLearningCourse();
+        model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXELesson.toString(), qPalXELesson);
+        model.addAttribute(CurriculumDisplayAttributeE.SelectedELearningCourse.toString(), eLearningCourse);
+
+        // Create value object used to bind form elements
+        QPalXELessonWebVO qPalXELessonWebVO = new QPalXELessonWebVO(qPalXELesson);
+        model.addAttribute(ValueObjectDataDisplayAttributeE.QPalXELessonWebVO.toString(), qPalXELessonWebVO);
+
+        // Add all attributes required for page
+        List<QPalXEducationalInstitution> qPalXEducationalInstitutions = iqPalXEducationalInstitutionService.findAll();
+        model.addAttribute(DomainDataDisplayAttributeE.AvailableQPalXEducationalInstitutions.toString(), qPalXEducationalInstitutions);
+        model.addAttribute(DomainDataDisplayAttributeE.ProficiencyRankings.toString(), ProficiencyRankingScaleE.lowestToHighest());
+        model.addAttribute(ValueObjectDataDisplayAttributeE.SupportedQPalXTutorialContentTypes.toString(), qPalXELessonWebVO.getQPalXTutorialContentTypes());
+        return ContentRootE.Content_Admin_Lessons.getContentRootPagePath("edit-qpalx-elesson");
+    }
+
     @RequestMapping(value = "/save-qpalx-elesson", method = RequestMethod.POST)
     public void saveQPalXELesson(Model model, @ModelAttribute("QPalXELessonWebVO") QPalXELessonWebVO qPalXELessonWebVO,
                                  HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile multipartFile) {
@@ -147,6 +169,39 @@ public class QPalXLessonAdminController {
             iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
         }
     }
+
+    @RequestMapping(value = "/update-qpalx-elesson", method = RequestMethod.POST)
+    public void updateQPalXELesson(Model model, @ModelAttribute("QPalXELessonWebVO") QPalXELessonWebVO qPalXELessonWebVO,
+                                   HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile multipartFile) {
+        LOGGER.info("Saving QPalX ELesson with VO attributes: {}", qPalXELessonWebVO);
+
+        // Upload the new file and create the ELearningMediaContent
+        ELearningMediaContent eLearningMediaContent = iFileUploadUtil.uploadELearningMediaContent(multipartFile, qPalXELessonWebVO);
+
+        // Delete the current existing Lesson Intro video
+        QPalXELesson qPalXELesson = iqPalXELessonService.findQPalXELessonByID(qPalXELessonWebVO.getQPalxELessonID());
+        LOGGER.debug("Deleting current existing intro video media contet: {}", qPalXELesson.geteLearningMediaContent());
+        iFileUploadUtil.deleteELearningMediaContent(qPalXELesson.geteLearningMediaContent());
+
+        if(eLearningMediaContent == null) {
+            LOGGER.warn("Selected ELearning Media content could not be uploaded.  Check selected file content.");
+            String targetURL = "/edit-qpalx-elesson?eLearningCourseID=" + qPalXELessonWebVO.getELearningCourseID();
+            String errorMessage = "Failed to upload file: Check the contents of the file";
+            iRedirectStrategyExecutor.sendRedirectWithError(targetURL, errorMessage, WebOperationErrorAttributesE.Invalid_FORM_Submission, request, response);
+        } else if(eLearningMediaContent == ELearningMediaContent.NOT_SUPPORTED_MEDIA_CONTENT) {
+            LOGGER.warn("Uploaded course activity media content file is currently not supported...");
+            String targetURL = "/edit-qpalx-elesson?eLearningCourseID=" + qPalXELessonWebVO.getELearningCourseID();
+            String errorMessage = "Uploaded file is not supported: Only Files of type(MP4, SWF) supported";
+            iRedirectStrategyExecutor.sendRedirectWithError(targetURL, errorMessage, WebOperationErrorAttributesE.Invalid_FORM_Submission, request, response);
+        } else {
+            LOGGER.info("QPalX Lesson media content was succesfully uploaded, saving lesson details...");
+            qPalXELessonWebVO.setELearningMediaContent(eLearningMediaContent);
+            iqPalXELessonService.updateAndSaveQPalXELesson(qPalXELesson, qPalXELessonWebVO);
+            String targetURL = "/view-admin-qpalx-elessons?eLearningCourseID=" + qPalXELessonWebVO.getELearningCourseID();
+            iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+        }
+    }
+
 
     @RequestMapping(value = "/delete-qpalx-elesson", method = RequestMethod.GET)
     public void deleteQPalXELessons(final Model model, @RequestParam("qpalxELessonID") String qpalxELessonID, HttpServletRequest request, HttpServletResponse response) {

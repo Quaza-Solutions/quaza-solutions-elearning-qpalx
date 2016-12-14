@@ -128,6 +128,37 @@ public class QPalXELessonService implements IQPalXELessonService {
         iqPalXELessonRepository.save(qPalXELesson);
     }
 
+    @Transactional
+    @Override
+    public void updateAndSaveQPalXELesson(QPalXELesson qPalXELesson, IQPalXELessonVO iqPalXELessonVO) {
+        Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+        Assert.notNull(iqPalXELessonVO, "iqPalXELessonVO cannot be null");
+        Assert.notNull(iqPalXELessonVO.getELearningCourseID(), "Non null ELearningCourse ID required");
+        Assert.notNull(iqPalXELessonVO.getTutorialLevelCalendarID(), "Non null valid TutorialLevelCalendar ID required");
+        Assert.notNull(iqPalXELessonVO.getELearningMediaContent(), "Non null valid ELearningMediaContent ID required");
+        LOGGER.info("Updating and saving QPalXELesson with value object iqPalXELessonVO: {}", iqPalXELessonVO);
+
+        // Load up the EducationalInstitution for this course if its been selected.
+        QPalXEducationalInstitution qPalXEducationalInstitution = null;
+        if (iqPalXELessonVO.getEducationalInstitutionID() != null) {
+            qPalXEducationalInstitution = iqPalXEducationalInstitutionService.findByID(iqPalXELessonVO.getEducationalInstitutionID());
+        }
+
+        // Load up the TutorialLevel calendar
+        TutorialLevelCalendar tutorialLevelCalendar = iTutorialLevelCalendarService.findByID(iqPalXELessonVO.getTutorialLevelCalendarID());
+
+        qPalXELesson.setLessonName(iqPalXELessonVO.getLessonName());
+        qPalXELesson.setLessonDescription(iqPalXELessonVO.getLessonDescription());
+        qPalXELesson.seteLearningMediaContent(iqPalXELessonVO.getELearningMediaContent());
+        qPalXELesson.setTutorialLevelCalendar(tutorialLevelCalendar);
+        qPalXELesson.setLessonActive(iqPalXELessonVO.isActive());
+        qPalXELesson.setQPalXEducationalInstitution(qPalXEducationalInstitution);
+        qPalXELesson.setProficiencyRankingScaleFloor(iqPalXELessonVO.getProficiencyRankingScaleFloorE());
+        qPalXELesson.setProficiencyRankingScaleCeiling(iqPalXELessonVO.getProficiencyRankingScaleCeilingE());
+
+        iqPalXELessonRepository.save(qPalXELesson);
+    }
+
     @Override
     public boolean isELessonDeletable(QPalXELesson qPalXELesson) {
         Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");

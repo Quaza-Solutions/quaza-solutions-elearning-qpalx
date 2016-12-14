@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.web.curriculum.vo;
 
 import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXELessonVO;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.AbstractILMSMediaContentVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.MediaContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
@@ -30,6 +31,23 @@ public class QPalXELessonWebVO extends AbstractILMSMediaContentVO implements IQP
 
     private Long educationalInstitutionID;
 
+    private Long qPalxELessonID;
+
+
+    public QPalXELessonWebVO() {
+
+    }
+
+    public QPalXELessonWebVO(final QPalXELesson qPalXELesson) {
+        this.qPalxELessonID = qPalXELesson.getId();
+        this.lessonName = qPalXELesson.getLessonName();
+        this.lessonDescription = qPalXELesson.getLessonDescription();
+        this.eLearningCourseID = qPalXELesson.geteLearningCourse().getId();
+        this.tutorialLevelCalendarID = qPalXELesson.getTutorialLevelCalendar().getId();
+        this.proficiencyRankingScaleFloor = qPalXELesson.getProficiencyRankingScaleFloor().toString();
+        this.proficiencyRankingScaleCeiling = qPalXELesson.getProficiencyRankingScaleCeiling().toString();
+        this.educationalInstitutionID = qPalXELesson.getQPalXEducationalInstitution() != null ? qPalXELesson.getQPalXEducationalInstitution().getId() : null;
+    }
 
     @Override
     public String getLessonName() {
@@ -91,6 +109,14 @@ public class QPalXELessonWebVO extends AbstractILMSMediaContentVO implements IQP
 
     public void setEducationalInstitutionID(Long educationalInstitutionID) {
         this.educationalInstitutionID = educationalInstitutionID;
+    }
+
+    public Long getQPalxELessonID() {
+        return qPalxELessonID;
+    }
+
+    public void setQPalxELessonID(Long qpalxELessonID) {
+        this.qPalxELessonID = qpalxELessonID;
     }
 
     @Override
