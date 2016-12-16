@@ -1,0 +1,160 @@
+package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz;
+
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+/**
+ * @author manyce400
+ */
+@Entity
+@Table(name="AdaptiveLearningQuizQuestion")
+public class AdaptiveLearningQuizQuestion {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID", nullable=false)
+    private Long id;
+
+    @Column(name="QuestionTitle", nullable=false, length=100)
+    private String questionTitle;
+
+    @Column(name="AdaptiveLearningQuizQuestionType", nullable=false, length=20)
+    @Enumerated(EnumType.STRING)
+    private AdaptiveLearningQuizQuestionTypeE adaptiveLearningQuizQuestionTypeE;
+
+    // Optional capability to embed multimedia capabilities as part of defining a quiz question.  This is dependent on the actual AdaptiveLearningQuizQuestionTypeE
+    @Embedded
+    @AttributeOverrides( {
+            @AttributeOverride(name="eLearningMediaType", column = @Column(name="QuizQuestionMediaType") ),
+            @AttributeOverride(name="qPalXTutorialContentTypeE", column = @Column(name="QuizQuestionQPalXTutorialContentType")),
+            @AttributeOverride(name="eLearningMediaFile", column = @Column(name="QuizQuestionMediaFile"))
+    } )
+    private ELearningMediaContent quizQuestionAnswerMultiMedia;
+
+    @Column(name="EntryDate", nullable=false)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime entryDate;
+
+    @Column(name="ModifyDate", nullable=true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime modifyDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "AdaptiveLearningQuizID", nullable = false)
+    private AdaptiveLearningQuiz adaptiveLearningQuiz;
+
+    // Collection of all question answers.  LinkedHashSet is used to maintain ordering
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "adaptiveLearningQuizQuestion")
+    private Set<AdaptiveLearningQuizQuestionAnswer> adaptiveLearningQuizQuestions = new LinkedHashSet<>();
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getQuestionTitle() {
+        return questionTitle;
+    }
+
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
+    }
+
+    public AdaptiveLearningQuizQuestionTypeE getAdaptiveLearningQuizQuestionTypeE() {
+        return adaptiveLearningQuizQuestionTypeE;
+    }
+
+    public void setAdaptiveLearningQuizQuestionTypeE(AdaptiveLearningQuizQuestionTypeE adaptiveLearningQuizQuestionTypeE) {
+        this.adaptiveLearningQuizQuestionTypeE = adaptiveLearningQuizQuestionTypeE;
+    }
+
+    public ELearningMediaContent getQuizQuestionAnswerMultiMedia() {
+        return quizQuestionAnswerMultiMedia;
+    }
+
+    public void setQuizQuestionAnswerMultiMedia(ELearningMediaContent quizQuestionAnswerMultiMedia) {
+        this.quizQuestionAnswerMultiMedia = quizQuestionAnswerMultiMedia;
+    }
+
+    public DateTime getEntryDate() {
+        return entryDate;
+    }
+
+    public void setEntryDate(DateTime entryDate) {
+        this.entryDate = entryDate;
+    }
+
+    public DateTime getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(DateTime modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+
+    public AdaptiveLearningQuiz getAdaptiveLearningQuiz() {
+        return adaptiveLearningQuiz;
+    }
+
+    public void setAdaptiveLearningQuiz(AdaptiveLearningQuiz adaptiveLearningQuiz) {
+        this.adaptiveLearningQuiz = adaptiveLearningQuiz;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AdaptiveLearningQuizQuestion that = (AdaptiveLearningQuizQuestion) o;
+
+        return new EqualsBuilder()
+                .append(id, that.id)
+                .append(questionTitle, that.questionTitle)
+                .append(adaptiveLearningQuizQuestionTypeE, that.adaptiveLearningQuizQuestionTypeE)
+                .append(quizQuestionAnswerMultiMedia, that.quizQuestionAnswerMultiMedia)
+                .append(entryDate, that.entryDate)
+                .append(modifyDate, that.modifyDate)
+                .append(adaptiveLearningQuiz, that.adaptiveLearningQuiz)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(questionTitle)
+                .append(adaptiveLearningQuizQuestionTypeE)
+                .append(quizQuestionAnswerMultiMedia)
+                .append(entryDate)
+                .append(modifyDate)
+                .append(adaptiveLearningQuiz)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("questionTitle", questionTitle)
+                .append("adaptiveLearningQuizQuestionTypeE", adaptiveLearningQuizQuestionTypeE)
+                .append("quizQuestionAnswerMultiMedia", quizQuestionAnswerMultiMedia)
+                .append("entryDate", entryDate)
+                .append("modifyDate", modifyDate)
+                .append("adaptiveLearningQuiz", adaptiveLearningQuiz)
+                .toString();
+    }
+}

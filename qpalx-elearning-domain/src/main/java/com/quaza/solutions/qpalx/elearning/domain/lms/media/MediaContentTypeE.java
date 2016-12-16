@@ -7,6 +7,10 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.media;
  */
 public enum MediaContentTypeE {
 
+    jpeg,
+
+    png,
+
     mp4,
 
     swf,
