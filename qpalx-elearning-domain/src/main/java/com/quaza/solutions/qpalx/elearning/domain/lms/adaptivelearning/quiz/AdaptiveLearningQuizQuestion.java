@@ -27,6 +27,9 @@ public class AdaptiveLearningQuizQuestion {
     @Column(name="QuestionTitle", nullable=false, length=100)
     private String questionTitle;
 
+    @Column(name="QuestionFeedBack", nullable=false, length=500)
+    private String questionFeedBack;
+
     @Column(name="AdaptiveLearningQuizQuestionType", nullable=false, length=20)
     @Enumerated(EnumType.STRING)
     private AdaptiveLearningQuizQuestionTypeE adaptiveLearningQuizQuestionTypeE;
@@ -71,6 +74,14 @@ public class AdaptiveLearningQuizQuestion {
 
     public void setQuestionTitle(String questionTitle) {
         this.questionTitle = questionTitle;
+    }
+
+    public String getQuestionFeedBack() {
+        return questionFeedBack;
+    }
+
+    public void setQuestionFeedBack(String questionFeedBack) {
+        this.questionFeedBack = questionFeedBack;
     }
 
     public AdaptiveLearningQuizQuestionTypeE getAdaptiveLearningQuizQuestionTypeE() {
@@ -124,6 +135,7 @@ public class AdaptiveLearningQuizQuestion {
         return new EqualsBuilder()
                 .append(id, that.id)
                 .append(questionTitle, that.questionTitle)
+                .append(questionFeedBack, that.questionFeedBack)
                 .append(adaptiveLearningQuizQuestionTypeE, that.adaptiveLearningQuizQuestionTypeE)
                 .append(quizQuestionAnswerMultiMedia, that.quizQuestionAnswerMultiMedia)
                 .append(entryDate, that.entryDate)
@@ -137,6 +149,7 @@ public class AdaptiveLearningQuizQuestion {
         return new HashCodeBuilder(17, 37)
                 .append(id)
                 .append(questionTitle)
+                .append(questionFeedBack)
                 .append(adaptiveLearningQuizQuestionTypeE)
                 .append(quizQuestionAnswerMultiMedia)
                 .append(entryDate)
