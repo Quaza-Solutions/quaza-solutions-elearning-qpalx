@@ -1,15 +1,11 @@
 package com.quaza.solutions.qpalx.elearning.web.lms.curriculum.admin;
 
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningQuiz;
-import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
-import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IAdaptiveLearningQuizService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXEMicroLessonService;
 import com.quaza.solutions.qpalx.elearning.web.adaptivelearning.vo.AdaptiveLearningQuizWebVO;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.CurriculumDisplayAttributeE;
 import com.quaza.solutions.qpalx.elearning.web.display.attributes.enums.ValueObjectDataDisplayAttributeE;
-import com.quaza.solutions.qpalx.elearning.web.lms.curriculum.enums.LessonsAdminAttributesE;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IContentAdminTutorialGradePanelService;
 import com.quaza.solutions.qpalx.elearning.web.service.panel.IQPalXUserInfoPanelService;
 import com.quaza.solutions.qpalx.elearning.web.utils.IRedirectStrategyExecutor;
@@ -25,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * @author manyce400
@@ -44,9 +39,6 @@ public class AdaptiveLearningQuizController {
     @Qualifier("quaza.solutions.qpalx.elearning.service.QPalXEMicroLessonService")
     private IQPalXEMicroLessonService iqPalXEMicroLessonService;
 
-    @Autowired
-    @Qualifier("quaza.solutions.qpalx.elearning.service.AdaptiveLearningQuizService")
-    private IAdaptiveLearningQuizService iAdaptiveLearningQuizService;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.ContentAdminTutorialGradePanelService")
@@ -62,22 +54,22 @@ public class AdaptiveLearningQuizController {
 
     @RequestMapping(value = "/view-admin-quizzes", method = RequestMethod.GET)
     public String viewAdminAdaptiveQuizzes(final Model model, @RequestParam("microlessonID") String microlessonID) {
-        LOGGER.info("Generating view for quizzes under QPalXEMicroLesson with ID: {}", microlessonID);
-
-        Long microLessonID = NumberUtils.toLong(microlessonID);
-        QPalXEMicroLesson qPalXEMicroLesson = iqPalXEMicroLessonService.findByID(microLessonID);
-        List<AdaptiveLearningQuiz> adaptiveLearningQuizzes = iAdaptiveLearningQuizService.findAllByQPalXEMicroLesson(qPalXEMicroLesson.getId());
-
-        model.addAttribute(LessonsAdminAttributesE.AdaptiveLearningQuizzes.toString(), adaptiveLearningQuizzes);
-
-        // Add information required for Users account info display panel
-        qPalXUserInfoPanelService.addUserInfoAttributes(model);
-        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
-
-        model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXMicroLesson.toString(), qPalXEMicroLesson);
-
-        QPalXELesson qPalXELesson = qPalXEMicroLesson.getQPalXELesson();
-        contentAdminTutorialGradePanelService.addDisplayPanelAttributes(model, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, qPalXELesson);
+//        LOGGER.info("Generating view for quizzes under QPalXEMicroLesson with ID: {}", microlessonID);
+//
+//        Long microLessonID = NumberUtils.toLong(microlessonID);
+//        QPalXEMicroLesson qPalXEMicroLesson = iqPalXEMicroLessonService.findByID(microLessonID);
+//        List<AdaptiveLearningQuiz> adaptiveLearningQuizzes = iAdaptiveLearningQuizService.findAllByQPalXEMicroLesson(qPalXEMicroLesson.getId());
+//
+//        model.addAttribute(LessonsAdminAttributesE.AdaptiveLearningQuizzes.toString(), adaptiveLearningQuizzes);
+//
+//        // Add information required for Users account info display panel
+//        qPalXUserInfoPanelService.addUserInfoAttributes(model);
+//        model.addAttribute(CurriculumDisplayAttributeE.DisplayUserInfo.toString(), Boolean.TRUE.toString());
+//
+//        model.addAttribute(CurriculumDisplayAttributeE.SelectedQPalXMicroLesson.toString(), qPalXEMicroLesson);
+//
+//        QPalXELesson qPalXELesson = qPalXEMicroLesson.getQPalXELesson();
+//        contentAdminTutorialGradePanelService.addDisplayPanelAttributes(model, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, qPalXELesson);
         return ContentRootE.Content_Admin_Lessons.getContentRootPagePath("view-qpalx-microlesson-quizzes");
     }
 
@@ -104,23 +96,23 @@ public class AdaptiveLearningQuizController {
     public void saveAdminAdaptiveQuiz(Model model,
                                       @ModelAttribute("AdaptiveLearningQuizVO") AdaptiveLearningQuizWebVO adaptiveLearningQuizWebVO,
                                       HttpServletRequest request, HttpServletResponse response) {
-        LOGGER.info("Saving Adaptive Quiz with VO attributes: {}", adaptiveLearningQuizWebVO);
-        iAdaptiveLearningQuizService.buildAndSaveAdaptiveLearningQuiz(adaptiveLearningQuizWebVO);
-        String targetURL = "/view-admin-quizzes?microlessonID=" + adaptiveLearningQuizWebVO.getQPalXEMicroLessonID();
-        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+//        LOGGER.info("Saving Adaptive Quiz with VO attributes: {}", adaptiveLearningQuizWebVO);
+//        iAdaptiveLearningQuizService.buildAndSaveAdaptiveLearningQuiz(adaptiveLearningQuizWebVO);
+//        String targetURL = "/view-admin-quizzes?microlessonID=" + adaptiveLearningQuizWebVO.getQPalXEMicroLessonID();
+//        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
     }
 
     @RequestMapping(value = "/delete-adaptive-quiz", method = RequestMethod.GET)
     public void deleteAdminAdaptiveQuiz(@RequestParam("adaptiveQuizID") String adaptiveQuizID, Model model, HttpServletRequest request, HttpServletResponse response) {
-        LOGGER.info("Deleting AdaptiveLearning Quiz with ID: {}", adaptiveQuizID);
-        Long id = NumberUtils.toLong(adaptiveQuizID);
-        AdaptiveLearningQuiz adaptiveLearningQuiz = iAdaptiveLearningQuizService.findByID(id);
-        QPalXEMicroLesson qPalXEMicroLesson = adaptiveLearningQuiz.getqPalXEMicroLesson();
-        iAdaptiveLearningQuizService.delete(adaptiveLearningQuiz);
-
-        // redirect to view all quizzes
-        String targetURL = "/view-admin-quizzes?microlessonID=" + qPalXEMicroLesson.getId();
-        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
+//        LOGGER.info("Deleting AdaptiveLearning Quiz with ID: {}", adaptiveQuizID);
+//        Long id = NumberUtils.toLong(adaptiveQuizID);
+//        AdaptiveLearningQuiz adaptiveLearningQuiz = iAdaptiveLearningQuizService.findByID(id);
+//        QPalXEMicroLesson qPalXEMicroLesson = adaptiveLearningQuiz.getqPalXEMicroLesson();
+//        iAdaptiveLearningQuizService.delete(adaptiveLearningQuiz);
+//
+//        // redirect to view all quizzes
+//        String targetURL = "/view-admin-quizzes?microlessonID=" + qPalXEMicroLesson.getId();
+//        iRedirectStrategyExecutor.sendRedirect(request, response, targetURL);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.web.curriculum.vo;
 
 import com.google.common.collect.ImmutableSet;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXEMicroLessonActivityVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.MicroLessonActivityTypeE;
@@ -82,5 +83,10 @@ public class QPalXEMicroLessonActivityVO extends AbstractILMSMediaContentVO impl
     @Override
     public Set<QPalXTutorialContentTypeE> getQPalXTutorialContentTypes() {
         return ImmutableSet.of(QPalXTutorialContentTypeE.Video);
+    }
+
+    @Override
+    public IHierarchicalLMSContent getIHierarchicalLMSContent() {
+        return null;
     }
 }

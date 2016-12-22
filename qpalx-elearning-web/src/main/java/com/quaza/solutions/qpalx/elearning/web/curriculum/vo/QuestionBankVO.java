@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.web.curriculum.vo;
 
 import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.IQuestionBankVO;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.AbstractILMSMediaContentVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.MediaContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
@@ -58,6 +59,11 @@ public class QuestionBankVO extends AbstractILMSMediaContentVO implements IQuest
     @Override
     public Set<QPalXTutorialContentTypeE> getQPalXTutorialContentTypes() {
         return ImmutableSet.of(QPalXTutorialContentTypeE.Assignment);
+    }
+
+    @Override
+    public IHierarchicalLMSContent getIHierarchicalLMSContent() {
+        return null;
     }
 
 }

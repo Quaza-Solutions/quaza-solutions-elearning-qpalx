@@ -1545,6 +1545,9 @@ html {
     visibility: visible;
 	border: 6px solid #7dc855;
 	background-color: #fff;
+	position: relative;
+    left: 4px;
+    top: -1px;
 }
 /*Modal*/
 
