@@ -1,7 +1,9 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
 import com.google.common.collect.ImmutableSet;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningQuiz;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLearningQuiz;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,7 +20,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="QPalXEMicroLesson")
-public class QPalXEMicroLesson {
+public class QPalXEMicroLesson implements IHierarchicalLMSContent {
 
 
 
@@ -42,7 +44,8 @@ public class QPalXEMicroLesson {
     @AttributeOverrides( {
             @AttributeOverride(name="eLearningMediaType", column = @Column(name="StaticELearningMediaType") ),
             @AttributeOverride(name="qPalXTutorialContentTypeE", column = @Column(name="StaticQPalXTutorialContentType")),
-            @AttributeOverride(name="eLearningMediaFile", column = @Column(name="StaticELearningMediaFile"))
+            @AttributeOverride(name="eLearningMediaFile", column = @Column(name="StaticELearningMediaFile")),
+            @AttributeOverride(name="eLearningMediaPhysicalFile", column = @Column(name="StaticELearningMediaPhysicalFile"))
     } )
     private ELearningMediaContent staticELearningMediaContent;
 
@@ -143,6 +146,21 @@ public class QPalXEMicroLesson {
     public void addAdaptiveLearningQuiz(AdaptiveLearningQuiz adaptiveLearningQuiz) {
         Assert.notNull(adaptiveLearningQuiz, "adaptiveLearningQuiz cannot be null");
         adaptiveLearningQuizzes.add(adaptiveLearningQuiz);
+    }
+
+    @Override
+    public String getHierarchicalLMSContentName() {
+        return getMicroLessonName();
+    }
+
+    @Override
+    public HierarchicalLMSContentTypeE getHierarchicalLMSContentTypeE() {
+        return HierarchicalLMSContentTypeE.MicroLesson;
+    }
+
+    @Override
+    public IHierarchicalLMSContent getIHierarchicalLMSContentParent() {
+        return getQPalXELesson();
     }
 
     @Override

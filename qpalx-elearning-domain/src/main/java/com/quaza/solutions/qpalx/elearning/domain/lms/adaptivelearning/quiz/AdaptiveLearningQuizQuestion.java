@@ -1,11 +1,13 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz;
 
+import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -56,8 +58,8 @@ public class AdaptiveLearningQuizQuestion {
     private AdaptiveLearningQuiz adaptiveLearningQuiz;
 
     // Collection of all question answers.  LinkedHashSet is used to maintain ordering
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "adaptiveLearningQuizQuestion")
-    private Set<AdaptiveLearningQuizQuestionAnswer> adaptiveLearningQuizQuestions = new LinkedHashSet<>();
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "adaptiveLearningQuizQuestion")
+    private Set<AdaptiveLearningQuizQuestionAnswer> adaptiveLearningQuizQuestionAnswers = new LinkedHashSet<>();
 
 
     public Long getId() {
@@ -124,6 +126,15 @@ public class AdaptiveLearningQuizQuestion {
         this.adaptiveLearningQuiz = adaptiveLearningQuiz;
     }
 
+    public void addAdaptiveLearningQuizQuestionAnswer(AdaptiveLearningQuizQuestionAnswer adaptiveLearningQuizQuestionAnswer) {
+        Assert.notNull(adaptiveLearningQuizQuestionAnswer, "adaptiveLearningQuizQuestionAnswer cannot be null");
+        adaptiveLearningQuizQuestionAnswers.add(adaptiveLearningQuizQuestionAnswer);
+    }
+
+    public Set<AdaptiveLearningQuizQuestionAnswer> getAdaptiveLearningQuizQuestionAnswers() {
+        return ImmutableSet.copyOf(adaptiveLearningQuizQuestionAnswers);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -169,5 +180,58 @@ public class AdaptiveLearningQuizQuestion {
                 .append("modifyDate", modifyDate)
                 .append("adaptiveLearningQuiz", adaptiveLearningQuiz)
                 .toString();
+    }
+
+
+
+
+
+    public static final Builder builder() {
+        return new Builder();
+    }
+
+
+    public static final class Builder {
+
+        private  AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion = new AdaptiveLearningQuizQuestion();
+
+        public Builder questionTitle(String questionTitle) {
+            adaptiveLearningQuizQuestion.questionTitle = questionTitle;
+            return this;
+        }
+
+        public Builder adaptiveLearningQuizQuestionTypeE(AdaptiveLearningQuizQuestionTypeE adaptiveLearningQuizQuestionTypeE) {
+            adaptiveLearningQuizQuestion.adaptiveLearningQuizQuestionTypeE = adaptiveLearningQuizQuestionTypeE;
+            return this;
+        }
+
+        public Builder quizQuestionAnswerMultiMedia(ELearningMediaContent quizQuestionAnswerMultiMedia) {
+            adaptiveLearningQuizQuestion.quizQuestionAnswerMultiMedia = quizQuestionAnswerMultiMedia;
+            return this;
+        }
+
+        public Builder entryDate(DateTime entryDate) {
+            adaptiveLearningQuizQuestion.entryDate = entryDate;
+            return this;
+        }
+
+        public Builder modifyDate(DateTime modifyDate) {
+            adaptiveLearningQuizQuestion.modifyDate = modifyDate;
+            return this;
+        }
+
+        public Builder adaptiveLearningQuiz(AdaptiveLearningQuiz adaptiveLearningQuiz) {
+            adaptiveLearningQuizQuestion.adaptiveLearningQuiz = adaptiveLearningQuiz;
+            return this;
+        }
+
+        public Builder addAdaptiveLearningQuizQuestionAnswer(AdaptiveLearningQuizQuestionAnswer adaptiveLearningQuizQuestionAnswer) {
+            adaptiveLearningQuizQuestion.addAdaptiveLearningQuizQuestionAnswer(adaptiveLearningQuizQuestionAnswer);
+            return this;
+        }
+
+        public AdaptiveLearningQuizQuestion build() {
+            return adaptiveLearningQuizQuestion;
+        }
     }
 }

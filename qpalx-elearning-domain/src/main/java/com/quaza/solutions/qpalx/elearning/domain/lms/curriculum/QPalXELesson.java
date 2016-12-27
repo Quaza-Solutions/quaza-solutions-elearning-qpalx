@@ -3,6 +3,8 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.QuestionBankItem;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -21,7 +23,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="QPalXELesson")
-public class QPalXELesson {
+public class QPalXELesson implements IHierarchicalLMSContent {
 
 
     @Id
@@ -192,6 +194,21 @@ public class QPalXELesson {
     public void addQuestionBankItem(QuestionBankItem questionBankItem) {
         Assert.notNull(questionBankItem, "questionBankItem cannot be null");
         questionBankItems.add(questionBankItem);
+    }
+
+    @Override
+    public String getHierarchicalLMSContentName() {
+        return getLessonName();
+    }
+
+    @Override
+    public HierarchicalLMSContentTypeE getHierarchicalLMSContentTypeE() {
+        return HierarchicalLMSContentTypeE.Lesson;
+    }
+
+    @Override
+    public IHierarchicalLMSContent getIHierarchicalLMSContentParent() {
+        return geteLearningCourse();
     }
 
     @Override

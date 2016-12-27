@@ -2,6 +2,8 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
 import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,7 +23,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="ELearningCourse")
-public class ELearningCourse {
+public class ELearningCourse implements IHierarchicalLMSContent {
 
 	
 	@Id
@@ -128,6 +130,21 @@ public class ELearningCourse {
 
     public Set<ELearningCourseActivity> getELearningCourseActivities() {
         return ImmutableSet.copyOf(eLearningCourseActivities);
+    }
+
+    @Override
+    public String getHierarchicalLMSContentName() {
+        return getCourseName();
+    }
+
+    @Override
+    public HierarchicalLMSContentTypeE getHierarchicalLMSContentTypeE() {
+        return HierarchicalLMSContentTypeE.ELearningCourse;
+    }
+
+    @Override
+    public IHierarchicalLMSContent getIHierarchicalLMSContentParent() {
+        return geteLearningCurriculum();
     }
 
     @Override

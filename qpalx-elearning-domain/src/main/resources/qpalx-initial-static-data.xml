@@ -70,4 +70,7 @@
     <QPalXUser ID="1" FirstName="Justice" LastName="Wrappah" Email="JWrappah@quazasolutions.com" Password="qpalx" UserType="CONTENT_DEVELOPER" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
     <ContentAdminProfileRecord QPalxUserID="1" StudentTutorialLevelID="4" Enabled="1" EffectiveDate="2016-07-28"/>
 
+    <!-- Create StaticContentConfiguration that defines where static content resides on the platform -->
+    <StaticContentConfiguration ID="1" StaticContentName="ELearningContent"  StaticContentPhysicalLocation="/Users/manyce400/QuazaSolutions/elearning-content/" StaticContentApplicationContextLocation="/elearning-content/" />
+
 </dataset>

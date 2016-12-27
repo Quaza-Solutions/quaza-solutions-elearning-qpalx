@@ -1,5 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -13,7 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="ELearningCurriculum")
-public class ELearningCurriculum {
+public class ELearningCurriculum implements IHierarchicalLMSContent {
 
 
     @Id
@@ -89,6 +91,21 @@ public class ELearningCurriculum {
 
     public void setStudentTutorialGrade(StudentTutorialGrade studentTutorialGrade) {
         this.studentTutorialGrade = studentTutorialGrade;
+    }
+
+    @Override
+    public String getHierarchicalLMSContentName() {
+        return getCurriculumName();
+    }
+
+    @Override
+    public HierarchicalLMSContentTypeE getHierarchicalLMSContentTypeE() {
+        return HierarchicalLMSContentTypeE.ELearningCurriculum;
+    }
+
+    @Override
+    public IHierarchicalLMSContent getIHierarchicalLMSContentParent() {
+        return null;
     }
 
     @Override

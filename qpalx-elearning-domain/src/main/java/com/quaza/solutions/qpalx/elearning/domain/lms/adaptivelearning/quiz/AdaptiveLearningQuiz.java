@@ -1,11 +1,15 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz;
 
+import com.google.common.collect.ImmutableSet;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -15,8 +19,8 @@ import java.util.Set;
  * @author manyce400
  */
 @Entity
-@Table(name="AdaptiveLearningQuiz2")
-public class AdaptiveLearningQuiz {
+@Table(name="AdaptiveLearningQuiz")
+public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
 
 
     @Id
@@ -31,7 +35,7 @@ public class AdaptiveLearningQuiz {
     private String quizTitle;
 
     @Column(name="QuizDescription", nullable=false, length=455)
-    private String quizDesription;
+    private String quizDescription;
 
     @Column(name="MaxPossibleActivityScore", nullable=false)
     private Double maxPossibleActivityScore;
@@ -57,7 +61,7 @@ public class AdaptiveLearningQuiz {
     private QPalXEMicroLesson qPalXEMicroLesson;
 
     // Collection of all questions for this quiz.  LinkedHashSet used to maintain ordering
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "adaptiveLearningQuiz")
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "adaptiveLearningQuiz")
     private Set<AdaptiveLearningQuizQuestion> adaptiveLearningQuizQuestions = new LinkedHashSet<>();
 
     public AdaptiveLearningQuiz() {
@@ -87,12 +91,12 @@ public class AdaptiveLearningQuiz {
         this.quizTitle = quizTitle;
     }
 
-    public String getQuizDesription() {
-        return quizDesription;
+    public String getQuizDescription() {
+        return quizDescription;
     }
 
-    public void setQuizDesription(String quizDesription) {
-        this.quizDesription = quizDesription;
+    public void setQuizDescription(String quizDescription) {
+        this.quizDescription = quizDescription;
     }
 
     public Double getMaxPossibleActivityScore() {
@@ -135,12 +139,36 @@ public class AdaptiveLearningQuiz {
         this.active = active;
     }
 
-    public QPalXEMicroLesson getqPalXEMicroLesson() {
+    public QPalXEMicroLesson getQPalXEMicroLesson() {
         return qPalXEMicroLesson;
     }
 
-    public void setqPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson) {
+    public void setQPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson) {
         this.qPalXEMicroLesson = qPalXEMicroLesson;
+    }
+
+    public void addAdaptiveLearningQuizQuestion(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion) {
+        Assert.notNull(adaptiveLearningQuizQuestion, "adaptiveLearningQuizQuestion cannot be null");
+        adaptiveLearningQuizQuestions.add(adaptiveLearningQuizQuestion);
+    }
+
+    public Set<AdaptiveLearningQuizQuestion> getAdaptiveLearningQuizQuestions() {
+        return ImmutableSet.copyOf(adaptiveLearningQuizQuestions);
+    }
+
+    @Override
+    public String getHierarchicalLMSContentName() {
+        return getQuizTitle();
+    }
+
+    @Override
+    public HierarchicalLMSContentTypeE getHierarchicalLMSContentTypeE() {
+        return HierarchicalLMSContentTypeE.AdaptiveQuiz;
+    }
+
+    @Override
+    public IHierarchicalLMSContent getIHierarchicalLMSContentParent() {
+        return getQPalXEMicroLesson();
     }
 
     @Override
@@ -156,7 +184,7 @@ public class AdaptiveLearningQuiz {
                 .append(id, that.id)
                 .append(timeToCompleteActivity, that.timeToCompleteActivity)
                 .append(quizTitle, that.quizTitle)
-                .append(quizDesription, that.quizDesription)
+                .append(quizDescription, that.quizDescription)
                 .append(maxPossibleActivityScore, that.maxPossibleActivityScore)
                 .append(minimumPassingActivityScore, that.minimumPassingActivityScore)
                 .append(entryDate, that.entryDate)
@@ -171,7 +199,7 @@ public class AdaptiveLearningQuiz {
                 .append(id)
                 .append(timeToCompleteActivity)
                 .append(quizTitle)
-                .append(quizDesription)
+                .append(quizDescription)
                 .append(maxPossibleActivityScore)
                 .append(minimumPassingActivityScore)
                 .append(entryDate)
@@ -187,7 +215,7 @@ public class AdaptiveLearningQuiz {
                 .append("id", id)
                 .append("timeToCompleteActivity", timeToCompleteActivity)
                 .append("quizTitle", quizTitle)
-                .append("quizDesription", quizDesription)
+                .append("quizDescription", quizDescription)
                 .append("maxPossibleActivityScore", maxPossibleActivityScore)
                 .append("minimumPassingActivityScore", minimumPassingActivityScore)
                 .append("entryDate", entryDate)
@@ -195,5 +223,70 @@ public class AdaptiveLearningQuiz {
                 .append("active", active)
                 .append("qPalXEMicroLesson", qPalXEMicroLesson)
                 .toString();
+    }
+
+
+    public static final Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+
+        private AdaptiveLearningQuiz adaptiveLearningQuiz = new AdaptiveLearningQuiz();
+
+        public Builder timeToCompleteActivity(Long timeToCompleteActivity) {
+            adaptiveLearningQuiz.timeToCompleteActivity = timeToCompleteActivity;
+            return this;
+        }
+
+        public Builder quizTitle(String quizTitle) {
+            adaptiveLearningQuiz.quizTitle = quizTitle;
+            return this;
+        }
+
+        public Builder quizDescription(String quizDescription) {
+            adaptiveLearningQuiz.quizDescription = quizDescription;
+            return this;
+        }
+
+        public Builder maxPossibleActivityScore(Double maxPossibleActivityScore) {
+            adaptiveLearningQuiz.maxPossibleActivityScore = maxPossibleActivityScore;
+            return this;
+        }
+
+        public Builder minimumPassingActivityScore(Double minimumPassingActivityScore) {
+            adaptiveLearningQuiz.minimumPassingActivityScore = minimumPassingActivityScore;
+            return this;
+        }
+
+        public Builder entryDate(DateTime entryDate) {
+            adaptiveLearningQuiz.entryDate = entryDate;
+            return this;
+        }
+
+        public Builder modifyDate(DateTime modifyDate) {
+            adaptiveLearningQuiz.modifyDate = modifyDate;
+            return this;
+        }
+
+        public Builder active(boolean active) {
+            adaptiveLearningQuiz.active = active;
+            return this;
+        }
+
+        public Builder qPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson) {
+            adaptiveLearningQuiz.qPalXEMicroLesson = qPalXEMicroLesson;
+            return this;
+        }
+
+        public Builder adaptiveLearningQuizQuestion(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion) {
+            adaptiveLearningQuiz.addAdaptiveLearningQuizQuestion(adaptiveLearningQuizQuestion);
+            return this;
+        }
+
+        public AdaptiveLearningQuiz build() {
+            return adaptiveLearningQuiz;
+        }
+
     }
 }

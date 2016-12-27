@@ -154,4 +154,50 @@ public class AdaptiveLearningQuizQuestionAnswer {
                 .append("modifyDate", modifyDate)
                 .toString();
     }
+
+
+    public static final Builder builder() {
+        return new Builder();
+    }
+
+
+    public static final class Builder{
+
+        private AdaptiveLearningQuizQuestionAnswer adaptiveLearningQuizQuestionAnswer = new AdaptiveLearningQuizQuestionAnswer();
+
+        public Builder quizQuestionAnswerText(String quizQuestionAnswerText) {
+            adaptiveLearningQuizQuestionAnswer.quizQuestionAnswerText = quizQuestionAnswerText;
+            return this;
+        }
+
+        public Builder quizQuestionAnswerMultiMedia(ELearningMediaContent quizQuestionAnswerMultiMedia) {
+            adaptiveLearningQuizQuestionAnswer.quizQuestionAnswerMultiMedia = quizQuestionAnswerMultiMedia;
+            return this;
+        }
+
+        public Builder isCorrectAnswer(boolean isCorrectAnswer) {
+            adaptiveLearningQuizQuestionAnswer.isCorrectAnswer = isCorrectAnswer;
+            return this;
+        }
+
+        public Builder adaptiveLearningQuizQuestion(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion) {
+            adaptiveLearningQuizQuestionAnswer.adaptiveLearningQuizQuestion = adaptiveLearningQuizQuestion;
+            return this;
+        }
+
+        public Builder entryDate(DateTime entryDate) {
+            adaptiveLearningQuizQuestionAnswer.entryDate = entryDate;
+            return this;
+        }
+
+        public Builder modifyDate(DateTime modifyDate) {
+            adaptiveLearningQuizQuestionAnswer.modifyDate = modifyDate;
+            return this;
+        }
+
+        public AdaptiveLearningQuizQuestionAnswer build() {
+            return adaptiveLearningQuizQuestionAnswer;
+        }
+
+    }
 }

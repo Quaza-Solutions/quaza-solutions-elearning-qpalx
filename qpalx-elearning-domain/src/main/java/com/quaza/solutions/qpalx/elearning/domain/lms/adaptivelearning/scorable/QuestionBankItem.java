@@ -1,5 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -15,7 +17,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="QuestionBankItem")
-public class QuestionBankItem {
+public class QuestionBankItem implements IHierarchicalLMSContent {
 
 
     @Id
@@ -107,6 +109,21 @@ public class QuestionBankItem {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public String getHierarchicalLMSContentName() {
+        return getQuestionTitle();
+    }
+
+    @Override
+    public HierarchicalLMSContentTypeE getHierarchicalLMSContentTypeE() {
+        return HierarchicalLMSContentTypeE.QuestionBank;
+    }
+
+    @Override
+    public IHierarchicalLMSContent getIHierarchicalLMSContentParent() {
+        return getqPalXELesson();
     }
 
     @Override

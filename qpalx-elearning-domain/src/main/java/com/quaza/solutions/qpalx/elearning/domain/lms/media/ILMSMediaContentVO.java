@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.media;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningMediaContent;
 
 import java.util.Set;
@@ -29,4 +30,5 @@ public interface ILMSMediaContentVO {
 
     public ELearningMediaContent getELearningMediaContent();
 
+    public IHierarchicalLMSContent getIHierarchicalLMSContent();
 }

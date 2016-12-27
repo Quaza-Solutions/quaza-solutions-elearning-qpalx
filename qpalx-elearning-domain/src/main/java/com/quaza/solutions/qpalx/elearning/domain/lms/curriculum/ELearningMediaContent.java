@@ -30,9 +30,13 @@ public class ELearningMediaContent {
     private QPalXTutorialContentTypeE qPalXTutorialContentTypeE;
 
 
-    // Full path and file name of the media content
+    // Contex-root relative path and file name of the media content
     @Column(name="ELearningMediaFile", nullable=true, length=255)
     private String eLearningMediaFile;
+
+    // Actual physical path and file name of the media content
+    @Column(name="ELearningMediaPhysicalFile", nullable=true, length=255)
+    private String eLearningMediaPhysicalFile;
 
 
     public static final ELearningMediaContent NOT_SUPPORTED_MEDIA_CONTENT = new ELearningMediaContent(null, null);
@@ -70,6 +74,14 @@ public class ELearningMediaContent {
         this.eLearningMediaFile = eLearningMediaFile;
     }
 
+    public String getELearningMediaPhysicalFile() {
+        return eLearningMediaPhysicalFile;
+    }
+
+    public void setELearningMediaPhysicalFile(String eLearningMediaPhysicalFile) {
+        this.eLearningMediaPhysicalFile = eLearningMediaPhysicalFile;
+    }
+
     public boolean isMediaTypeSupported() {
         MediaContentTypeE[] mediaContentTypeEs = MediaContentTypeE.values();
 
@@ -94,6 +106,7 @@ public class ELearningMediaContent {
                 .append(eLearningMediaType, that.eLearningMediaType)
                 .append(qPalXTutorialContentTypeE, that.qPalXTutorialContentTypeE)
                 .append(eLearningMediaFile, that.eLearningMediaFile)
+                .append(eLearningMediaPhysicalFile, that.eLearningMediaPhysicalFile)
                 .isEquals();
     }
 
@@ -103,6 +116,7 @@ public class ELearningMediaContent {
                 .append(eLearningMediaType)
                 .append(qPalXTutorialContentTypeE)
                 .append(eLearningMediaFile)
+                .append(eLearningMediaPhysicalFile)
                 .toHashCode();
     }
 
@@ -112,6 +126,7 @@ public class ELearningMediaContent {
                 .append("eLearningMediaType", eLearningMediaType)
                 .append("qPalXTutorialContentTypeE", qPalXTutorialContentTypeE)
                 .append("eLearningMediaFile", eLearningMediaFile)
+                .append("eLearningMediaPhysicalFile", eLearningMediaPhysicalFile)
                 .toString();
     }
 
@@ -131,6 +146,11 @@ public class ELearningMediaContent {
 
         public Builder eLearningMediaFile(String eLearningMediaFile) {
             eLearningMediaContent.eLearningMediaFile = eLearningMediaFile;
+            return this;
+        }
+
+        public Builder eLearningMediaPhysicalFile(String eLearningMediaPhysicalFile) {
+            eLearningMediaContent.eLearningMediaPhysicalFile = eLearningMediaPhysicalFile;
             return this;
         }
 
