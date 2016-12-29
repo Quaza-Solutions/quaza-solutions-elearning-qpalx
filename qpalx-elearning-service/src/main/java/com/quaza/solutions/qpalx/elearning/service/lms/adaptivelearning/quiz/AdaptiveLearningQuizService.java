@@ -1,6 +1,8 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.quiz;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.*;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizQuestionAnswerRepository;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizQuestionRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import org.joda.time.DateTime;
@@ -19,6 +21,12 @@ import java.util.Set;
 public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService {
 
 
+
+    @Autowired
+    private IAdaptiveLearningQuizQuestionRepository iAdaptiveLearningQuizQuestionRepository;
+
+    @Autowired
+    private IAdaptiveLearningQuizQuestionAnswerRepository iAdaptiveLearningQuizQuestionAnswerRepository;
 
     @Autowired
     private IAdaptiveLearningQuizRepository iAdaptiveLearningQuizRepository;
@@ -75,32 +83,36 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
                 .active(iAdaptiveLearningQuizVO.isActive())
                 .build();
 
-        // Add all questions and their matching questions to this quiz
-        addAdaptiveLearningQuizQuestions(adaptiveLearningQuiz, iAdaptiveLearningQuizVO);
-
-        // Save the Quiz
-        LOGGER.info("Saving new AdaptiveLearningQuiz: {}", adaptiveLearningQuiz.getQuizTitle());
+        // First save the Adaptive LearningQuiz independently
+        LOGGER.info("Saving all details for new AdaptiveLearningQuiz: {}", adaptiveLearningQuiz.getQuizTitle());
         iAdaptiveLearningQuizRepository.save(adaptiveLearningQuiz);
+
+        // Now we can build and save all other entities as well
+        saveAdaptiveLearningQuizQuestions(adaptiveLearningQuiz, iAdaptiveLearningQuizVO);
     }
 
-    void addAdaptiveLearningQuizQuestions(AdaptiveLearningQuiz adaptiveLearningQuiz, IAdaptiveLearningQuizVO iAdaptiveLearningQuizVO) {
+    void saveAdaptiveLearningQuizQuestions(AdaptiveLearningQuiz adaptiveLearningQuiz, IAdaptiveLearningQuizVO iAdaptiveLearningQuizVO) {
         Set<IAdaptiveLearningQuizQuestionVO> adaptiveLearningQuizQuestionVOS = iAdaptiveLearningQuizVO.getIAdaptiveLearningQuizQuestionVOs();
 
         for (IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO : adaptiveLearningQuizQuestionVOS) {
             AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion = AdaptiveLearningQuizQuestion.builder()
                     .questionTitle(iAdaptiveLearningQuizQuestionVO.getQuestionTitle())
+                    .questionFeedBack(iAdaptiveLearningQuizQuestionVO.getQuestionFeedBack())
                     .quizQuestionAnswerMultiMedia(iAdaptiveLearningQuizQuestionVO.getQuizQuestionAnswerMultiMedia())
                     .adaptiveLearningQuizQuestionTypeE(iAdaptiveLearningQuizQuestionVO.getAdaptiveLearningQuizQuestionTypeE())
                     .entryDate(new DateTime())
                     .adaptiveLearningQuiz(adaptiveLearningQuiz)
                     .build();
 
+            // Save the Quiz Question before building and saving all answers
+            iAdaptiveLearningQuizQuestionRepository.save(adaptiveLearningQuizQuestion);
+
             // Add all question answers to question
-            addAdaptiveLearningQuizQuestionAnswers(adaptiveLearningQuizQuestion, iAdaptiveLearningQuizQuestionVO);
+            saveAdaptiveLearningQuizQuestionAnswers(adaptiveLearningQuizQuestion, iAdaptiveLearningQuizQuestionVO);
         }
     }
 
-    void addAdaptiveLearningQuizQuestionAnswers(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO) {
+    void saveAdaptiveLearningQuizQuestionAnswers(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO) {
         LOGGER.debug("Adding all answers to quiz question: {}", adaptiveLearningQuizQuestion.getQuestionTitle());
         Set<IAdaptiveLearningQuizQuestionAnswerVO> adaptiveLearningQuizQuestionAnswerVOS = iAdaptiveLearningQuizQuestionVO.getIAdaptiveLearningQuizQuestionAnswerVOs();
 
@@ -113,8 +125,11 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
                     .adaptiveLearningQuizQuestion(adaptiveLearningQuizQuestion)
                     .build();
 
+            // Save all the Quiz Question Answers
+            iAdaptiveLearningQuizQuestionAnswerRepository.save(adaptiveLearningQuizQuestionAnswer);
+
             // Add answer to the quiz question
-            adaptiveLearningQuizQuestion.addAdaptiveLearningQuizQuestionAnswer(adaptiveLearningQuizQuestionAnswer);
+            //adaptiveLearningQuizQuestion.addAdaptiveLearningQuizQuestionAnswer(adaptiveLearningQuizQuestionAnswer);
         }
     }
 }

@@ -38,4 +38,14 @@ public enum AdaptiveLearningQuizQuestionTypeE {
     public Optional<Set<MediaContentTypeE>> getSupportedQuestionAnswerMediaType() {
         return supportedQuestionAnswerMediaType;
     }
+
+    public static AdaptiveLearningQuizQuestionTypeE getByName(String name) {
+        for(AdaptiveLearningQuizQuestionTypeE adaptiveLearningQuizQuestionTypeE : values()) {
+            if(adaptiveLearningQuizQuestionTypeE.toString().equals(name)) {
+                return adaptiveLearningQuizQuestionTypeE;
+            }
+        }
+
+        return null;
+    }
 }

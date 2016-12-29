@@ -243,8 +243,6 @@ public class QPalXELesson implements IHierarchicalLMSContent {
                 .append(eLearningMediaContent)
                 .append(proficiencyRankingScaleFloor)
                 .append(proficiencyRankingScaleCeiling)
-                .append(eLearningCourse)
-                .append(qPalXEducationalInstitution)
                 .append(tutorialLevelCalendar)
                 .append(entryDate)
                 .append(lessonActive)

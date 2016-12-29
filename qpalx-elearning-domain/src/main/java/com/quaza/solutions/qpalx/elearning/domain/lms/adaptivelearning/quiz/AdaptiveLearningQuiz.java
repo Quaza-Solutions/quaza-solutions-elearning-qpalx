@@ -205,7 +205,6 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
                 .append(entryDate)
                 .append(modifyDate)
                 .append(active)
-                .append(qPalXEMicroLesson)
                 .toHashCode();
     }
 

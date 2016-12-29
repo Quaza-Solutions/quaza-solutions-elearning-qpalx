@@ -136,7 +136,6 @@ public class AdaptiveLearningQuizQuestionAnswer {
                 .append(quizQuestionAnswerText)
                 .append(quizQuestionAnswerMultiMedia)
                 .append(isCorrectAnswer)
-                .append(adaptiveLearningQuizQuestion)
                 .append(entryDate)
                 .append(modifyDate)
                 .toHashCode();

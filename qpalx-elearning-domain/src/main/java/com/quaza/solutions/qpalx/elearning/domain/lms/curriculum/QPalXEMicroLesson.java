@@ -191,7 +191,6 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
                 .append(microLessonDescription)
                 .append(eLearningMediaContent)
                 .append(staticELearningMediaContent)
-                .append(qPalXELesson)
                 .append(entryDate)
                 .append(microLessonActive)
                 .toHashCode();
