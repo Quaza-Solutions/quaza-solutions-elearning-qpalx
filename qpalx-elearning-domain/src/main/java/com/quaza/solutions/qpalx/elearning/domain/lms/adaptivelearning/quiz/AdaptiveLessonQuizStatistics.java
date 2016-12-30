@@ -1,4 +1,4 @@
-package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable;
+package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -25,9 +25,7 @@ public class AdaptiveLessonQuizStatistics {
 
     private Long adaptiveLearningQuizID;
 
-    private Integer scorableActivityID;
-
-    private String scorableActivityName;
+    private String adaptiveLearningQuizTitle;
 
     private Double proficiencyScore;
 
@@ -76,20 +74,12 @@ public class AdaptiveLessonQuizStatistics {
         this.adaptiveLearningQuizID = adaptiveLearningQuizID;
     }
 
-    public Integer getScorableActivityID() {
-        return scorableActivityID;
+    public String getAdaptiveLearningQuizTitle() {
+        return adaptiveLearningQuizTitle;
     }
 
-    public void setScorableActivityID(Integer scorableActivityID) {
-        this.scorableActivityID = scorableActivityID;
-    }
-
-    public String getScorableActivityName() {
-        return scorableActivityName;
-    }
-
-    public void setScorableActivityName(String scorableActivityName) {
-        this.scorableActivityName = scorableActivityName;
+    public void setAdaptiveLearningQuizTitle(String adaptiveLearningQuizTitle) {
+        this.adaptiveLearningQuizTitle = adaptiveLearningQuizTitle;
     }
 
     public Double getProficiencyScore() {
@@ -131,8 +121,7 @@ public class AdaptiveLessonQuizStatistics {
                 .append("microLessonID", microLessonID)
                 .append("microLessonTitle", microLessonTitle)
                 .append("adaptiveLearningQuizID", adaptiveLearningQuizID)
-                .append("scorableActivityID", scorableActivityID)
-                .append("scorableActivityName", scorableActivityName)
+                .append("adaptiveLearningQuizTitle", adaptiveLearningQuizTitle)
                 .append("proficiencyScore", proficiencyScore)
                 .append("learningExperienceStartDate", learningExperienceStartDate)
                 .append("learningExperienceCompletedDate", learningExperienceCompletedDate)
@@ -154,8 +143,7 @@ public class AdaptiveLessonQuizStatistics {
             adaptiveLessonQuizStatistics.setMicroLessonID(resultSet.getLong("MicroLessonID"));
             adaptiveLessonQuizStatistics.setMicroLessonTitle(resultSet.getString("MicroLessonName"));
             adaptiveLessonQuizStatistics.setAdaptiveLearningQuizID(resultSet.getLong("QuizID"));
-            adaptiveLessonQuizStatistics.setScorableActivityID(resultSet.getInt("ScorableActivityID"));
-            adaptiveLessonQuizStatistics.setScorableActivityName(resultSet.getString("ScorableActivityName"));
+            adaptiveLessonQuizStatistics.setAdaptiveLearningQuizTitle(resultSet.getString("QuizTitle"));
             adaptiveLessonQuizStatistics.setProficiencyScore(resultSet.getDouble("ProficiencyScore"));
 
             String date1 = resultSet.getString("LearningExperienceStartDate");
@@ -171,10 +159,4 @@ public class AdaptiveLessonQuizStatistics {
         }
     }
 
-
-    public static void main(String[] args) {
-        String test = "2016-11-27 19:34:26.0";
-        DateTime startDate = dateTimeFormatter.parseDateTime(test);
-        System.out.println("startDate = " + startDate);
-    }
 }

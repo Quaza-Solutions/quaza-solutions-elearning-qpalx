@@ -165,7 +165,6 @@ public class AdaptiveLearningQuizQuestion {
                 .append(quizQuestionAnswerMultiMedia)
                 .append(entryDate)
                 .append(modifyDate)
-                .append(adaptiveLearningQuiz)
                 .toHashCode();
     }
 
@@ -174,6 +173,7 @@ public class AdaptiveLearningQuizQuestion {
         return new ToStringBuilder(this)
                 .append("id", id)
                 .append("questionTitle", questionTitle)
+                .append("questionFeedBack", questionFeedBack)
                 .append("adaptiveLearningQuizQuestionTypeE", adaptiveLearningQuizQuestionTypeE)
                 .append("quizQuestionAnswerMultiMedia", quizQuestionAnswerMultiMedia)
                 .append("entryDate", entryDate)
@@ -197,6 +197,11 @@ public class AdaptiveLearningQuizQuestion {
 
         public Builder questionTitle(String questionTitle) {
             adaptiveLearningQuizQuestion.questionTitle = questionTitle;
+            return this;
+        }
+
+        public Builder questionFeedBack(String questionFeedBack) {
+            adaptiveLearningQuizQuestion.questionFeedBack = questionFeedBack;
             return this;
         }
 
