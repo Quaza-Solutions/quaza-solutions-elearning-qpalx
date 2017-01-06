@@ -62,10 +62,10 @@ public class AdaptiveQuizScoreProgressController {
                 QPalXTutorialContentTypeE qPalXTutorialContentTypeE = QPalXTutorialContentTypeE.Quiz;
                 Double proficiencyScore = Double.valueOf(userPercentMarks);
                 Long scoreableActivityID = Long.valueOf(quizId);
-                //iAdaptiveLearningExperienceService.buildAndSaveAdaptiveLearningExperience(qPalXUser, qPalXTutorialContentTypeE, proficiencyScore, scoreableActivityID);
+                iAdaptiveLearningExperienceService.buildAndSaveAdaptiveLearningExperience(qPalXUser, qPalXTutorialContentTypeE, proficiencyScore, scoreableActivityID);
 
                 // Record AdaptiveLearning Quiz progress statistics
-                //iAdaptiveLearningQuizStatisticsService.recordAdaptiveLearningQuizProgress(scoreableActivityID, qPalXUser);
+                iAdaptiveLearningQuizStatisticsService.recordAdaptiveLearningQuizProgress(scoreableActivityID, qPalXUser);
             };
 
             listeningExecutorService.submit(quizScoreCaptureTask);
