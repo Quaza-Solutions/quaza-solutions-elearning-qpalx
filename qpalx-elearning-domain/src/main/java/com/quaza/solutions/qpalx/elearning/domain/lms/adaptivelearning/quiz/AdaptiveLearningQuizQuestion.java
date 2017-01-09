@@ -26,10 +26,13 @@ public class AdaptiveLearningQuizQuestion {
     @Column(name="ID", nullable=false)
     private Long id;
 
+    @Column(name="QuestionOrder", nullable=false)
+    private Integer questionOrder;
+
     @Column(name="QuestionTitle", nullable=false, length=100)
     private String questionTitle;
 
-    @Column(name="QuestionFeedBack", nullable=false, length=500)
+    @Column(name="QuestionFeedBack", nullable=false, length=1200)
     private String questionFeedBack;
 
     @Column(name="AdaptiveLearningQuizQuestionType", nullable=false, length=20)
@@ -59,6 +62,7 @@ public class AdaptiveLearningQuizQuestion {
 
     // Collection of all question answers.  LinkedHashSet is used to maintain ordering
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "adaptiveLearningQuizQuestion")
+    @OrderBy("QuestionAnswerOrder ASC")
     private Set<AdaptiveLearningQuizQuestionAnswer> adaptiveLearningQuizQuestionAnswers = new LinkedHashSet<>();
 
 
@@ -68,6 +72,14 @@ public class AdaptiveLearningQuizQuestion {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getQuestionOrder() {
+        return questionOrder;
+    }
+
+    public void setQuestionOrder(Integer questionOrder) {
+        this.questionOrder = questionOrder;
     }
 
     public String getQuestionTitle() {
@@ -145,6 +157,7 @@ public class AdaptiveLearningQuizQuestion {
 
         return new EqualsBuilder()
                 .append(id, that.id)
+                .append(questionOrder, that.questionOrder)
                 .append(questionTitle, that.questionTitle)
                 .append(questionFeedBack, that.questionFeedBack)
                 .append(adaptiveLearningQuizQuestionTypeE, that.adaptiveLearningQuizQuestionTypeE)
@@ -159,6 +172,7 @@ public class AdaptiveLearningQuizQuestion {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
+                .append(questionOrder)
                 .append(questionTitle)
                 .append(questionFeedBack)
                 .append(adaptiveLearningQuizQuestionTypeE)
@@ -172,6 +186,7 @@ public class AdaptiveLearningQuizQuestion {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
+                .append("questionOrder", questionOrder)
                 .append("questionTitle", questionTitle)
                 .append("questionFeedBack", questionFeedBack)
                 .append("adaptiveLearningQuizQuestionTypeE", adaptiveLearningQuizQuestionTypeE)
@@ -194,6 +209,11 @@ public class AdaptiveLearningQuizQuestion {
     public static final class Builder {
 
         private  AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion = new AdaptiveLearningQuizQuestion();
+
+        public Builder questionOrder(Integer questionOrder) {
+            adaptiveLearningQuizQuestion.questionOrder = questionOrder;
+            return this;
+        }
 
         public Builder questionTitle(String questionTitle) {
             adaptiveLearningQuizQuestion.questionTitle = questionTitle;
