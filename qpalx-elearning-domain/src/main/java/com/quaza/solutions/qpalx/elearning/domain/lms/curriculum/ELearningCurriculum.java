@@ -42,6 +42,9 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
     @Column(name="CurriculumIcon", nullable=false, length=255)
     private String curriculumIcon;
 
+    @Column(name="CurriculumBannerIcon", nullable=true, length=255)
+    private String curriculumBannerIcon;
+
     public ELearningCurriculum() {
     }
 
@@ -85,6 +88,14 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
         this.curriculumIcon = curriculumIcon;
     }
 
+    public String getCurriculumBannerIcon() {
+        return curriculumBannerIcon;
+    }
+
+    public void setCurriculumBannerIcon(String curriculumBannerIcon) {
+        this.curriculumBannerIcon = curriculumBannerIcon;
+    }
+
     public StudentTutorialGrade getStudentTutorialGrade() {
         return studentTutorialGrade;
     }
@@ -122,6 +133,7 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
                 .append(curriculumName, that.curriculumName)
                 .append(curriculumDescription, that.curriculumDescription)
                 .append(curriculumIcon, that.curriculumIcon)
+                .append(curriculumBannerIcon, that.curriculumBannerIcon)
                 .append(studentTutorialGrade, that.studentTutorialGrade)
                 .isEquals();
     }
@@ -145,6 +157,7 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
                 .append("curriculumName", curriculumName)
                 .append("curriculumDescription", curriculumDescription)
                 .append("curriculumIcon", curriculumIcon)
+                .append("curriculumBannerIcon", curriculumBannerIcon)
                 .append("studentTutorialGrade", studentTutorialGrade)
                 .toString();
     }
