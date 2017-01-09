@@ -62,6 +62,7 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
 
     // Collection of all questions for this quiz.  LinkedHashSet used to maintain ordering
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "adaptiveLearningQuiz")
+    @OrderBy("QuestionOrder ASC")
     private Set<AdaptiveLearningQuizQuestion> adaptiveLearningQuizQuestions = new LinkedHashSet<>();
 
     public AdaptiveLearningQuiz() {

@@ -23,6 +23,9 @@ public class AdaptiveLearningQuizQuestionAnswer {
     @Column(name="ID", nullable=false)
     private Long id;
 
+    @Column(name="QuestionAnswerOrder", nullable=false)
+    private Integer questionAnswerOrder;
+
     // Possible Quiz question answer in text format
     @Column(name="QuizQuestionAnswerText", nullable=true, length=100)
     private String quizQuestionAnswerText;
@@ -60,6 +63,14 @@ public class AdaptiveLearningQuizQuestionAnswer {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getQuestionAnswerOrder() {
+        return questionAnswerOrder;
+    }
+
+    public void setQuestionAnswerOrder(Integer questionAnswerOrder) {
+        this.questionAnswerOrder = questionAnswerOrder;
     }
 
     public String getQuizQuestionAnswerText() {
@@ -121,6 +132,7 @@ public class AdaptiveLearningQuizQuestionAnswer {
         return new EqualsBuilder()
                 .append(isCorrectAnswer, that.isCorrectAnswer)
                 .append(id, that.id)
+                .append(questionAnswerOrder, that.questionAnswerOrder)
                 .append(quizQuestionAnswerText, that.quizQuestionAnswerText)
                 .append(quizQuestionAnswerMultiMedia, that.quizQuestionAnswerMultiMedia)
                 .append(adaptiveLearningQuizQuestion, that.adaptiveLearningQuizQuestion)
@@ -133,6 +145,7 @@ public class AdaptiveLearningQuizQuestionAnswer {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
+                .append(questionAnswerOrder)
                 .append(quizQuestionAnswerText)
                 .append(quizQuestionAnswerMultiMedia)
                 .append(isCorrectAnswer)
@@ -145,6 +158,7 @@ public class AdaptiveLearningQuizQuestionAnswer {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
+                .append("questionAnswerOrder", questionAnswerOrder)
                 .append("quizQuestionAnswerText", quizQuestionAnswerText)
                 .append("quizQuestionAnswerMultiMedia", quizQuestionAnswerMultiMedia)
                 .append("isCorrectAnswer", isCorrectAnswer)
@@ -163,6 +177,11 @@ public class AdaptiveLearningQuizQuestionAnswer {
     public static final class Builder{
 
         private AdaptiveLearningQuizQuestionAnswer adaptiveLearningQuizQuestionAnswer = new AdaptiveLearningQuizQuestionAnswer();
+
+        public Builder questionAnswerOrder(Integer questionAnswerOrder) {
+            adaptiveLearningQuizQuestionAnswer.questionAnswerOrder = questionAnswerOrder;
+            return this;
+        }
 
         public Builder quizQuestionAnswerText(String quizQuestionAnswerText) {
             adaptiveLearningQuizQuestionAnswer.quizQuestionAnswerText = quizQuestionAnswerText;

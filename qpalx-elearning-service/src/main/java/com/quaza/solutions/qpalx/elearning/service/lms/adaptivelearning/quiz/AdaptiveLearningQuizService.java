@@ -94,8 +94,10 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
     void saveAdaptiveLearningQuizQuestions(AdaptiveLearningQuiz adaptiveLearningQuiz, IAdaptiveLearningQuizVO iAdaptiveLearningQuizVO) {
         Set<IAdaptiveLearningQuizQuestionVO> adaptiveLearningQuizQuestionVOS = iAdaptiveLearningQuizVO.getIAdaptiveLearningQuizQuestionVOs();
 
+        int questionOrder = 1;
         for (IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO : adaptiveLearningQuizQuestionVOS) {
             AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion = AdaptiveLearningQuizQuestion.builder()
+                    .questionOrder(questionOrder)
                     .questionTitle(iAdaptiveLearningQuizQuestionVO.getQuestionTitle())
                     .questionFeedBack(iAdaptiveLearningQuizQuestionVO.getQuestionFeedBack())
                     .quizQuestionAnswerMultiMedia(iAdaptiveLearningQuizQuestionVO.getQuizQuestionAnswerMultiMedia())
@@ -103,6 +105,8 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
                     .entryDate(new DateTime())
                     .adaptiveLearningQuiz(adaptiveLearningQuiz)
                     .build();
+
+            questionOrder++;
 
             // Save the Quiz Question before building and saving all answers
             iAdaptiveLearningQuizQuestionRepository.save(adaptiveLearningQuizQuestion);
@@ -116,14 +120,18 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         LOGGER.debug("Adding all answers to quiz question: {}", adaptiveLearningQuizQuestion.getQuestionTitle());
         Set<IAdaptiveLearningQuizQuestionAnswerVO> adaptiveLearningQuizQuestionAnswerVOS = iAdaptiveLearningQuizQuestionVO.getIAdaptiveLearningQuizQuestionAnswerVOs();
 
+        int questionAnswerOrder = 1;
         for(IAdaptiveLearningQuizQuestionAnswerVO iAdaptiveLearningQuizQuestionAnswerVO : adaptiveLearningQuizQuestionAnswerVOS) {
             AdaptiveLearningQuizQuestionAnswer adaptiveLearningQuizQuestionAnswer = AdaptiveLearningQuizQuestionAnswer.builder()
+                    .questionAnswerOrder(questionAnswerOrder)
                     .quizQuestionAnswerText(iAdaptiveLearningQuizQuestionAnswerVO.getQuizQuestionAnswerText())
                     .quizQuestionAnswerMultiMedia(iAdaptiveLearningQuizQuestionAnswerVO.getQuizQuestionAnswerMultiMedia())
                     .isCorrectAnswer(iAdaptiveLearningQuizQuestionAnswerVO.isCorrectAnswer())
                     .entryDate(new DateTime())
                     .adaptiveLearningQuizQuestion(adaptiveLearningQuizQuestion)
                     .build();
+
+            questionAnswerOrder++;
 
             // Save all the Quiz Question Answers
             iAdaptiveLearningQuizQuestionAnswerRepository.save(adaptiveLearningQuizQuestionAnswer);
