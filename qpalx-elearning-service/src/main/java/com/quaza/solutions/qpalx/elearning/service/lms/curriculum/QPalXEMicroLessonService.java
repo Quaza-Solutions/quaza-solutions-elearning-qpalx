@@ -83,6 +83,21 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
     }
 
     @Override
+    public void updateAndSaveQPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson, IQPalXEMicroLessonVO iqPalXEMicroLessonVO) {
+        Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
+        Assert.notNull(qPalXEMicroLesson.getId(), "qPalXEMicroLesson ID cannot be null, should have been saved already");
+        Assert.notNull(iqPalXEMicroLessonVO, "iqPalXEMicroLessonVO cannot be null");
+
+        LOGGER.debug("Updating MicroLession with ID: {}", qPalXEMicroLesson.getId());
+
+        qPalXEMicroLesson.setMicroLessonName(iqPalXEMicroLessonVO.getMicroLessonName());
+        qPalXEMicroLesson.setMicroLessonDescription(iqPalXEMicroLessonVO.getMicroLessonDescription());
+        qPalXEMicroLesson.seteLearningMediaContent(iqPalXEMicroLessonVO.getELearningMediaContent());
+        qPalXEMicroLesson.setStaticELearningMediaContent(iqPalXEMicroLessonVO.getStaticELearningMediaContent());
+        iqPalXEMicroLessonRepository.save(qPalXEMicroLesson);
+    }
+
+    @Override
     public boolean isMicroLessonDeletable(QPalXEMicroLesson qPalXEMicroLesson) {
         Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
         LOGGER.info("Checking to see if MicroLesson: {} can be deleted...", qPalXEMicroLesson.getMicroLessonName());
