@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.subscription;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -43,6 +44,15 @@ public class PrepaidSubscription {
     @JoinColumn(name = "QPalXSubscriptionTypeID", nullable = false)
     private QPalXSubscription qPalXSubscription;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "SubscriptionCodeBatchSessionID", nullable = true)
+    private SubscriptionCodeBatchSession subscriptionCodeBatchSession;
+
+    // Link back to QPalXUser that used this redemption code
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "QPalxUserID", nullable = true)
+    private QPalXUser qpalxUser;
+
     public void setqPalXMunicipality(QPalXMunicipality qPalXMunicipality) { this.qPalXMunicipality = qPalXMunicipality; }
 
     public QPalXMunicipality getqPalXMunicipality(){ return qPalXMunicipality; }
@@ -77,6 +87,21 @@ public class PrepaidSubscription {
         this.redemptionDate = e_redemptionDate;
     }
 
+    public SubscriptionCodeBatchSession getSubscriptionCodeBatchSession() {
+        return subscriptionCodeBatchSession;
+    }
+
+    public void setSubscriptionCodeBatchSession(SubscriptionCodeBatchSession subscriptionCodeBatchSession) {
+        this.subscriptionCodeBatchSession = subscriptionCodeBatchSession;
+    }
+
+    public QPalXUser getQpalxUser() {
+        return qpalxUser;
+    }
+
+    public void setQpalxUser(QPalXUser qpalxUser) {
+        this.qpalxUser = qpalxUser;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -94,6 +119,7 @@ public class PrepaidSubscription {
                 .append(redemptionDate, that.redemptionDate)
                 .append(qPalXSubscription, that.qPalXSubscription)
                 .append(qPalXMunicipality, that.qPalXMunicipality)
+                .append(subscriptionCodeBatchSession, that.subscriptionCodeBatchSession)
                 .isEquals();
     }
 
@@ -107,6 +133,7 @@ public class PrepaidSubscription {
                 .append(redemptionDate)
                 .append(qPalXSubscription)
                 .append(qPalXMunicipality)
+                .append(subscriptionCodeBatchSession)
                 .toHashCode();
     }
 
@@ -121,6 +148,8 @@ public class PrepaidSubscription {
                 .append("redemptionDate", redemptionDate)
                 .append("qPalXSubscription", qPalXSubscription)
                 .append("qPalXMunicipality", qPalXMunicipality)
+                .append("subscriptionCodeBatchSession", subscriptionCodeBatchSession)
+                .append("qpalxUser", qpalxUser)
                 .toString();
     }
 
@@ -131,39 +160,53 @@ public class PrepaidSubscription {
         public Builder() {
         }
 
-        public PrepaidSubscription.Builder alreadyUsed(boolean alreadyUsed) {
+        public Builder alreadyUsed(boolean alreadyUsed) {
             prepaidSubscription.alreadyUsed = alreadyUsed;
             return this;
         }
 
-        public PrepaidSubscription.Builder uniqueId(String uniqueID) {
+        public Builder uniqueId(String uniqueID) {
             prepaidSubscription.uniqueID = uniqueID;
             return this;
         }
 
-        public PrepaidSubscription.Builder dateCreated(DateTime dateCreated){
+        public Builder dateCreated(DateTime dateCreated){
             prepaidSubscription.dateCreated = dateCreated;
             return this;
         }
 
-        public PrepaidSubscription.Builder remptionDate(DateTime redemptionDate){
+        public Builder remptionDate(DateTime redemptionDate){
             prepaidSubscription.redemptionDate = redemptionDate;
             return this;
         }
 
-        public PrepaidSubscription.Builder qpalxSubscription(QPalXSubscription qPalXSubscription){
+        public Builder qpalxSubscription(QPalXSubscription qPalXSubscription){
             prepaidSubscription.qPalXSubscription = qPalXSubscription;
             return this;
         }
 
-        public PrepaidSubscription.Builder qpalxMunicipality(QPalXMunicipality qPalXMunicipality){
+        public Builder qpalxMunicipality(QPalXMunicipality qPalXMunicipality){
             prepaidSubscription.qPalXMunicipality = qPalXMunicipality;
             return this;
         }
+        
+        public Builder subscriptionCodeBatchSession(SubscriptionCodeBatchSession subscriptionCodeBatchSession) {
+            prepaidSubscription.subscriptionCodeBatchSession = subscriptionCodeBatchSession;
+            return this;
+        }
 
-        public PrepaidSubscription build(){ return prepaidSubscription; }
+        public Builder qpalxUser(QPalXUser qpalxUser) {
+            prepaidSubscription.qpalxUser = qpalxUser;
+            return this;
+        }
+
+        public PrepaidSubscription build(){ 
+            return prepaidSubscription; 
+        }
     }
 
-    public static PrepaidSubscription.Builder builder(){ return new PrepaidSubscription.Builder(); }
+    public static Builder builder(){ 
+        return new Builder(); 
+    }
 }
 
