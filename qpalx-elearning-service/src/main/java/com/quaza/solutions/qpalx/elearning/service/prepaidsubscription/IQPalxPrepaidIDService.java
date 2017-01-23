@@ -3,6 +3,7 @@ package com.quaza.solutions.qpalx.elearning.service.prepaidsubscription;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
+import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeBatchSession;
 
 import java.util.List;
 
@@ -28,6 +29,8 @@ public interface IQPalxPrepaidIDService {
     public void writePrepaidExcelFile(QPalXMunicipality qPalXMunicipality, QPalXSubscription qPalXSubscription, String fileName);
 
     //upon redemption update table with respective values - pass municipality down for extra verification - return true or false for web end
-    public boolean redeemCode(String uniqueId, QPalXMunicipality qPalXMunicipality); //unique id must match country + city code
+    public boolean redeemCode(String uniqueId, QPalXMunicipality qPalXMunicipality); //unique idmust match country + city code
+
+    public List<PrepaidSubscription> findAllPrepaidSubscriptionForSubscriptionCodeBatchSession(SubscriptionCodeBatchSession subscriptionCodeBatchSession);
 
 }

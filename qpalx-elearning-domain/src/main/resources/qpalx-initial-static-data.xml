@@ -37,12 +37,20 @@
     <QPalXMunicipality Code="VTR" Name="Volta Region" TimeZone="UTC" QPalXCountryID="2" />
     <QPalXMunicipality Code="NOR" Name="Northern Region" TimeZone="UTC" QPalXCountryID="2" />
 
+
+    <!-- StrategicPlatformPartner -->
+    <StrategicPlatformPartner ID="1" PlatformPartnerName="Access Bank" PlatformPartnerType="Bank" entryDate="2017-01-21" />
+
+
+    <!-- SubscriptionCodeBatchSession -->
+    <SubscriptionCodeBatchSession ID="1" SubscriptionCodeBatchSessionUID="ACCESS-BANK-4563636" BatchGenerationDate="2016-05-16" StrategicPlatformPartnerID="1"  />
+
     <!-- Populate Dummy PrepaidSubscription Codes for Accra -->
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-89393" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-65788" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-23567" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-17809" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-00987" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-89393" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-65788" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-23567" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-17809" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-00987" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />
 
 
     <!-- Populate StudentTutorialLevel data for GeographicalRegion WAF -->

@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.subscription.repository;
 
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
+import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeBatchSession;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -19,5 +20,8 @@ public interface IQPalxPrepaidIDRepository extends CrudRepository<PrepaidSubscri
 
     @Query("SELECT prepaidsubscription FROM PrepaidSubscription prepaidsubscription WHERE prepaidsubscription.uniqueID = ?1 and prepaidsubscription.alreadyUsed <> 1")
     public PrepaidSubscription findByUniqueIdRepoNotUsed(String uniqueId);
+
+    @Query("SELECT prepaidsubscription FROM PrepaidSubscription prepaidsubscription WHERE prepaidsubscription.subscriptionCodeBatchSession = ?1")
+    public List<PrepaidSubscription> findAllPrepaidSubscriptionForSubscriptionCodeBatchSession(SubscriptionCodeBatchSession subscriptionCodeBatchSession);
 
 }

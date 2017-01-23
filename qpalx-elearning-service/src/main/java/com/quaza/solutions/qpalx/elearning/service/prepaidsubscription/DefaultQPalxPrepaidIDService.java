@@ -3,16 +3,16 @@ package com.quaza.solutions.qpalx.elearning.service.prepaidsubscription;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
+import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeBatchSession;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.repository.IQPalxPrepaidIDRepository;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.joda.time.DateTime;
-import org.mockito.internal.util.io.IOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
+import org.springframework.util.Assert;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,10 +28,16 @@ import java.util.Random;
 @Service("quaza.solutions.qpalx.elearning.service.DefaultQPalxPrepaidIDService")
 public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
 
+
+
+
     @Autowired
     IQPalxPrepaidIDRepository iQPalxPrepaidIDRepository;
 
     private List<String> generatedPrepaidSubs = new ArrayList<String>();
+
+
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultQPalxPrepaidIDService.class);
 
     @Override
     public void generateAndWritePrepaidIdsToExcel(int numofcodes, QPalXMunicipality qPalXMunicipality, QPalXSubscription qPalXSubscription, String fileName) {
@@ -163,5 +169,12 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
             return false;
         }
 
+    }
+
+    @Override
+    public List<PrepaidSubscription> findAllPrepaidSubscriptionForSubscriptionCodeBatchSession(SubscriptionCodeBatchSession subscriptionCodeBatchSession) {
+        Assert.notNull(subscriptionCodeBatchSession, "subscriptionCodeBatchSession cannot be null");
+        LOGGER.debug("Finding all PrepaidSubscription's for subscriptionCodeBatchSession:> {}", subscriptionCodeBatchSession);
+        return iQPalxPrepaidIDRepository.findAllPrepaidSubscriptionForSubscriptionCodeBatchSession(subscriptionCodeBatchSession);
     }
 }
