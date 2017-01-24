@@ -22,7 +22,7 @@ public class SubscriptionCodeBatchSession {
     @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="SubscriptionCodeBatchSessionUID", nullable=false, length=25, unique = true)
+    @Column(name="SubscriptionCodeBatchSessionUID", nullable=false, length=45, unique = true)
     private String subscriptionCodeBatchSessionUID;
 
     // Specifies the StrategicPlatformPartner which is the distribution outlet for this subscription batch ession
