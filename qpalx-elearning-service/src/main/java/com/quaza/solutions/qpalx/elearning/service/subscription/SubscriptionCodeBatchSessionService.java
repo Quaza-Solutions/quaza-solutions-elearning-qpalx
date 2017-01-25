@@ -1,7 +1,9 @@
 package com.quaza.solutions.qpalx.elearning.service.subscription;
 
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeBatchSession;
+import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeBatchSessionStatistic;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.repository.ISubscriptionCodeBatchSessionRepository;
+import com.quaza.solutions.qpalx.elearning.service.geographical.DefaultGeographicalDateTimeFormatter;
 import com.quaza.solutions.qpalx.elearning.service.jdbc.JDBCTemplateEnabledService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +38,15 @@ public class SubscriptionCodeBatchSessionService extends JDBCTemplateEnabledServ
     public List<SubscriptionCodeBatchSession> findAllOpenSubscriptionBatches() {
         LOGGER.info("Finding and returning all open subscription batch sessions....");
         return iSubscriptionCodeBatchSessionRepository.findAllOpenSubscriptionCodeBatchSessions();
+    }
+
+    @Override
+    public List<SubscriptionCodeBatchSessionStatistic> findAllSubscriptionCodeBatchSessionStatistic() {
+        LOGGER.info("Finding and returning statistics on all SubscriptionCodeBatchSession....");
+        List<SubscriptionCodeBatchSessionStatistic> results = jdbcTemplate.query(externalSQLString, SubscriptionCodeBatchSessionStatistic.newRowMapper(
+                DefaultGeographicalDateTimeFormatter.DB_DATE_TIME_DISPLAY_FORMATTER, DefaultGeographicalDateTimeFormatter.DB_DATE_TIME_DISPLAY_FORMATTER
+        ));
+        return results;
     }
 
     @Override

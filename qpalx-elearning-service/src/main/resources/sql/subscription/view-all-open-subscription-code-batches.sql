@@ -1,4 +1,5 @@
-Select	AllSubscriptionBatchPrePaidCodes.PlatformPartnerName,
+Select	AllSubscriptionBatchPrePaidCodes.ID,
+        AllSubscriptionBatchPrePaidCodes.PlatformPartnerName,
 		AllSubscriptionBatchPrePaidCodes.PlatformPartnerType,
 		AllSubscriptionBatchPrePaidCodes.SubscriptionCodeBatchSessionUID,
 		AllSubscriptionBatchPrePaidCodes.BatchGenerationDate,

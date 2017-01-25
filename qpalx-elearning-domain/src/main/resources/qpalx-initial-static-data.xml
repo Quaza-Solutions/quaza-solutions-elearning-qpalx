@@ -81,7 +81,7 @@
     <ContentAdminProfileRecord QPalxUserID="1" StudentTutorialLevelID="4" Enabled="1" EffectiveDate="2016-07-28"/>
 
     <!-- Create default Platform Administrator account -->
-    <QPalXUser ID="2" FirstName="QPalX" LastName="Platform Admin" Email="platform.admi@quazasolutions.com" Password="Holla!" UserType="PLATFORM_ADMIN" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <QPalXUser ID="2" FirstName="QPalX" LastName="Platform Admin" Email="platform.admin@quazasolutions.com" Password="Holla!" UserType="PLATFORM_ADMIN" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
 
     <!-- Create StaticContentConfiguration that defines where static content resides on the platform -->
     <StaticContentConfiguration ID="1" StaticContentName="ELearningContent"  StaticContentPhysicalLocation="/Users/manyce400/QuazaSolutions/elearning-content/" StaticContentApplicationContextLocation="/elearning-content/" />

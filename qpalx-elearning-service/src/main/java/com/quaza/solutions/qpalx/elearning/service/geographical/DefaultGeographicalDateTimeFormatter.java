@@ -19,7 +19,9 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
 
 
 
-    private static final DateTimeFormatter DATE_TIME_DISPLAY_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter DATE_TIME_DISPLAY_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+
+    public static final DateTimeFormatter DB_DATE_TIME_DISPLAY_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultGeographicalDateTimeFormatter.class);
 
@@ -35,4 +37,21 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
         return DATE_TIME_DISPLAY_FORMATTER.withZone(dateTimeZone).print(dateTime);
     }
 
+    @Override
+    public DateTime getDatabaseStringAsDateTime(String databaseDateTime) {
+        Assert.notNull(databaseDateTime, "databaseDateTime cannot be null");
+        return DateTime.parse(databaseDateTime, DB_DATE_TIME_DISPLAY_FORMATTER);
+    }
+
+    public static void main(String[] args) {
+        DefaultGeographicalDateTimeFormatter d = new DefaultGeographicalDateTimeFormatter();
+        DateTime dateTime = d.getDatabaseStringAsDateTime("2017-01-16 00:00:00");
+        System.out.println("dateTime = " + dateTime);
+
+        String dst = "2017-01-16 00:00:00.0";
+        int idx = dst.indexOf(".0");
+
+        System.out.println("dst.substring(0, idx) = " + dst.substring(0, idx));
+
+    }
 }
