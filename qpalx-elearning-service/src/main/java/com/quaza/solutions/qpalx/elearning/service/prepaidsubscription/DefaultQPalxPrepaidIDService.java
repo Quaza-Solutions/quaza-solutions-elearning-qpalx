@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.prepaidsubscription;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeBatchSession;
@@ -12,6 +13,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.io.File;
@@ -156,6 +158,7 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
 
 
 
+    @Transactional
     @Override
     public boolean redeemCode(String uniqueid, QPalXMunicipality qPalXMunicipality){
         //code and country code have to be modified
@@ -169,6 +172,18 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
             return false;
         }
 
+    }
+
+    @Transactional
+    @Override
+    public void updateRedemptionDetails(String uniqueId, QPalXUser qPalXUser) {
+        Assert.notNull(uniqueId, "uniqueID cannot be null");
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+
+        LOGGER.info("Updating redemption details for uniqueID: {} with user: {}", uniqueId, qPalXUser.getEmail());
+        PrepaidSubscription prepaidSubscription = iQPalxPrepaidIDRepository.findByUniqueIdRepo(uniqueId);
+        prepaidSubscription.setQpalxUser(qPalXUser);
+        iQPalxPrepaidIDRepository.save(prepaidSubscription);
     }
 
     @Override
