@@ -122,4 +122,39 @@ public class SubscriptionCodeBatchSession {
                 .append("batchRedemptionCompletionDate", batchRedemptionCompletionDate)
                 .toString();
     }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+
+        private SubscriptionCodeBatchSession subscriptionCodeBatchSession = new SubscriptionCodeBatchSession();
+
+        public Builder subscriptionCodeBatchSessionUID(String subscriptionCodeBatchSessionUID) {
+            subscriptionCodeBatchSession.subscriptionCodeBatchSessionUID = subscriptionCodeBatchSessionUID;
+            return this;
+        }
+
+        public Builder strategicPlatformPartner(StrategicPlatformPartner strategicPlatformPartner) {
+            subscriptionCodeBatchSession.strategicPlatformPartner = strategicPlatformPartner;
+            return this;
+        }
+
+        public Builder batchGenerationDate(DateTime batchGenerationDate) {
+            subscriptionCodeBatchSession.batchGenerationDate = batchGenerationDate;
+            return this;
+        }
+
+        public Builder batchRedemptionCompletionDate(DateTime batchRedemptionCompletionDate) {
+            subscriptionCodeBatchSession.batchRedemptionCompletionDate = batchRedemptionCompletionDate;
+            return this;
+        }
+
+        public SubscriptionCodeBatchSession build() {
+            return subscriptionCodeBatchSession;
+        }
+
+    }
+
 }

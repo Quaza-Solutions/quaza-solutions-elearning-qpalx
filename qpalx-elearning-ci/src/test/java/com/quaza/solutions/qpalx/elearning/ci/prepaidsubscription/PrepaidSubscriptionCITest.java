@@ -48,8 +48,6 @@ public class PrepaidSubscriptionCITest {
      //@Test //- Working -
     public void testCodeRedemption(){ /*System.out.println(iQpalxPrepaidIDService.redeemCode("7D5X4E4QH0", qPalXMunicipality));*/ }
 
-    //@Test //drop table and recreate with auto_increment
-    public void testGenerateMultipleUniqueIds(){ iQpalxPrepaidIDService.generateUniqueIds(2, qPalXSubscription, qPalXMunicipality); };
 
     //@Test //- Working -
     public void testGetAllUniqueIds(){

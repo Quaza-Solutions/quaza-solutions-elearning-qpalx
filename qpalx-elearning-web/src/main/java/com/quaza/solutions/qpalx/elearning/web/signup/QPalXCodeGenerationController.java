@@ -82,7 +82,6 @@ public class QPalXCodeGenerationController {
         QPalXMunicipality qPalXMunicipality = iQPalXMunicipalityService.findQPalXMunicipalityByID(qPalXWebUserVO.getMunicipalityID());
 
         int numOfCodes = qPalXWebUserVO.getNumToGenerate();
-        iQpalxPrepaidIDService.generateAndWritePrepaidIdsToExcel(numOfCodes, qPalXMunicipality, qPalXSubscription, "RequestedPrepaidCodes");
         File file = new File(FILE_PATH);
 
         InputStream in = new FileInputStream(file);

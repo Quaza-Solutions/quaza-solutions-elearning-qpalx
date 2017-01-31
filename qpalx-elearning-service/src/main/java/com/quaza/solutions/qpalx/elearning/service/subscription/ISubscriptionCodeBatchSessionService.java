@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.service.subscription;
 
+import com.quaza.solutions.qpalx.elearning.domain.subscription.IPrepaidSubscriptionGenVO;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscriptionStatistic;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeBatchSession;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeBatchSessionStatistic;
@@ -19,5 +20,7 @@ public interface ISubscriptionCodeBatchSessionService {
     public List<SubscriptionCodeBatchSessionStatistic> findAllSubscriptionCodeBatchSessionStatistic();
 
     public List<PrepaidSubscriptionStatistic> findAllSubscriptionBatchPrepaidSubscriptionStatistic(Long subscriptionCodeBatchSessionID);
+
+    public void buildNewSubscriptionBatch(IPrepaidSubscriptionGenVO iPrepaidSubscriptionGenVO);
 
 }

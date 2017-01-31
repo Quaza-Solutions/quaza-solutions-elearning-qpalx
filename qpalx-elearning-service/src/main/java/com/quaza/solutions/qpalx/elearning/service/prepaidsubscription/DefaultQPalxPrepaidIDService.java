@@ -2,16 +2,20 @@ package com.quaza.solutions.qpalx.elearning.service.prepaidsubscription;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.subscription.IPrepaidSubscriptionGenVO;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeBatchSession;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.repository.IQPalxPrepaidIDRepository;
+import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
+import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -36,16 +40,19 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
     @Autowired
     IQPalxPrepaidIDRepository iQPalxPrepaidIDRepository;
 
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.CacheEnabledQPalXMunicipalityService")
+    private IQPalXMunicipalityService iQPalXMunicipalityService;
+
+    @Autowired
+    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxSubscriptionService")
+    private IQPalxSubscriptionService iQPalxSubscriptionService;
+
     private List<String> generatedPrepaidSubs = new ArrayList<String>();
 
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultQPalxPrepaidIDService.class);
 
-    @Override
-    public void generateAndWritePrepaidIdsToExcel(int numofcodes, QPalXMunicipality qPalXMunicipality, QPalXSubscription qPalXSubscription, String fileName) {
-        generateUniqueIds(numofcodes, qPalXSubscription, qPalXMunicipality);
-        writePrepaidExcelFile(qPalXMunicipality, qPalXSubscription, fileName);//have it generate with municipality details
-    }
 
     @Override
     public void writePrepaidExcelFile(QPalXMunicipality qPalXMunicipality, QPalXSubscription qPalXSubscription, String fileName) {
@@ -91,59 +98,9 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
     }
 
     @Override
-    public String generateUniqueId(QPalXMunicipality qPalXMunicipality, QPalXSubscription qPalXSubscription, List<String> alluniqueidslist) {
-        PrepaidSubscription prepaidSubscription;
-
-        String uniqueid = "";
-
-        final String alpha = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-        final int length = alpha.length();
-
-        Random r = new Random();
-        //adds random characters to uniqueid based on our alphabet
-        for (int i = 0; i < 12; i++) {
-            uniqueid += alpha.charAt(r.nextInt(length));
-        }
-        if(alluniqueidslist == null){
-            System.out.println("Failure to load uniqueIds : null");
-        }else
-        if (!alluniqueidslist.contains(uniqueid)) {
-            prepaidSubscription = new PrepaidSubscription();
-            prepaidSubscription.setUniqueID(uniqueid);
-            prepaidSubscription.setAlreadyUsed(false);
-            prepaidSubscription.setDateCreated(DateTime.now());
-            prepaidSubscription.setRedemptionDate(null);
-            prepaidSubscription.setqPalXMunicipality(qPalXMunicipality);
-            prepaidSubscription.setqPalXSubscription(qPalXSubscription);
-            alluniqueidslist.add(prepaidSubscription.getuniqueId());//adds to list locally making sure not to access DB
-            save(prepaidSubscription);
-            generatedPrepaidSubs.add(uniqueid);
-            generatedPrepaidSubs.add(DateTime.now().toString());
-            generatedPrepaidSubs.add(qPalXMunicipality.getQPalXCountry().getCountryCode());//country code column
-            generatedPrepaidSubs.add(qPalXMunicipality.getCode());//city code column
-            generatedPrepaidSubs.add(qPalXSubscription.getSubscriptionType().toString());
-        } else if (alluniqueidslist.contains(uniqueid)) {
-            System.out.println("Code already generated : Generating new code");
-            generateUniqueId(qPalXMunicipality, qPalXSubscription, alluniqueidslist);
-        }
-
-        return uniqueid;
+    public List<String> getAllUniqueIds() {
+        return iQPalxPrepaidIDRepository.getAllUniqueIdsRepo();
     }
-
-    @Override
-    public void generateUniqueIds(int numberOfCodes, QPalXSubscription qPalXSubscription, QPalXMunicipality qPalXMunicipality) {
-        List<String> alluniqueidslist = getAllUniqueIds();//adds all ids from database to local list ONCE
-        //alluniqueidslist is the reference for if it is already in database
-        //generatedprepaidsubs is for excel generation
-        generatedPrepaidSubs.removeAll(generatedPrepaidSubs);
-        for(int i=0; i<numberOfCodes; i++){
-            generateUniqueId(qPalXMunicipality, qPalXSubscription, alluniqueidslist);
-        }
-    }
-
-    @Override
-    public List<String> getAllUniqueIds() { return iQPalxPrepaidIDRepository.getAllUniqueIdsRepo(); }
 
     @Override
     public PrepaidSubscription findById(Long obj) {
@@ -151,12 +108,30 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
     }
 
     @Override
-    public void save(PrepaidSubscription obj) { iQPalxPrepaidIDRepository.save(obj); }
+    public void save(PrepaidSubscription obj) {
+        iQPalxPrepaidIDRepository.save(obj);
+    }
 
     @Override
-    public PrepaidSubscription findByUniqueId(String uniqueid) throws NullPointerException{ return iQPalxPrepaidIDRepository.findByUniqueIdRepo(uniqueid); }
+    public PrepaidSubscription findByUniqueId(String uniqueid) throws NullPointerException{
+        return iQPalxPrepaidIDRepository.findByUniqueIdRepo(uniqueid);
+    }
 
+    @Transactional
+    @Override
+    public void generateUniqueIds(IPrepaidSubscriptionGenVO iPrepaidSubscriptionGenVO, SubscriptionCodeBatchSession subscriptionCodeBatchSession) {
+        List<String> alluniqueidslist = getAllUniqueIds();
+        int numberOfCodes = iPrepaidSubscriptionGenVO.getNumToGenerate();
 
+        // Find municipality and subscription
+        QPalXSubscription qPalXSubscription = iQPalxSubscriptionService.findQPalXSubscriptionByID(iPrepaidSubscriptionGenVO.getSubscriptionID());
+        QPalXMunicipality qPalXMunicipality = iQPalXMunicipalityService.findQPalXMunicipalityByID(iPrepaidSubscriptionGenVO.getMunicipalityID());
+
+        generatedPrepaidSubs.removeAll(generatedPrepaidSubs);
+        for(int i=0; i<numberOfCodes; i++){
+            generateUniqueId(qPalXMunicipality, qPalXSubscription, alluniqueidslist, subscriptionCodeBatchSession);
+        }
+    }
 
     @Transactional
     @Override
@@ -192,4 +167,46 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
         LOGGER.debug("Finding all PrepaidSubscription's for subscriptionCodeBatchSession:> {}", subscriptionCodeBatchSession);
         return iQPalxPrepaidIDRepository.findAllPrepaidSubscriptionForSubscriptionCodeBatchSession(subscriptionCodeBatchSession);
     }
+
+    private String generateUniqueId(QPalXMunicipality qPalXMunicipality, QPalXSubscription qPalXSubscription, List<String> alluniqueidslist, SubscriptionCodeBatchSession subscriptionCodeBatchSession) {
+        PrepaidSubscription prepaidSubscription;
+
+        String uniqueid = "";
+
+        final String alpha = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        final int length = alpha.length();
+
+        Random r = new Random();
+        //adds random characters to uniqueid based on our alphabet
+        for (int i = 0; i < 12; i++) {
+            uniqueid += alpha.charAt(r.nextInt(length));
+        }
+        if(alluniqueidslist == null){
+            System.out.println("Failure to load uniqueIds : null");
+        }else
+        if (!alluniqueidslist.contains(uniqueid)) {
+            prepaidSubscription = new PrepaidSubscription();
+            prepaidSubscription.setUniqueID(uniqueid);
+            prepaidSubscription.setAlreadyUsed(false);
+            prepaidSubscription.setDateCreated(DateTime.now());
+            prepaidSubscription.setRedemptionDate(null);
+            prepaidSubscription.setqPalXMunicipality(qPalXMunicipality);
+            prepaidSubscription.setqPalXSubscription(qPalXSubscription);
+            prepaidSubscription.setSubscriptionCodeBatchSession(subscriptionCodeBatchSession);
+            alluniqueidslist.add(prepaidSubscription.getuniqueId());//adds to list locally making sure not to access DB
+            save(prepaidSubscription);
+            generatedPrepaidSubs.add(uniqueid);
+            generatedPrepaidSubs.add(DateTime.now().toString());
+            generatedPrepaidSubs.add(qPalXMunicipality.getQPalXCountry().getCountryCode());//country code column
+            generatedPrepaidSubs.add(qPalXMunicipality.getCode());//city code column
+            generatedPrepaidSubs.add(qPalXSubscription.getSubscriptionType().toString());
+        } else if (alluniqueidslist.contains(uniqueid)) {
+            System.out.println("Code already generated : Generating new code");
+            generateUniqueId(qPalXMunicipality, qPalXSubscription, alluniqueidslist, subscriptionCodeBatchSession);
+        }
+
+        return uniqueid;
+    }
+
 }

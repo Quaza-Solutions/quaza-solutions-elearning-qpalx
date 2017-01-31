@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.prepaidsubscription;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.subscription.IPrepaidSubscriptionGenVO;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeBatchSession;
@@ -13,13 +14,10 @@ import java.util.List;
  */
 public interface IQPalxPrepaidIDService {
 
-    public String generateUniqueId(QPalXMunicipality qPalXMunicipality, QPalXSubscription qPalXSubscription, List<String> prepaidSubscriptions);//get and set countrycode/citycode
 
-    public void generateUniqueIds(int numberOfCodes, QPalXSubscription qPalXSubscription, QPalXMunicipality qPalXMunicipality);//get and set countrycode/citycode
+    public void generateUniqueIds(IPrepaidSubscriptionGenVO iPrepaidSubscriptionGenVO, SubscriptionCodeBatchSession subscriptionCodeBatchSession);//get and set countrycode/citycode
 
     public PrepaidSubscription findByUniqueId(String obj);
-
-    public void generateAndWritePrepaidIdsToExcel(int numofcodes, QPalXMunicipality qPalXMunicipality, QPalXSubscription qPalXSubscription, String fileName);
 
     public PrepaidSubscription findById(Long obj);
 
