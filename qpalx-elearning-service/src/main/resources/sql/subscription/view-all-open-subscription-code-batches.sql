@@ -65,3 +65,4 @@ Left Outer Join (
 			splatPart.PlatformPartnerName,
 			splatPart.PlatformPartnerType
 ) As RedeemedSubscriptionBatchPrePaidCodes On RedeemedSubscriptionBatchPrePaidCodes.ID = AllSubscriptionBatchPrePaidCodes.ID
+Order	By AllSubscriptionBatchPrePaidCodes.BatchGenerationDate desc
