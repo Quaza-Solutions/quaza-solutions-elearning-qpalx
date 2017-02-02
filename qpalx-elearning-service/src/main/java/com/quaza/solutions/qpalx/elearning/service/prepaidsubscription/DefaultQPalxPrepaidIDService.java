@@ -9,10 +9,6 @@ import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionCodeB
 import com.quaza.solutions.qpalx.elearning.domain.subscription.repository.IQPalxPrepaidIDRepository;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,11 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -48,54 +39,10 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxSubscriptionService")
     private IQPalxSubscriptionService iQPalxSubscriptionService;
 
-    private List<String> generatedPrepaidSubs = new ArrayList<String>();
-
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultQPalxPrepaidIDService.class);
 
 
-    @Override
-    public void writePrepaidExcelFile(QPalXMunicipality qPalXMunicipality, QPalXSubscription qPalXSubscription, String fileName) {
-        try{
-            //add another column for sub type
-            File file = new File(fileName + ".xls");
-            FileOutputStream fileOut = new FileOutputStream(fileName + ".xls");
-            HSSFWorkbook workbook = new HSSFWorkbook();
-            HSSFSheet worksheet = workbook.createSheet("worksheet");
-            Row row = worksheet.createRow((short) 0);
-            Cell cellA1 = row.createCell((short) 0);
-            Cell cellB2 = row.createCell((short) 1);
-            Cell cellC3 = row.createCell((short)2);
-            Cell cellD4 = row.createCell((short)3);
-            Cell cellE5 = row.createCell((short)4);
-            cellA1.setCellValue("UniqueId");
-            cellB2.setCellValue("Date Created");
-            cellC3.setCellValue("Country Code");
-            cellD4.setCellValue("City Code");
-            cellE5.setCellValue("Subscription Type");
-            int rowCount =0;
-            for(int i=5; i <= generatedPrepaidSubs.size(); i+=5){
-                row = worksheet.createRow((short) ++rowCount);
-                Cell cellA = row.createCell((short) 0);
-                Cell cellB = row.createCell((short) 1);
-                Cell cellC = row.createCell((short)2);
-                Cell cellD = row.createCell((short)3);
-                Cell cellE = row.createCell((short)4);
-                cellA.setCellValue((String) generatedPrepaidSubs.get(i-5));
-                cellB.setCellValue((String)generatedPrepaidSubs.get(i-4));
-                cellC.setCellValue((String)generatedPrepaidSubs.get(i-3));
-                cellD.setCellValue((String)generatedPrepaidSubs.get(i-2));
-                cellE.setCellValue((String)generatedPrepaidSubs.get(i-1));
-            }
-            workbook.write(fileOut);
-            fileOut.flush();
-            fileOut.close();
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public List<String> getAllUniqueIds() {
@@ -127,7 +74,6 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
         QPalXSubscription qPalXSubscription = iQPalxSubscriptionService.findQPalXSubscriptionByID(iPrepaidSubscriptionGenVO.getSubscriptionID());
         QPalXMunicipality qPalXMunicipality = iQPalXMunicipalityService.findQPalXMunicipalityByID(iPrepaidSubscriptionGenVO.getMunicipalityID());
 
-        generatedPrepaidSubs.removeAll(generatedPrepaidSubs);
         for(int i=0; i<numberOfCodes; i++){
             generateUniqueId(qPalXMunicipality, qPalXSubscription, alluniqueidslist, subscriptionCodeBatchSession);
         }
@@ -183,7 +129,7 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
             uniqueid += alpha.charAt(r.nextInt(length));
         }
         if(alluniqueidslist == null){
-            System.out.println("Failure to load uniqueIds : null");
+            LOGGER.error("Failed to load unique id's");
         }else
         if (!alluniqueidslist.contains(uniqueid)) {
             prepaidSubscription = new PrepaidSubscription();
@@ -196,13 +142,8 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
             prepaidSubscription.setSubscriptionCodeBatchSession(subscriptionCodeBatchSession);
             alluniqueidslist.add(prepaidSubscription.getuniqueId());//adds to list locally making sure not to access DB
             save(prepaidSubscription);
-            generatedPrepaidSubs.add(uniqueid);
-            generatedPrepaidSubs.add(DateTime.now().toString());
-            generatedPrepaidSubs.add(qPalXMunicipality.getQPalXCountry().getCountryCode());//country code column
-            generatedPrepaidSubs.add(qPalXMunicipality.getCode());//city code column
-            generatedPrepaidSubs.add(qPalXSubscription.getSubscriptionType().toString());
         } else if (alluniqueidslist.contains(uniqueid)) {
-            System.out.println("Code already generated : Generating new code");
+            LOGGER.warn("Code already generated : Generating new code");
             generateUniqueId(qPalXMunicipality, qPalXSubscription, alluniqueidslist, subscriptionCodeBatchSession);
         }
 

@@ -134,8 +134,8 @@ public class SubscriptionCodeBatchSessionService extends JDBCTemplateEnabledServ
         String partnerUID = strategicPlatformPartner.getPlatformPartnerName();
         partnerUID = partnerUID.replace(" ", "-");
         partnerUID = partnerUID + "-" + strategicPlatformPartner.getPlatformPartnerTypeE().toString();
-        String uidNumber = generateSubscriptionBatchUID(7);
-        partnerUID = partnerUID + "-" + uidNumber;
+        String systemTime = "" + System.currentTimeMillis(); // this will make this unique
+        partnerUID = partnerUID + "-" + systemTime;
         return partnerUID;
     }
 

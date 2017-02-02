@@ -16,7 +16,7 @@
     <SocialNetwork SocialNetworkName="Facebook" SocialNetworkDesc="Social Networking" WebSiteAddress="www.facebook.com" />
 
     <!-- Populate Subscription data -->
-    <QPalXSubscription SubscriptionName="Weekly Plan" SubscriptionCost="5" SubscriptionType="MONTHLY" SubscriptionQPalXCountryID="2" />
+    <QPalXSubscription SubscriptionName="Weekly Plan" SubscriptionCost="5" SubscriptionType="WEEKLY" SubscriptionQPalXCountryID="2" />
     <QPalXSubscription SubscriptionName="Monthly Plan" SubscriptionCost="20" SubscriptionType="MONTHLY" SubscriptionQPalXCountryID="2" />
     <QPalXSubscription SubscriptionName="Quarterly Plan" SubscriptionCost="60" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" />
     <QPalXSubscription SubscriptionName="Yearly Plan" SubscriptionCost="240" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" />
@@ -49,11 +49,11 @@
     <SubscriptionCodeBatchSession ID="2" SubscriptionCodeBatchSessionUID="Manny-Capital-BANK-4563636" BatchGenerationDate="2017-01-18" StrategicPlatformPartnerID="2"  />
 
     <!-- Populate Dummy PrepaidSubscription Codes for Accra -->
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-89393" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-65788" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-23567" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="2" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-17809" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="2" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-00987" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="2" />
+    <!--<PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-89393" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />-->
+    <!--<PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-65788" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />-->
+    <!--<PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-23567" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="2" />-->
+    <!--<PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-17809" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="2" />-->
+    <!--<PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-00987" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="2" />-->
 
 
     <!-- Populate StudentTutorialLevel data for GeographicalRegion WAF -->
