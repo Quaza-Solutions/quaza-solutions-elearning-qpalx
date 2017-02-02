@@ -132,7 +132,7 @@ public class SubscriptionCodeBatchSessionService extends JDBCTemplateEnabledServ
     private String generateBatchStrategicPlatformPartnerUID(StrategicPlatformPartner strategicPlatformPartner) {
         // Generate platform partner name identifier
         String partnerUID = strategicPlatformPartner.getPlatformPartnerName();
-        partnerUID.replace(" ", "-");
+        partnerUID = partnerUID.replace(" ", "-");
         partnerUID = partnerUID + "-" + strategicPlatformPartner.getPlatformPartnerTypeE().toString();
         String uidNumber = generateSubscriptionBatchUID(7);
         partnerUID = partnerUID + "-" + uidNumber;

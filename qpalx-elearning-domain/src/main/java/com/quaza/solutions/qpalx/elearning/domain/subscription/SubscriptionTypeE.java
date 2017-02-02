@@ -17,7 +17,7 @@ public enum SubscriptionTypeE {
 
 	MONTHLY(31),
 	
-	QUARTERLY(120),
+	QUARTERLY(91),
 	
 	YEARLY(365);
 
