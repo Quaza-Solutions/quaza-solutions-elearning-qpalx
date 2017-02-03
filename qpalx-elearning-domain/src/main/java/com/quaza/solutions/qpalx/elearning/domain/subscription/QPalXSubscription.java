@@ -29,6 +29,10 @@ public class QPalXSubscription {
 	@Enumerated(EnumType.STRING)
 	private SubscriptionTypeE subscriptionType;
 
+	// Full path and file name of the media content
+	@Column(name="SubscriptionIcon", nullable=false, length=255)
+	private String subscriptionIcon;
+
 	// Country for which this subscription has been setup
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SubscriptionQPalXCountryID", nullable = false)
@@ -74,6 +78,14 @@ public class QPalXSubscription {
 		this.subscriptionType = subscriptionType;
 	}
 
+	public String getSubscriptionIcon() {
+		return subscriptionIcon;
+	}
+
+	public void setSubscriptionIcon(String subscriptionIcon) {
+		this.subscriptionIcon = subscriptionIcon;
+	}
+
 	public QPalXCountry getSubscriptionQPalXCountry() {
 		return subscriptionQPalXCountry;
 	}
@@ -95,6 +107,7 @@ public class QPalXSubscription {
 				.append(subscriptionName, that.subscriptionName)
 				.append(subscriptionCost, that.subscriptionCost)
 				.append(subscriptionType, that.subscriptionType)
+				.append(subscriptionIcon, that.subscriptionIcon)
 				.append(subscriptionQPalXCountry, that.subscriptionQPalXCountry)
 				.isEquals();
 	}
@@ -106,6 +119,7 @@ public class QPalXSubscription {
 				.append(subscriptionName)
 				.append(subscriptionCost)
 				.append(subscriptionType)
+				.append(subscriptionIcon)
 				.append(subscriptionQPalXCountry)
 				.toHashCode();
 	}
@@ -117,6 +131,7 @@ public class QPalXSubscription {
 				.append("subscriptionName", subscriptionName)
 				.append("subscriptionCost", subscriptionCost)
 				.append("subscriptionType", subscriptionType)
+				.append("subscriptionIcon", subscriptionIcon)
 				.append("subscriptionQPalXCountry", subscriptionQPalXCountry)
 				.toString();
 	}
@@ -144,6 +159,11 @@ public class QPalXSubscription {
             qPalXSubscription.subscriptionName = subscriptionName;
             return this;
         }
+
+        public Builder subscriptionIcon(String subscriptionIcon) {
+			qPalXSubscription.subscriptionIcon = subscriptionIcon;
+			return this;
+		}
 
 		public QPalXSubscription build() {
 			return qPalXSubscription;
