@@ -16,10 +16,10 @@
     <SocialNetwork SocialNetworkName="Facebook" SocialNetworkDesc="Social Networking" WebSiteAddress="www.facebook.com" />
 
     <!-- Populate Subscription data -->
-    <QPalXSubscription SubscriptionName="Weekly Plan" SubscriptionCost="5" SubscriptionType="WEEKLY" SubscriptionQPalXCountryID="2" />
-    <QPalXSubscription SubscriptionName="Monthly Plan" SubscriptionCost="20" SubscriptionType="MONTHLY" SubscriptionQPalXCountryID="2" />
-    <QPalXSubscription SubscriptionName="Quarterly Plan" SubscriptionCost="60" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" />
-    <QPalXSubscription SubscriptionName="Yearly Plan" SubscriptionCost="240" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" />
+    <QPalXSubscription SubscriptionName="Weekly Plan" SubscriptionCost="5" SubscriptionType="WEEKLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-weekly-green.png"/>
+    <QPalXSubscription SubscriptionName="Monthly Plan" SubscriptionCost="20" SubscriptionType="MONTHLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-monthly-blue.png"/>
+    <QPalXSubscription SubscriptionName="Quarterly Plan" SubscriptionCost="60" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-quaterly-green.png"/>
+    <QPalXSubscription SubscriptionName="Yearly Plan" SubscriptionCost="240" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-yearly-blue.png"/>
 
     <!-- Populate Educational institutions  data -->
     <QPalXEducationalInstitution Code="ACC" Name="Accra Academy"  />
