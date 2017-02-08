@@ -81,18 +81,38 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
 
     @Transactional
     @Override
-    public boolean redeemCode(String uniqueid, QPalXMunicipality qPalXMunicipality){
-        //code and country code have to be modified
-        PrepaidSubscription prepaidSubscription = iQPalxPrepaidIDRepository.findByUniqueIdRepoNotUsed(uniqueid);
+    public boolean redeemCode(String uniqueId, Long subscriptionID, QPalXMunicipality studentMunicipality) {
+        Assert.notNull(uniqueId, "uniqueId cannot be null");
+        Assert.notNull(subscriptionID, "subscriptionID cannot be null");
+        Assert.notNull(studentMunicipality, "studentMunicipality cannot be null");
+
+        LOGGER.info("Attempting to redeem prepaid code: {} in municipality: {}", uniqueId, studentMunicipality.getName());
+
+        PrepaidSubscription prepaidSubscription = iQPalxPrepaidIDRepository.findByUniqueIdRepoNotUsed(uniqueId);
         if(prepaidSubscription != null && prepaidSubscription.getAlreadyUsed() == false) {
-            prepaidSubscription.setRedemptionDate(DateTime.now());
-            prepaidSubscription.setAlreadyUsed(true);
-            save(prepaidSubscription);
-            return true;
-        }else{
+
+            // verify that Student municipality matches municipality created on PrepaidSubscription
+            LOGGER.info("Found valid non used prepaidSubscription: {} checking to see if municipality matches...", prepaidSubscription);
+
+            if (prepaidSubscription.getqPalXMunicipality().equals(studentMunicipality)) {
+                LOGGER.info("Checking to see if selected subscriptionID: {} matches subscriptionID on prepaid subscription", subscriptionID);
+                if (subscriptionID.equals(prepaidSubscription.getQPalXSubscription().getId())) {
+                    prepaidSubscription.setRedemptionDate(DateTime.now());
+                    prepaidSubscription.setAlreadyUsed(true);
+                    save(prepaidSubscription);
+                    return true;
+                } else {
+                    LOGGER.warn("Selected subscriptionID: {} does not match prepaid subscriptionID: {}", subscriptionID, prepaidSubscription.getQPalXSubscription().getId());
+                    return false;
+                }
+            } else {
+                LOGGER.warn("User QPalXMunicipality does not match redemption code");
+                return false;
+            }
+
+        } else{
             return false;
         }
-
     }
 
     @Transactional
@@ -138,7 +158,7 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
             prepaidSubscription.setDateCreated(DateTime.now());
             prepaidSubscription.setRedemptionDate(null);
             prepaidSubscription.setqPalXMunicipality(qPalXMunicipality);
-            prepaidSubscription.setqPalXSubscription(qPalXSubscription);
+            prepaidSubscription.setQPalXSubscription(qPalXSubscription);
             prepaidSubscription.setSubscriptionCodeBatchSession(subscriptionCodeBatchSession);
             alluniqueidslist.add(prepaidSubscription.getuniqueId());//adds to list locally making sure not to access DB
             save(prepaidSubscription);

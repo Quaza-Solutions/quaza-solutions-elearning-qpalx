@@ -24,8 +24,7 @@ public interface IQPalxPrepaidIDService {
 
     public List<String> getAllUniqueIds();
 
-    //upon redemption update table with respective values - pass municipality down for extra verification - return true or false for web end
-    public boolean redeemCode(String uniqueId, QPalXMunicipality qPalXMunicipality); //unique idmust match country + city code
+    public boolean redeemCode(String prepaidSubscriptionCode, Long subscriptionID, QPalXMunicipality studentMunicipality);
 
     public void updateRedemptionDetails(String uniqueId, QPalXUser qPalXUser);
 

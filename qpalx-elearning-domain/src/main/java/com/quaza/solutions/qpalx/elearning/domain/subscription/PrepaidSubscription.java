@@ -57,9 +57,13 @@ public class PrepaidSubscription {
 
     public QPalXMunicipality getqPalXMunicipality(){ return qPalXMunicipality; }
 
-    public void setqPalXSubscription(QPalXSubscription qPalXSubscription) { this.qPalXSubscription = qPalXSubscription; }
+    public void setQPalXSubscription(QPalXSubscription qPalXSubscription) {
+        this.qPalXSubscription = qPalXSubscription;
+    }
 
-    public QPalXSubscription getqPalXSubscription(){ return qPalXSubscription; }
+    public QPalXSubscription getQPalXSubscription(){
+        return qPalXSubscription;
+    }
 
     public long getID(){ return this.id; };
 
