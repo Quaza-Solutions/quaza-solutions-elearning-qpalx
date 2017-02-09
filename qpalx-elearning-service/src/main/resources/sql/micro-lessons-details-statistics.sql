@@ -24,3 +24,4 @@ Left 	Outer Join (
                                    And       quizprog.QPalxUserID = ?
                                    Group     By quizprog.QPalxUserID, qMell.ID,  qMell.MicroLessonName, qMell.ELearningMediaFile, qMell.StaticELearningMediaFile
 ) As StudentMicroLessonQuizAttempts on StudentMicroLessonQuizAttempts.StudentID = StudentMicroLessonQuizTotals.StudentID
+Group	BY StudentMicroLessonQuizTotals.StudentID, StudentMicroLessonQuizTotals.MicroLessonID, StudentMicroLessonQuizTotals.MicroLessonName, StudentMicroLessonQuizTotals.ELearningMediaFile, StudentMicroLessonQuizTotals.StaticELearningMediaFile, StudentMicroLessonQuizTotals.TotalNumberOfQuizzes,  StudentMicroLessonQuizAttempts.UniqueQuizzesAttempted
