@@ -126,4 +126,14 @@ Left	Outer Join (
 	And		quizprog.QPalxUserID = ?
 	Group  	By qUser.ID, qPell.ID, qPell.LessonName, qPell.ELearningMediaFile
 ) As StudentUniqueQuizAttempt on StudentUniqueQuizAttempt.LessonID = AllStudentLessons.LessonID
+Group By AllStudentLessons.StudentID,
+		AllStudentLessons.LessonID,
+		AllStudentLessons.LessonName,
+		AllStudentLessons.LessonIntroVideo,
+		StudentQuestionBankItemsInLesson.TotalNumberOfQuestionBankItems,
+		StudentQuestionBankItemsAttempted.UniqueQuestionBankItemsAttempted,
+		StudentLessonsTotalMicroLessons.TotalNumberOfMicroLessons,
+		StudentUniqueMicroLessonsAttempt.UniqueMicroLessonsAttempted,
+		StudentTotalQuizzes.TotalNumberOfQuizzes,
+		StudentUniqueQuizAttempt.UniqueQuizzesAttempted
 
