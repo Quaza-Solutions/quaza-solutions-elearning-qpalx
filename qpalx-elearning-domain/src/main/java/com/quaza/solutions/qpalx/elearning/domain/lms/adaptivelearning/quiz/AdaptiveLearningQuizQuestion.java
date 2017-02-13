@@ -46,7 +46,7 @@ public class AdaptiveLearningQuizQuestion {
             @AttributeOverride(name="qPalXTutorialContentTypeE", column = @Column(name="QuizQuestionQPalXTutorialContentType")),
             @AttributeOverride(name="eLearningMediaFile", column = @Column(name="QuizQuestionMediaFile"))
     } )
-    private ELearningMediaContent quizQuestionAnswerMultiMedia;
+    private ELearningMediaContent quizQuestionMultiMedia;
 
     @Column(name="EntryDate", nullable=false)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -106,12 +106,12 @@ public class AdaptiveLearningQuizQuestion {
         this.adaptiveLearningQuizQuestionTypeE = adaptiveLearningQuizQuestionTypeE;
     }
 
-    public ELearningMediaContent getQuizQuestionAnswerMultiMedia() {
-        return quizQuestionAnswerMultiMedia;
+    public ELearningMediaContent getQuizQuestionMultiMedia() {
+        return quizQuestionMultiMedia;
     }
 
-    public void setQuizQuestionAnswerMultiMedia(ELearningMediaContent quizQuestionAnswerMultiMedia) {
-        this.quizQuestionAnswerMultiMedia = quizQuestionAnswerMultiMedia;
+    public void setQuizQuestionMultiMedia(ELearningMediaContent quizQuestionMultiMedia) {
+        this.quizQuestionMultiMedia = quizQuestionMultiMedia;
     }
 
     public DateTime getEntryDate() {
@@ -161,7 +161,7 @@ public class AdaptiveLearningQuizQuestion {
                 .append(questionTitle, that.questionTitle)
                 .append(questionFeedBack, that.questionFeedBack)
                 .append(adaptiveLearningQuizQuestionTypeE, that.adaptiveLearningQuizQuestionTypeE)
-                .append(quizQuestionAnswerMultiMedia, that.quizQuestionAnswerMultiMedia)
+                .append(quizQuestionMultiMedia, that.quizQuestionMultiMedia)
                 .append(entryDate, that.entryDate)
                 .append(modifyDate, that.modifyDate)
                 .append(adaptiveLearningQuiz, that.adaptiveLearningQuiz)
@@ -176,7 +176,7 @@ public class AdaptiveLearningQuizQuestion {
                 .append(questionTitle)
                 .append(questionFeedBack)
                 .append(adaptiveLearningQuizQuestionTypeE)
-                .append(quizQuestionAnswerMultiMedia)
+                .append(quizQuestionMultiMedia)
                 .append(entryDate)
                 .append(modifyDate)
                 .toHashCode();
@@ -190,7 +190,7 @@ public class AdaptiveLearningQuizQuestion {
                 .append("questionTitle", questionTitle)
                 .append("questionFeedBack", questionFeedBack)
                 .append("adaptiveLearningQuizQuestionTypeE", adaptiveLearningQuizQuestionTypeE)
-                .append("quizQuestionAnswerMultiMedia", quizQuestionAnswerMultiMedia)
+                .append("quizQuestionAnswerMultiMedia", quizQuestionMultiMedia)
                 .append("entryDate", entryDate)
                 .append("modifyDate", modifyDate)
                 .append("adaptiveLearningQuiz", adaptiveLearningQuiz)
@@ -230,8 +230,8 @@ public class AdaptiveLearningQuizQuestion {
             return this;
         }
 
-        public Builder quizQuestionAnswerMultiMedia(ELearningMediaContent quizQuestionAnswerMultiMedia) {
-            adaptiveLearningQuizQuestion.quizQuestionAnswerMultiMedia = quizQuestionAnswerMultiMedia;
+        public Builder quizQuestionMultiMedia(ELearningMediaContent quizQuestionMultiMedia) {
+            adaptiveLearningQuizQuestion.quizQuestionMultiMedia = quizQuestionMultiMedia;
             return this;
         }
 

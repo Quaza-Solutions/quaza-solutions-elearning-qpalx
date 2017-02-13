@@ -50,7 +50,7 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
     private ELearningMediaContent staticELearningMediaContent;
 
     // Always fetch this Eager as we always need the parent QPalXELesson always avaialable
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QPalXELessonID", nullable = false)
     private QPalXELesson qPalXELesson;
 

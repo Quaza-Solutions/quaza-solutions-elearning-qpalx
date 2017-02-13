@@ -9,6 +9,8 @@ public enum QPalXTutorialContentTypeE {
 
     Quiz,
 
+    Quiz_Question,
+
     Video,
 
     Static,

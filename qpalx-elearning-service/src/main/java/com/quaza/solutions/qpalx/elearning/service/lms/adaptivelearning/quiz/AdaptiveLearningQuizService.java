@@ -100,7 +100,7 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
                     .questionOrder(questionOrder)
                     .questionTitle(iAdaptiveLearningQuizQuestionVO.getQuestionTitle())
                     .questionFeedBack(iAdaptiveLearningQuizQuestionVO.getQuestionFeedBack())
-                    .quizQuestionAnswerMultiMedia(iAdaptiveLearningQuizQuestionVO.getQuizQuestionAnswerMultiMedia())
+                    .quizQuestionMultiMedia(iAdaptiveLearningQuizQuestionVO.getQuizQuestionMultiMedia())
                     .adaptiveLearningQuizQuestionTypeE(iAdaptiveLearningQuizQuestionVO.getAdaptiveLearningQuizQuestionTypeE())
                     .entryDate(new DateTime())
                     .adaptiveLearningQuiz(adaptiveLearningQuiz)
