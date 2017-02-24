@@ -10,7 +10,9 @@ public enum PlatformPartnerTypeE {
 
     Government,
 
-    Telecomunication;
+    Telecomunication,
+
+    Quaza_Marketing;
 
 
 }
