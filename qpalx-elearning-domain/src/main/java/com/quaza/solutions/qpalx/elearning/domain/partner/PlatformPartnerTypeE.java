@@ -12,7 +12,7 @@ public enum PlatformPartnerTypeE {
 
     Telecomunication,
 
-    Quaza_Marketing;
+    Quaza;
 
 
 }

@@ -41,7 +41,7 @@
 
     <!-- StrategicPlatformPartner -->
     <StrategicPlatformPartner ID="1" PlatformPartnerName="Access Bank" PlatformPartnerType="Bank" entryDate="2017-01-21" />
-    <StrategicPlatformPartner ID="2" PlatformPartnerName="Manny Capital" PlatformPartnerType="Bank" entryDate="2017-01-21" />
+    <StrategicPlatformPartner ID="2" PlatformPartnerName="Quaza Marketing" PlatformPartnerType="Quaza" entryDate="2017-01-21" />
 
 
     <!-- SubscriptionCodeBatchSession -->
