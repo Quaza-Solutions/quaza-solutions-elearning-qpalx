@@ -3,6 +3,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorabl
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningExperience;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.EmbedableScorableELearningActivity;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.repository.IAdaptiveLearningExperienceRepository;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import org.joda.time.DateTime;
@@ -11,12 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.List;
+
 /**
  * @author manyce400
  */
 @Service("quaza.solutions.qpalx.elearning.service.AdaptiveLearningExperienceService")
 public class AdaptiveLearningExperienceService implements IAdaptiveLearningExperienceService {
-
 
 
 
@@ -32,6 +34,19 @@ public class AdaptiveLearningExperienceService implements IAdaptiveLearningExper
         Assert.notNull(id, "id cannot be null");
         LOGGER.debug("Finding AdaptiveLearningExperience with id: {}", id);
         return iAdaptiveLearningExperienceRepository.findOne(id);
+    }
+
+    @Transactional
+    @Override
+    public List<AdaptiveLearningExperience> findAllAccrossELearningCurriculum(ELearningCurriculum eLearningCurriculum) {
+        //Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
+        LOGGER.info("Finding all AdaptiveLearningExperience across eLearningCurriculum: {}", eLearningCurriculum);
+
+        // Get current hibernate session and run SQL query
+
+        List<AdaptiveLearningExperience> results = iAdaptiveLearningExperienceRepository.findAllAccrossELearningCurriculum(1L);
+        System.out.println("results = " + results);
+        return results;
     }
 
     @Transactional
