@@ -1,14 +1,30 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.math3.util.Precision;
 import org.springframework.jdbc.core.RowMapper;
 
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
+import javax.persistence.SqlResultSetMapping;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
  * @author manyce400
  */
+@SqlResultSetMapping(
+        name="groupDetailsMapping",
+        classes={
+                @ConstructorResult(
+                        targetClass=StudentOverallProgressStatistics.class,
+                        columns={
+                                @ColumnResult(name="GROUP_ID"),
+                                @ColumnResult(name="USER_ID")
+                        }
+                )
+        }
+)
 public class StudentOverallProgressStatistics {
 
 
@@ -106,6 +122,28 @@ public class StudentOverallProgressStatistics {
 
     public Integer getUniqueQuestionBankItemsAttempted() {
         return uniqueQuestionBankItemsAttempted;
+    }
+
+    public double getTotalCurriculumCompletionPercent() {
+        int totalCurriculumItems = getTotalNumberOfCurriculumItems();
+        int totalAttemptedItems = getTotalNumberOfAttemptedItems();
+
+        if (totalCurriculumItems > 0 && totalAttemptedItems > 0) {
+            double completion = (totalAttemptedItems / totalCurriculumItems) * 100;
+            return Precision.round(completion, 0);
+        }
+
+        return 0;
+    }
+
+    public int getTotalNumberOfCurriculumItems() {
+        int totalCurriculumItems = totalNumberOfMicroLessons + totalNumberOfQuizzes + totalNumberOfQuestionBankItems;
+        return totalCurriculumItems;
+    }
+
+    public int getTotalNumberOfAttemptedItems() {
+        int totalAttemptedItems = uniqueMicroLessonsAttempted + uniqueQuizzesAttempted + uniqueQuestionBankItemsAttempted;
+        return totalAttemptedItems;
     }
 
     @Override
