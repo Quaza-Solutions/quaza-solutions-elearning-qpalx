@@ -38,12 +38,27 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultAdaptiveProficiencyRankingService.class);
 
 
+    @Transactional
+    @Override
+    public void save(AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
+        Assert.notNull(adaptiveProficiencyRanking, "adaptiveProficiencyRanking");
+        LOGGER.info("Saving new adaptiveProficiencyRanking: {}", adaptiveProficiencyRanking);
+        iAdaptiveProficiencyRankingRepository.save(adaptiveProficiencyRanking);
+    }
 
     @Override
     public List<AdaptiveProficiencyRanking> findStudentAdaptiveProficiencyRankings(QPalXUser qPalXUser) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         LOGGER.info("Finding all adaptive proficiency rankings for qPalxUser: {}", qPalXUser.getEmail());
         return iAdaptiveProficiencyRankingRepository.findStudentAdaptiveProficiencyRankings(qPalXUser);
+    }
+
+    @Override
+    public AdaptiveProficiencyRanking findCurrentStudentAdaptiveProficiencyRankingForCurriculum(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
+        LOGGER.info("Finding AdaptiveProficiencyRanking in Curriculum: {} for student: {}", eLearningCurriculum.getCurriculumName(), qPalXUser.getEmail());
+        return iAdaptiveProficiencyRankingRepository.findCurrentStudentAdaptiveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum);
     }
 
     @Override

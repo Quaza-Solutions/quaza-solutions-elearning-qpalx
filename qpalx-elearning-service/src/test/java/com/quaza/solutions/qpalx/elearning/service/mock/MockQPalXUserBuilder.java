@@ -25,6 +25,12 @@ public class MockQPalXUserBuilder {
     protected static final String[] TEST_TUTORIAL_LEVELS = new String[]{"Proficient", "Expert"};
 
 
+    public static QPalXUser buildMockGHQPalXUserBuilder() {
+        QPalXMunicipality qPalXMunicipality = MockQPalXMunicipalityBuilder.buildAccraQPalXMunicipalityBuilder();
+        QPalXUser qPalXUser = buildMockQPalXUserBuilder(qPalXMunicipality);
+        return qPalXUser;
+    }
+
     public static QPalXUser buildMockQPalXUserBuilder(final QPalXMunicipality municipality) {
         QPalXUser qPalXUser = QPalXUser.builder()
                 .sccessID("GH-ACC-839393")

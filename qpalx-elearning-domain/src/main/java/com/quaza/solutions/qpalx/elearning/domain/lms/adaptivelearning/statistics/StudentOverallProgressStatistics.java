@@ -4,27 +4,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.math3.util.Precision;
 import org.springframework.jdbc.core.RowMapper;
 
-import javax.persistence.ColumnResult;
-import javax.persistence.ConstructorResult;
-import javax.persistence.SqlResultSetMapping;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
  * @author manyce400
  */
-@SqlResultSetMapping(
-        name="groupDetailsMapping",
-        classes={
-                @ConstructorResult(
-                        targetClass=StudentOverallProgressStatistics.class,
-                        columns={
-                                @ColumnResult(name="GROUP_ID"),
-                                @ColumnResult(name="USER_ID")
-                        }
-                )
-        }
-)
 public class StudentOverallProgressStatistics {
 
 
