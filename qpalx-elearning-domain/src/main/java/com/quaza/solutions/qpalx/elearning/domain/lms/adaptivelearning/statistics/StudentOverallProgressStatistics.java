@@ -110,7 +110,7 @@ public class StudentOverallProgressStatistics {
     }
 
     public double getTotalCurriculumCompletionPercent() {
-        int totalCurriculumItems = getTotalNumberOfCurriculumItems();
+        double totalCurriculumItems = getTotalNumberOfCurriculumItems();
         int totalAttemptedItems = getTotalNumberOfAttemptedItems();
 
         if (totalCurriculumItems > 0 && totalAttemptedItems > 0) {
@@ -121,8 +121,8 @@ public class StudentOverallProgressStatistics {
         return 0;
     }
 
-    public int getTotalNumberOfCurriculumItems() {
-        int totalCurriculumItems = totalNumberOfMicroLessons + totalNumberOfQuizzes + totalNumberOfQuestionBankItems;
+    public double getTotalNumberOfCurriculumItems() {
+        double totalCurriculumItems = totalNumberOfMicroLessons + totalNumberOfQuizzes + totalNumberOfQuestionBankItems;
         return totalCurriculumItems;
     }
 

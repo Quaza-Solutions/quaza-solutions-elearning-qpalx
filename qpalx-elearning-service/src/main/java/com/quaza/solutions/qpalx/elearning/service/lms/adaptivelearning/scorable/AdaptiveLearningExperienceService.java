@@ -38,14 +38,13 @@ public class AdaptiveLearningExperienceService implements IAdaptiveLearningExper
 
     @Transactional
     @Override
-    public List<AdaptiveLearningExperience> findAllAccrossELearningCurriculum(ELearningCurriculum eLearningCurriculum) {
-        //Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
-        LOGGER.info("Finding all AdaptiveLearningExperience across eLearningCurriculum: {}", eLearningCurriculum);
+    public List<AdaptiveLearningExperience> findAllAccrossELearningCurriculum(ELearningCurriculum eLearningCurriculum, QPalXUser qPalXUser) {
+        Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
 
-        // Get current hibernate session and run SQL query
+        LOGGER.info("Finding all AdaptiveLearningExperience across eLearningCurriculum: {} for user: {}", eLearningCurriculum, qPalXUser.getEmail());
 
-        List<AdaptiveLearningExperience> results = iAdaptiveLearningExperienceRepository.findAllAccrossELearningCurriculum(1L);
-        System.out.println("results = " + results);
+        List<AdaptiveLearningExperience> results = iAdaptiveLearningExperienceRepository.findAllAccrossELearningCurriculum(eLearningCurriculum.getId(), qPalXUser.getId());
         return results;
     }
 

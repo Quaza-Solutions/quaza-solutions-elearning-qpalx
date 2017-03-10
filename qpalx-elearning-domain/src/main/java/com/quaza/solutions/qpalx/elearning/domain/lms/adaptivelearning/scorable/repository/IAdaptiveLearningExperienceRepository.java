@@ -15,8 +15,6 @@ public interface IAdaptiveLearningExperienceRepository extends CrudRepository<Ad
 
     /**
      * Find list of all AdaptiveLearningExperience for given QPalxUser and the specified ELearningCurriculum.
-     * TODO add QPalX Student ID.
-     *
      *
      * @return List<AdaptiveLearningExperience>
      */
@@ -27,9 +25,10 @@ public interface IAdaptiveLearningExperienceRepository extends CrudRepository<Ad
                     + "Left      Outer Join  QPalXEMicroLesson qeML on qeML.ID = alQ.QPalXEMicroLessonID "
                     + "Left      Outer Join  QPalXELesson qpEL on qpEL.ID = qeML.QPalXELessonID "
                     + "Left      Outer Join  ELearningCourse elC on elC.ID = qpEL.ELearningCourseID "
-                    + "Where     elC.ELearningCurriculumID = ?",
+                    + "Where     elC.ELearningCurriculumID = ?  "
+                    + "And       alE.QPalxUserID = ?  ",
             nativeQuery = true
     )
-    public List<AdaptiveLearningExperience> findAllAccrossELearningCurriculum(Long elearningCurriculum);
+    public List<AdaptiveLearningExperience> findAllAccrossELearningCurriculum(Long elearningCurriculum, Long studentID);
 
 }
