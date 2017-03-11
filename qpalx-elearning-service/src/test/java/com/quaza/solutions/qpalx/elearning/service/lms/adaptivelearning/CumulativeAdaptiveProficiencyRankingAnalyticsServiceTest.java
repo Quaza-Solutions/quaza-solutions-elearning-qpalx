@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning;
 
 import com.google.common.collect.ImmutableList;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.ProficiencyRankingCompuationResult;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.ProficiencyRankingTriggerTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningExperience;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.repository.IAdaptiveLearningExperienceRepository;
@@ -61,51 +62,30 @@ public class CumulativeAdaptiveProficiencyRankingAnalyticsServiceTest {
         AdaptiveLearningExperience adaptiveLearningExperience2 = AdaptiveLearningExperience.builder().proficiencyScore(40d).build();
         AdaptiveLearningExperience adaptiveLearningExperience3 = AdaptiveLearningExperience.builder().proficiencyScore(10d).build();
         List<AdaptiveLearningExperience> adaptiveLearningExperiences = ImmutableList.of(adaptiveLearningExperience1, adaptiveLearningExperience2, adaptiveLearningExperience3);
-        
-        // Buid a current AdaptiveProficiencyRanking and set ProficiencyRankingScaleE to FIVE(Range: 41d, 50d).
-        QPalXUser mockUser = MockQPalXUserBuilder.buildMockGHQPalXUserBuilder();
-        AdaptiveProficiencyRanking currentCurriculumAdaptiveProficiencyRanking =  AdaptiveProficiencyRanking.builder()
-                .qpalxUser(mockUser)
-                .proficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE.CUMULATIVE)
-                .proficiencyRankingEffectiveDateTime(new DateTime())
-                .proficiencyRankingScaleE(ProficiencyRankingScaleE.FIVE)
-                .eLearningCurriculum(eLearningCurriculum)
-                .build();
-
 
         // Algorithm will get the minimum value of ProficiencyRankingScaleE FIVE(Range: 41d, 50d) which will be 41.
-        double proficiencyScoreRange = cumulativeAdaptiveProficiencyRankingAnalyticsService.averageAdaptiveLearningExperience(adaptiveLearningExperiences, currentCurriculumAdaptiveProficiencyRanking);
-        Assert.assertEquals(new Double(27.75), new Double(proficiencyScoreRange));
+        double proficiencyScoreRange = cumulativeAdaptiveProficiencyRankingAnalyticsService.averageAdaptiveLearningExperience(adaptiveLearningExperiences);
+        Assert.assertEquals(new Double(23.33), new Double(proficiencyScoreRange));
         System.out.println("proficiencyScoreRangeE = " + proficiencyScoreRange);
         
-        // Average of (41 + 20 + 40 + 10 / 4) = 27.75.  We expect this to be a FUNDAMENTALS_LACKING_PERFORMER
+        // Average of (20 + 40 + 10 / 3) = 23.33.  We expect this to be a FUNDAMENTALS_LACKING_PERFORMER
         Optional<ProficiencyScoreRangeE> expectedProficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(proficiencyScoreRange);
         Assert.assertEquals(ProficiencyScoreRangeE.FUNDAMENTALS_LACKING_PERFORMER, expectedProficiencyScoreRangeE.get());
     }
 
     @Test
     public void testCalculateStudentAverageCurriculumProficiency() {
-        QPalXUser mockUser = MockQPalXUserBuilder.buildMockGHQPalXUserBuilder(); 
-
-        AdaptiveProficiencyRanking currentCurriculumAdaptiveProficiencyRanking =  AdaptiveProficiencyRanking.builder()
-                .qpalxUser(mockUser)
-                .proficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE.CUMULATIVE)
-                .proficiencyRankingEffectiveDateTime(new DateTime())
-                .proficiencyRankingScaleE(ProficiencyRankingScaleE.FIVE)
-                .eLearningCurriculum(eLearningCurriculum)
-                .build();
+        QPalXUser mockUser = MockQPalXUserBuilder.buildMockGHQPalXUserBuilder();
 
         AdaptiveLearningExperience adaptiveLearningExperience1 = AdaptiveLearningExperience.builder().proficiencyScore(20d).build();
         AdaptiveLearningExperience adaptiveLearningExperience2 = AdaptiveLearningExperience.builder().proficiencyScore(40d).build();
         AdaptiveLearningExperience adaptiveLearningExperience3 = AdaptiveLearningExperience.builder().proficiencyScore(10d).build();
         List<AdaptiveLearningExperience> adaptiveLearningExperiences = ImmutableList.of(adaptiveLearningExperience1, adaptiveLearningExperience2, adaptiveLearningExperience3);
 
-        Mockito.when(iAdaptiveProficiencyRankingService.findCurrentStudentAdaptiveProficiencyRankingForCurriculum(mockUser, eLearningCurriculum)).thenReturn(currentCurriculumAdaptiveProficiencyRanking);
         Mockito.when(iAdaptiveLearningExperienceService.findAllAccrossELearningCurriculum(eLearningCurriculum, mockUser)).thenReturn(adaptiveLearningExperiences);
 
-
-        Double result = cumulativeAdaptiveProficiencyRankingAnalyticsService.calculateStudentAverageCurriculumProficiency(mockUser, eLearningCurriculum);
-        Assert.assertEquals(new Double(27.75), result);
+        Double result = cumulativeAdaptiveProficiencyRankingAnalyticsService.calculateStudentAverageCurriculumProficiency(mockUser, eLearningCurriculum).get();
+        Assert.assertEquals(new Double(23.33), result);
 
         Optional<ProficiencyScoreRangeE> expectedProficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(result);
         Assert.assertEquals(ProficiencyScoreRangeE.FUNDAMENTALS_LACKING_PERFORMER, expectedProficiencyScoreRangeE.get());
@@ -143,8 +123,11 @@ public class CumulativeAdaptiveProficiencyRankingAnalyticsServiceTest {
         Mockito.when(iAdaptiveLearningExperienceService.findAllAccrossELearningCurriculum(eLearningCurriculum, mockUser)).thenReturn(adaptiveLearningExperiences);
 
         // New Proficiency score with progress will be 17.0 which should equate to a ProficiencyRankingScaleE.TWO level
-        AdaptiveProficiencyRanking newAdaptiveProficiencyRanking = cumulativeAdaptiveProficiencyRankingAnalyticsService.calculateStudentProficiencyWithProgress(mockUser, studentOverallProgressStatistics);
-        Assert.assertNotNull(newAdaptiveProficiencyRanking);
+        ProficiencyRankingCompuationResult proficiencyRankingCompuationResult = cumulativeAdaptiveProficiencyRankingAnalyticsService.calculateStudentProficiencyWithProgress(mockUser, studentOverallProgressStatistics);
+        Assert.assertNotNull(proficiencyRankingCompuationResult);
+        Assert.assertTrue(proficiencyRankingCompuationResult.hasAdaptiveProficiencyRanking());
+
+        AdaptiveProficiencyRanking newAdaptiveProficiencyRanking = proficiencyRankingCompuationResult.getAdaptiveProficiencyRanking().get();
         Assert.assertEquals(ProficiencyRankingScaleE.TWO, newAdaptiveProficiencyRanking.getProficiencyRankingScaleE());
         Assert.assertNotNull(newAdaptiveProficiencyRanking.getProficiencyRankingEffectiveDateTime());
         Assert.assertNull(newAdaptiveProficiencyRanking.getProficiencyRankingEndDateTime()); // ranking date end DateTime has to be null since this just got calculated.

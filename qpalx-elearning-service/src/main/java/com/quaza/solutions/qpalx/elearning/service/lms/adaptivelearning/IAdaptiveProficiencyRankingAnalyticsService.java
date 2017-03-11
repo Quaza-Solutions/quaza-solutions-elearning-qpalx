@@ -1,11 +1,13 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.ProficiencyRankingCompuationResult;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.StudentOverallProgressStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Defines service functionality for logic around QPalxUser Adaptive proficiency ranking
@@ -23,7 +25,7 @@ public interface IAdaptiveProficiencyRankingAnalyticsService {
     public List<AdaptiveProficiencyRanking> calculateAdaptiveProficiencyRanking(QPalXUser qPalXUser);
 
 
-    public AdaptiveProficiencyRanking calculateStudentProficiencyWithProgress(QPalXUser qPalXUser, StudentOverallProgressStatistics studentOverallProgressStatistics);
+    public ProficiencyRankingCompuationResult calculateStudentProficiencyWithProgress(QPalXUser qPalXUser, StudentOverallProgressStatistics studentOverallProgressStatistics);
 
 
     /**
@@ -35,7 +37,7 @@ public interface IAdaptiveProficiencyRankingAnalyticsService {
      * @param qPalXUser
      * @param eLearningCurriculum
      */
-    public Double calculateStudentAverageCurriculumProficiency(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum);
+    public Optional<Double> calculateStudentAverageCurriculumProficiency(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum);
 
 
 }

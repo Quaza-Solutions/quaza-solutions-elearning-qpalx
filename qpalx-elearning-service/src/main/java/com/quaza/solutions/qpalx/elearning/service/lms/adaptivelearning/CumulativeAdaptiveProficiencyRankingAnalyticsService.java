@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.ProficiencyRankingCompuationResult;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.ProficiencyRankingTriggerTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningExperience;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.StudentOverallProgressStatistics;
@@ -53,7 +54,7 @@ public class CumulativeAdaptiveProficiencyRankingAnalyticsService implements IAd
     }
 
     @Override
-    public AdaptiveProficiencyRanking calculateStudentProficiencyWithProgress(QPalXUser qPalXUser, StudentOverallProgressStatistics studentOverallProgressStatistics) {
+    public ProficiencyRankingCompuationResult calculateStudentProficiencyWithProgress(QPalXUser qPalXUser, StudentOverallProgressStatistics studentOverallProgressStatistics) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         Assert.notNull(studentOverallProgressStatistics, "studentOverallProgressStatistics cannot be null");
 
@@ -61,16 +62,16 @@ public class CumulativeAdaptiveProficiencyRankingAnalyticsService implements IAd
 
         // Load the curriculum for studentOverallProgressStatistics
         ELearningCurriculum eLearningCurriculum = ieLearningCurriculumService.findByELearningCurriculumID(studentOverallProgressStatistics.getCurriculumID());
-        Double averageCurriculumProficiencyScore = calculateStudentAverageCurriculumProficiency(qPalXUser, eLearningCurriculum);
+        Optional<Double> averageCurriculumProficiencyScore = calculateStudentAverageCurriculumProficiency(qPalXUser, eLearningCurriculum);
 
         Object[] avgScoreLogParams = new Object[]{averageCurriculumProficiencyScore, eLearningCurriculum.getCurriculumName(), qPalXUser.getEmail()};
         LOGGER.info("Computed average proficiency score: {} in ELearningCurriculum: {} for student: {}", avgScoreLogParams);
 
-        if(averageCurriculumProficiencyScore != null && averageCurriculumProficiencyScore.doubleValue() > 0) {
+        if(averageCurriculumProficiencyScore.isPresent() && averageCurriculumProficiencyScore.get() > 0) {
             double curriclumCompletionPercent = studentOverallProgressStatistics.getTotalCurriculumCompletionPercent();
-            LOGGER.info("Compted completion percent in ELearningCurriculum: {} for student: {}", eLearningCurriculum.getCurriculumName(), qPalXUser.getEmail());
+            LOGGER.info("Current completion percent: {} in ELearningCurriculum: {} for student: {}", curriclumCompletionPercent, eLearningCurriculum.getCurriculumName(), qPalXUser.getEmail());
 
-            double weightedProficiencyScore = (averageCurriculumProficiencyScore.doubleValue() / 100) * curriclumCompletionPercent;
+            double weightedProficiencyScore = (averageCurriculumProficiencyScore.get().doubleValue() / 100) * curriclumCompletionPercent;
             double newProficiencyScoreWithProgress = Precision.round(weightedProficiencyScore, 0);
             Object[] weightedScoreLogParams = new Object[]{newProficiencyScoreWithProgress, eLearningCurriculum.getCurriculumName(), qPalXUser.getEmail()};
             LOGGER.info("Computed new weighted proficiency score: {} in ELearningCurriculum: {} for student: {}", weightedScoreLogParams);
@@ -89,43 +90,45 @@ public class CumulativeAdaptiveProficiencyRankingAnalyticsService implements IAd
                 .qpalxUser(qPalXUser)
                 .build();
 
-            return newQPalxUserAdaptiveProficiencyRanking;
+            ProficiencyRankingCompuationResult proficiencyRankingCompuationResult = ProficiencyRankingCompuationResult.newResultAdaptiveProficiencyRanking(newQPalxUserAdaptiveProficiencyRanking);
+            return proficiencyRankingCompuationResult;
         }
 
-        return null;
+        // IF averageCurriculumProficiencyScore was empty then this indicates that no AdaptiveLearning experiences were found to calculate a score.
+        String reason = new StringBuffer()
+                .append("[CurriculumType: ")
+                .append(eLearningCurriculum.getCurriculumType())
+                .append(", Curriculum Name: ")
+                .append(eLearningCurriculum.getCurriculumName())
+                .append("] You currently have no Learning Experiences that can be used to compute Proficiency.")
+                .toString();
+        ProficiencyRankingCompuationResult proficiencyRankingCompuationResult = ProficiencyRankingCompuationResult.newResultNoAdaptiveProficiencyRanking(reason);
+        return proficiencyRankingCompuationResult;
     }
 
     @Override
-    public Double calculateStudentAverageCurriculumProficiency(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum) {
+    public Optional<Double> calculateStudentAverageCurriculumProficiency(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
 
         LOGGER.info("Calculating new AdaptiveProficiencyRanking for qPalxUser: {} and eLearningCurriculum: {}", qPalXUser.getEmail(), eLearningCurriculum);
 
-        // Find the current AdaptiveProficiencyRanking this Student has for this Curriculum
-        AdaptiveProficiencyRanking currentCurriculumAdaptiveProficiencyRanking = iAdaptiveProficiencyRankingService.findCurrentStudentAdaptiveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum);
 
         // Load all the list of user's adaptive learning for curriculum in order to calculate a new proficiency ranking
         List<AdaptiveLearningExperience> adaptiveLearningExperiences = iAdaptiveLearningExperienceService.findAllAccrossELearningCurriculum(eLearningCurriculum, qPalXUser);
-        Double averageCurriculumProficiencyScore = null;
 
         if (adaptiveLearningExperiences != null && adaptiveLearningExperiences.size() > 0) {
             LOGGER.info("Found a list of {} AdaptiveLearningExperience's, using to calculate new ProficiencyScoreRange...", adaptiveLearningExperiences.size());
-            averageCurriculumProficiencyScore = averageAdaptiveLearningExperience(adaptiveLearningExperiences, currentCurriculumAdaptiveProficiencyRanking);
+            Double averageCurriculumProficiencyScore = averageAdaptiveLearningExperience(adaptiveLearningExperiences);
+            return Optional.of(averageCurriculumProficiencyScore);
         } else {
             LOGGER.info("No AdaptiveLearningExperience's found for user: {} cannot calculate new ProficiencyScoreRange", qPalXUser.getEmail());
+            return Optional.empty();
         }
-
-        return averageCurriculumProficiencyScore;
     }
 
-    double averageAdaptiveLearningExperience(List<AdaptiveLearningExperience> adaptiveLearningExperiences, AdaptiveProficiencyRanking currentCurriculumAdaptiveProficiencyRanking) {
-        Double defaultExperienceScoreAvg = (Double) ProficiencyScoreRangeE.BELOW_AVERAGE_PERFORMER.getScoreRange().getMinimum();
+    double averageAdaptiveLearningExperience(List<AdaptiveLearningExperience> adaptiveLearningExperiences) {
         SummaryStatistics summaryStatistics = new SummaryStatistics();
-        if (currentCurriculumAdaptiveProficiencyRanking != null) {
-            Double minScore = (Double) currentCurriculumAdaptiveProficiencyRanking.getProficiencyRankingScaleE().getProficiencyScoreRangeE().getScoreRange().getMinimum();
-            summaryStatistics.addValue(minScore);
-        }
 
         // Add up all the proficiency scores in order to calculate the average/mean.
         if(adaptiveLearningExperiences != null && adaptiveLearningExperiences.size() > 0) {
@@ -137,7 +140,7 @@ public class CumulativeAdaptiveProficiencyRankingAnalyticsService implements IAd
 
         double averageProficiencyScore = summaryStatistics.getMean();
         LOGGER.debug("Calculated new Proficiency score:> {}", averageProficiencyScore);
-        return averageProficiencyScore;
+        return Precision.round(averageProficiencyScore, 2);
     }
 
 }
