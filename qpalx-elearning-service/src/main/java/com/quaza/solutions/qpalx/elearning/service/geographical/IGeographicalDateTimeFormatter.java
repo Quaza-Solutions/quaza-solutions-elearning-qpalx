@@ -13,6 +13,8 @@ public interface IGeographicalDateTimeFormatter {
 
     public String getDisplayDateTimeWithTimeZone(DateTime dateTime, QPalXMunicipality qPalXMunicipality);
 
+    public String getJavaScriptSafeDisplayDateTimeWithTimeZone(DateTime dateTime, QPalXMunicipality qPalXMunicipality);
+
     public DateTime getDatabaseStringAsDateTime(String databaseDateTime);
 
 }

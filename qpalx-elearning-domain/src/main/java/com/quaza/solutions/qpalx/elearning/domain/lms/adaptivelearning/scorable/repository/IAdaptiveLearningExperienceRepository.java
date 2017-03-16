@@ -13,7 +13,7 @@ import java.util.List;
 public interface IAdaptiveLearningExperienceRepository extends CrudRepository<AdaptiveLearningExperience, Long> {
 
 
-    /**
+    /**N
      * Find list of all AdaptiveLearningExperience for given QPalxUser and the specified ELearningCurriculum.
      *
      * @return List<AdaptiveLearningExperience>
@@ -30,5 +30,20 @@ public interface IAdaptiveLearningExperienceRepository extends CrudRepository<Ad
             nativeQuery = true
     )
     public List<AdaptiveLearningExperience> findAllAccrossELearningCurriculum(Long elearningCurriculum, Long studentID);
+
+
+    /**
+     * Find list of all AdaptiveLearningExperience for given QPalxUser with a specific ScorableActivityID
+     *
+     * @return List<AdaptiveLearningExperience>
+     */
+    @Query(
+            value = "Select    alE.* "
+                    + "From    AdaptiveLearningExperience alE "
+                    + "Where   ScorableActivityID = ? "
+                    + "And     QPalxUserID  = ?  ",
+            nativeQuery = true
+    )
+    public List<AdaptiveLearningExperience> findAllWithScorableActivityID(Long scorableActivityID, Long studentID);
 
 }

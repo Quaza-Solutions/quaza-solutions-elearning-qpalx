@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.AdaptiveLearningExperienceService")
+@Service(AdaptiveLearningExperienceService.SPRING_BEAN_NAME)
 public class AdaptiveLearningExperienceService implements IAdaptiveLearningExperienceService {
 
 
@@ -25,6 +25,7 @@ public class AdaptiveLearningExperienceService implements IAdaptiveLearningExper
     @Autowired
     private IAdaptiveLearningExperienceRepository iAdaptiveLearningExperienceRepository;
 
+    public static final String SPRING_BEAN_NAME = "quaza.solutions.qpalx.elearning.service.AdaptiveLearningExperienceService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AdaptiveLearningExperienceService.class);
 
@@ -45,6 +46,16 @@ public class AdaptiveLearningExperienceService implements IAdaptiveLearningExper
         LOGGER.info("Finding all AdaptiveLearningExperience across eLearningCurriculum: {} for user: {}", eLearningCurriculum, qPalXUser.getEmail());
 
         List<AdaptiveLearningExperience> results = iAdaptiveLearningExperienceRepository.findAllAccrossELearningCurriculum(eLearningCurriculum.getId(), qPalXUser.getId());
+        return results;
+    }
+
+    @Override
+    public List<AdaptiveLearningExperience> findAllWithScorableActivityID(Long scorableActivityID, QPalXUser qPalXUser) {
+        Assert.notNull(scorableActivityID, "scorableActivityID cannot be null");
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+
+        LOGGER.info("Finding all AdaptiveLearningExperience for qpalXUser: {} with scorableActivityID: {}", qPalXUser.getEmail(), scorableActivityID);
+        List<AdaptiveLearningExperience> results = iAdaptiveLearningExperienceRepository.findAllWithScorableActivityID(scorableActivityID, qPalXUser.getId());
         return results;
     }
 

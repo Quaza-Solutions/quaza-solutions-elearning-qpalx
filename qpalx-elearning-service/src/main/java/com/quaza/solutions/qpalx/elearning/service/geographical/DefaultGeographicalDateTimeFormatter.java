@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
  *
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.DefaultGeographicalDateTimeFormatter")
+@Service(DefaultGeographicalDateTimeFormatter.SPRING_BEAN_NAME)
 public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTimeFormatter  {
 
 
@@ -21,7 +21,12 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
 
     public static final DateTimeFormatter DATE_TIME_DISPLAY_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 
+    public static final DateTimeFormatter JAVASCRIPT_DATE_TIME_DISPLAY_FORMATTER = DateTimeFormat.forPattern("yyyy, MM, dd, HH, mm");
+
     public static final DateTimeFormatter DB_DATE_TIME_DISPLAY_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+
+
+    public static final String SPRING_BEAN_NAME = "quaza.solutions.qpalx.elearning.service.DefaultGeographicalDateTimeFormatter";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultGeographicalDateTimeFormatter.class);
 
@@ -38,6 +43,21 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
     }
 
     @Override
+    public String getJavaScriptSafeDisplayDateTimeWithTimeZone(DateTime dateTime, QPalXMunicipality qPalXMunicipality) {
+        Assert.notNull(dateTime, "dateTime cannot be null");
+        Assert.notNull(qPalXMunicipality, "qPalXMunicipality cannot be null");
+        LOGGER.info("Getting Javascript safe display DateTime for dateTime:> {} and qPalXMunicipality:> {}", dateTime, qPalXMunicipality);
+
+        // Javascript months start with 0 so subtract 1 from current month
+        dateTime = dateTime.minusMonths(1);
+
+        // Get Municipality timezone
+        String timeZone = qPalXMunicipality.getTimeZone();
+        DateTimeZone dateTimeZone = DateTimeZone.forID(timeZone);
+        return JAVASCRIPT_DATE_TIME_DISPLAY_FORMATTER.withZone(dateTimeZone).print(dateTime);
+    }
+
+    @Override
     public DateTime getDatabaseStringAsDateTime(String databaseDateTime) {
         Assert.notNull(databaseDateTime, "databaseDateTime cannot be null");
         return DateTime.parse(databaseDateTime, DB_DATE_TIME_DISPLAY_FORMATTER);
@@ -45,13 +65,7 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
 
     public static void main(String[] args) {
         DefaultGeographicalDateTimeFormatter d = new DefaultGeographicalDateTimeFormatter();
-        DateTime dateTime = d.getDatabaseStringAsDateTime("2017-01-16 00:00:00");
-        System.out.println("dateTime = " + dateTime);
-
-        String dst = "2017-01-16 00:00:00.0";
-        int idx = dst.indexOf(".0");
-
-        System.out.println("dst.substring(0, idx) = " + dst.substring(0, idx));
-
+        String val = d.getJavaScriptSafeDisplayDateTimeWithTimeZone(DateTime.now(), null);
+        System.out.println("val = " + val);
     }
 }
