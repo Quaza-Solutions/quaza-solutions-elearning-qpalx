@@ -37,7 +37,7 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
     public String getUserFriendlyDateTime(DateTime dateTime, QPalXMunicipality qPalXMunicipality) {
         Assert.notNull(dateTime, "dateTime cannot be null");
         Assert.notNull(qPalXMunicipality, "qPalXMunicipality cannot be null");
-        LOGGER.info("Creating and returning user frienldy dateTime:> {} and qPalXMunicipality:> {}", dateTime, qPalXMunicipality);
+        LOGGER.debug("Creating and returning user frienldy dateTime:> {} and qPalXMunicipality:> {}", dateTime, qPalXMunicipality);
 
         // Convert passed in Date to User TimeZone Date
         String timeZone = qPalXMunicipality.getTimeZone();
@@ -50,7 +50,7 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
     public String getDisplayDateTimeWithTimeZone(DateTime dateTime, QPalXMunicipality qPalXMunicipality) {
         Assert.notNull(dateTime, "dateTime cannot be null");
         Assert.notNull(qPalXMunicipality, "qPalXMunicipality cannot be null");
-        LOGGER.info("Getting display DateTime for dateTime:> {} and qPalXMunicipality:> {}", dateTime, qPalXMunicipality);
+        LOGGER.debug("Getting display DateTime for dateTime:> {} and qPalXMunicipality:> {}", dateTime, qPalXMunicipality);
 
         // Get Municipality timezone
         String timeZone = qPalXMunicipality.getTimeZone();
@@ -62,7 +62,7 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
     public String getJavaScriptSafeDisplayDateTimeWithTimeZone(DateTime dateTime, QPalXMunicipality qPalXMunicipality) {
         Assert.notNull(dateTime, "dateTime cannot be null");
         Assert.notNull(qPalXMunicipality, "qPalXMunicipality cannot be null");
-        LOGGER.info("Getting Javascript safe display DateTime for dateTime:> {} and qPalXMunicipality:> {}", dateTime, qPalXMunicipality);
+        LOGGER.debug("Getting Javascript safe display DateTime for dateTime:> {} and qPalXMunicipality:> {}", dateTime, qPalXMunicipality);
 
 
         // Convert passed in Date to User TimeZone Date
