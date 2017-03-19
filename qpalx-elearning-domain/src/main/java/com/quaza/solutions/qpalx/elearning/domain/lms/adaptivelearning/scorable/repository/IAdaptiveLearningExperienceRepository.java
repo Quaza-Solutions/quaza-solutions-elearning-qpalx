@@ -26,7 +26,8 @@ public interface IAdaptiveLearningExperienceRepository extends CrudRepository<Ad
                     + "Left      Outer Join  QPalXELesson qpEL on qpEL.ID = qeML.QPalXELessonID "
                     + "Left      Outer Join  ELearningCourse elC on elC.ID = qpEL.ELearningCourseID "
                     + "Where     elC.ELearningCurriculumID = ?  "
-                    + "And       alE.QPalxUserID = ?  ",
+                    + "And       alE.QPalxUserID = ?  "
+                    + "Order    By LearningExperienceStartDate asc ",
             nativeQuery = true
     )
     public List<AdaptiveLearningExperience> findAllAccrossELearningCurriculum(Long elearningCurriculum, Long studentID);
@@ -41,7 +42,8 @@ public interface IAdaptiveLearningExperienceRepository extends CrudRepository<Ad
             value = "Select    alE.* "
                     + "From    AdaptiveLearningExperience alE "
                     + "Where   ScorableActivityID = ? "
-                    + "And     QPalxUserID  = ?  ",
+                    + "And     QPalxUserID  = ?  "
+                    + "Order   By LearningExperienceStartDate asc ",
             nativeQuery = true
     )
     public List<AdaptiveLearningExperience> findAllWithScorableActivityID(Long scorableActivityID, Long studentID);

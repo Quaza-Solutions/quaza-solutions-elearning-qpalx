@@ -11,6 +11,8 @@ import org.joda.time.DateTime;
 public interface IGeographicalDateTimeFormatter {
 
 
+    public String getUserFriendlyDateTime(DateTime dateTime, QPalXMunicipality qPalXMunicipality);
+
     public String getDisplayDateTimeWithTimeZone(DateTime dateTime, QPalXMunicipality qPalXMunicipality);
 
     public String getJavaScriptSafeDisplayDateTimeWithTimeZone(DateTime dateTime, QPalXMunicipality qPalXMunicipality);
