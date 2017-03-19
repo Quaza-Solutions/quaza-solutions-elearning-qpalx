@@ -25,7 +25,7 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
 
     public static final DateTimeFormatter DB_DATE_TIME_DISPLAY_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 
-    public static final DateTimeFormatter SIMPLE_DISPLAY_FORMATTER = DateTimeFormat.forPattern("d MMM, yyyy HH:mm");
+    public static final DateTimeFormatter SIMPLE_DISPLAY_FORMATTER = DateTimeFormat.forPattern("d MMM, yyyy hh:mma");
 
 
     public static final String SPRING_BEAN_NAME = "quaza.solutions.qpalx.elearning.service.DefaultGeographicalDateTimeFormatter";
@@ -38,7 +38,12 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
         Assert.notNull(dateTime, "dateTime cannot be null");
         Assert.notNull(qPalXMunicipality, "qPalXMunicipality cannot be null");
         LOGGER.info("Creating and returning user frienldy dateTime:> {} and qPalXMunicipality:> {}", dateTime, qPalXMunicipality);
-        return dateTime.toString(SIMPLE_DISPLAY_FORMATTER);
+
+        // Convert passed in Date to User TimeZone Date
+        String timeZone = qPalXMunicipality.getTimeZone();
+        DateTimeZone dateTimeZone = DateTimeZone.forID(timeZone);
+
+        return SIMPLE_DISPLAY_FORMATTER.withZone(dateTimeZone).print(dateTime);
     }
 
     @Override
@@ -90,7 +95,7 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
         System.out.println("Now to GMT DateTime: "+ nowDTGMT);
 
         DateTime nowDTGMTMinusOneMonth = DATE_TIME_DISPLAY_FORMATTER.parseDateTime(nowAsGMT).minusMonths(1);
-        System.out.println("Simple DateTime - 1M: "+ nowDTGMTMinusOneMonth.toString(SIMPLE_DISPLAY_FORMATTER));
+        System.out.println("\n\nSimple DateTime - 1M: "+ nowDTGMTMinusOneMonth.toString(SIMPLE_DISPLAY_FORMATTER));
 
 //        DefaultGeographicalDateTimeFormatter d = new DefaultGeographicalDateTimeFormatter();
 //        String val = d.getJavaScriptSafeDisplayDateTimeWithTimeZone(now, null);
