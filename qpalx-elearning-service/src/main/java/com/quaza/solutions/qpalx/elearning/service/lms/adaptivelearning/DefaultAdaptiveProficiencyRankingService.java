@@ -23,7 +23,7 @@ import java.util.Set;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.DefaultAdaptiveProficiencyRankingService")
+@Service(DefaultAdaptiveProficiencyRankingService.SPRING_BEAN_NAME)
 public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProficiencyRankingService {
 
 
@@ -33,6 +33,9 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
 
     @Autowired
     private IAdaptiveProficiencyRankingRepository iAdaptiveProficiencyRankingRepository;
+
+
+    public static final String SPRING_BEAN_NAME = "quaza.solutions.qpalx.elearning.service.DefaultAdaptiveProficiencyRankingService";
 
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultAdaptiveProficiencyRankingService.class);
