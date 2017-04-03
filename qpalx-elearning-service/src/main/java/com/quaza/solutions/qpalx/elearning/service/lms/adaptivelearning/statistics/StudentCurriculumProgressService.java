@@ -32,7 +32,7 @@ public class StudentCurriculumProgressService extends JDBCTemplateEnabledService
         Assert.notNull(qPalXUser, "student cannot be null");
         Assert.notNull(eLearningCurriculum, "curriculumType cannot be null");
 
-        LOGGER.info("Computing Student current Curriculum progress in Curriculum with ID: {}", eLearningCurriculum.getId());
+        LOGGER.info("Computing Student current Curriculum progress in Curriculum: {}", eLearningCurriculum.getCurriculumName());
 
         Object [] params = new Object[] {
                 qPalXUser.getId(), eLearningCurriculum.getId(), qPalXUser.getId(), eLearningCurriculum.getId(),

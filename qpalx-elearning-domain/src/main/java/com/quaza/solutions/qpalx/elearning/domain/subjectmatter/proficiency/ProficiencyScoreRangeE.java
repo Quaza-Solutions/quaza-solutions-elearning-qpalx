@@ -39,14 +39,20 @@ public enum ProficiencyScoreRangeE {
     ;
 
 
-    private final Range scoreRange;
+    private final Range<Double> scoreRange;
 
-    ProficiencyScoreRangeE(Range scoreRange) {
+    ProficiencyScoreRangeE(Range<Double> scoreRange) {
         this.scoreRange = scoreRange;
     }
 
-    public Range getScoreRange() {
+    public Range<Double> getScoreRange() {
         return scoreRange;
+    }
+
+    public Optional<ProficiencyScoreRangeE> getNextProficiencyScoreRangeUp() {
+        Double currentMaxScore = scoreRange.getMaximum();
+        double minScoreInHigherRange = currentMaxScore.doubleValue() + 1d;
+        return getProficiencyScoreRangeForScore(minScoreInHigherRange);
     }
 
     /**

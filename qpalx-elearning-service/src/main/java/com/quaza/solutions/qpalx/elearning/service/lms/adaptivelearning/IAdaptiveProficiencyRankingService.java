@@ -17,6 +17,8 @@ public interface IAdaptiveProficiencyRankingService {
 
     public void save(AdaptiveProficiencyRanking adaptiveProficiencyRanking);
 
+    public double getAdaptiveProficiencyRankingMinScore(AdaptiveProficiencyRanking adaptiveProficiencyRanking);
+
 
     /**
      * Loads and returns all the currently valid and active proficiency rankings for the given student.

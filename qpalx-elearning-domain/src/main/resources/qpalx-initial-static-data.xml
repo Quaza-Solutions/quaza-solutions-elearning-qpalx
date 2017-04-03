@@ -49,11 +49,11 @@
     <SubscriptionCodeBatchSession ID="2" SubscriptionCodeBatchSessionUID="Manny-Capital-BANK-4563636" BatchGenerationDate="2017-01-18" StrategicPlatformPartnerID="2"  />
 
     <!-- Populate Dummy PrepaidSubscription Codes for Accra -->
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-89393" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-65788" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="1" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-23567" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="2" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-17809" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="2" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-00987" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="1" SubscriptionCodeBatchSessionID="2" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-89393" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-65788" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="1" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-23567" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="2" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-17809" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="2" />
+    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-00987" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="2" />
 
 
     <!-- Populate StudentTutorialLevel data for GeographicalRegion WAF -->

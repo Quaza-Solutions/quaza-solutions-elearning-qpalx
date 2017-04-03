@@ -83,5 +83,51 @@ public class ProficiencyScoreRangeETest {
         Assert.assertEquals(ProficiencyScoreRangeE.FAILING_PERFORMER, proficiencyScoreRangeE.get());
 
     }
+    
+    @Test
+    public void testGetNextProficiencyScoreRangeUp() {
+        Optional<ProficiencyScoreRangeE> proficiencyScoreRangeE = ProficiencyScoreRangeE.EXTREMELY_DEFICIENT_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+        Assert.assertEquals(ProficiencyScoreRangeE.DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
+
+        proficiencyScoreRangeE = ProficiencyScoreRangeE.DEFICIENT_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+        Assert.assertEquals(ProficiencyScoreRangeE.FUNDAMENTALS_LACKING_PERFORMER, proficiencyScoreRangeE.get());
+
+        proficiencyScoreRangeE = ProficiencyScoreRangeE.FUNDAMENTALS_LACKING_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+        Assert.assertEquals(ProficiencyScoreRangeE.FAILING_PERFORMER, proficiencyScoreRangeE.get());
+
+        proficiencyScoreRangeE = ProficiencyScoreRangeE.FAILING_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+        Assert.assertEquals(ProficiencyScoreRangeE.POOR_PERFORMER, proficiencyScoreRangeE.get());
+
+        proficiencyScoreRangeE = ProficiencyScoreRangeE.POOR_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+        Assert.assertEquals(ProficiencyScoreRangeE.BELOW_AVERAGE_PERFORMER, proficiencyScoreRangeE.get());
+
+        proficiencyScoreRangeE = ProficiencyScoreRangeE.BELOW_AVERAGE_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+        Assert.assertEquals(ProficiencyScoreRangeE.AVERAGE_PERFORMER, proficiencyScoreRangeE.get());
+
+        proficiencyScoreRangeE = ProficiencyScoreRangeE.AVERAGE_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+        Assert.assertEquals(ProficiencyScoreRangeE.ABOVE_AVERAGE_PERFORMER, proficiencyScoreRangeE.get());
+
+        proficiencyScoreRangeE = ProficiencyScoreRangeE.ABOVE_AVERAGE_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+        Assert.assertEquals(ProficiencyScoreRangeE.STRONG_PERFORMER, proficiencyScoreRangeE.get());
+
+        proficiencyScoreRangeE = ProficiencyScoreRangeE.STRONG_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+        Assert.assertEquals(ProficiencyScoreRangeE.HIGH_FLYER_PERFORMER, proficiencyScoreRangeE.get());
+
+        proficiencyScoreRangeE = ProficiencyScoreRangeE.HIGH_FLYER_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+        Assert.assertEquals(ProficiencyScoreRangeE.EXCEPTIONALLY_OUTSTANDING_PERFORMER, proficiencyScoreRangeE.get());
+
+        proficiencyScoreRangeE = ProficiencyScoreRangeE.EXCEPTIONALLY_OUTSTANDING_PERFORMER.getNextProficiencyScoreRangeUp();
+        Assert.assertFalse(proficiencyScoreRangeE.isPresent());
+    }
 
 }

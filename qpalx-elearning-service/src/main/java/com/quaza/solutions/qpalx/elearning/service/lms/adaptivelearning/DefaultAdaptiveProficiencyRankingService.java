@@ -41,12 +41,23 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultAdaptiveProficiencyRankingService.class);
 
 
+    @Override
+    public double getAdaptiveProficiencyRankingMinScore(AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
+        if(adaptiveProficiencyRanking != null
+                && adaptiveProficiencyRanking.getProficiencyRankingScaleE() != null) {
+            return adaptiveProficiencyRanking.getProficiencyRankingScaleE().getProficiencyScoreRangeE().getScoreRange().getMinimum();
+        }
+        return 0;
+    }
+
     @Transactional
     @Override
     public void save(AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
         Assert.notNull(adaptiveProficiencyRanking, "adaptiveProficiencyRanking");
-        LOGGER.info("Saving new adaptiveProficiencyRanking: {}", adaptiveProficiencyRanking);
+        LOGGER.info("Saving adaptiveProficiencyRanking: {}", adaptiveProficiencyRanking);
         iAdaptiveProficiencyRankingRepository.save(adaptiveProficiencyRanking);
+
+
     }
 
     @Override

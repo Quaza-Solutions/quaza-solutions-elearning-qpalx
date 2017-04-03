@@ -43,7 +43,7 @@ public class AdaptiveLearningExperienceService implements IAdaptiveLearningExper
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
 
-        LOGGER.info("Finding all AdaptiveLearningExperience across eLearningCurriculum: {} for user: {}", eLearningCurriculum, qPalXUser.getEmail());
+        LOGGER.info("Finding all AdaptiveLearningExperience across Curriculum: {} for Student: {}", eLearningCurriculum.getCurriculumName(), qPalXUser.getEmail());
 
         List<AdaptiveLearningExperience> results = iAdaptiveLearningExperienceRepository.findAllAccrossELearningCurriculum(eLearningCurriculum.getId(), qPalXUser.getId());
         return results;

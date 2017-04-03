@@ -46,13 +46,13 @@ public class AdaptiveLearningExperience {
     private ProficiencyScoreRangeE proficiencyScoreRangeE;
 
     // DateTime that the learning experience started.
-    @Column(name="LearningExperienceStartDate", nullable=true)
+    @Column(name="LearningExperienceStartDate", nullable=false)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime learningExperienceStartDate;
 
     // DateTime that the learning experience was completed.  With this information we may be able to factor this
     // metric into the final algorithm that figures out how well a Student did on any AdaptiveLearningExperience
-    @Column(name="LearningExperienceCompletedDate", nullable=true)
+    @Column(name="LearningExperienceCompletedDate", nullable=false)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime learningExperienceCompletedDate;
 
