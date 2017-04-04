@@ -13,7 +13,7 @@ import java.util.List;
 public interface IAdaptiveLearningExperienceRepository extends CrudRepository<AdaptiveLearningExperience, Long> {
 
 
-    /**N
+    /**
      * Find list of all AdaptiveLearningExperience for given QPalxUser and the specified ELearningCurriculum.
      *
      * @return List<AdaptiveLearningExperience>

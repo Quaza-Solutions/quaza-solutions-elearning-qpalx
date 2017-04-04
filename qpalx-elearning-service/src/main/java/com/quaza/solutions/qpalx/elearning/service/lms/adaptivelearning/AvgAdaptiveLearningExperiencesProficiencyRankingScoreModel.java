@@ -45,12 +45,12 @@ public class AvgAdaptiveLearningExperiencesProficiencyRankingScoreModel implemen
 
 
     @Override
-    public FactorAffectingProficiencyRanking computeScore(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
+    public FactorAffectingProficiencyRanking computeAndUpdateProficiencyRanking(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
         Assert.notNull(adaptiveProficiencyRanking, "adaptiveProficiencyRanking cannot be null");
 
-        LOGGER.info("Computing proficiency ranking model score for user: {} in curriculum: {}", qPalXUser.getEmail(), eLearningCurriculum.getCurriculumName());
+        LOGGER.info("Computing Proficiency Ranking score using Model: AvgAdaptiveLearningExperiencesProficiencyRankingScoreModel");
 
         double currentAdaptiveRankingScore = iAdaptiveProficiencyRankingService.getAdaptiveProficiencyRankingMinScore(adaptiveProficiencyRanking);
 
@@ -89,8 +89,10 @@ public class AvgAdaptiveLearningExperiencesProficiencyRankingScoreModel implemen
             return factorAffectingProficiencyRanking;
         }
 
-        LOGGER.info("No Adaptive Learning Experiences found, model cannot compute an AvgLearningExperiences score.");
-        return null;
+        LOGGER.info("No Adaptive Learning Experiences found to compute an adequate score in this model, returning default factor on empty Learning experiences.");
+
+        FactorAffectingProficiencyRanking factorAffectingProficiencyRankingWhenNoAdaptiveLearningExperiencesFound = getFactorAffectingProficiencyRankingWhenNoAdaptiveLearningExperiencesFound(adaptiveProficiencyRanking);
+        return factorAffectingProficiencyRankingWhenNoAdaptiveLearningExperiencesFound;
     }
 
 
@@ -142,12 +144,36 @@ public class AvgAdaptiveLearningExperiencesProficiencyRankingScoreModel implemen
                         .factorAffectingProficiencyRanking(factorAffectingProficiencyRanking)
                         .build();
                 proficiencyRankingScoreModelRecommendations.add(proficiencyRankingScoreModelRecommendation);
-                factorAffectingProficiencyRanking.addAllScoreModelAnalyticsRecommendation(proficiencyRankingScoreModelRecommendations);
+                factorAffectingProficiencyRanking.addAllProficiencyRankingScoreModelRecommendation(proficiencyRankingScoreModelRecommendations);
             }
 
         }
 
         return proficiencyRankingScoreModelRecommendations;
+    }
+
+
+    FactorAffectingProficiencyRanking getFactorAffectingProficiencyRankingWhenNoAdaptiveLearningExperiencesFound(AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
+        String scoreModelAnalysis = "No Learning Experiences found in Curriculum";
+
+        // Default the proficiency ranking scale to lowest possible value
+        iAdaptiveProficiencyRankingService.defaultToLowestProficiencyRanking(adaptiveProficiencyRanking);
+
+        FactorAffectingProficiencyRanking factorAffectingProficiencyRanking = FactorAffectingProficiencyRanking.builder()
+                .factorScoreModelStrategy(ProficiencyRankingScoreModelE.AvgLearningExperiences)
+                .scoreModelPercent(adaptiveProficiencyRanking.getProficiencyRankingScaleE().getProficiencyScoreRangeE().getScoreRange().getMinimum())
+                .scoreModelAnalysis(scoreModelAnalysis)
+                .adaptiveProficiencyRanking(adaptiveProficiencyRanking)
+                .build();
+
+        // Create a recommendation for Student to attempt to take Quizzes in the Curriculum
+        ProficiencyRankingScoreModelRecommendation proficiencyRankingScoreModelRecommendation = ProficiencyRankingScoreModelRecommendation.builder()
+                .recommendation("Attempt QPalX Quizzes and Question Bank activities in order to build up your learning experiences.")
+                .factorAffectingProficiencyRanking(factorAffectingProficiencyRanking)
+                .build();
+
+        factorAffectingProficiencyRanking.addProficiencyRankingScoreModelRecommendation(proficiencyRankingScoreModelRecommendation);
+        return factorAffectingProficiencyRanking;
     }
 
 

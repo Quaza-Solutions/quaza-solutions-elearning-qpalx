@@ -54,38 +54,36 @@ public class CummulativeProficiencyRankingService implements ICummulativeProfici
         Assert.notNull(qPalXUser, "qpalxUser cannot be null");
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
 
-        List<FactorAffectingProficiencyRanking> factorAffectingProficiencyRankings = new ArrayList<>();
+        List<FactorAffectingProficiencyRanking> allFactorAffectingProficiencyRankings = new ArrayList<>();
 
-        LOGGER.info("Computing new Student ELearning proficiency ranking....");
+        LOGGER.info("Computing new ELearning proficiency ranking for Student: {} in Curriculum: {}", qPalXUser.getEmail(), eLearningCurriculum.getCurriculumName());
 
         AdaptiveProficiencyRanking adaptiveProficiencyRanking = getNewAdaptiveProficiencyRanking(qPalXUser, eLearningCurriculum);
 
         // Execute and apply the Curriculum completion score for this curriculum
-        FactorAffectingProficiencyRanking curriculumCompletionFactorAffectingProficiencyRanking = curriculumCompletionProficiencyRankingScoreModel.computeScore(qPalXUser, eLearningCurriculum, adaptiveProficiencyRanking);
+        FactorAffectingProficiencyRanking curriculumCompletionFactorAffectingProficiencyRanking = curriculumCompletionProficiencyRankingScoreModel.computeAndUpdateProficiencyRanking(qPalXUser, eLearningCurriculum, adaptiveProficiencyRanking);
 
         // Execute and apply the average Adaptive Learning experiences model score
-        FactorAffectingProficiencyRanking avgAdaptiveLearningExperiencesFactorAffectingProficiencyRanking = avgAdaptiveLearningExepriencesProficiencyRankingScoreModel.computeScore(qPalXUser, eLearningCurriculum, adaptiveProficiencyRanking);
+        FactorAffectingProficiencyRanking avgAdaptiveLearningExperiencesFactorAffectingProficiencyRanking = avgAdaptiveLearningExepriencesProficiencyRankingScoreModel.computeAndUpdateProficiencyRanking(qPalXUser, eLearningCurriculum, adaptiveProficiencyRanking);
 
-        if(curriculumCompletionFactorAffectingProficiencyRanking != null || avgAdaptiveLearningExperiencesFactorAffectingProficiencyRanking != null) {
-            // IF any of the score models have computed new score details then close out current AdaptiveProficiencyRanking as we will be saving new
-            closeOutCurrentAdaptiveProficiencyRanking(qPalXUser, eLearningCurriculum);
-            iAdaptiveProficiencyRankingService.save(adaptiveProficiencyRanking);
-
-            if(curriculumCompletionFactorAffectingProficiencyRanking != null) {
-                factorAffectingProficiencyRankings.add(curriculumCompletionFactorAffectingProficiencyRanking);
-                LOGGER.debug("Saving curriculumCompletionFactorAffectingProficiencyRanking: {}", curriculumCompletionFactorAffectingProficiencyRanking);
-                iFactorAffectingProficiencyRankingRepository.save(curriculumCompletionFactorAffectingProficiencyRanking);
-            }
-
-            if(avgAdaptiveLearningExperiencesFactorAffectingProficiencyRanking != null) {
-                factorAffectingProficiencyRankings.add(avgAdaptiveLearningExperiencesFactorAffectingProficiencyRanking);
-                LOGGER.debug("Saving avgAdaptiveLearningExperiencesFactorAffectingProficiencyRanking: {}", avgAdaptiveLearningExperiencesFactorAffectingProficiencyRanking);
-                iFactorAffectingProficiencyRankingRepository.save(avgAdaptiveLearningExperiencesFactorAffectingProficiencyRanking);
-            }
+        if(curriculumCompletionFactorAffectingProficiencyRanking != null) {
+            allFactorAffectingProficiencyRankings.add(curriculumCompletionFactorAffectingProficiencyRanking);
         }
 
-        LOGGER.info("Cannot calculate a new Cumulative Proficiency Ranking for Student: {}", qPalXUser.getEmail());
-        return null;
+        if(avgAdaptiveLearningExperiencesFactorAffectingProficiencyRanking != null) {
+            allFactorAffectingProficiencyRankings.add(avgAdaptiveLearningExperiencesFactorAffectingProficiencyRanking);
+        }
+
+        if(!allFactorAffectingProficiencyRankings.isEmpty()) {
+            LOGGER.info("New ELearning proficiency ranking has been computed, updating Student records...");
+            closeOutCurrentAdaptiveProficiencyRanking(qPalXUser, eLearningCurriculum);
+            adaptiveProficiencyRanking.addAllFactorsAffectingProficiencyRankings(allFactorAffectingProficiencyRankings);
+            iAdaptiveProficiencyRankingService.save(adaptiveProficiencyRanking);
+            return allFactorAffectingProficiencyRankings;
+        }
+
+        LOGGER.info("Cannot calculate a new Cumulative ELearning proficiency ranking for Student, returning empty results");
+        return allFactorAffectingProficiencyRankings;
     }
 
 

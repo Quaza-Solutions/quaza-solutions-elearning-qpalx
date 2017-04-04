@@ -17,6 +17,8 @@ public interface IAdaptiveProficiencyRankingService {
 
     public void save(AdaptiveProficiencyRanking adaptiveProficiencyRanking);
 
+    public void defaultToLowestProficiencyRanking(AdaptiveProficiencyRanking adaptiveProficiencyRanking);
+
     public double getAdaptiveProficiencyRankingMinScore(AdaptiveProficiencyRanking adaptiveProficiencyRanking);
 
 

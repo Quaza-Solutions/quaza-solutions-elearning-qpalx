@@ -13,6 +13,6 @@ import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 public interface IProficiencyRankingScoreModel {
 
 
-    public FactorAffectingProficiencyRanking computeScore(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, AdaptiveProficiencyRanking adaptiveProficiencyRanking);
+    public FactorAffectingProficiencyRanking computeAndUpdateProficiencyRanking(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, AdaptiveProficiencyRanking adaptiveProficiencyRanking);
 
 }

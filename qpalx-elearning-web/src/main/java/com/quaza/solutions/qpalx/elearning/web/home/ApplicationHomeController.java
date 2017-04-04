@@ -5,6 +5,8 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurric
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserTypeE;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IGeographicalDateTimeFormatter;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.DefaultAdaptiveProficiencyRankingService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.IAdaptiveProficiencyRankingService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IStudentCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.IQPalxUserService;
 import com.quaza.solutions.qpalx.elearning.web.content.ContentRootE;
@@ -51,6 +53,10 @@ public class ApplicationHomeController {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultGeographicalDateTimeFormatter")
     private IGeographicalDateTimeFormatter iGeographicalDateTimeFormatter;
+
+    @Autowired
+    @Qualifier(DefaultAdaptiveProficiencyRankingService.SPRING_BEAN_NAME)
+    private IAdaptiveProficiencyRankingService iAdaptiveProficiencyRankingService;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.web.QPalXUserWebService")

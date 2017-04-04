@@ -22,7 +22,7 @@ public class ProficiencyRankingScoreModelRecommendation {
     @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="Recommendation", nullable=true, length=256)
+    @Column(name="Recommendation", nullable=false, length=256)
     private String recommendation;
 
     @ManyToOne(fetch = FetchType.LAZY)

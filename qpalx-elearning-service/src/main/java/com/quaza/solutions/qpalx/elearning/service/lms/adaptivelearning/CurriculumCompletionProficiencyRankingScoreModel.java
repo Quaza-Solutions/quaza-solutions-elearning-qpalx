@@ -46,17 +46,19 @@ public class CurriculumCompletionProficiencyRankingScoreModel implements IProfic
 
 
     @Override
-    public FactorAffectingProficiencyRanking computeScore(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
+    public FactorAffectingProficiencyRanking computeAndUpdateProficiencyRanking(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
         Assert.notNull(adaptiveProficiencyRanking, "adaptiveProficiencyRanking cannot be null");
 
-        LOGGER.info("Computing proficiency ranking model score for Student: {} in Curriculum: {}", qPalXUser.getEmail(), eLearningCurriculum.getCurriculumName());
+        LOGGER.info("Computing Proficiency Ranking score using Model: CurriculumCompletionProficiencyRankingScoreModel");
 
         // Get the Curriculum completion details for this student in the ELearningCurriculum
         StudentOverallProgressStatistics curriculumOverallProgress = iStudentCurriculumProgressService.getStudentOverallProgressStatisticsInCurriculum(qPalXUser, eLearningCurriculum);
 
         if (curriculumOverallProgress != null && curriculumOverallProgress.getTotalCurriculumCompletionPercent() > 0) {
+            LOGGER.info("Computed total Curriculum completion percent: {}", curriculumOverallProgress.getTotalCurriculumCompletionPercent());
+
             // Execute score model analysis and generate a textual description of that analysis
             String scoreModelAnalysis = executeScoreModelAnalytics(curriculumOverallProgress);
 
@@ -72,6 +74,7 @@ public class CurriculumCompletionProficiencyRankingScoreModel implements IProfic
             }
 
             // Override existing proficiency ranking with weighted value from this model
+            LOGGER.info("Setting new Proficiency ranking score to: {}", newProficiencyScoreWithProgress);
             Optional<ProficiencyScoreRangeE> proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(newProficiencyScoreWithProgress);
             ProficiencyRankingScaleE proficiencyRankingScaleE = ProficiencyRankingScaleE.getProficiencyRankingScaleForRange(proficiencyScoreRangeE.get()).get();
             adaptiveProficiencyRanking.setProficiencyRankingScaleE(proficiencyRankingScaleE);
@@ -85,14 +88,13 @@ public class CurriculumCompletionProficiencyRankingScoreModel implements IProfic
 
             // Execute score model recommendation analysis which will inform Students on how to improve their scores in relation to this model
             Set<ProficiencyRankingScoreModelRecommendation> proficiencyRankingScoreModelRecommendations = executeScoreModelAnalyticsRecommendations(curriculumOverallProgress, factorAffectingProficiencyRanking);
-            factorAffectingProficiencyRanking.addAllScoreModelAnalyticsRecommendation(proficiencyRankingScoreModelRecommendations);
-            return factorAffectingProficiencyRanking;
-        } else {
-            LOGGER.info("No recorded progress can be found for Student in Curriculum, building factors and recommendations..");
-            FactorAffectingProficiencyRanking factorAffectingProficiencyRanking = getFactorAffectingProficiencyRankingWhenNoCurriculumProgressFound(adaptiveProficiencyRanking);
+            factorAffectingProficiencyRanking.addAllProficiencyRankingScoreModelRecommendation(proficiencyRankingScoreModelRecommendations);
             return factorAffectingProficiencyRanking;
         }
 
+        LOGGER.info("No recorded progress can be found for Student in Curriculum, building factors and recommendations on no curriculum completion information available scenario...");
+        FactorAffectingProficiencyRanking factorAffectingProficiencyRanking = getFactorAffectingProficiencyRankingWhenNoCurriculumProgressFound(adaptiveProficiencyRanking);
+        return factorAffectingProficiencyRanking;
     }
 
 
@@ -125,12 +127,12 @@ public class CurriculumCompletionProficiencyRankingScoreModel implements IProfic
 
         String scoreModelAnalysis = "No recorded attempts of QPalX Content Found!!";
 
-        // Default Students ProficiencyRankingScaleE to worst possible value
-        adaptiveProficiencyRanking.setProficiencyRankingScaleE(ProficiencyRankingScaleE.ONE);
+        // Default the proficiency ranking scale to lowest possible value
+        iAdaptiveProficiencyRankingService.defaultToLowestProficiencyRanking(adaptiveProficiencyRanking);
 
         FactorAffectingProficiencyRanking factorAffectingProficiencyRanking = FactorAffectingProficiencyRanking.builder()
                 .factorScoreModelStrategy(ProficiencyRankingScoreModelE.CurriculumCompletion)
-                .scoreModelPercent(0d)
+                .scoreModelPercent(adaptiveProficiencyRanking.getProficiencyRankingScaleE().getProficiencyScoreRangeE().getScoreRange().getMinimum())
                 .scoreModelAnalysis(scoreModelAnalysis)
                 .adaptiveProficiencyRanking(adaptiveProficiencyRanking)
                 .build();
@@ -140,7 +142,7 @@ public class CurriculumCompletionProficiencyRankingScoreModel implements IProfic
                 .recommendation("Attempt QPalX Content. Access MicroLessons, QuestionBanks and Take Quizzes.")
                 .factorAffectingProficiencyRanking(factorAffectingProficiencyRanking)
                 .build();
-        factorAffectingProficiencyRanking.addScoreModelAnalyticsRecommendation(proficiencyRankingScoreModelRecommendation);
+        factorAffectingProficiencyRanking.addProficiencyRankingScoreModelRecommendation(proficiencyRankingScoreModelRecommendation);
         return factorAffectingProficiencyRanking;
     }
 

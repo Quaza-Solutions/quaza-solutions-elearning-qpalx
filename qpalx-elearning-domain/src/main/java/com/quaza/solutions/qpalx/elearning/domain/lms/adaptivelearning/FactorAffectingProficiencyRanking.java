@@ -89,14 +89,14 @@ public class FactorAffectingProficiencyRanking  {
         return ImmutableSet.copyOf(proficiencyRankingScoreModelRecommendations);
     }
 
-    public void addScoreModelAnalyticsRecommendation(ProficiencyRankingScoreModelRecommendation proficiencyRankingScoreModelRecommendation) {
+    public void addProficiencyRankingScoreModelRecommendation(ProficiencyRankingScoreModelRecommendation proficiencyRankingScoreModelRecommendation) {
         Assert.notNull(proficiencyRankingScoreModelRecommendation, "proficiencyRankingScoreModelRecommendation cannot be null");
         proficiencyRankingScoreModelRecommendations.add(proficiencyRankingScoreModelRecommendation);
     }
 
-    public void addAllScoreModelAnalyticsRecommendation(Set<ProficiencyRankingScoreModelRecommendation> proficiencyRankingScoreModelRecommendations) {
+    public void addAllProficiencyRankingScoreModelRecommendation(Set<ProficiencyRankingScoreModelRecommendation> proficiencyRankingScoreModelRecommendations) {
         Assert.notNull(proficiencyRankingScoreModelRecommendations, "proficiencyRankingScoreModelRecommendations cannot be null");
-        proficiencyRankingScoreModelRecommendations.addAll(proficiencyRankingScoreModelRecommendations);
+        this.proficiencyRankingScoreModelRecommendations.addAll(proficiencyRankingScoreModelRecommendations);
     }
 
 
@@ -168,12 +168,12 @@ public class FactorAffectingProficiencyRanking  {
         }
 
         public Builder scoreModelAnalyticsRecommendation(ProficiencyRankingScoreModelRecommendation proficiencyRankingScoreModelRecommendation) {
-            factorAffectingProficiencyRanking.addScoreModelAnalyticsRecommendation(proficiencyRankingScoreModelRecommendation);
+            factorAffectingProficiencyRanking.addProficiencyRankingScoreModelRecommendation(proficiencyRankingScoreModelRecommendation);
             return this;
         }
 
         public Builder scoreModelAnalyticsRecommendations(Set<ProficiencyRankingScoreModelRecommendation> proficiencyRankingScoreModelRecommendations) {
-            factorAffectingProficiencyRanking.addAllScoreModelAnalyticsRecommendation(proficiencyRankingScoreModelRecommendations);
+            factorAffectingProficiencyRanking.addAllProficiencyRankingScoreModelRecommendation(proficiencyRankingScoreModelRecommendations);
             return this;
         }
 
