@@ -11,6 +11,10 @@ public interface IAdaptiveLearningQuizVO {
 
     public String getQuizDescription();
 
+    public Long getID();
+
+    public void setID(Long id);
+
     public Double getMaxPossibleActivityScore();
 
     public Double getMinimumPassingActivityScore();

@@ -41,18 +41,65 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         return iAdaptiveLearningQuizRepository.findOne(id);
     }
 
+    @Transactional
     @Override
-    public void save(AdaptiveLearningQuiz adaptiveLearningQuiz) {
+    public void saveQuiz(AdaptiveLearningQuiz adaptiveLearningQuiz) {
         Assert.notNull(adaptiveLearningQuiz, "adaptiveLearningQuiz cannot be null");
         LOGGER.debug("Saving AdaptiveLearningQuiz: {}", adaptiveLearningQuiz);
         iAdaptiveLearningQuizRepository.save(adaptiveLearningQuiz);
     }
 
+    @Transactional
+    @Override
+    public void saveQuizQuestion(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion) {
+        Assert.notNull(adaptiveLearningQuizQuestion, "adaptiveLearningQuizQuestion cannot be null");
+        LOGGER.debug("Saving adaptiveLearningQuizQuestion: {}", adaptiveLearningQuizQuestion);
+        iAdaptiveLearningQuizQuestionRepository.save(adaptiveLearningQuizQuestion);
+    }
+
+    @Transactional
+    @Override
+    public void updateFrom(IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO) {
+        Assert.notNull(iAdaptiveLearningQuizQuestionVO, "iAdaptiveLearningQuizQuestionVO cannot be null");
+        Assert.notNull(iAdaptiveLearningQuizQuestionVO.getID(), "iAdaptiveLearningQuizQuestionVO id cannot be null");
+
+        LOGGER.debug("Finding and updating Quiz Question with ID: {}", iAdaptiveLearningQuizQuestionVO.getID());
+
+        // Find persisted question with VO ID update and save
+        AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion = iAdaptiveLearningQuizQuestionRepository.findOne(iAdaptiveLearningQuizQuestionVO.getID());
+        adaptiveLearningQuizQuestion.setQuestionTitle(iAdaptiveLearningQuizQuestionVO.getQuestionTitle());
+        adaptiveLearningQuizQuestion.setQuestionFeedBack(iAdaptiveLearningQuizQuestionVO.getQuestionFeedBack());
+        adaptiveLearningQuizQuestion.setModifyDate(DateTime.now());
+        saveQuizQuestion(adaptiveLearningQuizQuestion);
+    }
+
+    @Transactional
+    @Override
+    public void updateFrom(IAdaptiveLearningQuizVO iAdaptiveLearningQuizVO) {
+        Assert.notNull(iAdaptiveLearningQuizVO, "iAdaptiveLearningQuizVO cannot be null");
+        Assert.notNull(iAdaptiveLearningQuizVO.getID(), "iAdaptiveLearningQuizVO id cannot be null");
+
+        AdaptiveLearningQuiz adaptiveLearningQuiz = iAdaptiveLearningQuizRepository.findOne(iAdaptiveLearningQuizVO.getID());
+        adaptiveLearningQuiz.setQuizTitle(iAdaptiveLearningQuizVO.getQuizTitle());
+        adaptiveLearningQuiz.setQuizDescription(iAdaptiveLearningQuizVO.getQuizDescription());
+        adaptiveLearningQuiz.setModifyDate(DateTime.now());
+        iAdaptiveLearningQuizRepository.save(adaptiveLearningQuiz);
+    }
+
+    @Transactional
     @Override
     public void delete(AdaptiveLearningQuiz adaptiveLearningQuiz) {
         Assert.notNull(adaptiveLearningQuiz, "adaptiveLearningQuiz cannot be null");
         LOGGER.debug("Deleting AdaptiveLearningQuiz: {}", adaptiveLearningQuiz);
         iAdaptiveLearningQuizRepository.delete(adaptiveLearningQuiz);
+    }
+
+    @Transactional
+    @Override
+    public void delete(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion) {
+        Assert.notNull(adaptiveLearningQuizQuestion, "adaptiveLearningQuizQuestion");
+        LOGGER.debug("Deleting adaptiveLearningQuizQuestion: {}", adaptiveLearningQuizQuestion);
+        iAdaptiveLearningQuizQuestionRepository.delete(adaptiveLearningQuizQuestion);
     }
 
     @Override
@@ -62,41 +109,49 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         return iAdaptiveLearningQuizRepository.findQuizzesForMicroLesson(qPalXEMicroLesson.getId());
     }
 
+
     @Transactional
     @Override
-    public void createAndSaveAdaptiveLearningQuiz(QPalXEMicroLesson qPalXEMicroLesson, IAdaptiveLearningQuizVO iAdaptiveLearningQuizVO) {
+    public void saveAdaptiveLearningQuizDetails(QPalXEMicroLesson qPalXEMicroLesson, IAdaptiveLearningQuizVO iAdaptiveLearningQuizVO, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO, Integer questionOrder) {
         Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
         Assert.notNull(iAdaptiveLearningQuizVO, "iAdaptiveLearningQuizVO cannot be null");
-        Assert.notNull(iAdaptiveLearningQuizVO.getIAdaptiveLearningQuizQuestionVOs(), "IAdaptiveLearningQuizQuestionVOs cannot be null");
+        Assert.notNull(iAdaptiveLearningQuizQuestionVO, "iAdaptiveLearningQuizQuestionVO cannot be null");
+        Assert.notNull(questionOrder, "questionOrder cannot be null");
 
-        LOGGER.info("Creating and saving new AdaptiveLearningQuiz under microLesson: {}", qPalXEMicroLesson.getMicroLessonName());
+        if(iAdaptiveLearningQuizVO.getID() == null) {
+            LOGGER.info("Creating and saving new AdaptiveLearningQuiz with Title: {} Under microLesson: {}", iAdaptiveLearningQuizVO.getQuizTitle(), qPalXEMicroLesson.getMicroLessonName());
 
-        // Build AdaptiveLearningQuiz from VO
-        AdaptiveLearningQuiz adaptiveLearningQuiz = AdaptiveLearningQuiz.builder()
-                .quizTitle(iAdaptiveLearningQuizVO.getQuizTitle())
-                .quizDescription(iAdaptiveLearningQuizVO.getQuizDescription())
-                .maxPossibleActivityScore(iAdaptiveLearningQuizVO.getMaxPossibleActivityScore())
-                .minimumPassingActivityScore(iAdaptiveLearningQuizVO.getMinimumPassingActivityScore())
-                .timeToCompleteActivity(iAdaptiveLearningQuizVO.getTimeToCompleteActivity())
-                .qPalXEMicroLesson(qPalXEMicroLesson)
-                .entryDate(new DateTime())
-                .active(iAdaptiveLearningQuizVO.isActive())
-                .build();
+            // Build AdaptiveLearningQuiz from VO
+            AdaptiveLearningQuiz adaptiveLearningQuiz = AdaptiveLearningQuiz.builder()
+                    .quizTitle(iAdaptiveLearningQuizVO.getQuizTitle())
+                    .quizDescription(iAdaptiveLearningQuizVO.getQuizDescription())
+                    .maxPossibleActivityScore(iAdaptiveLearningQuizVO.getMaxPossibleActivityScore())
+                    .minimumPassingActivityScore(iAdaptiveLearningQuizVO.getMinimumPassingActivityScore())
+                    .timeToCompleteActivity(iAdaptiveLearningQuizVO.getTimeToCompleteActivity())
+                    .qPalXEMicroLesson(qPalXEMicroLesson)
+                    .entryDate(new DateTime())
+                    .active(iAdaptiveLearningQuizVO.isActive())
+                    .build();
 
-        // First save the Adaptive LearningQuiz independently
-        LOGGER.info("Saving all details for new AdaptiveLearningQuiz: {}", adaptiveLearningQuiz.getQuizTitle());
-        iAdaptiveLearningQuizRepository.save(adaptiveLearningQuiz);
-
-        // Now we can build and save all other entities as well
-        saveAdaptiveLearningQuizQuestions(adaptiveLearningQuiz, iAdaptiveLearningQuizVO);
+            saveQuiz(adaptiveLearningQuiz);
+            iAdaptiveLearningQuizVO.setID(adaptiveLearningQuiz.getId());
+            persistAdaptiveLearningQuizQuestionDetails(adaptiveLearningQuiz, iAdaptiveLearningQuizQuestionVO, questionOrder);
+        } else {
+            LOGGER.info("Persisted from VO: {}", iAdaptiveLearningQuizVO);
+            AdaptiveLearningQuiz savedAdaptiveLearningQuiz = iAdaptiveLearningQuizRepository.findOne(iAdaptiveLearningQuizVO.getID());
+            LOGGER.info("Updating previously saved Adaptive Learning Quiz with ID: {} savedAdaptiveLearningQuiz: {}", iAdaptiveLearningQuizVO.getID(), savedAdaptiveLearningQuiz);
+            persistAdaptiveLearningQuizQuestionDetails(savedAdaptiveLearningQuiz, iAdaptiveLearningQuizQuestionVO, questionOrder);
+        }
     }
 
-    void saveAdaptiveLearningQuizQuestions(AdaptiveLearningQuiz adaptiveLearningQuiz, IAdaptiveLearningQuizVO iAdaptiveLearningQuizVO) {
-        Set<IAdaptiveLearningQuizQuestionVO> adaptiveLearningQuizQuestionVOS = iAdaptiveLearningQuizVO.getIAdaptiveLearningQuizQuestionVOs();
 
-        int questionOrder = 1;
-        for (IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO : adaptiveLearningQuizQuestionVOS) {
-            AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion = AdaptiveLearningQuizQuestion.builder()
+    void persistAdaptiveLearningQuizQuestionDetails(AdaptiveLearningQuiz adaptiveLearningQuiz, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO, Integer questionOrder) {
+        LOGGER.debug("Saving and persisting Question: {} for Quiz: {}", iAdaptiveLearningQuizQuestionVO.getQuestionTitle(), adaptiveLearningQuiz.getQuizTitle());
+
+        if (iAdaptiveLearningQuizQuestionVO.getID() == null) {
+            LOGGER.debug("Saving and persisting new Adaptive Quiz details....");
+
+            AdaptiveLearningQuizQuestion persistedAdaptiveLearningQuizQuestion = AdaptiveLearningQuizQuestion.builder()
                     .questionOrder(questionOrder)
                     .questionTitle(iAdaptiveLearningQuizQuestionVO.getQuestionTitle())
                     .questionFeedBack(iAdaptiveLearningQuizQuestionVO.getQuestionFeedBack())
@@ -106,38 +161,67 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
                     .adaptiveLearningQuiz(adaptiveLearningQuiz)
                     .build();
 
-            questionOrder++;
-
-            // Save the Quiz Question before building and saving all answers
-            iAdaptiveLearningQuizQuestionRepository.save(adaptiveLearningQuizQuestion);
-
-            // Add all question answers to question
-            saveAdaptiveLearningQuizQuestionAnswers(adaptiveLearningQuizQuestion, iAdaptiveLearningQuizQuestionVO);
+            saveQuizQuestion(persistedAdaptiveLearningQuizQuestion);
+            iAdaptiveLearningQuizQuestionVO.setID(persistedAdaptiveLearningQuizQuestion.getId());
+            persistAndSaveNewQuestionAnswers(persistedAdaptiveLearningQuizQuestion, iAdaptiveLearningQuizQuestionVO);
+        } else {
+            LOGGER.info("Updating and persisting existing Adaptive Quiz details....");
+            AdaptiveLearningQuizQuestion persistedAdaptiveLearningQuizQuestion = iAdaptiveLearningQuizQuestionRepository.findOne(iAdaptiveLearningQuizQuestionVO.getID());
+            persistedAdaptiveLearningQuizQuestion.setQuestionTitle(iAdaptiveLearningQuizQuestionVO.getQuestionTitle());
+            persistedAdaptiveLearningQuizQuestion.setQuestionFeedBack(iAdaptiveLearningQuizQuestionVO.getQuestionFeedBack());
+            persistedAdaptiveLearningQuizQuestion.setModifyDate(DateTime.now());
+            saveQuizQuestion(persistedAdaptiveLearningQuizQuestion);
+            updateAndSaveExistingQuestionAnswers(persistedAdaptiveLearningQuizQuestion, iAdaptiveLearningQuizQuestionVO);
         }
     }
 
-    void saveAdaptiveLearningQuizQuestionAnswers(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO) {
-        LOGGER.debug("Adding all answers to quiz question: {}", adaptiveLearningQuizQuestion.getQuestionTitle());
+    private void persistAndSaveNewQuestionAnswers(AdaptiveLearningQuizQuestion persistedAdaptiveLearningQuizQuestion, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO) {
         Set<IAdaptiveLearningQuizQuestionAnswerVO> adaptiveLearningQuizQuestionAnswerVOS = iAdaptiveLearningQuizQuestionVO.getIAdaptiveLearningQuizQuestionAnswerVOs();
 
         int questionAnswerOrder = 1;
         for(IAdaptiveLearningQuizQuestionAnswerVO iAdaptiveLearningQuizQuestionAnswerVO : adaptiveLearningQuizQuestionAnswerVOS) {
+            LOGGER.info("Building and saving new Quiz Question Answer: {} For Quiz: {}", iAdaptiveLearningQuizQuestionAnswerVO.getQuizQuestionAnswerText(), persistedAdaptiveLearningQuizQuestion.getQuestionTitle());
             AdaptiveLearningQuizQuestionAnswer adaptiveLearningQuizQuestionAnswer = AdaptiveLearningQuizQuestionAnswer.builder()
                     .questionAnswerOrder(questionAnswerOrder)
                     .quizQuestionAnswerText(iAdaptiveLearningQuizQuestionAnswerVO.getQuizQuestionAnswerText())
                     .quizQuestionAnswerMultiMedia(iAdaptiveLearningQuizQuestionAnswerVO.getQuizQuestionAnswerMultiMedia())
                     .isCorrectAnswer(iAdaptiveLearningQuizQuestionAnswerVO.isCorrectAnswer())
                     .entryDate(new DateTime())
-                    .adaptiveLearningQuizQuestion(adaptiveLearningQuizQuestion)
+                    .adaptiveLearningQuizQuestion(persistedAdaptiveLearningQuizQuestion)
                     .build();
 
             questionAnswerOrder++;
 
-            // Save all the Quiz Question Answers
+            // Save all the Quiz Question Answers and update the VO object with persisted ID
             iAdaptiveLearningQuizQuestionAnswerRepository.save(adaptiveLearningQuizQuestionAnswer);
-
-            // Add answer to the quiz question
-            //adaptiveLearningQuizQuestion.addAdaptiveLearningQuizQuestionAnswer(adaptiveLearningQuizQuestionAnswer);
         }
     }
+
+    private void updateAndSaveExistingQuestionAnswers(AdaptiveLearningQuizQuestion persistedAdaptiveLearningQuizQuestion, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO) {
+        Set<IAdaptiveLearningQuizQuestionAnswerVO> adaptiveLearningQuizQuestionAnswerVOS = iAdaptiveLearningQuizQuestionVO.getIAdaptiveLearningQuizQuestionAnswerVOs();
+
+        // Convert the Question Answer value objects to an Array, we will use this to update the already persisted question answers
+        IAdaptiveLearningQuizQuestionAnswerVO[] quizQuestionAnswersArray = adaptiveLearningQuizQuestionAnswerVOS.toArray(new IAdaptiveLearningQuizQuestionAnswerVO[adaptiveLearningQuizQuestionAnswerVOS.size()]);
+        LOGGER.info("Quiz Question Answers array: {}", quizQuestionAnswersArray);
+
+        // Get all the already persisted Question Answers that will need to be updated
+        Set<AdaptiveLearningQuizQuestionAnswer> persistedQuizQuestionAnswers = persistedAdaptiveLearningQuizQuestion.getAdaptiveLearningQuizQuestionAnswers();
+
+        int valueObjectIndex = 0;
+        for(AdaptiveLearningQuizQuestionAnswer quizQuestionAnswerToUpdate : persistedQuizQuestionAnswers) {
+
+            IAdaptiveLearningQuizQuestionAnswerVO quizQuestionAnswer = quizQuestionAnswersArray[valueObjectIndex];
+
+            AdaptiveLearningQuizQuestionAnswer savedQuestionAnswer = iAdaptiveLearningQuizQuestionAnswerRepository.findOne(quizQuestionAnswerToUpdate.getId());
+            LOGGER.info("Updating Quiz Question Answer with ID: {}", savedQuestionAnswer.getId());
+            savedQuestionAnswer.setQuizQuestionAnswerText(quizQuestionAnswer.getQuizQuestionAnswerText());
+            savedQuestionAnswer.setQuizQuestionAnswerMultiMedia(quizQuestionAnswer.getQuizQuestionAnswerMultiMedia());
+            savedQuestionAnswer.setCorrectAnswer(quizQuestionAnswer.isCorrectAnswer());
+            iAdaptiveLearningQuizQuestionAnswerRepository.save(savedQuestionAnswer);
+
+            valueObjectIndex++;
+        }
+    }
+
+
 }

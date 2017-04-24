@@ -61,7 +61,7 @@ public class AdaptiveLearningQuizQuestion {
     private AdaptiveLearningQuiz adaptiveLearningQuiz;
 
     // Collection of all question answers.  LinkedHashSet is used to maintain ordering
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "adaptiveLearningQuizQuestion")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "adaptiveLearningQuizQuestion")
     @OrderBy("QuestionAnswerOrder ASC")
     private Set<AdaptiveLearningQuizQuestionAnswer> adaptiveLearningQuizQuestionAnswers = new LinkedHashSet<>();
 

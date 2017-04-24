@@ -14,6 +14,10 @@ public interface IAdaptiveLearningQuizQuestionVO extends ILMSMediaContentVO {
 
     public String getQuestionFeedBack();
 
+    public Long getID();
+
+    public void setID(Long id);
+
     public AdaptiveLearningQuizQuestionTypeE getAdaptiveLearningQuizQuestionTypeE();
 
     public ELearningMediaContent getQuizQuestionMultiMedia();
