@@ -113,11 +113,17 @@ public class AvgAdaptiveLearningExperiencesProficiencyRankingScoreModel implemen
     }
 
     String executeScoreModelAnalytics(double averageCurriculumProficiencyScore) {
-        boolean scoreAboveAverage = ProficiencyScoreRangeE.ABOVE_AVERAGE_PERFORMER.getScoreRange().contains(averageCurriculumProficiencyScore);
+        // check to see if score is above high range of average performer
+        boolean aboveAvgRange = averageCurriculumProficiencyScore > ProficiencyScoreRangeE.ABOVE_AVERAGE_PERFORMER.getScoreRange().getMaximum();
+        boolean scoreInAvgRange = ProficiencyScoreRangeE.ABOVE_AVERAGE_PERFORMER.getScoreRange().contains(averageCurriculumProficiencyScore);
 
-        if(scoreAboveAverage) {
+        if(aboveAvgRange) {
             return new StringBuffer()
                     .append("Your performance on Quizzes is currently above average")
+                    .toString();
+        } else if(scoreInAvgRange) {
+            return new StringBuffer()
+                    .append("Your performance on Quizzes is currently average")
                     .toString();
         } else {
             return new StringBuffer()
