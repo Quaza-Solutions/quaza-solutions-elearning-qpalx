@@ -18,5 +18,10 @@ public enum QPalxUserTypeE {
 
 	PARENT_GUARDIAN,
 
-	EDUCATIONAL_INSTITUTION_USER;
+	Teacher,
+
+	Principal,
+
+	Executive;
+
 }
