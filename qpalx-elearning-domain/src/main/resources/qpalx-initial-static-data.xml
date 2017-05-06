@@ -84,17 +84,20 @@
     <!-- Executive user type -->
     <QPalXUser ID="2" FirstName="Matthew" LastName="Opoku Prempeh" Email="matthew.prempeh@moe.gov.gh" Password="qpalx" UserType="Executive" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
 
+    <!-- Executive user type -->
+    <QPalXUser ID="3" FirstName="Yaw" LastName="Osei Adutwum" Email="matthew.prempeh@moe.gov.gh" Password="qpalx" UserType="Executive" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+
     <!-- Principal user type -->
-    <QPalXUser ID="3" FirstName="Bisa" LastName="KDei" Email="bisa.kdei@moe.gov.gh" Password="qpalx" UserType="Principal" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <QPalXUser ID="4" FirstName="Bisa" LastName="KDei" Email="bisa.kdei@moe.gov.gh" Password="qpalx" UserType="Principal" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
 
     <!-- Teacher user type -->
-    <QPalXUser ID="4" FirstName="Erica" LastName="Bondzie" Email="charles.bondzie@gmail.com" Password="qpalx" UserType="Teacher" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Female"/>
+    <QPalXUser ID="5" FirstName="Erica" LastName="Bondzie" Email="charles.bondzie@gmail.com" Password="qpalx" UserType="Teacher" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Female"/>
 
     <!-- Parent/Guardian user type -->
-    <QPalXUser ID="5" FirstName="Martha" LastName="Dodoo" Email="martha.dodoo@gmail.com" Password="qpalx" UserType="PARENT_GUARDIAN" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Female"/>
+    <QPalXUser ID="6" FirstName="Martha" LastName="Dodoo" Email="martha.dodoo@gmail.com" Password="qpalx" UserType="PARENT_GUARDIAN" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Female"/>
 
     <!-- Create default Platform Administrator account -->
-    <QPalXUser ID="6" FirstName="QPalX" LastName="Platform Admin" Email="platform.admin@quazasolutions.com" Password="Holla!" UserType="PLATFORM_ADMIN" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <QPalXUser ID="7" FirstName="QPalX" LastName="Platform Admin" Email="platform.admin@quazasolutions.com" Password="Holla!" UserType="PLATFORM_ADMIN" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
 
     <!-- Create StaticContentConfiguration that defines where static content resides on the platform -->
     <StaticContentConfiguration ID="1" StaticContentName="ELearningContent"  StaticContentPhysicalLocation="/Users/manyce400/QuazaSolutions/elearning-content/" StaticContentApplicationContextLocation="/elearning-content/" />
