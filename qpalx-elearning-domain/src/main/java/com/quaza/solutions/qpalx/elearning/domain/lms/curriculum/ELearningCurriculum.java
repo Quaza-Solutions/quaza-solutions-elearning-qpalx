@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLearningQuiz;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
@@ -44,6 +45,12 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
 
     @Column(name="CurriculumBannerIcon", nullable=true, length=255)
     private String curriculumBannerIcon;
+
+    // Each Curriculum could have an optional Assessment Quiz which would have to be completed to gauge
+    // Student's proficiency before student can attempt courses lessons and teaching content in that Curriculum
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "AssessmentAdaptiveLearningQuizID", nullable = true)
+    private AdaptiveLearningQuiz assessmentAdaptiveLearningQuiz;
 
     public ELearningCurriculum() {
     }
@@ -104,6 +111,14 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
         this.studentTutorialGrade = studentTutorialGrade;
     }
 
+    public AdaptiveLearningQuiz getAssessmentAdaptiveLearningQuiz() {
+        return assessmentAdaptiveLearningQuiz;
+    }
+
+    public void setAssessmentAdaptiveLearningQuiz(AdaptiveLearningQuiz assessmentAdaptiveLearningQuiz) {
+        this.assessmentAdaptiveLearningQuiz = assessmentAdaptiveLearningQuiz;
+    }
+
     @Override
     public String getHierarchicalLMSContentName() {
         return getCurriculumName();
@@ -159,6 +174,7 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
                 .append("curriculumIcon", curriculumIcon)
                 .append("curriculumBannerIcon", curriculumBannerIcon)
                 .append("studentTutorialGrade", studentTutorialGrade)
+                .append("assessmentAdaptiveLearningQuiz", assessmentAdaptiveLearningQuiz)
                 .toString();
     }
 }
