@@ -56,8 +56,10 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean active;
 
+    // Populated for quizzes that are directly associated with a MicroLesson.
+    // These are ML quizzes
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "QPalXEMicroLessonID", nullable = false)
+    @JoinColumn(name = "QPalXEMicroLessonID", nullable = true)
     private QPalXEMicroLesson qPalXEMicroLesson;
 
     // Collection of all questions for this quiz.  LinkedHashSet used to maintain ordering

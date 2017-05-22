@@ -1,20 +1,24 @@
-package com.quaza.solutions.qpalx.elearning.domain.lms.curriculum;
+package com.quaza.solutions.qpalx.elearning.domain.lms.assessment;
 
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLearningQuiz;
+import com.google.common.collect.ImmutableSet;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author manyce400
  */
 @Entity
-@Table(name="ProficiencyRankingAssessment")
-public class ProficiencyRankingAssessment {
+@Table(name="CurriculumProficiencyRankingAssessment")
+public class CurriculumProficiencyRankingAssessment {
 
 
 
@@ -23,31 +27,35 @@ public class ProficiencyRankingAssessment {
     @Column(name="ID", nullable=false)
     private Long id;
 
+
     @Column(name="AssessmentTitle", nullable=false, length=255)
     private String assessmentTitle;
 
-    // Each assessment is tied to a specific Quiz with questions designed to specifically test proficiency.
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ELearningCurriculumID", nullable = false)
-    private AdaptiveLearningQuiz adaptiveLearningQuiz;
 
     // ELearningCurriculum that this assessment is
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ELearningCurriculumID", nullable = false)
     private ELearningCurriculum eLearningCurriculum;
 
-    // DateTime that the ProficiencyRankingAssessment was added to the system
+
+    // DateTime that the CurriculumProficiencyRankingAssessment was added to the system
     @Column(name="EntryDate", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime entryDate;
 
-    /// DateTime that the ProficiencyRankingAssessment was last updated
+
+    /// DateTime that the CurriculumProficiencyRankingAssessment was last updated
     @Column(name="LastModifyDate", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime lastModifyDate;
 
 
-    public ProficiencyRankingAssessment() {
+    // Provides focus area information on this proficiency ranking
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "curriculumProficiencyRankingAssessment")
+    private Set<ProficiencyRankingAssessmentFocusArea> proficiencyRankingAssessmentFocusAreas = new HashSet<>();
+
+
+    public CurriculumProficiencyRankingAssessment() {
 
     }
 
@@ -65,14 +73,6 @@ public class ProficiencyRankingAssessment {
 
     public void setAssessmentTitle(String assessmentTitle) {
         this.assessmentTitle = assessmentTitle;
-    }
-
-    public AdaptiveLearningQuiz getAdaptiveLearningQuiz() {
-        return adaptiveLearningQuiz;
-    }
-
-    public void setAdaptiveLearningQuiz(AdaptiveLearningQuiz adaptiveLearningQuiz) {
-        this.adaptiveLearningQuiz = adaptiveLearningQuiz;
     }
 
     public ELearningCurriculum geteLearningCurriculum() {
@@ -99,18 +99,26 @@ public class ProficiencyRankingAssessment {
         this.lastModifyDate = lastModifyDate;
     }
 
+    public void addProficiencyRankingAssessmentFocusArea(ProficiencyRankingAssessmentFocusArea proficiencyRankingAssessmentFocusArea) {
+        Assert.notNull(proficiencyRankingAssessmentFocusArea);
+        proficiencyRankingAssessmentFocusAreas.add(proficiencyRankingAssessmentFocusArea);
+    }
+
+    public Set<ProficiencyRankingAssessmentFocusArea> getProficiencyRankingAssessmentFocusAreas() {
+        return ImmutableSet.copyOf(proficiencyRankingAssessmentFocusAreas);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProficiencyRankingAssessment that = (ProficiencyRankingAssessment) o;
+        CurriculumProficiencyRankingAssessment that = (CurriculumProficiencyRankingAssessment) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)
                 .append(assessmentTitle, that.assessmentTitle)
-                .append(adaptiveLearningQuiz, that.adaptiveLearningQuiz)
                 .append(eLearningCurriculum, that.eLearningCurriculum)
                 .append(entryDate, that.entryDate)
                 .append(lastModifyDate, that.lastModifyDate)
@@ -122,7 +130,6 @@ public class ProficiencyRankingAssessment {
         return new HashCodeBuilder(17, 37)
                 .append(id)
                 .append(assessmentTitle)
-                .append(adaptiveLearningQuiz)
                 .append(eLearningCurriculum)
                 .append(entryDate)
                 .append(lastModifyDate)
@@ -134,10 +141,54 @@ public class ProficiencyRankingAssessment {
         return new ToStringBuilder(this)
                 .append("id", id)
                 .append("assessmentTitle", assessmentTitle)
-                .append("adaptiveLearningQuiz", adaptiveLearningQuiz)
                 .append("eLearningCurriculum", eLearningCurriculum)
                 .append("entryDate", entryDate)
                 .append("lastModifyDate", lastModifyDate)
                 .toString();
     }
+
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+
+        private CurriculumProficiencyRankingAssessment curriculumProficiencyRankingAssessment = new CurriculumProficiencyRankingAssessment();
+
+        public Builder() {
+
+        }
+
+        public Builder assessmentTitle(String assessmentTitle) {
+            curriculumProficiencyRankingAssessment.assessmentTitle = assessmentTitle;
+            return this;
+        }
+
+        public Builder eLearningCurriculum(ELearningCurriculum eLearningCurriculum) {
+            curriculumProficiencyRankingAssessment.eLearningCurriculum = eLearningCurriculum;
+            return this;
+        }
+
+        public Builder proficiencyRankingAssessmentFocusArea(ProficiencyRankingAssessmentFocusArea proficiencyRankingAssessmentFocusArea) {
+            curriculumProficiencyRankingAssessment.addProficiencyRankingAssessmentFocusArea(proficiencyRankingAssessmentFocusArea);
+            return this;
+        }
+
+        public Builder entryDate(DateTime entryDate) {
+            curriculumProficiencyRankingAssessment.entryDate = entryDate;
+            return this;
+        }
+
+        public Builder lastModifyDate(DateTime lastModifyDate) {
+            curriculumProficiencyRankingAssessment.lastModifyDate = lastModifyDate;
+            return this;
+        }
+
+        public CurriculumProficiencyRankingAssessment build() {
+            return curriculumProficiencyRankingAssessment;
+        }
+
+    }
+
 }
