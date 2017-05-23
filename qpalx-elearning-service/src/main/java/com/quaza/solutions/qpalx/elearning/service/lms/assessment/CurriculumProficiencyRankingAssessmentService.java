@@ -42,15 +42,13 @@ public class CurriculumProficiencyRankingAssessmentService implements ICurriculu
     }
 
     @Override
-    public void buildAndSaveCurriculumProficiencyRankingAssessment(String assessmentTitle, ELearningCurriculum eLearningCurriculum, Set<ProficiencyRankingAssessmentFocusArea> proficiencyRankingAssessmentFocusAreas) {
-        Assert.notNull(assessmentTitle, "assessmentTitle cannot be null");
+    public void buildAndSaveCurriculumProficiencyRankingAssessment(ELearningCurriculum eLearningCurriculum, Set<ProficiencyRankingAssessmentFocusArea> proficiencyRankingAssessmentFocusAreas) {
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
         Assert.notNull(proficiencyRankingAssessmentFocusAreas, "proficiencyRankingAssessmentFocusAreas cannot be null");
 
-        LOGGER.info("Building and saving new CurriculumProficiencyRankingAssessmentService with assessmentTitle: {} in eLearningCurriculum: {}", assessmentTitle, eLearningCurriculum);
+        LOGGER.info("Building and saving new CurriculumProficiencyRankingAssessmentService with assessmentTitle: {} in eLearningCurriculum: {}", eLearningCurriculum);
 
         CurriculumProficiencyRankingAssessment curriculumProficiencyRankingAssessment = CurriculumProficiencyRankingAssessment.builder()
-                .assessmentTitle(assessmentTitle)
                 .eLearningCurriculum(eLearningCurriculum)
                 .entryDate(new DateTime())
                 .build();

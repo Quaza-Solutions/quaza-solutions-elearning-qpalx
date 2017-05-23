@@ -28,10 +28,6 @@ public class CurriculumProficiencyRankingAssessment {
     private Long id;
 
 
-    @Column(name="AssessmentTitle", nullable=false, length=255)
-    private String assessmentTitle;
-
-
     // ELearningCurriculum that this assessment is
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ELearningCurriculumID", nullable = false)
@@ -65,14 +61,6 @@ public class CurriculumProficiencyRankingAssessment {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getAssessmentTitle() {
-        return assessmentTitle;
-    }
-
-    public void setAssessmentTitle(String assessmentTitle) {
-        this.assessmentTitle = assessmentTitle;
     }
 
     public ELearningCurriculum geteLearningCurriculum() {
@@ -118,7 +106,6 @@ public class CurriculumProficiencyRankingAssessment {
 
         return new EqualsBuilder()
                 .append(id, that.id)
-                .append(assessmentTitle, that.assessmentTitle)
                 .append(eLearningCurriculum, that.eLearningCurriculum)
                 .append(entryDate, that.entryDate)
                 .append(lastModifyDate, that.lastModifyDate)
@@ -129,7 +116,6 @@ public class CurriculumProficiencyRankingAssessment {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(assessmentTitle)
                 .append(eLearningCurriculum)
                 .append(entryDate)
                 .append(lastModifyDate)
@@ -140,7 +126,6 @@ public class CurriculumProficiencyRankingAssessment {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("assessmentTitle", assessmentTitle)
                 .append("eLearningCurriculum", eLearningCurriculum)
                 .append("entryDate", entryDate)
                 .append("lastModifyDate", lastModifyDate)
@@ -158,11 +143,6 @@ public class CurriculumProficiencyRankingAssessment {
 
         public Builder() {
 
-        }
-
-        public Builder assessmentTitle(String assessmentTitle) {
-            curriculumProficiencyRankingAssessment.assessmentTitle = assessmentTitle;
-            return this;
         }
 
         public Builder eLearningCurriculum(ELearningCurriculum eLearningCurriculum) {

@@ -25,10 +25,6 @@ public class ProficiencyRankingAssessmentFocusArea {
     private Long id;
 
 
-    @Column(name="FocusAreaTitle", nullable=false, length=255)
-    private String focusAreaTitle;
-
-
     // CurriculumProficiencyRankingAssessment object for this focus area
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CurriculumProficiencyRankingAssessmentID", nullable = true)
@@ -69,14 +65,6 @@ public class ProficiencyRankingAssessmentFocusArea {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFocusAreaTitle() {
-        return focusAreaTitle;
-    }
-
-    public void setFocusAreaTitle(String focusAreaTitle) {
-        this.focusAreaTitle = focusAreaTitle;
     }
 
     public CurriculumProficiencyRankingAssessment getCurriculumProficiencyRankingAssessment() {
@@ -129,7 +117,6 @@ public class ProficiencyRankingAssessmentFocusArea {
 
         return new EqualsBuilder()
                 .append(id, that.id)
-                .append(focusAreaTitle, that.focusAreaTitle)
                 .append(eLearningCourse, that.eLearningCourse)
                 .append(adaptiveLearningQuiz, that.adaptiveLearningQuiz)
                 .append(entryDate, that.entryDate)
@@ -141,7 +128,6 @@ public class ProficiencyRankingAssessmentFocusArea {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(focusAreaTitle)
                 .append(eLearningCourse)
                 .append(adaptiveLearningQuiz)
                 .append(entryDate)
@@ -153,7 +139,6 @@ public class ProficiencyRankingAssessmentFocusArea {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("focusAreaTitle", focusAreaTitle)
                 .append("eLearningCourse", eLearningCourse)
                 .append("adaptiveLearningQuiz", adaptiveLearningQuiz)
                 .append("entryDate", entryDate)
@@ -169,11 +154,6 @@ public class ProficiencyRankingAssessmentFocusArea {
     public static final class Builder {
 
         private ProficiencyRankingAssessmentFocusArea proficiencyRankingAssessmentFocusArea = new ProficiencyRankingAssessmentFocusArea();
-
-        public Builder focusAreaTitle(String focusAreaTitle) {
-            proficiencyRankingAssessmentFocusArea.focusAreaTitle = focusAreaTitle;
-            return this;
-        }
 
         public Builder eLearningCourse(ELearningCourse eLearningCourse) {
             proficiencyRankingAssessmentFocusArea.eLearningCourse = eLearningCourse;

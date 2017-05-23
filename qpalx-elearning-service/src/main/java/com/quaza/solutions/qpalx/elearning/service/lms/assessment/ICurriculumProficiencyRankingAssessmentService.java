@@ -16,7 +16,7 @@ public interface ICurriculumProficiencyRankingAssessmentService {
 
     public CurriculumProficiencyRankingAssessment findByELearningCurriculum(ELearningCurriculum eLearningCurriculum);
 
-    public void buildAndSaveCurriculumProficiencyRankingAssessment(String assessmentTitle, ELearningCurriculum eLearningCurriculum, Set<ProficiencyRankingAssessmentFocusArea> proficiencyRankingAssessmentFocusAreas);
+    public void buildAndSaveCurriculumProficiencyRankingAssessment(ELearningCurriculum eLearningCurriculum, Set<ProficiencyRankingAssessmentFocusArea> proficiencyRankingAssessmentFocusAreas);
 
     public void save(CurriculumProficiencyRankingAssessment curriculumProficiencyRankingAssessment);
 
