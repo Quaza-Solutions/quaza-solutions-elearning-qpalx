@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.assessment;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.assessment.CurriculumProficiencyRankingAssessment;
 import com.quaza.solutions.qpalx.elearning.domain.lms.assessment.ProficiencyRankingAssessmentFocusArea;
+import com.quaza.solutions.qpalx.elearning.domain.lms.assessment.repository.ICurriculumProficiencyRankingAssessmentRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class CurriculumProficiencyRankingAssessmentService implements ICurriculu
 
 
     @Autowired
-    private ICurriculumProficiencyRankingAssessmentService iCurriculumProficiencyRankingAssessmentService;
+    private ICurriculumProficiencyRankingAssessmentRepository iCurriculumProficiencyRankingAssessmentRepository;
 
     public static final String SPRING_BEAN = "com.quaza.solutions.qpalx.elearning.service.lms.assessment.CurriculumProficiencyRankingAssessmentService";
 
@@ -30,14 +31,14 @@ public class CurriculumProficiencyRankingAssessmentService implements ICurriculu
     public CurriculumProficiencyRankingAssessment findByID(Long id) {
         Assert.notNull(id, "id cannot be null");
         LOGGER.info("Finding CurriculumProficiencyRankingAssessment with id: {}", id);
-        return iCurriculumProficiencyRankingAssessmentService.findByID(id);
+        return iCurriculumProficiencyRankingAssessmentRepository.findOne(id);
     }
 
     @Override
     public CurriculumProficiencyRankingAssessment findByELearningCurriculum(ELearningCurriculum eLearningCurriculum) {
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
         LOGGER.info("Finding CurriculumProficiencyRankingAssessment for eLearningCurriculum: {}", eLearningCurriculum);
-        return iCurriculumProficiencyRankingAssessmentService.findByELearningCurriculum(eLearningCurriculum);
+        return iCurriculumProficiencyRankingAssessmentRepository.findByELearningCurriculum(eLearningCurriculum);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class CurriculumProficiencyRankingAssessmentService implements ICurriculu
     public void save(CurriculumProficiencyRankingAssessment curriculumProficiencyRankingAssessment) {
         Assert.notNull(curriculumProficiencyRankingAssessment, "curriculumProficiencyRankingAssessment cannot be null");
         LOGGER.info("Saving CurriculumProficiencyRankingAssessment: {}", curriculumProficiencyRankingAssessment);
-        iCurriculumProficiencyRankingAssessmentService.save(curriculumProficiencyRankingAssessment);
+        iCurriculumProficiencyRankingAssessmentRepository.save(curriculumProficiencyRankingAssessment);
     }
 
 }
