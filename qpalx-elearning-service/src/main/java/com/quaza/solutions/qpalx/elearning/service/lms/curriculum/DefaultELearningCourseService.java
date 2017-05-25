@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.DefaultELearningCourseService")
+@Service(DefaultELearningCourseService.BEAN_NAME)
 public class DefaultELearningCourseService implements IELearningCourseService {
 
 
@@ -32,7 +32,7 @@ public class DefaultELearningCourseService implements IELearningCourseService {
     @Autowired
     private IQPalXEducationalInstitutionRepository iqPalXEducationalInstitutionRepository;
 
-
+    public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.DefaultELearningCourseService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultELearningCourseService.class);
 

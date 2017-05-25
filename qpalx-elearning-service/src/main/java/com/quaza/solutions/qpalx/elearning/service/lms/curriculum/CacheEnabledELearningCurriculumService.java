@@ -13,12 +13,14 @@ import java.util.List;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.CacheEnabledELearningCurriculumService")
+@Service(CacheEnabledELearningCurriculumService.BEAN_NAME)
 public class CacheEnabledELearningCurriculumService implements IELearningCurriculumService {
 
 
     @Autowired
     private IELearningCurriculumRepository ieLearningCurriculumRepository;
+
+    public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.CacheEnabledELearningCurriculumService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(CacheEnabledELearningCurriculumService.class);
 
