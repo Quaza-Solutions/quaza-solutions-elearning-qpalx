@@ -7,6 +7,8 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.IAda
  */
 public interface ICourseAssessmentFocusAreaVO extends IAdaptiveLearningQuizVO {
 
+    public Long getCourseAssessmentFocusAreaID();
+
     public Long getELearningCourseID();
 
 }

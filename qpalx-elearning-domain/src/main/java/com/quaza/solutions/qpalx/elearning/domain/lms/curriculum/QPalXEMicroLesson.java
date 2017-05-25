@@ -70,6 +70,8 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qPalXEMicroLesson")
     private Set<AdaptiveLearningQuiz> adaptiveLearningQuizzes = new HashSet<>();
 
+    public static final String CLASS_ATTRIBUTE_IDENTIFIER = "QPalXEMicroLesson";
+
 
     public QPalXEMicroLesson() {
 

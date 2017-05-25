@@ -10,6 +10,10 @@ public enum HierarchicalLMSContentTypeE {
 
     ELearningCourse,
 
+    Assessment,
+
+    AssessmentFocusArea,
+
     Lesson,
 
     QuestionBank,
