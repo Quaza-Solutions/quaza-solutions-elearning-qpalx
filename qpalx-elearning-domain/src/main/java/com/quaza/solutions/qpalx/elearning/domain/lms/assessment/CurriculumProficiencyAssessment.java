@@ -1,6 +1,8 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.assessment;
 
 import com.google.common.collect.ImmutableSet;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -17,8 +19,8 @@ import java.util.Set;
  * @author manyce400
  */
 @Entity
-@Table(name="CurriculumProficiencyRankingAssessment")
-public class CurriculumProficiencyRankingAssessment {
+@Table(name="CurriculumProficiencyAssessment")
+public class CurriculumProficiencyAssessment implements IHierarchicalLMSContent {
 
 
 
@@ -34,24 +36,26 @@ public class CurriculumProficiencyRankingAssessment {
     private ELearningCurriculum eLearningCurriculum;
 
 
-    // DateTime that the CurriculumProficiencyRankingAssessment was added to the system
+    // DateTime that the CurriculumProficiencyAssessment was added to the system
     @Column(name="EntryDate", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime entryDate;
 
 
-    /// DateTime that the CurriculumProficiencyRankingAssessment was last updated
+    /// DateTime that the CurriculumProficiencyAssessment was last updated
     @Column(name="LastModifyDate", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime lastModifyDate;
 
 
-    // Provides focus area information on this proficiency ranking
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "curriculumProficiencyRankingAssessment")
-    private Set<ProficiencyRankingAssessmentFocusArea> proficiencyRankingAssessmentFocusAreas = new HashSet<>();
+    // Collection of all Course Assessment focus areas
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "curriculumProficiencyAssessment")
+    private Set<CourseAssessmentFocusArea> courseAssessmentFocusAreas = new HashSet<>();
+
+    public static final String CLASS_ATTRIBUTE_IDENTIFIER = "CurriculumProficiencyAssessment";
 
 
-    public CurriculumProficiencyRankingAssessment() {
+    public CurriculumProficiencyAssessment() {
 
     }
 
@@ -63,11 +67,11 @@ public class CurriculumProficiencyRankingAssessment {
         this.id = id;
     }
 
-    public ELearningCurriculum geteLearningCurriculum() {
+    public ELearningCurriculum getELearningCurriculum() {
         return eLearningCurriculum;
     }
 
-    public void seteLearningCurriculum(ELearningCurriculum eLearningCurriculum) {
+    public void setELearningCurriculum(ELearningCurriculum eLearningCurriculum) {
         this.eLearningCurriculum = eLearningCurriculum;
     }
 
@@ -87,13 +91,29 @@ public class CurriculumProficiencyRankingAssessment {
         this.lastModifyDate = lastModifyDate;
     }
 
-    public void addProficiencyRankingAssessmentFocusArea(ProficiencyRankingAssessmentFocusArea proficiencyRankingAssessmentFocusArea) {
-        Assert.notNull(proficiencyRankingAssessmentFocusArea);
-        proficiencyRankingAssessmentFocusAreas.add(proficiencyRankingAssessmentFocusArea);
+    public void addCourseAssessmentFocusArea(CourseAssessmentFocusArea courseAssessmentFocusArea) {
+        Assert.notNull(courseAssessmentFocusArea);
+        courseAssessmentFocusAreas.add(courseAssessmentFocusArea);
     }
 
-    public Set<ProficiencyRankingAssessmentFocusArea> getProficiencyRankingAssessmentFocusAreas() {
-        return ImmutableSet.copyOf(proficiencyRankingAssessmentFocusAreas);
+    public Set<CourseAssessmentFocusArea> getCourseAssessmentFocusAreas() {
+        return ImmutableSet.copyOf(courseAssessmentFocusAreas);
+    }
+
+    @Override
+    public String getHierarchicalLMSContentName() {
+        String name = getELearningCurriculum().getCurriculumName() + " Assessment";
+        return null;
+    }
+
+    @Override
+    public HierarchicalLMSContentTypeE getHierarchicalLMSContentTypeE() {
+        return HierarchicalLMSContentTypeE.Assessment;
+    }
+
+    @Override
+    public IHierarchicalLMSContent getIHierarchicalLMSContentParent() {
+        return getELearningCurriculum();
     }
 
     @Override
@@ -102,7 +122,7 @@ public class CurriculumProficiencyRankingAssessment {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        CurriculumProficiencyRankingAssessment that = (CurriculumProficiencyRankingAssessment) o;
+        CurriculumProficiencyAssessment that = (CurriculumProficiencyAssessment) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)
@@ -139,34 +159,34 @@ public class CurriculumProficiencyRankingAssessment {
 
     public static final class Builder {
 
-        private CurriculumProficiencyRankingAssessment curriculumProficiencyRankingAssessment = new CurriculumProficiencyRankingAssessment();
+        private CurriculumProficiencyAssessment curriculumProficiencyAssessment = new CurriculumProficiencyAssessment();
 
         public Builder() {
 
         }
 
         public Builder eLearningCurriculum(ELearningCurriculum eLearningCurriculum) {
-            curriculumProficiencyRankingAssessment.eLearningCurriculum = eLearningCurriculum;
+            curriculumProficiencyAssessment.eLearningCurriculum = eLearningCurriculum;
             return this;
         }
 
-        public Builder proficiencyRankingAssessmentFocusArea(ProficiencyRankingAssessmentFocusArea proficiencyRankingAssessmentFocusArea) {
-            curriculumProficiencyRankingAssessment.addProficiencyRankingAssessmentFocusArea(proficiencyRankingAssessmentFocusArea);
+        public Builder courseAssessmentFocusArea(CourseAssessmentFocusArea courseAssessmentFocusArea) {
+            curriculumProficiencyAssessment.addCourseAssessmentFocusArea(courseAssessmentFocusArea);
             return this;
         }
 
         public Builder entryDate(DateTime entryDate) {
-            curriculumProficiencyRankingAssessment.entryDate = entryDate;
+            curriculumProficiencyAssessment.entryDate = entryDate;
             return this;
         }
 
         public Builder lastModifyDate(DateTime lastModifyDate) {
-            curriculumProficiencyRankingAssessment.lastModifyDate = lastModifyDate;
+            curriculumProficiencyAssessment.lastModifyDate = lastModifyDate;
             return this;
         }
 
-        public CurriculumProficiencyRankingAssessment build() {
-            return curriculumProficiencyRankingAssessment;
+        public CurriculumProficiencyAssessment build() {
+            return curriculumProficiencyAssessment;
         }
 
     }

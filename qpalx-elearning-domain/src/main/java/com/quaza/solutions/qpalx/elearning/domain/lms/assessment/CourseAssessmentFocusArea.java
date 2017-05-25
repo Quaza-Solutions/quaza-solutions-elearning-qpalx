@@ -1,6 +1,8 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.assessment;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLearningQuiz;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -14,8 +16,8 @@ import javax.persistence.*;
  * @author manyce400
  */
 @Entity
-@Table(name="ProficiencyRankingAssessmentFocusArea")
-public class ProficiencyRankingAssessmentFocusArea {
+@Table(name="CourseAssessmentFocusArea")
+public class CourseAssessmentFocusArea implements IHierarchicalLMSContent {
 
 
 
@@ -25,10 +27,10 @@ public class ProficiencyRankingAssessmentFocusArea {
     private Long id;
 
 
-    // CurriculumProficiencyRankingAssessment object for this focus area
+    // CurriculumProficiencyAssessment object for this focus area
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CurriculumProficiencyRankingAssessmentID", nullable = true)
-    private CurriculumProficiencyRankingAssessment curriculumProficiencyRankingAssessment;
+    @JoinColumn(name = "CurriculumProficiencyRankingAssessmentID", nullable = false)
+    private CurriculumProficiencyAssessment curriculumProficiencyAssessment;
 
 
     // ELearningCourse area that this Proficiency ranking assessment targets.
@@ -40,12 +42,12 @@ public class ProficiencyRankingAssessmentFocusArea {
     // Each ranking assessment focus area is tied to a specific Quiz.
     // Quiz is created and customized specifically with questions only for a particular focus area
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "AdaptiveLearningQuizID", nullable = false)
+    @JoinColumn(name = "AdaptiveLearningQuizID", nullable = true)
     private AdaptiveLearningQuiz adaptiveLearningQuiz;
 
 
     // DateTime that the item was added to the system
-    @Column(name="EntryDate", nullable=true)
+    @Column(name="EntryDate", nullable=false)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime entryDate;
 
@@ -55,7 +57,7 @@ public class ProficiencyRankingAssessmentFocusArea {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime lastModifyDate;
 
-    public ProficiencyRankingAssessmentFocusArea() {
+    public CourseAssessmentFocusArea() {
 
     }
 
@@ -67,12 +69,12 @@ public class ProficiencyRankingAssessmentFocusArea {
         this.id = id;
     }
 
-    public CurriculumProficiencyRankingAssessment getCurriculumProficiencyRankingAssessment() {
-        return curriculumProficiencyRankingAssessment;
+    public CurriculumProficiencyAssessment getCurriculumProficiencyAssessment() {
+        return curriculumProficiencyAssessment;
     }
 
-    public void setCurriculumProficiencyRankingAssessment(CurriculumProficiencyRankingAssessment curriculumProficiencyRankingAssessment) {
-        this.curriculumProficiencyRankingAssessment = curriculumProficiencyRankingAssessment;
+    public void setCurriculumProficiencyAssessment(CurriculumProficiencyAssessment curriculumProficiencyAssessment) {
+        this.curriculumProficiencyAssessment = curriculumProficiencyAssessment;
     }
 
     public ELearningCourse getELearningCourse() {
@@ -108,12 +110,28 @@ public class ProficiencyRankingAssessmentFocusArea {
     }
 
     @Override
+    public String getHierarchicalLMSContentName() {
+        String name = getELearningCourse().getCourseName() + " Assessment Focus Area";
+        return name;
+    }
+
+    @Override
+    public HierarchicalLMSContentTypeE getHierarchicalLMSContentTypeE() {
+        return HierarchicalLMSContentTypeE.AssessmentFocusArea;
+    }
+
+    @Override
+    public IHierarchicalLMSContent getIHierarchicalLMSContentParent() {
+        return getELearningCourse();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProficiencyRankingAssessmentFocusArea that = (ProficiencyRankingAssessmentFocusArea) o;
+        CourseAssessmentFocusArea that = (CourseAssessmentFocusArea) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)
@@ -143,7 +161,7 @@ public class ProficiencyRankingAssessmentFocusArea {
                 .append("adaptiveLearningQuiz", adaptiveLearningQuiz)
                 .append("entryDate", entryDate)
                 .append("lastModifyDate", lastModifyDate)
-                .append("curriculumProficiencyRankingAssessment", curriculumProficiencyRankingAssessment)
+                .append("curriculumProficiencyAssessment", curriculumProficiencyAssessment)
                 .toString();
     }
 
@@ -153,26 +171,35 @@ public class ProficiencyRankingAssessmentFocusArea {
 
     public static final class Builder {
 
-        private ProficiencyRankingAssessmentFocusArea proficiencyRankingAssessmentFocusArea = new ProficiencyRankingAssessmentFocusArea();
+        private CourseAssessmentFocusArea courseAssessmentFocusArea = new CourseAssessmentFocusArea();
+
+        public Builder curriculumProficiencyAssessment(CurriculumProficiencyAssessment curriculumProficiencyAssessment) {
+            courseAssessmentFocusArea.curriculumProficiencyAssessment = curriculumProficiencyAssessment;
+            return this;
+        }
 
         public Builder eLearningCourse(ELearningCourse eLearningCourse) {
-            proficiencyRankingAssessmentFocusArea.eLearningCourse = eLearningCourse;
+            courseAssessmentFocusArea.eLearningCourse = eLearningCourse;
             return this;
         }
 
         public Builder adaptiveLearningQuiz(AdaptiveLearningQuiz adaptiveLearningQuiz) {
-            proficiencyRankingAssessmentFocusArea.adaptiveLearningQuiz = adaptiveLearningQuiz;
+            courseAssessmentFocusArea.adaptiveLearningQuiz = adaptiveLearningQuiz;
             return this;
         }
 
         public Builder entryDate(DateTime entryDate) {
-            proficiencyRankingAssessmentFocusArea.entryDate = entryDate;
+            courseAssessmentFocusArea.entryDate = entryDate;
             return this;
         }
 
         public Builder lastModifyDate(DateTime lastModifyDate) {
-            proficiencyRankingAssessmentFocusArea.lastModifyDate = lastModifyDate;
+            courseAssessmentFocusArea.lastModifyDate = lastModifyDate;
             return this;
+        }
+
+        public CourseAssessmentFocusArea build() {
+            return courseAssessmentFocusArea;
         }
 
     }
