@@ -52,6 +52,10 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
     @JoinColumn(name = "AssessmentAdaptiveLearningQuizID", nullable = true)
     private AdaptiveLearningQuiz assessmentAdaptiveLearningQuiz;
 
+
+    public static final String CLASS_ATTRIBUTE_IDENTIFIER = "ELearningCurriculum";
+
+
     public ELearningCurriculum() {
     }
 

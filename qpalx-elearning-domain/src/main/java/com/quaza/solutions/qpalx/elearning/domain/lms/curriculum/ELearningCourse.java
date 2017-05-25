@@ -62,6 +62,11 @@ public class ELearningCourse implements IHierarchicalLMSContent {
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "eLearningCourse")
     private Set<ELearningCourseActivity> eLearningCourseActivities = new HashSet<ELearningCourseActivity>();
 
+
+    public static final String CLASS_ATTRIBUTE_IDENTIFIER = "ELearningCourse";
+
+
+
 	public Long getId() {
 		return id;
 	}
