@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.assessment;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLearningQuiz;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.IHasAdaptiveLearningQUiz;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
@@ -17,7 +18,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="CourseAssessmentFocusArea")
-public class CourseAssessmentFocusArea implements IHierarchicalLMSContent {
+public class CourseAssessmentFocusArea implements IHasAdaptiveLearningQUiz {
 
 
 

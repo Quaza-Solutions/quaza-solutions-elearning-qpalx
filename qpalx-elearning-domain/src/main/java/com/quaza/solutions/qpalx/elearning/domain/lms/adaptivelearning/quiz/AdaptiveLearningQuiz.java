@@ -37,10 +37,10 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
     @Column(name="QuizDescription", nullable=false, length=455)
     private String quizDescription;
 
-    @Column(name="MaxPossibleActivityScore", nullable=false)
+    @Column(name="MaxPossibleActivityScore", nullable=true)
     private Double maxPossibleActivityScore;
 
-    @Column(name="MinimumPassingActivityScore", nullable=false)
+    @Column(name="MinimumPassingActivityScore", nullable=true)
     private Double minimumPassingActivityScore;
 
     @Column(name="EntryDate", nullable=false)
@@ -52,7 +52,7 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
     private DateTime modifyDate;
 
     // IF set to true then this Quiz is currently active
-    @Column(name="Active", nullable = true, columnDefinition = "TINYINT", length = 1)
+    @Column(name="Active", nullable = false, columnDefinition = "TINYINT", length = 1)
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean active;
 

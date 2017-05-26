@@ -22,6 +22,8 @@ public interface IAdaptiveLearningQuizQuestionVO extends ILMSMediaContentVO {
 
     public ELearningMediaContent getQuizQuestionMultiMedia();
 
+    public void setQuizQuestionAnswerMultiMedia(ELearningMediaContent quizQuestionMultiMedia);
+
     public Set<IAdaptiveLearningQuizQuestionAnswerVO> getIAdaptiveLearningQuizQuestionAnswerVOs();
 
 }
