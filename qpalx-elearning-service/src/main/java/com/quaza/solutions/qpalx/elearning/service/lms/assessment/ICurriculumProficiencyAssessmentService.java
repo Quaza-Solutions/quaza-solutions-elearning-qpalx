@@ -1,7 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.assessment;
 
-import com.quaza.solutions.qpalx.elearning.domain.lms.assessment.CourseAssessmentFocusArea;
 import com.quaza.solutions.qpalx.elearning.domain.lms.assessment.CurriculumProficiencyAssessment;
+import com.quaza.solutions.qpalx.elearning.domain.lms.assessment.ICourseAssessmentFocusAreaVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 
 import java.util.Set;
@@ -16,7 +16,7 @@ public interface ICurriculumProficiencyAssessmentService {
 
     public CurriculumProficiencyAssessment findByELearningCurriculum(ELearningCurriculum eLearningCurriculum);
 
-    public void makeCurriculumProficiencyRankingAssessment(ELearningCurriculum eLearningCurriculum, Set<CourseAssessmentFocusArea> courseAssessmentFocusAreas);
+    public CurriculumProficiencyAssessment makeCurriculumProficiencyRankingAssessment(ELearningCurriculum eLearningCurriculum, Set<ICourseAssessmentFocusAreaVO> iCourseAssessmentFocusAreaVOS);
 
     public void save(CurriculumProficiencyAssessment curriculumProficiencyAssessment);
 
