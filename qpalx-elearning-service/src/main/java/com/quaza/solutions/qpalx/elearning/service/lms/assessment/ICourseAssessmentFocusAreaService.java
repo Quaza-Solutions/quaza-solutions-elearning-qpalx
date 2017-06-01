@@ -19,6 +19,8 @@ public interface ICourseAssessmentFocusAreaService {
 
     public void makeCourseAssessmentFocusArea(CurriculumProficiencyAssessment curriculumProficiencyAssessment, ELearningCourse eLearningCourse);
 
+    public void modifyCourseAssessmentFocusAreaWithQuiz(CourseAssessmentFocusArea courseAssessmentFocusArea, Long adaptiveLearningQuizID);
+
     public void modifyCourseAssessmentFocusAreaWithQuiz(CourseAssessmentFocusArea courseAssessmentFocusArea, AdaptiveLearningQuiz adaptiveLearningQuiz);
 
 }

@@ -9,6 +9,8 @@ public interface ICourseAssessmentFocusAreaVO extends IAdaptiveLearningQuizVO {
 
     public Long getCourseAssessmentFocusAreaID();
 
+    public void setCourseAssessmentFocusAreaID(Long courseAssessmentFocusAreaID);
+
     public Long getELearningCourseID();
 
 }

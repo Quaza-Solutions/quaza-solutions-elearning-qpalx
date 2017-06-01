@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -98,6 +99,18 @@ public class CurriculumProficiencyAssessment implements IHierarchicalLMSContent 
 
     public Set<CourseAssessmentFocusArea> getCourseAssessmentFocusAreas() {
         return ImmutableSet.copyOf(courseAssessmentFocusAreas);
+    }
+
+    public Optional<CourseAssessmentFocusArea> getCourseAssessmentFocusAreaByID(Long courseAssessmentFocusAreaID) {
+        Assert.notNull(courseAssessmentFocusAreaID, "courseAssessmentFocusAreaID cannot be null");
+
+        for(CourseAssessmentFocusArea courseAssessmentFocusArea : courseAssessmentFocusAreas) {
+            if(courseAssessmentFocusAreaID.equals(courseAssessmentFocusArea.getId())) {
+                return Optional.of(courseAssessmentFocusArea);
+            }
+        }
+
+        return Optional.empty();
     }
 
     @Override

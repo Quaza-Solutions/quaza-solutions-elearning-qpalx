@@ -87,6 +87,9 @@ public class CurriculumProficiencyAssessmentService implements ICurriculumProfic
                     .build();
             iCourseAssessmentFocusAreaService.save(courseAssessmentFocusArea);
 
+            // Track back the Course assessment focus area we just recorded
+            iCourseAssessmentFocusAreaVO.setCourseAssessmentFocusAreaID(courseAssessmentFocusArea.getId());
+
             curriculumProficiencyAssessment.addCourseAssessmentFocusArea(courseAssessmentFocusArea);
         }
 

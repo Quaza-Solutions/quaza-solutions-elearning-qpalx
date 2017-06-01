@@ -5,8 +5,11 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.assessment.CourseAssessmen
 import com.quaza.solutions.qpalx.elearning.domain.lms.assessment.CurriculumProficiencyAssessment;
 import com.quaza.solutions.qpalx.elearning.domain.lms.assessment.repository.ICourseAssessmentFocusAreaRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.quiz.AdaptiveLearningQuizService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.quiz.IAdaptiveLearningQuizService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -22,6 +25,10 @@ public class CourseAssessmentFocusAreaService implements ICourseAssessmentFocusA
 
     @Autowired
     private ICourseAssessmentFocusAreaRepository iCourseAssessmentFocusAreaRepository;
+
+    @Autowired
+    @Qualifier(AdaptiveLearningQuizService.BEAN_NAME)
+    private IAdaptiveLearningQuizService iAdaptiveLearningQuizService;
 
     public static final String BEAN_NAME = "com.quaza.solutions.qpalx.elearning.service.lms.assessment.CourseAssessmentFocusAreaService";
 
@@ -65,6 +72,17 @@ public class CourseAssessmentFocusAreaService implements ICourseAssessmentFocusA
                 .entryDate(DateTime.now())
                 .build();
         iCourseAssessmentFocusAreaRepository.save(courseAssessmentFocusArea);
+    }
+
+    @Transactional
+    @Override
+    public void modifyCourseAssessmentFocusAreaWithQuiz(CourseAssessmentFocusArea courseAssessmentFocusArea, Long adaptiveLearningQuizID) {
+        Assert.notNull(courseAssessmentFocusArea, "courseAssessmentFocusArea cannot be null");
+        Assert.notNull(adaptiveLearningQuizID, "adaptiveLearningQuizID cannot be null");
+
+        LOGGER.debug("Modifying CourseAssessmentFocusArea with Quiz ID: {}", adaptiveLearningQuizID);
+        AdaptiveLearningQuiz adaptiveLearningQuiz = iAdaptiveLearningQuizService.findByID(adaptiveLearningQuizID);
+        modifyCourseAssessmentFocusAreaWithQuiz(courseAssessmentFocusArea, adaptiveLearningQuiz);
     }
 
     @Transactional
