@@ -162,6 +162,7 @@ public class CurriculumProficiencyAssessment implements IHierarchicalLMSContent 
                 .append("eLearningCurriculum", eLearningCurriculum)
                 .append("entryDate", entryDate)
                 .append("lastModifyDate", lastModifyDate)
+                .append("courseAssessmentFocusAreas", courseAssessmentFocusAreas)
                 .toString();
     }
 

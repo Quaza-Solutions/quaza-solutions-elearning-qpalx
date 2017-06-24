@@ -101,7 +101,7 @@ public class CurriculumProficiencyAssessmentService implements ICurriculumProfic
     @Override
     public void save(CurriculumProficiencyAssessment curriculumProficiencyAssessment) {
         Assert.notNull(curriculumProficiencyAssessment, "curriculumProficiencyAssessment cannot be null");
-        LOGGER.info("Saving CurriculumProficiencyAssessment: {}", curriculumProficiencyAssessment);
+        LOGGER.debug("Saving CurriculumProficiencyAssessment: {}", curriculumProficiencyAssessment);
         iCurriculumProficiencyAssessmentRepository.save(curriculumProficiencyAssessment);
     }
 
