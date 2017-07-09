@@ -25,13 +25,16 @@ public class AdaptiveMicroLessonStatistics {
 
     private final String interactiveMediaFile;
 
-    public AdaptiveMicroLessonStatistics(Long microLessonID, String microLessonName, Integer uniqueQuizzesAttempted, Integer totalQuizzes, String narrationMediaFile, String interactiveMediaFile) {
+    private final String interactiveExerciseMediaFile;
+
+    public AdaptiveMicroLessonStatistics(Long microLessonID, String microLessonName, Integer uniqueQuizzesAttempted, Integer totalQuizzes, String narrationMediaFile, String interactiveMediaFile, String interactiveExerciseMediaFile) {
         this.microLessonID = microLessonID;
         this.microLessonName = microLessonName;
         this.uniqueQuizzesAttempted = uniqueQuizzesAttempted;
         this.totalQuizzes = totalQuizzes;
         this.narrationMediaFile = narrationMediaFile;
         this.interactiveMediaFile = interactiveMediaFile;
+        this.interactiveExerciseMediaFile = interactiveExerciseMediaFile;
     }
 
     public Long getMicroLessonID() {
@@ -56,6 +59,10 @@ public class AdaptiveMicroLessonStatistics {
 
     public String getInteractiveMediaFile() {
         return interactiveMediaFile;
+    }
+
+    public String getInteractiveExerciseMediaFile() {
+        return interactiveExerciseMediaFile;
     }
 
     public double getQuizzesCompletionRate() {
@@ -91,9 +98,10 @@ public class AdaptiveMicroLessonStatistics {
             String microLessonName = resultSet.getString("MicroLessonName");
             String narrationMediaFile = resultSet.getString("ELearningMediaFile");
             String interactiveMediaFile = resultSet.getString("StaticELearningMediaFile");
+            String interactiveExerciseMediaFile = resultSet.getString("InteractiveExerciseELearningMediaFile");
             Integer uniqueQuizzesAttempted = resultSet.getInt("UniqueQuizzesAttempted");
             Integer totalQuizzes = resultSet.getInt("TotalNumberOfQuizzes");
-            return new AdaptiveMicroLessonStatistics(microLessonID, microLessonName, uniqueQuizzesAttempted, totalQuizzes, narrationMediaFile, interactiveMediaFile);
+            return new AdaptiveMicroLessonStatistics(microLessonID, microLessonName, uniqueQuizzesAttempted, totalQuizzes, narrationMediaFile, interactiveMediaFile, interactiveExerciseMediaFile);
         }
     }
 }

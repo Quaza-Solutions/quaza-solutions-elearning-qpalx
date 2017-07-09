@@ -4,29 +4,27 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.*;
-
 /**
  * Each QPalX Score model implementation will be abe to analyze a Students adaptive proficiency rankings and score and make recommendations
  * on how each student can improve
  *
  * @author manyce400
  */
-@Entity
-@Table(name="ProficiencyRankingScoreModelRecommendation")
+//@Entity
+//@Table(name="ProficiencyRankingScoreModelRecommendation")
 public class ProficiencyRankingScoreModelRecommendation {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", nullable=false)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="ID", nullable=false)
     private Long id;
 
-    @Column(name="Recommendation", nullable=false, length=256)
+//    @Column(name="Recommendation", nullable=false, length=256)
     private String recommendation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FactorAffectingProficiencyRankingID", nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "FactorAffectingProficiencyRankingID", nullable = false)
     private FactorAffectingProficiencyRanking factorAffectingProficiencyRanking;
 
     public Long getId() {

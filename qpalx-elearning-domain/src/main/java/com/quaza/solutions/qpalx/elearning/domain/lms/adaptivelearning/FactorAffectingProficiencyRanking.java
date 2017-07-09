@@ -6,42 +6,41 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.util.Assert;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author manyce400
  */
-@Entity
-@Table(name="FactorAffectingProficiencyRanking")
+//@Entity
+//@Table(name="FactorAffectingProficiencyRanking")
 public class FactorAffectingProficiencyRanking  {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", nullable=false)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="ID", nullable=false)
     private Long id;
 
 
-    @Column(name="ProficiencyRankingFactorScoreModel", nullable=false, length=50)
-    @Enumerated(EnumType.STRING)
+//    @Column(name="ProficiencyRankingFactorScoreModel", nullable=false, length=50)
+//    @Enumerated(EnumType.STRING)
     private ProficiencyRankingScoreModelE proficiencyRankingScoreModelE;
 
     // Calculated score of scoring model
-    @Column(name="ScoreModelPercent", nullable=false)
+//    @Column(name="ScoreModelPercent", nullable=false)
     private Double scoreModelPercent;
 
-    @Column(name="ScoreModelAnalysis", nullable=true, length=256)
+//    @Column(name="ScoreModelAnalysis", nullable=true, length=256)
     private String scoreModelAnalysis;
 
     // Link back to AdaptiveProficiencyRanking not expensive to load eager
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "AdaptiveProficiencyRankingID", nullable = false)
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "AdaptiveProficiencyRankingID", nullable = false)
     private AdaptiveProficiencyRanking adaptiveProficiencyRanking;
 
     // Load all recommendation's.  This will be a small collection to load and wont be expensive
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "factorAffectingProficiencyRanking")
+//    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "factorAffectingProficiencyRanking")
     private Set<ProficiencyRankingScoreModelRecommendation> proficiencyRankingScoreModelRecommendations = new HashSet<>();
 
 

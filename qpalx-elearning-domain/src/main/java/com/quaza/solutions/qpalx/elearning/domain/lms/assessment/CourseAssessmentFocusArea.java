@@ -23,7 +23,7 @@ public class CourseAssessmentFocusArea implements IHasAdaptiveLearningQUiz {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", nullable=false)
     private Long id;
 
@@ -57,6 +57,9 @@ public class CourseAssessmentFocusArea implements IHasAdaptiveLearningQUiz {
     @Column(name="LastModifyDate", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime lastModifyDate;
+
+    public static final String CLASS_ATTRIBUTE_IDENTIFIER = "CourseAssessmentFocusArea";
+
 
     public CourseAssessmentFocusArea() {
 

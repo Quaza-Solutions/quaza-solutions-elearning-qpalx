@@ -27,7 +27,7 @@ public class QPalXELesson implements IHierarchicalLMSContent {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", nullable=false)
     private Long id;
 
@@ -84,6 +84,8 @@ public class QPalXELesson implements IHierarchicalLMSContent {
     // Collection of all the QuestionBankItem available as part of this lesson
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qPalXELesson")
     private Set<QuestionBankItem> questionBankItems = new HashSet<>();
+
+    public static final String QPalXELesson = "QPalXEMicroLessonVO";
 
 
     public QPalXELesson() {

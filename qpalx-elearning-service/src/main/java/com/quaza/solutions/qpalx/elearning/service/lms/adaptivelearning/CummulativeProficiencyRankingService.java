@@ -30,7 +30,7 @@ public class CummulativeProficiencyRankingService implements ICummulativeProfici
     private IAdaptiveProficiencyRankingService iAdaptiveProficiencyRankingService;
 
 
-    @Autowired
+    //@Autowired
     private IFactorAffectingProficiencyRankingRepository iFactorAffectingProficiencyRankingRepository;
 
     @Autowired
@@ -77,7 +77,7 @@ public class CummulativeProficiencyRankingService implements ICummulativeProfici
         if(!allFactorAffectingProficiencyRankings.isEmpty()) {
             LOGGER.info("New ELearning proficiency ranking has been computed, updating Student records...");
             closeOutCurrentAdaptiveProficiencyRanking(qPalXUser, eLearningCurriculum);
-            adaptiveProficiencyRanking.addAllFactorsAffectingProficiencyRankings(allFactorAffectingProficiencyRankings);
+            //adaptiveProficiencyRanking.addAllFactorsAffectingProficiencyRankings(allFactorAffectingProficiencyRankings);
             iAdaptiveProficiencyRankingService.save(adaptiveProficiencyRanking);
             return allFactorAffectingProficiencyRankings;
         }

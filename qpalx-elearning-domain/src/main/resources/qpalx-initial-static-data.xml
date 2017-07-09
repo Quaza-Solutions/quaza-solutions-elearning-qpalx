@@ -2,41 +2,39 @@
 <dataset>
 
     <!-- Populate all Geographical Regions -->
-    <GeographicalRegion RegionCode="NAM" RegionName="North America" />
-    <GeographicalRegion RegionCode="WAF" RegionName="West Africa" />
-    <GeographicalRegion RegionCode="WEUR" RegionName="Western Europe" />
-    <GeographicalRegion RegionCode="EEUR" RegionName="Eastern Europe" />
-    <GeographicalRegion RegionCode="NEUR" RegionName="Northern Europe" />
+    <GeographicalRegion ID="1" RegionCode="NAM" RegionName="North America" />
+    <GeographicalRegion ID="2" RegionCode="WAF" RegionName="West Africa" />
+    <GeographicalRegion ID="3" RegionCode="WEUR" RegionName="Western Europe" />
+    <GeographicalRegion ID="4" RegionCode="EEUR" RegionName="Eastern Europe" />
+    <GeographicalRegion ID="5" RegionCode="NEUR" RegionName="Northern Europe" />
 
     <!-- Populate all QPalX Countries -->
-    <QPalXCountry CountryCode="US" CountryName="United States of America" CountryCurrency="USD" GeographicalRegionID="1" />
-    <QPalXCountry CountryCode="GH" CountryName="Ghana" CountryCurrency="GH Cedis" GeographicalRegionID="2" />
+    <QPalXCountry ID="1" CountryCode="US" CountryName="United States of America" CountryCurrency="USD" GeographicalRegionID="1" />
+    <QPalXCountry ID="2" CountryCode="GH" CountryName="Ghana" CountryCurrency="GH Cedis" GeographicalRegionID="2" />
 
-    <!-- Populate SocialNetworks -->
-    <SocialNetwork SocialNetworkName="Facebook" SocialNetworkDesc="Social Networking" WebSiteAddress="www.facebook.com" />
 
     <!-- Populate Subscription data -->
-    <QPalXSubscription SubscriptionName="Weekly Plan" SubscriptionCost="5" SubscriptionType="WEEKLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-weekly-green.png"/>
-    <QPalXSubscription SubscriptionName="Monthly Plan" SubscriptionCost="20" SubscriptionType="MONTHLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-monthly-blue.png"/>
-    <QPalXSubscription SubscriptionName="Quarterly Plan" SubscriptionCost="60" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-quaterly-green.png"/>
-    <QPalXSubscription SubscriptionName="Yearly Plan" SubscriptionCost="240" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-yearly-blue.png"/>
+    <QPalXSubscription ID="1" SubscriptionName="Weekly Plan" SubscriptionCost="5" SubscriptionType="WEEKLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-weekly-green.png"/>
+    <QPalXSubscription ID="2" SubscriptionName="Monthly Plan" SubscriptionCost="20" SubscriptionType="MONTHLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-monthly-blue.png"/>
+    <QPalXSubscription ID="3" SubscriptionName="Quarterly Plan" SubscriptionCost="60" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-quaterly-green.png"/>
+    <QPalXSubscription ID="4" SubscriptionName="Yearly Plan" SubscriptionCost="240" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-yearly-blue.png"/>
 
     <!-- Populate Educational institutions  data -->
-    <QPalXEducationalInstitution Code="ACC" Name="Accra Academy"  />
-    <QPalXEducationalInstitution Code="DEY" Name="De Youngsters" />
-    <QPalXEducationalInstitution Code="GIS" Name="Ghana International School" />
+    <QPalXEducationalInstitution ID="1" Code="ACC" Name="Accra Academy"  />
+    <QPalXEducationalInstitution ID="2" Code="DEY" Name="De Youngsters" />
+    <QPalXEducationalInstitution ID="3" Code="GIS" Name="Ghana International School" />
 
     <!-- Populate QPalX Municipality data -->
-    <QPalXMunicipality Code="ACC" Name="Greater Accra Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality Code="ASH" Name="Ashanti Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality Code="BAR" Name="Brong Ahafo Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality Code="CER" Name="Central Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality Code="EAR" Name="Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality Code="WER" Name="Western Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality Code="UER" Name="Upper Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality Code="UWR" Name="Upper West Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality Code="VTR" Name="Volta Region" TimeZone="UTC" QPalXCountryID="2" />
-    <QPalXMunicipality Code="NOR" Name="Northern Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="1" Code="ACC" Name="Greater Accra Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="2" Code="ASH" Name="Ashanti Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="3" Code="BAR" Name="Brong Ahafo Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="4" Code="CER" Name="Central Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="5" Code="EAR" Name="Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="6" Code="WER" Name="Western Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="7" Code="UER" Name="Upper Eastern Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="8" Code="UWR" Name="Upper West Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="9" Code="VTR" Name="Volta Region" TimeZone="UTC" QPalXCountryID="2" />
+    <QPalXMunicipality ID="10" Code="NOR" Name="Northern Region" TimeZone="UTC" QPalXCountryID="2" />
 
 
     <!-- StrategicPlatformPartner -->
@@ -49,11 +47,11 @@
     <SubscriptionCodeBatchSession ID="2" SubscriptionCodeBatchSessionUID="Manny-Capital-BANK-4563636" BatchGenerationDate="2017-01-18" StrategicPlatformPartnerID="2"  />
 
     <!-- Populate Dummy PrepaidSubscription Codes for Accra -->
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-89393" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="1" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-65788" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="1" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-23567" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="2" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-17809" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="2" />
-    <PrepaidSubscription QPalXMunicipalityID="1" UniqueID="JSCLD-00987" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="2" />
+    <PrepaidSubscription ID="1" QPalXMunicipalityID="1" UniqueID="JSCLD-89393" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="1" />
+    <PrepaidSubscription ID="2" QPalXMunicipalityID="1" UniqueID="JSCLD-65788" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="1" />
+    <PrepaidSubscription ID="3" QPalXMunicipalityID="1" UniqueID="JSCLD-23567" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="2" />
+    <PrepaidSubscription ID="4" QPalXMunicipalityID="1" UniqueID="JSCLD-17809" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="2" />
+    <PrepaidSubscription ID="5" QPalXMunicipalityID="1" UniqueID="JSCLD-00987" AlreadyUsed="0" DateCreated="2016-05-16" QPalXSubscriptionTypeID="3" SubscriptionCodeBatchSessionID="2" />
 
 
     <!-- Populate StudentTutorialLevel data for GeographicalRegion WAF -->
@@ -79,7 +77,7 @@
 
     <!-- Create dummy Content Developer QPalxUser with StudentTutorialLevel SHS -->
     <QPalXUser ID="1" FirstName="Justice" LastName="Wrappah" Email="JWrappah@quazasolutions.com" Password="qpalx" UserType="CONTENT_DEVELOPER" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
-    <ContentAdminProfileRecord QPalxUserID="1" StudentTutorialLevelID="4" Enabled="1" EffectiveDate="2016-07-28"/>
+    <ContentAdminProfileRecord ID="1" QPalxUserID="1" StudentTutorialLevelID="4" Enabled="1" EffectiveDate="2016-07-28"/>
 
     <!-- Executive user type -->
     <QPalXUser ID="2" FirstName="Matthew" LastName="Opoku Prempeh" Email="matthew.prempeh@moe.gov.gh" Password="qpalx" UserType="Executive" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>

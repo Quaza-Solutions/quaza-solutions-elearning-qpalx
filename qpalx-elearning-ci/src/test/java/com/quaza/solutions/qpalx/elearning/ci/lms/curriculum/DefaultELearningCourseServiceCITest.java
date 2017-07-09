@@ -1,16 +1,21 @@
 package com.quaza.solutions.qpalx.elearning.ci.lms.curriculum;
 
+import com.quaza.solutions.qpalx.QPalXServiceApplicationBootstrapper;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurriculumService;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author manyce400
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = {QPalXServiceApplicationBootstrapper.class})
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {QPalXServiceApplicationBootstrapper.class})
 public class DefaultELearningCourseServiceCITest {
 
 
@@ -26,9 +31,9 @@ public class DefaultELearningCourseServiceCITest {
     @Test
     public void testSaveELearningCourse() {
         // Link newly created course to Mathematics curriculum
-//        ELearningCurriculum eLearningCurriculum = ieLearningCurriculumService.findByELearningCurriculumName("Mathematics");
-//
-//        System.out.println("eLearningCurriculum = " + eLearningCurriculum);
+        ELearningCurriculum eLearningCurriculum = ieLearningCurriculumService.findByELearningCurriculumID(1L);
+
+        System.out.println("eLearningCurriculum = " + eLearningCurriculum);
 
         // Build an ELearningCourse and persist to database
 //        ELearningCourse eLearningCourse = ELearningCourse.builder()

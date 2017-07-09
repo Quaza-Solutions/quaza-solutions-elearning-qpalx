@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.List;
+
 /**
  * @author manyce400
  */
@@ -40,6 +42,13 @@ public class CourseAssessmentFocusAreaService implements ICourseAssessmentFocusA
         Assert.notNull(id, "id cannot be null");
         LOGGER.debug("Finding CourseAssessmentFocusArea with id: {}", id);
         return iCourseAssessmentFocusAreaRepository.findOne(id);
+    }
+
+    @Override
+    public List<CourseAssessmentFocusArea> findCourseAssessmentFocusAreas(ELearningCourse eLearningCourse) {
+        Assert.notNull(eLearningCourse, "id cannot be null");
+        LOGGER.debug("Finding CourseAssessmentFocusArea for ELearningCourse: {}", eLearningCourse.getCourseName());
+        return iCourseAssessmentFocusAreaRepository.findAllByELearningCourse(eLearningCourse);
     }
 
     @Transactional

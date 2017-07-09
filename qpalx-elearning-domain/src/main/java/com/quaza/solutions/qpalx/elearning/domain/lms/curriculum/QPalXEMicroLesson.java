@@ -25,7 +25,7 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", nullable=false)
     private Long id;
 
@@ -35,7 +35,7 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
     @Column(name="MicroLessonDescription", nullable=false, length=255)
     private String microLessonDescription;
 
-    // Provides information on Media Content that is associated with this activity.
+    // Narration with Video ELearning Media Content
     @Embedded
     private ELearningMediaContent eLearningMediaContent;
 
@@ -48,6 +48,17 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
             @AttributeOverride(name="eLearningMediaPhysicalFile", column = @Column(name="StaticELearningMediaPhysicalFile"))
     } )
     private ELearningMediaContent staticELearningMediaContent;
+
+    // Provides information on static micro lesson content w/o any narration.  These should be swf files
+    @Embedded
+    @AttributeOverrides( {
+            @AttributeOverride(name="eLearningMediaType", column = @Column(name="InteractiveExerciseELearningMediaType") ),
+            @AttributeOverride(name="qPalXTutorialContentTypeE", column = @Column(name="InteractiveExerciseQPalXTutorialContentType")),
+            @AttributeOverride(name="eLearningMediaFile", column = @Column(name="InteractiveExerciseELearningMediaFile")),
+            @AttributeOverride(name="eLearningMediaPhysicalFile", column = @Column(name="InteractiveExerciseELearningMediaPhysicalFile"))
+    } )
+    private ELearningMediaContent interactiveELearningMediaContent;
+
 
     // Always fetch this Eager as we always need the parent QPalXELesson always avaialable
     @ManyToOne(fetch = FetchType.EAGER)
@@ -117,6 +128,14 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
         this.staticELearningMediaContent = staticELearningMediaContent;
     }
 
+    public ELearningMediaContent getInteractiveELearningMediaContent() {
+        return interactiveELearningMediaContent;
+    }
+
+    public void setInteractiveELearningMediaContent(ELearningMediaContent interactiveELearningMediaContent) {
+        this.interactiveELearningMediaContent = interactiveELearningMediaContent;
+    }
+
     public QPalXELesson getQPalXELesson() {
         return qPalXELesson;
     }
@@ -180,6 +199,7 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
                 .append(microLessonDescription, that.microLessonDescription)
                 .append(eLearningMediaContent, that.eLearningMediaContent)
                 .append(staticELearningMediaContent, that.staticELearningMediaContent)
+                .append(interactiveELearningMediaContent, that.interactiveELearningMediaContent)
                 .append(qPalXELesson, that.qPalXELesson)
                 .append(entryDate, that.entryDate)
                 .isEquals();
@@ -193,6 +213,7 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
                 .append(microLessonDescription)
                 .append(eLearningMediaContent)
                 .append(staticELearningMediaContent)
+                .append(interactiveELearningMediaContent)
                 .append(entryDate)
                 .append(microLessonActive)
                 .toHashCode();
@@ -206,6 +227,7 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
                 .append("microLessonDescription", microLessonDescription)
                 .append("eLearningMediaContent", eLearningMediaContent)
                 .append("staticELearningMediaContent", staticELearningMediaContent)
+                .append("interactiveELearningMediaContent", interactiveELearningMediaContent)
                 .append("qPalXELesson", qPalXELesson)
                 .append("entryDate", entryDate)
                 .append("microLessonActive", microLessonActive)
@@ -237,6 +259,11 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
 
         public Builder staticELearningMediaContent(ELearningMediaContent staticELearningMediaContent) {
             qpalxMicroLesson.staticELearningMediaContent = staticELearningMediaContent;
+            return this;
+        }
+
+        public Builder interactiveELearningMediaContent(ELearningMediaContent interactiveELearningMediaContent) {
+            qpalxMicroLesson.interactiveELearningMediaContent = interactiveELearningMediaContent;
             return this;
         }
 

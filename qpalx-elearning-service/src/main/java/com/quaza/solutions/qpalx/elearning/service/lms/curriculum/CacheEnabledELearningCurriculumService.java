@@ -45,6 +45,13 @@ public class CacheEnabledELearningCurriculumService implements IELearningCurricu
         return ieLearningCurriculumRepository.findAllCurriculumByType(curriculumType);
     }
 
+    @Override
+    public ELearningCurriculum findByELearningCurriculumNameAndType(String curriculumName, CurriculumType curriculumType) {
+        Assert.notNull(curriculumName, "curriculumName cannot be null");
+        Assert.notNull(curriculumType, "curriculumType cannot be null");
+        LOGGER.debug("Finding ELearningCurriculum by curriculumName: {} and curriculumType: {}", curriculumName, curriculumType);
+        return ieLearningCurriculumRepository.findByELearningCurriculumNameAndType(curriculumName, curriculumType);
+    }
 
     @Override
     public List<ELearningCurriculum> findAllCurriculumByTutorialGrade(final StudentTutorialGrade studentTutorialGrade) {

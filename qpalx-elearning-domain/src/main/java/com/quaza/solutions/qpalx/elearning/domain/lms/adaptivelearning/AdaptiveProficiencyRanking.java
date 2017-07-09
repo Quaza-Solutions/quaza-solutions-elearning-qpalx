@@ -1,6 +1,5 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning;
 
-import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
@@ -9,12 +8,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import org.springframework.util.Assert;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Historical profile tracking of how a QPalXUser's proficiency ranking has evolved through time.
@@ -37,7 +32,7 @@ public class AdaptiveProficiencyRanking {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", nullable=false)
     private Long id;
 
@@ -71,8 +66,8 @@ public class AdaptiveProficiencyRanking {
     private ProficiencyRankingTriggerTypeE proficiencyRankingTriggerTypeE;
 
     // Load all recommendation's.  This will be a small collection to load and wont be expensive
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "adaptiveProficiencyRanking")
-    private Set<FactorAffectingProficiencyRanking> factorAffectingProficiencyRankings = new HashSet<>();
+//    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "adaptiveProficiencyRanking")
+//    private Set<FactorAffectingProficiencyRanking> factorAffectingProficiencyRankings = new HashSet<>();
 
 
     public AdaptiveProficiencyRanking() {
@@ -141,19 +136,19 @@ public class AdaptiveProficiencyRanking {
         }
     }
 
-    public Set<FactorAffectingProficiencyRanking> getFactorsAffectingProficiencyRankings() {
-        return ImmutableSet.copyOf(factorAffectingProficiencyRankings);
-    }
-
-    public void addFactorsAffectingProficiencyRankings(FactorAffectingProficiencyRanking factorAffectingProficiencyRanking) {
-        Assert.notNull(factorAffectingProficiencyRanking, "factorAffectingProficiencyRanking cannot be null");
-        factorAffectingProficiencyRankings.add(factorAffectingProficiencyRanking);
-    }
-
-    public void addAllFactorsAffectingProficiencyRankings(List<FactorAffectingProficiencyRanking> factorsAffectingProficiencyRankings) {
-        Assert.notNull(factorsAffectingProficiencyRankings, "factorsAffectingProficiencyRankings cannot be null");
-        factorAffectingProficiencyRankings.addAll(factorsAffectingProficiencyRankings);
-    }
+//    public Set<FactorAffectingProficiencyRanking> getFactorsAffectingProficiencyRankings() {
+//        return ImmutableSet.copyOf(factorAffectingProficiencyRankings);
+//    }
+//
+//    public void addFactorsAffectingProficiencyRankings(FactorAffectingProficiencyRanking factorAffectingProficiencyRanking) {
+//        Assert.notNull(factorAffectingProficiencyRanking, "factorAffectingProficiencyRanking cannot be null");
+//        factorAffectingProficiencyRankings.add(factorAffectingProficiencyRanking);
+//    }
+//
+//    public void addAllFactorsAffectingProficiencyRankings(List<FactorAffectingProficiencyRanking> factorsAffectingProficiencyRankings) {
+//        Assert.notNull(factorsAffectingProficiencyRankings, "factorsAffectingProficiencyRankings cannot be null");
+//        factorAffectingProficiencyRankings.addAll(factorsAffectingProficiencyRankings);
+//    }
 
 
     @Override
@@ -243,10 +238,10 @@ public class AdaptiveProficiencyRanking {
             return this;
         }
 
-        public Builder factorAffectingProficiencyRanking(FactorAffectingProficiencyRanking factorAffectingProficiencyRanking) {
-            adaptiveProficiencyRanking.addFactorsAffectingProficiencyRankings(factorAffectingProficiencyRanking);
-            return this;
-        }
+//        public Builder factorAffectingProficiencyRanking(FactorAffectingProficiencyRanking factorAffectingProficiencyRanking) {
+//            adaptiveProficiencyRanking.addFactorsAffectingProficiencyRankings(factorAffectingProficiencyRanking);
+//            return this;
+//        }
 
         public AdaptiveProficiencyRanking build() {
             return adaptiveProficiencyRanking;

@@ -23,6 +23,8 @@ public interface IQPalXEMicroLessonVO extends ILMSMediaContentVO {
 
     public ELearningMediaContent getStaticELearningMediaContent();
 
+    public ELearningMediaContent getInteractiveELearningMediaContent();
+
     public Set<QPalXTutorialContentTypeE> getStaticQPalXTutorialContentTypes();
 
 }
