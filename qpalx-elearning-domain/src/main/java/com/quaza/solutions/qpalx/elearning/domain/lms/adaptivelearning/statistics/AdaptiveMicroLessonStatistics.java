@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.math3.util.Precision;
 import org.springframework.jdbc.core.RowMapper;
@@ -23,18 +24,24 @@ public class AdaptiveMicroLessonStatistics {
 
     private final String narrationMediaFile;
 
-    private final String interactiveMediaFile;
+    private final String staticMediaFile;
 
-    private final String interactiveExerciseMediaFile;
+    private String interactiveExerciseMediaFile = null;
 
-    public AdaptiveMicroLessonStatistics(Long microLessonID, String microLessonName, Integer uniqueQuizzesAttempted, Integer totalQuizzes, String narrationMediaFile, String interactiveMediaFile, String interactiveExerciseMediaFile) {
+    public static final String CLASS_ATTRIBUTE = "AdaptiveMicroLessonStatistics";
+
+    public AdaptiveMicroLessonStatistics(Long microLessonID, String microLessonName, Integer uniqueQuizzesAttempted, Integer totalQuizzes, String narrationMediaFile, String staticMediaFile, String interactiveExerciseMediaFile) {
         this.microLessonID = microLessonID;
         this.microLessonName = microLessonName;
         this.uniqueQuizzesAttempted = uniqueQuizzesAttempted;
         this.totalQuizzes = totalQuizzes;
         this.narrationMediaFile = narrationMediaFile;
-        this.interactiveMediaFile = interactiveMediaFile;
-        this.interactiveExerciseMediaFile = interactiveExerciseMediaFile;
+        this.staticMediaFile = staticMediaFile;
+
+        // Interactive Exercise media file is optional so can be empty.  Dont set if empty String
+        if (!StringUtils.isEmpty(interactiveExerciseMediaFile)) {
+            this.interactiveExerciseMediaFile = interactiveExerciseMediaFile;
+        }
     }
 
     public Long getMicroLessonID() {
@@ -57,8 +64,8 @@ public class AdaptiveMicroLessonStatistics {
         return narrationMediaFile;
     }
 
-    public String getInteractiveMediaFile() {
-        return interactiveMediaFile;
+    public String getStaticMediaFile() {
+        return staticMediaFile;
     }
 
     public String getInteractiveExerciseMediaFile() {
@@ -82,7 +89,8 @@ public class AdaptiveMicroLessonStatistics {
                 .append("uniqueQuizzesAttempted", uniqueQuizzesAttempted)
                 .append("totalQuizzes", totalQuizzes)
                 .append("narrationMediaFile", narrationMediaFile)
-                .append("interactiveMediaFile", interactiveMediaFile)
+                .append("staticMediaFile", staticMediaFile)
+                .append("interactiveExerciseMediaFile", interactiveExerciseMediaFile)
                 .toString();
     }
 
@@ -97,11 +105,11 @@ public class AdaptiveMicroLessonStatistics {
             long microLessonID = resultSet.getLong("MicroLessonID");
             String microLessonName = resultSet.getString("MicroLessonName");
             String narrationMediaFile = resultSet.getString("ELearningMediaFile");
-            String interactiveMediaFile = resultSet.getString("StaticELearningMediaFile");
+            String staticMediaFile = resultSet.getString("StaticELearningMediaFile");
             String interactiveExerciseMediaFile = resultSet.getString("InteractiveExerciseELearningMediaFile");
             Integer uniqueQuizzesAttempted = resultSet.getInt("UniqueQuizzesAttempted");
             Integer totalQuizzes = resultSet.getInt("TotalNumberOfQuizzes");
-            return new AdaptiveMicroLessonStatistics(microLessonID, microLessonName, uniqueQuizzesAttempted, totalQuizzes, narrationMediaFile, interactiveMediaFile, interactiveExerciseMediaFile);
+            return new AdaptiveMicroLessonStatistics(microLessonID, microLessonName, uniqueQuizzesAttempted, totalQuizzes, narrationMediaFile, staticMediaFile, interactiveExerciseMediaFile);
         }
     }
 }

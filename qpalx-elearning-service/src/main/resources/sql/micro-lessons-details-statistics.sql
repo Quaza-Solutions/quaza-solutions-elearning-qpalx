@@ -22,6 +22,6 @@ Left 	Outer Join (
                                    Left      Outer Join AdaptiveLearningQuizProgress quizprog on quizprog.AdaptiveLearningQuizID = alqz.ID
                                    Where     qPell.ID = ?
                                    And       quizprog.QPalxUserID = ?
-                                   Group     By quizprog.QPalxUserID, qMell.ID,  qMell.MicroLessonName, qMell.ELearningMediaFile, qMell.StaticELearningMediaFile, qMell.InteractiveExerciseELearningMediaFile,
+                                   Group     By quizprog.QPalxUserID, qMell.ID,  qMell.MicroLessonName, qMell.ELearningMediaFile, qMell.StaticELearningMediaFile, qMell.InteractiveExerciseELearningMediaFile
 ) As StudentMicroLessonQuizAttempts on StudentMicroLessonQuizAttempts.StudentID = StudentMicroLessonQuizTotals.StudentID
 Group	BY StudentMicroLessonQuizTotals.StudentID, StudentMicroLessonQuizTotals.MicroLessonID, StudentMicroLessonQuizTotals.MicroLessonName, StudentMicroLessonQuizTotals.ELearningMediaFile, StudentMicroLessonQuizTotals.StaticELearningMediaFile, StudentMicroLessonQuizTotals.InteractiveExerciseELearningMediaFile, StudentMicroLessonQuizTotals.TotalNumberOfQuizzes,  StudentMicroLessonQuizAttempts.UniqueQuizzesAttempted
