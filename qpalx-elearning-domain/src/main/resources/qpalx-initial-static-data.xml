@@ -59,18 +59,29 @@
     <StudentTutorialLevel ID="2" TutorialLevel="Middle School"      TutorialLevelDescription="Middle School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
     <StudentTutorialLevel ID="3" TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
     <StudentTutorialLevel ID="4" TutorialLevel="Senior High School" TutorialLevelDescription="Senior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="5" TutorialLevel="College" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="5" TutorialLevel="College" TutorialLevelDescription="University Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
 
     <!--  Populate StudentTutorialGrade For Senior High School -->
     <StudentTutorialGrade ID="1" TutorialGrade="SHS1" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
     <StudentTutorialGrade ID="2" TutorialGrade="SHS2" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
     <StudentTutorialGrade ID="3" TutorialGrade="SHS3" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
 
+    <!--  Populate StudentTutorialGrade For Junior High School -->
+    <StudentTutorialGrade ID="4" TutorialGrade="JHS1" Enabled="1" StudentTutorialLevelID="3" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade ID="5" TutorialGrade="JHS2" Enabled="1" StudentTutorialLevelID="3" EntryDateTime="2016-05-16" />
+    <StudentTutorialGrade ID="6" TutorialGrade="JHS3" Enabled="1" StudentTutorialLevelID="3" EntryDateTime="2016-05-16" />
+
 
     <!--  Populate TutorialLevelCalendar For Senior High School -->
     <TutorialLevelCalendar ID="1" CalendarItemName="First Term"  CalendarItemDescripiton="WAEC SHS First Term" CalendarItemStartMonth="August" CalendarItemEndMonth="December" CalendarItemOrder="1" StudentTutorialLevelID="4" />
     <TutorialLevelCalendar ID="2" CalendarItemName="Second Term" CalendarItemDescripiton="WAEC SHS SecondTerm Term" CalendarItemStartMonth="January" CalendarItemEndMonth="March" CalendarItemOrder="2" StudentTutorialLevelID="4" />
     <TutorialLevelCalendar ID="3" CalendarItemName="Third Term"  CalendarItemDescripiton="WAEC SHS Third Term" CalendarItemStartMonth="April" CalendarItemEndMonth="June" CalendarItemOrder="3" StudentTutorialLevelID="4" />
+
+
+    <!--  Populate TutorialLevelCalendar For Junior High School -->
+    <TutorialLevelCalendar ID="4" CalendarItemName="First Term"  CalendarItemDescripiton="WAEC JHS First Term" CalendarItemStartMonth="August" CalendarItemEndMonth="December" CalendarItemOrder="1" StudentTutorialLevelID="3" />
+    <TutorialLevelCalendar ID="5" CalendarItemName="Second Term" CalendarItemDescripiton="WAEC JHS SecondTerm Term" CalendarItemStartMonth="January" CalendarItemEndMonth="March" CalendarItemOrder="2" StudentTutorialLevelID="3" />
+    <TutorialLevelCalendar ID="6" CalendarItemName="Third Term"  CalendarItemDescripiton="WAEC JHS Third Term" CalendarItemStartMonth="April" CalendarItemEndMonth="June" CalendarItemOrder="3" StudentTutorialLevelID="3" />
 
 
 

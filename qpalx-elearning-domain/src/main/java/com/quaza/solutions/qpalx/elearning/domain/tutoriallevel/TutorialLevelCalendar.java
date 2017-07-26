@@ -21,10 +21,10 @@ public class TutorialLevelCalendar {
     private Long id;
 
 
-    @Column(name="CalendarItemName", nullable=false, length=50, unique=true)
+    @Column(name="CalendarItemName", nullable=false, length=50)
     private String calendarItemName;
 
-    @Column(name="CalendarItemDescripiton", nullable=false, length=150, unique=true)
+    @Column(name="CalendarItemDescripiton", nullable=false, length=150)
     private String calendarItemDescripiton;
 
     @Column(name="CalendarItemStartMonth", nullable=true)
