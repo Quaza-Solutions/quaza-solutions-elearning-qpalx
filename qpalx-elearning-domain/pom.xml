@@ -211,6 +211,7 @@
                             <format>flat</format>
                             <type>INSERT</type>
                             <src>../qpalx-elearning-domain/src/main/resources/qpalx-waf-ecourses.xml</src>
+                            <src>../qpalx-elearning-domain/src/main/resources/qpalx-waf-ecourses-jhs.xml</src>
                         </configuration>
                     </execution>
 
