@@ -1,6 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.tutoriallevel;
 
-import com.quaza.solutions.qpalx.elearning.domain.geographical.GeographicalRegion;
+import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -32,10 +32,10 @@ public class StudentTutorialLevel {
     @Column(name="TutorialLevelDescription", nullable=false, length=100)
     private String tutorialLevelDescription;
 
-    // Tutorial level is attached to a specific geographical region
+    // Tutorial level is attached to a specific Country
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "GeographicalRegionID", nullable = false)
-    private GeographicalRegion geographicalRegion;
+    @JoinColumn(name = "QPalXCountryID", nullable = false)
+    private QPalXCountry qPalXCountry;
 
     @Column(name="Enabled", nullable = true, columnDefinition = "TINYINT", length = 1)
     @Type(type = "org.hibernate.type.NumericBooleanType")
@@ -75,12 +75,12 @@ public class StudentTutorialLevel {
         this.tutorialLevelDescription = tutorialLevelDescription;
     }
 
-    public GeographicalRegion getGeographicalRegion() {
-        return geographicalRegion;
+    public QPalXCountry getQPalXCountry() {
+        return qPalXCountry;
     }
 
-    public void setGeographicalRegion(GeographicalRegion geographicalRegion) {
-        this.geographicalRegion = geographicalRegion;
+    public void setQPalXCountry(QPalXCountry qPalXCountry) {
+        this.qPalXCountry = qPalXCountry;
     }
 
     public DateTime getEntryDateTime() {
@@ -103,7 +103,7 @@ public class StudentTutorialLevel {
                 .append(id, that.id)
                 .append(tutorialLevel, that.tutorialLevel)
                 .append(tutorialLevelDescription, that.tutorialLevelDescription)
-                .append(geographicalRegion, that.geographicalRegion)
+                .append(qPalXCountry, that.qPalXCountry)
                 .append(entryDateTime, that.entryDateTime)
                 .isEquals();
     }
@@ -114,7 +114,7 @@ public class StudentTutorialLevel {
                 .append(id)
                 .append(tutorialLevel)
                 .append(tutorialLevelDescription)
-                .append(geographicalRegion)
+                .append(qPalXCountry)
                 .append(entryDateTime)
                 .toHashCode();
     }
@@ -125,7 +125,7 @@ public class StudentTutorialLevel {
                 .append("id", id)
                 .append("tutorialLevel", tutorialLevel)
                 .append("tutorialLevelDescription", tutorialLevelDescription)
-                .append("geographicalRegion", geographicalRegion)
+                .append("qPalXCountry", qPalXCountry)
                 .append("entryDateTime", entryDateTime)
                 .toString();
     }

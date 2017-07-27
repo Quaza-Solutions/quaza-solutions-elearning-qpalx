@@ -2,16 +2,98 @@
 <dataset>
 
     <!--
-        ===========================  Start ELearning Curriculum section  =======================================
+        ===========================  Start ELearning Curriculum section for JHS 1  =======================================
     -->
 
     <!-- Populate CORE ELearningCurriculum data for JHS1 in West Africa -->
-    <ELearningCurriculum CurriculumName="Mathematics" CurriculumDescription="Mathematics Core JHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/core/Math.png" CurriculumBannerIcon="images/subjects/core/math-focus-banner.png" />
-    <ELearningCurriculum CurriculumName="English Language" CurriculumDescription="English Core JHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/core/English.png" CurriculumBannerIcon="images/subjects/core/english-focus-banner.png" />
-    <ELearningCurriculum CurriculumName="Integrated Science" CurriculumDescription="Sciences Core JHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/core/Science.png" CurriculumBannerIcon="images/subjects/core/science-focus-banner.png" />
-    <ELearningCurriculum CurriculumName="Social Studies" CurriculumDescription="Social Studies Core JHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/core/SocialStudies.png" CurriculumBannerIcon="images/subjects/core/social-studies-focus-banner.png" />
-    <ELearningCurriculum CurriculumName="ICT" CurriculumDescription="ICT Core JHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/core/Technology.png" CurriculumBannerIcon="images/subjects/core/ict-studies-focus-banner.png" />
+    <ELearningCurriculum ID="34" CurriculumName="Mathematics" CurriculumDescription="Mathematics Core JHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/core/Math.png" CurriculumBannerIcon="images/subjects/core/math-focus-banner.png" />
+    <ELearningCurriculum ID="35" CurriculumName="English Language" CurriculumDescription="English Core JHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/core/English.png" CurriculumBannerIcon="images/subjects/core/english-focus-banner.png" />
+    <ELearningCurriculum ID="36" CurriculumName="Integrated Science" CurriculumDescription="Sciences Core JHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/core/Science.png" CurriculumBannerIcon="images/subjects/core/science-focus-banner.png" />
+    <ELearningCurriculum ID="37" CurriculumName="Social Studies" CurriculumDescription="Social Studies Core JHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/core/SocialStudies.png" CurriculumBannerIcon="images/subjects/core/social-studies-focus-banner.png" />
+    <ELearningCurriculum ID="38" CurriculumName="ICT" CurriculumDescription="ICT Core JHS1 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/core/Technology.png" CurriculumBannerIcon="images/subjects/core/ict-studies-focus-banner.png" />
 
+    <!-- Populate ELECTIVE ELearningCurriculum data for JHS1 in West Africa -->
+    <ELearningCurriculum ID="39" CurriculumName="Home Economics" CurriculumDescription="Home Economics Elective JHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/electives/HomeEconomics.png" CurriculumBannerIcon="images/subjects/electives/economics-focus-banner.png" />
+    <ELearningCurriculum ID="40" CurriculumName="Pre-Technical Skills" CurriculumDescription="Pre-Technical Skills Elective JHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/electives/Technical.png" CurriculumBannerIcon="images/subjects/electives/ict-studies-focus-banner.png" />
+    <ELearningCurriculum ID="41" CurriculumName="Visual Arts" CurriculumDescription="Visual Arts Elective JHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/electives/Science.png" CurriculumBannerIcon="images/subjects/electives/general-arts-focus-banner.png" />
+    <ELearningCurriculum ID="42" CurriculumName="Ghanaian Languages" CurriculumDescription="Ghanaian Languages Elective JHS1 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="4" CurriculumIcon="images/subjects/electives/Language.png" CurriculumBannerIcon="images/subjects/electives/languages-focus-banner.png" />
+
+    <!-- Home Economics Courses -->
+    <ELearningCourse CourseName="Tools and Equipment" CourseDescription="Tools and Equipment" ELearningCurriculumID="39" CourseActive="1"  />
+    <ELearningCourse CourseName="Health and Hygiene" CourseDescription="Health and Hygiene" ELearningCurriculumID="39" CourseActive="1"  />
+    <ELearningCourse CourseName="Food and Nutrition" CourseDescription="Food and Nutrition" ELearningCurriculumID="39" CourseActive="1"  />
+    <ELearningCourse CourseName="Fabrics and Sewing" CourseDescription="Fabrics and Sewing" ELearningCurriculumID="39" CourseActive="1"  />
+    <ELearningCourse CourseName="Food Preparation" CourseDescription="Food Preparation" ELearningCurriculumID="39" CourseActive="1"  />
+    <ELearningCourse CourseName="Processes in Sewing" CourseDescription="Processes in Sewing" ELearningCurriculumID="39" CourseActive="1"  />
+    <ELearningCourse CourseName="Food Commodities" CourseDescription="Food Commodities" ELearningCurriculumID="39" CourseActive="1"  />
+    <ELearningCourse CourseName="Garment Construction" CourseDescription="Garment Construction" ELearningCurriculumID="39" CourseActive="1"  />
+    <ELearningCourse CourseName="Meal and Menu Planning" CourseDescription="Meal and Menu Planning" ELearningCurriculumID="39" CourseActive="1"  />
+    <ELearningCourse CourseName="Clothing Maintenance" CourseDescription="Clothing Maintenance" ELearningCurriculumID="39" CourseActive="1"  />
+
+
+    <!-- Pre-Technical Skills Courses -->
+    <ELearningCourse CourseName="Metalwork" CourseDescription="Metalwork" ELearningCurriculumID="40" CourseActive="1"  />
+    <ELearningCourse CourseName="Brickwork" CourseDescription="Brickwork" ELearningCurriculumID="40" CourseActive="1"  />
+    <ELearningCourse CourseName="Woodwork" CourseDescription="Woodwork" ELearningCurriculumID="40" CourseActive="1"  />
+    <ELearningCourse CourseName="Basic Electrical and Electronic Circuits" CourseDescription="Basic Electrical and Electronic Circuits" ELearningCurriculumID="40" CourseActive="1"  />
+    <ELearningCourse CourseName="Technical Drawing" CourseDescription="Technical Drawing" ELearningCurriculumID="40" CourseActive="1"  />
+
+    <!-- Visual Arts Courses -->
+    <ELearningCourse CourseName="Visual Communication" CourseDescription="Visual Communication" ELearningCurriculumID="41" CourseActive="1"  />
+    <ELearningCourse CourseName="Weaving and Stitching" CourseDescription="Weaving and Stitching" ELearningCurriculumID="41" CourseActive="1"  />
+    <ELearningCourse CourseName="Modeling, Casting and Carving" CourseDescription="Modeling, Casting and Carving" ELearningCurriculumID="41" CourseActive="1"  />
+    <ELearningCourse CourseName="Construction and Assemblage" CourseDescription="Construction and Assemblage" ELearningCurriculumID="41" CourseActive="1"  />
+    <ELearningCourse CourseName="Fabric and Leather Decoration" CourseDescription="Fabric and Leather Decoration" ELearningCurriculumID="41" CourseActive="1"  />
+
+    <!-- Ghanaian Languages Courses -->
+    <ELearningCourse CourseName="Akan (Fante and Ashanti Twi)" CourseDescription="Akan (Fante and Ashanti Twi)" ELearningCurriculumID="42" CourseActive="1"  />
+    <ELearningCourse CourseName="Nzema" CourseDescription="Nzema" ELearningCurriculumID="42" CourseActive="1"  />
+    <ELearningCourse CourseName="Ga" CourseDescription="Ga" ELearningCurriculumID="42" CourseActive="1"  />
+    <ELearningCourse CourseName="Ga-Adangbe" CourseDescription="Ga-Adangbe" ELearningCurriculumID="42" CourseActive="1"  />
+    <ELearningCourse CourseName="Ewe" CourseDescription="Ewe" ELearningCurriculumID="42" CourseActive="1"  />
+    <ELearningCourse CourseName="Gonja" CourseDescription="Gonja" ELearningCurriculumID="42" CourseActive="1"  />
+    <ELearningCourse CourseName="Kasem" CourseDescription="Kasem" ELearningCurriculumID="42" CourseActive="1"  />
+    <ELearningCourse CourseName="Dagbani" CourseDescription="Dagbani" ELearningCurriculumID="42" CourseActive="1"  />
+    <ELearningCourse CourseName="Gagaare" CourseDescription="Gagaare" ELearningCurriculumID="42" CourseActive="1"  />
+
+
+
+    <!--
+        ===========================  Start ELearning Curriculum section for JHS 2  =======================================
+    -->
+
+    <!-- Populate CORE ELearningCurriculum data for JHS2 in West Africa -->
+    <ELearningCurriculum ID="43" CurriculumName="Mathematics" CurriculumDescription="Mathematics Core JHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="5" CurriculumIcon="images/subjects/core/Math.png" CurriculumBannerIcon="images/subjects/core/math-focus-banner.png" />
+    <ELearningCurriculum ID="44" CurriculumName="English Language" CurriculumDescription="English Core JHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="5" CurriculumIcon="images/subjects/core/English.png" CurriculumBannerIcon="images/subjects/core/english-focus-banner.png" />
+    <ELearningCurriculum ID="45" CurriculumName="Integrated Science" CurriculumDescription="Sciences Core JHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="5" CurriculumIcon="images/subjects/core/Science.png" CurriculumBannerIcon="images/subjects/core/science-focus-banner.png" />
+    <ELearningCurriculum ID="46" CurriculumName="Social Studies" CurriculumDescription="Social Studies Core JHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="5" CurriculumIcon="images/subjects/core/SocialStudies.png" CurriculumBannerIcon="images/subjects/core/social-studies-focus-banner.png" />
+    <ELearningCurriculum ID="47" CurriculumName="ICT" CurriculumDescription="ICT Core JHS2 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="5" CurriculumIcon="images/subjects/core/Technology.png" CurriculumBannerIcon="images/subjects/core/ict-studies-focus-banner.png" />
+
+    <!-- Populate ELECTIVE ELearningCurriculum data for JHS2 in West Africa -->
+    <ELearningCurriculum ID="48" CurriculumName="Home Economics" CurriculumDescription="Home Economics Elective JHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="5" CurriculumIcon="images/subjects/electives/HomeEconomics.png" CurriculumBannerIcon="images/subjects/electives/economics-focus-banner.png" />
+    <ELearningCurriculum ID="49" CurriculumName="Pre-Technical Skills" CurriculumDescription="Pre-Technical Skills Elective JHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="5" CurriculumIcon="images/subjects/electives/Technical.png" CurriculumBannerIcon="images/subjects/electives/ict-studies-focus-banner.png" />
+    <ELearningCurriculum ID="50" CurriculumName="Visual Arts" CurriculumDescription="Visual Arts Elective JHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="5" CurriculumIcon="images/subjects/electives/Science.png" CurriculumBannerIcon="images/subjects/electives/general-arts-focus-banner.png" />
+    <ELearningCurriculum ID="51" CurriculumName="Ghanaian Languages" CurriculumDescription="Ghanaian Languages Elective JHS2 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="5" CurriculumIcon="images/subjects/electives/Language.png" CurriculumBannerIcon="images/subjects/electives/languages-focus-banner.png" />
+
+
+
+
+    <!--
+        ===========================  Start ELearning Curriculum section for JHS 3  =======================================
+    -->
+
+    <!-- Populate CORE ELearningCurriculum data for JHS2 in West Africa -->
+    <ELearningCurriculum ID="52" CurriculumName="Mathematics" CurriculumDescription="Mathematics Core JHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="6" CurriculumIcon="images/subjects/core/Math.png" CurriculumBannerIcon="images/subjects/core/math-focus-banner.png" />
+    <ELearningCurriculum ID="53" CurriculumName="English Language" CurriculumDescription="English Core JHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="6" CurriculumIcon="images/subjects/core/English.png" CurriculumBannerIcon="images/subjects/core/english-focus-banner.png" />
+    <ELearningCurriculum ID="54" CurriculumName="Integrated Science" CurriculumDescription="Sciences Core JHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="6" CurriculumIcon="images/subjects/core/Science.png" CurriculumBannerIcon="images/subjects/core/science-focus-banner.png" />
+    <ELearningCurriculum ID="55" CurriculumName="Social Studies" CurriculumDescription="Social Studies Core JHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="6" CurriculumIcon="images/subjects/core/SocialStudies.png" CurriculumBannerIcon="images/subjects/core/social-studies-focus-banner.png" />
+    <ELearningCurriculum ID="56" CurriculumName="ICT" CurriculumDescription="ICT Core JHS3 West African Curriculum" CurriculumType="CORE" StudentTutorialGradeID="6" CurriculumIcon="images/subjects/core/Technology.png" CurriculumBannerIcon="images/subjects/core/ict-studies-focus-banner.png" />
+
+    <!-- Populate ELECTIVE ELearningCurriculum data for JHS2 in West Africa -->
+    <ELearningCurriculum ID="57" CurriculumName="Home Economics" CurriculumDescription="Home Economics Elective JHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="6" CurriculumIcon="images/subjects/electives/HomeEconomics.png" CurriculumBannerIcon="images/subjects/electives/economics-focus-banner.png" />
+    <ELearningCurriculum ID="58" CurriculumName="Pre-Technical Skills" CurriculumDescription="Pre-Technical Skills Elective JHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="6" CurriculumIcon="images/subjects/electives/Technical.png" CurriculumBannerIcon="images/subjects/electives/ict-studies-focus-banner.png" />
+    <ELearningCurriculum ID="59" CurriculumName="Visual Arts" CurriculumDescription="Visual Art Elective JHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="6" CurriculumIcon="images/subjects/electives/Science.png" CurriculumBannerIcon="images/subjects/electives/general-arts-focus-banner.png" />
+    <ELearningCurriculum ID="60" CurriculumName="Ghanaian Languages" CurriculumDescription="Ghanaian Languages Elective JHS3 West African Curriculum" CurriculumType="ELECTIVE" StudentTutorialGradeID="6" CurriculumIcon="images/subjects/electives/Language.png" CurriculumBannerIcon="images/subjects/electives/languages-focus-banner.png" />
 
 
     <!--

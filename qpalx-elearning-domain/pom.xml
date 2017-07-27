@@ -200,9 +200,9 @@
                         </configuration>
                     </execution>
 
-                    <!-- Insert all WAF ELearning Curriculum, Courses & Activities -->
+                    <!-- Insert all WAF SHS ELearning Curriculum, Courses & Activities -->
                     <execution>
-                        <id>insert_course_activities</id>
+                        <id>insert_jhs_curriculum</id>
                         <phase>test-compile</phase>
                         <goals>
                             <goal>operation</goal>
@@ -210,7 +210,20 @@
                         <configuration>
                             <format>flat</format>
                             <type>INSERT</type>
-                            <src>../qpalx-elearning-domain/src/main/resources/qpalx-waf-ecourses.xml</src>
+                            <src>src/main/resources/qpalx-waf-ecourses-shs.xml</src>
+                        </configuration>
+                    </execution>
+
+                    <!-- Insert all WAF JHS ELearning Curriculum, Courses & Activities -->
+                    <execution>
+                        <id>insert_shs_curriculum</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
                             <src>../qpalx-elearning-domain/src/main/resources/qpalx-waf-ecourses-jhs.xml</src>
                         </configuration>
                     </execution>

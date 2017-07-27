@@ -1,9 +1,9 @@
 package com.quaza.solutions.qpalx.elearning.service.tutoriallevel;
 
 import com.google.common.collect.ImmutableList;
-import com.quaza.solutions.qpalx.elearning.domain.geographical.GeographicalRegion;
-import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.IQPalXTutorialLevelRepository;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.ITutorialGradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +59,9 @@ public class CacheEnabledQPalXTutorialService implements IQPalXTutorialService {
     }
 
     @Override
-    public List<StudentTutorialLevel> findAllGeographicalRegionTutorialLevels(GeographicalRegion geographicalRegion) {
-        LOGGER.info("Finding all StudentTutorialLevel's in geographicalRegion: {}", geographicalRegion);
-        return iqPalXTutorialLevelRepository.findAllGeographicalRegionTutorialLevels(geographicalRegion);
+    public List<StudentTutorialLevel> findAllQPalXCountryTutorialLevels(final QPalXCountry qPalXCountry) {
+        Assert.notNull(qPalXCountry, "qPalXCountry cannot be null");
+        LOGGER.info("Finding all StudentTutorialLevel's in qPalXCountry: {}", qPalXCountry);
+        return iqPalXTutorialLevelRepository.findAllQPalXCountryTutorialLevels(qPalXCountry);
     }
 }

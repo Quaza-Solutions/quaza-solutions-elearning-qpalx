@@ -55,11 +55,11 @@
 
 
     <!-- Populate StudentTutorialLevel data for GeographicalRegion WAF -->
-    <StudentTutorialLevel ID="1" TutorialLevel="Elementary School"  TutorialLevelDescription="Elementary Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="2" TutorialLevel="Middle School"      TutorialLevelDescription="Middle School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="3" TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="4" TutorialLevel="Senior High School" TutorialLevelDescription="Senior High School Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="5" TutorialLevel="College" TutorialLevelDescription="University Level" Enabled="1" GeographicalRegionID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="1" TutorialLevel="Elementary School"  TutorialLevelDescription="Elementary Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="2" TutorialLevel="Middle School"      TutorialLevelDescription="Middle School Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="3" TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="4" TutorialLevel="Senior High School" TutorialLevelDescription="Senior High School Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="5" TutorialLevel="College" TutorialLevelDescription="University Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
 
     <!--  Populate StudentTutorialGrade For Senior High School -->
     <StudentTutorialGrade ID="1" TutorialGrade="SHS1" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
