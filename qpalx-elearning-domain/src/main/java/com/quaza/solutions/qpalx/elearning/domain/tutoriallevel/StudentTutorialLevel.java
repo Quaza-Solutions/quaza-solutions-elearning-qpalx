@@ -47,6 +47,8 @@ public class StudentTutorialLevel {
     private DateTime entryDateTime;
 
 
+    public static final String CLASS_ATTRIBUTE_IDENTIFIER = "StudentTutorialLevel";
+
 
     public StudentTutorialLevel() {
     }

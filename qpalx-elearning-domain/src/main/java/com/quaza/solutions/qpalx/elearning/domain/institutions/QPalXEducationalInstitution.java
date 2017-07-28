@@ -37,6 +37,8 @@ public class QPalXEducationalInstitution {
 	@Column(name="WebSiteAddress", nullable=true, length=256)
 	private String webSiteAddress;
 
+	public static final String CLASS_ATTRIBUTE_IDENTIFIER = "QPalXEducationalInstitution";
+
 	
 	public Long getId() {
 		return id;

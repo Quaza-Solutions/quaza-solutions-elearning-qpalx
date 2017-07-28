@@ -26,6 +26,7 @@ public class DefaultContentAdminProfileRecordService implements IContentAdminPro
     @Autowired
     private IContentAdminProfileRecordRepository iContentAdminProfileRecordRepository;
 
+    public static final String SPRING_BEAN = "quaza.solutions.qpalx.elearning.service.DefaultContentAdminProfileRecordService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultContentAdminProfileRecordService.class);
 

@@ -90,23 +90,27 @@
     <QPalXUser ID="1" FirstName="Justice" LastName="Wrappah" Email="JWrappah@quazasolutions.com" Password="qpalx" UserType="CONTENT_DEVELOPER" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
     <ContentAdminProfileRecord ID="1" QPalxUserID="1" StudentTutorialLevelID="4" Enabled="1" EffectiveDate="2016-07-28"/>
 
-    <!-- Executive user type -->
-    <QPalXUser ID="2" FirstName="Matthew" LastName="Opoku Prempeh" Email="matthew.prempeh@moe.gov.gh" Password="qpalx" UserType="Executive" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <!-- Create dummy Content Developer QPalxUser with StudentTutorialLevel JHS -->
+    <QPalXUser ID="2" FirstName="Prince" LastName="Andoh" Email="pandoh@quazasolutions.com" Password="qpalx" UserType="CONTENT_DEVELOPER" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <ContentAdminProfileRecord ID="2" QPalxUserID="2" StudentTutorialLevelID="3" Enabled="1" EffectiveDate="2016-07-28"/>
 
     <!-- Executive user type -->
-    <QPalXUser ID="3" FirstName="Yaw" LastName="Osei Adutwum" Email="yaw.oseiadutwum@moe.gov.gh" Password="qpalx" UserType="Executive" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <QPalXUser ID="3" FirstName="Matthew" LastName="Opoku Prempeh" Email="matthew.prempeh@moe.gov.gh" Password="qpalx" UserType="Executive" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+
+    <!-- Executive user type -->
+    <QPalXUser ID="4" FirstName="Yaw" LastName="Osei Adutwum" Email="yaw.oseiadutwum@moe.gov.gh" Password="qpalx" UserType="Executive" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
 
     <!-- Principal user type -->
-    <QPalXUser ID="4" FirstName="Bisa" LastName="KDei" Email="bisa.kdei@moe.gov.gh" Password="qpalx" UserType="Principal" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <QPalXUser ID="5" FirstName="Bisa" LastName="KDei" Email="bisa.kdei@moe.gov.gh" Password="qpalx" UserType="Principal" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
 
     <!-- Teacher user type -->
-    <QPalXUser ID="5" FirstName="Yaw" LastName="Abbey Ashong" Email="yaw.ashong@moe.gov.gh" Password="qpalx" UserType="Teacher" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <QPalXUser ID="6" FirstName="Yaw" LastName="Abbey Ashong" Email="yaw.ashong@moe.gov.gh" Password="qpalx" UserType="Teacher" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
 
     <!-- Parent/Guardian user type -->
-    <QPalXUser ID="6" FirstName="Martha" LastName="Dodoo" Email="martha.dodoo@gmail.com" Password="qpalx" UserType="PARENT_GUARDIAN" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Female"/>
+    <QPalXUser ID="7" FirstName="Martha" LastName="Dodoo" Email="martha.dodoo@gmail.com" Password="qpalx" UserType="PARENT_GUARDIAN" QPalXMunicipalityID="1" AccountLocked="0" ResetPassword="0" UserSex="Female"/>
 
     <!-- Create default Platform Administrator account -->
-    <QPalXUser ID="7" FirstName="QPalX" LastName="Platform Admin" Email="platform.admin@quazasolutions.com" Password="Holla!" UserType="PLATFORM_ADMIN" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
+    <QPalXUser ID="8" FirstName="QPalX" LastName="Platform Admin" Email="platform.admin@quazasolutions.com" Password="Holla!" UserType="PLATFORM_ADMIN" QPalXMunicipalityID="7" AccountLocked="0" ResetPassword="0" UserSex="Male"/>
 
     <!-- Create StaticContentConfiguration that defines where static content resides on the platform -->
     <StaticContentConfiguration ID="1" StaticContentName="ELearningContent"  StaticContentPhysicalLocation="/Users/manyce400/QuazaSolutions/elearning-content/" StaticContentApplicationContextLocation="/elearning-content/" />

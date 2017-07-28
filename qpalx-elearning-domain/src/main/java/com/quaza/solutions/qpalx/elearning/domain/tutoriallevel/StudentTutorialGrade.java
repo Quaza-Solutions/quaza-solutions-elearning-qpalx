@@ -43,6 +43,8 @@ public class StudentTutorialGrade {
     @JoinColumn(name = "StudentTutorialLevelID", nullable = false)
     private StudentTutorialLevel studentTutorialLevel;
 
+    public static final String CLASS_ATTRIBUTE_IDENTIFIER = "StudentTutorialGrade";
+
     public Long getId() {
         return id;
     }
