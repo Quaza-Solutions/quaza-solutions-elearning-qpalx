@@ -55,6 +55,8 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
 
     public static final String CLASS_ATTRIBUTE_IDENTIFIER = "ELearningCurriculum";
 
+    public static final String CLASS_INSTANCES_IDENTIFIER = "ELearningCurricula";
+
 
     public ELearningCurriculum() {
     }

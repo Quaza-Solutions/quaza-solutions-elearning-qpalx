@@ -45,6 +45,8 @@ public class StudentTutorialGrade {
 
     public static final String CLASS_ATTRIBUTE_IDENTIFIER = "StudentTutorialGrade";
 
+    public static final String CLASS_INSTANCES_IDENTIFIER = "StudentTutorialGrades";
+
     public Long getId() {
         return id;
     }
