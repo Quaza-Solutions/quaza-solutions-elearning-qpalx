@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCurriculumRepository;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -64,7 +65,16 @@ public class CacheEnabledELearningCurriculumService implements IELearningCurricu
     public List<ELearningCurriculum> findAllCurriculumByTutorialGradeAndType(final CurriculumType curriculumType, final StudentTutorialGrade studentTutorialGrade) {
         Assert.notNull(curriculumType, "curriculumType cannot be null");
         Assert.notNull(studentTutorialGrade, "studentTutorialGrade cannot be null");
-        LOGGER.info("Finding all ELearningCurriculum by curriculumType: {} and studentTutorialLevel: {}", curriculumType, studentTutorialGrade);
+        LOGGER.info("Finding all ELearningCurriculum by curriculumType: {} and studentTutorialGrade: {}", curriculumType, studentTutorialGrade);
         return ieLearningCurriculumRepository.findAllCurriculumByTutorialGradeAndType(curriculumType, studentTutorialGrade);
+    }
+
+    @Override
+    public List<ELearningCurriculum> findAllCurriculumByTutorialTypeAndCurriculumType(CurriculumType curriculumType, StudentTutorialLevel studentTutorialLevel) {
+        Assert.notNull(curriculumType, "curriculumType cannot be null");
+        Assert.notNull(studentTutorialLevel, "studentTutorialLevel cannot be null");
+
+        LOGGER.info("Finding all ELearningCurriculum by curriculumType: {} and studentTutorialLevel: {}", curriculumType, studentTutorialLevel);
+        return ieLearningCurriculumRepository.findAllCurriculumByTutorialTypeAndCurriculumType(curriculumType, studentTutorialLevel);
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.CacheEnabledQPalXTutorialService")
+@Service(CacheEnabledQPalXTutorialService.SPRING_BEAN)
 public class CacheEnabledQPalXTutorialService implements IQPalXTutorialService {
 
 
@@ -26,6 +26,8 @@ public class CacheEnabledQPalXTutorialService implements IQPalXTutorialService {
 
     @Autowired
     private ITutorialGradeRepository iTutorialGradeRepository;
+
+    public static final String SPRING_BEAN = "quaza.solutions.qpalx.elearning.service.CacheEnabledQPalXTutorialService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(CacheEnabledQPalXTutorialService.class);
 
@@ -48,6 +50,14 @@ public class CacheEnabledQPalXTutorialService implements IQPalXTutorialService {
     public List<StudentTutorialGrade> findAllStudentTutorialGrade() {
         LOGGER.info("Finding all configured StudentTutorialGrade...");
         Iterable<StudentTutorialGrade> studentTutorialGrades  = iTutorialGradeRepository.findAll();
+        return ImmutableList.copyOf(studentTutorialGrades);
+    }
+
+    @Override
+    public List<StudentTutorialGrade> findAllStudentTutorialGradeByTutorialLevel(StudentTutorialLevel studentTutorialLevel) {
+        Assert.notNull(studentTutorialLevel, "studentTutorialLevel cannot be null");
+        LOGGER.debug("Finding all StudentTutorialGrade for studentTutorialLevel: {}", studentTutorialLevel.getTutorialLevel());
+        Iterable<StudentTutorialGrade> studentTutorialGrades  = iTutorialGradeRepository.findAllStudentTutorialGradeByTutorialLevel(studentTutorialLevel);
         return ImmutableList.copyOf(studentTutorialGrades);
     }
 

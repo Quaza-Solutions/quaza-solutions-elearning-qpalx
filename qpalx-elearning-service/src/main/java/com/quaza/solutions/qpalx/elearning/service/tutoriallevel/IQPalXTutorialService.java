@@ -17,6 +17,8 @@ public interface IQPalXTutorialService {
 
     public List<StudentTutorialGrade> findAllStudentTutorialGrade();
 
+    public List<StudentTutorialGrade> findAllStudentTutorialGradeByTutorialLevel(StudentTutorialLevel studentTutorialLevel);
+
     public List<StudentTutorialLevel> findAllQPalXTutorialLevels();
 
     public List<StudentTutorialLevel> findAllQPalXCountryTutorialLevels(final QPalXCountry qPalXCountry);
