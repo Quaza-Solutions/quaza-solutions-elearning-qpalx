@@ -42,6 +42,10 @@ public class TutorialLevelCalendar {
     private StudentTutorialLevel studentTutorialLevel;
 
 
+    public static final String CLASS_ATTRIBUTE_IDENTIFIER = "TutorialLevelCalendar";
+
+    public static final String CLASS_ATTRIBUTE_INSTANCES = "TutorialLevelCalendars";
+
     public TutorialLevelCalendar() {
 
     }
