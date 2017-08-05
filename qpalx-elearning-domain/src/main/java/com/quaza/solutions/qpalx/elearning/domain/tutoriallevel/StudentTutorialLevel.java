@@ -41,6 +41,10 @@ public class StudentTutorialLevel {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean enabled;
 
+    @Column(name="AcademicLevel", nullable=false, length=20)
+    @Enumerated(EnumType.STRING)
+    private AcademicLevelE academicLevel;
+
     // Date tutorial level was created
     @Column(name="EntryDateTime", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -85,6 +89,14 @@ public class StudentTutorialLevel {
         this.qPalXCountry = qPalXCountry;
     }
 
+    public AcademicLevelE getAcademicLevel() {
+        return academicLevel;
+    }
+
+    public void setAcademicLevel(AcademicLevelE academicLevel) {
+        this.academicLevel = academicLevel;
+    }
+
     public DateTime getEntryDateTime() {
         return entryDateTime;
     }
@@ -107,6 +119,7 @@ public class StudentTutorialLevel {
                 .append(tutorialLevelDescription, that.tutorialLevelDescription)
                 .append(qPalXCountry, that.qPalXCountry)
                 .append(entryDateTime, that.entryDateTime)
+                .append(academicLevel, that.academicLevel)
                 .isEquals();
     }
 
@@ -118,6 +131,7 @@ public class StudentTutorialLevel {
                 .append(tutorialLevelDescription)
                 .append(qPalXCountry)
                 .append(entryDateTime)
+                .append(academicLevel)
                 .toHashCode();
     }
 
@@ -129,6 +143,7 @@ public class StudentTutorialLevel {
                 .append("tutorialLevelDescription", tutorialLevelDescription)
                 .append("qPalXCountry", qPalXCountry)
                 .append("entryDateTime", entryDateTime)
+                .append("academicLevel", academicLevel)
                 .toString();
     }
 }

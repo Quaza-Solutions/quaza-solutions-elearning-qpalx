@@ -228,6 +228,20 @@
                         </configuration>
                     </execution>
 
+                    <!-- Insert all SHS Schools in Accra -->
+                    <execution>
+                        <id>insert_accra_shs_schools</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>src/main/resources/accra-schools-static-list.xml</src>
+                        </configuration>
+                    </execution>
+
                 </executions>
             </plugin>
 

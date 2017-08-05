@@ -19,11 +19,6 @@
     <QPalXSubscription ID="3" SubscriptionName="Quarterly Plan" SubscriptionCost="60" SubscriptionType="QUARTERLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-quaterly-green.png"/>
     <QPalXSubscription ID="4" SubscriptionName="Yearly Plan" SubscriptionCost="240" SubscriptionType="YEARLY" SubscriptionQPalXCountryID="2" SubscriptionIcon="images/assets/sign-up/subscription-yearly-blue.png"/>
 
-    <!-- Populate Educational institutions  data -->
-    <QPalXEducationalInstitution ID="1" Code="ACC" Name="Accra Academy"  />
-    <QPalXEducationalInstitution ID="2" Code="DEY" Name="De Youngsters" />
-    <QPalXEducationalInstitution ID="3" Code="GIS" Name="Ghana International School" />
-
     <!-- Populate QPalX Municipality data -->
     <QPalXMunicipality ID="1" Code="ACC" Name="Greater Accra Region" TimeZone="UTC" QPalXCountryID="2" />
     <QPalXMunicipality ID="2" Code="ASH" Name="Ashanti Region" TimeZone="UTC" QPalXCountryID="2" />
@@ -55,11 +50,11 @@
 
 
     <!-- Populate StudentTutorialLevel data for GeographicalRegion WAF -->
-    <StudentTutorialLevel ID="1" TutorialLevel="Elementary School"  TutorialLevelDescription="Elementary Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="2" TutorialLevel="Middle School"      TutorialLevelDescription="Middle School Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="3" TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="4" TutorialLevel="Senior High School" TutorialLevelDescription="Senior High School Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
-    <StudentTutorialLevel ID="5" TutorialLevel="College" TutorialLevelDescription="University Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="1" AcademicLevel="Elementary" TutorialLevel="Elementary School"  TutorialLevelDescription="Elementary Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="2" AcademicLevel="Primary" TutorialLevel="Middle School"      TutorialLevelDescription="Middle School Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="3" AcademicLevel="JuniorHigh" TutorialLevel="Junior High School" TutorialLevelDescription="Junior High School Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="4" AcademicLevel="SeniorHigh" TutorialLevel="Senior High School" TutorialLevelDescription="Senior High School Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
+    <StudentTutorialLevel ID="5" AcademicLevel="College" TutorialLevel="College" TutorialLevelDescription="University Level" Enabled="1" QPalXCountryID="2" EntryDateTime="2016-05-16" />
 
     <!--  Populate StudentTutorialGrade For Senior High School -->
     <StudentTutorialGrade ID="1" TutorialGrade="SHS1" Enabled="1" StudentTutorialLevelID="4" EntryDateTime="2016-05-16" />
