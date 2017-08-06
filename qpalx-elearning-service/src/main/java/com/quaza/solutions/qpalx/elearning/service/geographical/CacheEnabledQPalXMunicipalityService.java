@@ -27,6 +27,8 @@ public class CacheEnabledQPalXMunicipalityService implements IQPalXMunicipalityS
     @Autowired
     private IQPalXMunicipalityRepository iqPalXMunicipalityRepository;
 
+    public static final String SPRING_BEAN = "quaza.solutions.qpalx.elearning.service.CacheEnabledQPalXMunicipalityService";
+
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(CacheEnabledQPalXMunicipalityService.class);
 
     // Internal cache used to store QPalxMunicipalities by ID

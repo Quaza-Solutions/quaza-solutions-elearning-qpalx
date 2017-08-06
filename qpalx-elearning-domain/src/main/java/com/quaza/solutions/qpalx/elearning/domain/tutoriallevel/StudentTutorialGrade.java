@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.tutoriallevel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -31,16 +32,19 @@ public class StudentTutorialGrade {
     // Determines if this tutorial grade is active in the QPalX platform
     @Column(name="Enabled", nullable = true, columnDefinition = "TINYINT", length = 1)
     @Type(type = "org.hibernate.type.NumericBooleanType")
+    @JsonIgnore
     private boolean enabled;
 
     // Date tutorial level was created
     @Column(name="EntryDateTime", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
     private DateTime entryDateTime;
 
     // Fetch this eager as we want to be able to actively look this up always on demand
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "StudentTutorialLevelID", nullable = false)
+    @JsonIgnore
     private StudentTutorialLevel studentTutorialLevel;
 
     public static final String CLASS_ATTRIBUTE_IDENTIFIER = "StudentTutorialGrade";

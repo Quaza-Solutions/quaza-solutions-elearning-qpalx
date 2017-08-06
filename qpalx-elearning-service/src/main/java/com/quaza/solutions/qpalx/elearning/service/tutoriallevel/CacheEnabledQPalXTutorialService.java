@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.tutoriallevel;
 
 import com.google.common.collect.ImmutableList;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
+import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.IQPalXTutorialLevelRepository;
@@ -37,6 +38,16 @@ public class CacheEnabledQPalXTutorialService implements IQPalXTutorialService {
         LOGGER.debug("Finding StudentTutorialLevel with id: {}", id);
         StudentTutorialLevel studentTutorialLevel = iqPalXTutorialLevelRepository.findOne(id);
         return studentTutorialLevel;
+    }
+
+    @Override
+    public List<StudentTutorialLevel> findStudentTutorialLevelsByMunicipality(QPalXMunicipality qPalXMunicipality) {
+        Assert.notNull(qPalXMunicipality, "qPalXMunicipality cannot be null");
+        LOGGER.debug("Finding all QPalX StudentTutorialLevel for Municipality: {}", qPalXMunicipality);
+
+        // Get Country to lookup tutorial levels
+        QPalXCountry country = qPalXMunicipality.getQPalXCountry();
+        return iqPalXTutorialLevelRepository.findAllQPalXCountryTutorialLevels(country);
     }
 
     @Override

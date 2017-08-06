@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.institutions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -32,36 +33,42 @@ public class QPalXEducationalInstitution {
 	
 	@Column(name="Description", nullable=true, length=255)
 	private String description;
-	
+
+	@JsonIgnore
 	@Embedded
 	private InstitutionalContactMethod institutionalContactMethod;
-	
+
+	@JsonIgnore
 	@Column(name="WebSiteAddress", nullable=true, length=256)
 	private String webSiteAddress;
 
-	// Full path and file name of the media content
+	@JsonIgnore
 	@Column(name="SchoolLogo", nullable=true, length=255)
 	private String schoolLogo;
 
 	// Determines IF this institution offers Primary/Middle School Level Education
+	@JsonIgnore
 	@Column(name="HasPrimaryEducation", nullable = false, columnDefinition = "TINYINT", length = 1)
 	@ColumnDefault("0")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean hasPrimaryEducation;
 
 	// Determines IF this institution offers Junior School Level Education
+	@JsonIgnore
 	@Column(name="HasJuniorHighEducation", nullable = false, columnDefinition = "TINYINT", length = 1)
 	@ColumnDefault("0")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean hasJuniorHighEducation;
 
 	// Determines IF this institution offers Senior High School Level Education
+	@JsonIgnore
 	@Column(name="HasSeniorHighEducation", nullable = false, columnDefinition = "TINYINT", length = 1)
 	@ColumnDefault("0")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean hasSeniorHighEducation;
 
 	// Determines IF this institution offers Senior High School Level Education
+	@JsonIgnore
 	@Column(name="HasCollegeEducation", nullable = false, columnDefinition = "TINYINT", length = 1)
 	@ColumnDefault("0")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
@@ -70,6 +77,7 @@ public class QPalXEducationalInstitution {
 	// Fetch this eagerly.  This is the Academic Level that this School teaches at
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "QPalXMunicipalityID", nullable =  true)
+	@JsonIgnore
 	private QPalXMunicipality qPalXMunicipality;
 
 	public static final String CLASS_ATTRIBUTE_IDENTIFIER = "QPalXEducationalInstitution";

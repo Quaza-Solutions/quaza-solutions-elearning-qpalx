@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.tutoriallevel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -35,10 +36,12 @@ public class StudentTutorialLevel {
     // Tutorial level is attached to a specific Country
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QPalXCountryID", nullable = false)
+    @JsonIgnore
     private QPalXCountry qPalXCountry;
 
     @Column(name="Enabled", nullable = true, columnDefinition = "TINYINT", length = 1)
     @Type(type = "org.hibernate.type.NumericBooleanType")
+    @JsonIgnore
     private boolean enabled;
 
     @Column(name="AcademicLevel", nullable=false, length=20)
@@ -48,6 +51,7 @@ public class StudentTutorialLevel {
     // Date tutorial level was created
     @Column(name="EntryDateTime", nullable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
     private DateTime entryDateTime;
 
 
