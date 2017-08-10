@@ -242,6 +242,48 @@
                         </configuration>
                     </execution>
 
+                    <!-- Insert all SHS Schools in Ashanti -->
+                    <execution>
+                        <id>insert_ashanti_shs_schools</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>src/main/resources/ashanti-schools-static-list.xml</src>
+                        </configuration>
+                    </execution>
+
+                    <!-- Insert all SHS Schools in Brong Ahafo -->
+                    <execution>
+                        <id>insert_brong_ahafo_shs_schools</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>src/main/resources/brong-ahafo-schools-static-list.xml</src>
+                        </configuration>
+                    </execution>
+
+                    <!-- Insert all SHS Schools in CentralRegion -->
+                    <execution>
+                        <id>insert_central_region_shs_schools</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>src/main/resources/central-region-schools-static-list.xml</src>
+                        </configuration>
+                    </execution>
+
                 </executions>
             </plugin>
 

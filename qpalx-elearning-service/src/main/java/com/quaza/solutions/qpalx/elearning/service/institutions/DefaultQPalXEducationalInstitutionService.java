@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.DefaultQPalXEducationalInstitutionService")
+@Service(DefaultQPalXEducationalInstitutionService.SPRING_BEAN)
 public class DefaultQPalXEducationalInstitutionService implements IQPalXEducationalInstitutionService {
 
 

@@ -39,6 +39,7 @@
     <QPalXEducationalInstitution Code="ASTS" Name="Ada Secondary Technical School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
     <QPalXEducationalInstitution Code="AGTS" Name="Ghanata Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
     <QPalXEducationalInstitution Code="ANGS" Name="Ningo Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Code="ATIC" Name="Tema International College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
 
 
     <!--
@@ -49,6 +50,7 @@
     <!--
         Populate Educational Institutions that have Primary/Middle, JHS and SHS
      -->
-    <QPalXEducationalInstitution Code="ABCS" Name="Alpha Beta Christian College" HasPrimaryEducation="1" HasJuniorHighEducation="1" HasSeniorHighEducation="0"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Code="ABCS" Name="Alpha Beta Christian College" HasPrimaryEducation="1" HasJuniorHighEducation="1" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Code="ABCS" Name="St. Peter's Mission Schools " HasPrimaryEducation="1" HasJuniorHighEducation="1" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
 
 </dataset>

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+
+    <!--
+        Populate Educational Institutions that only have SHS Eduction only
+     -->
+    <QPalXEducationalInstitution Code="CBAS" Name="Breman Asikuma Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+    <QPalXEducationalInstitution Code="CAWS" Name="Awutu-Winton Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+    <QPalXEducationalInstitution Code="CAME" Name="Aggrey Memorial A.M.E Zion Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="3"  />
+    <QPalXEducationalInstitution Code="CADS" Name="Adisadel College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+    <QPalXEducationalInstitution Code="CESS" Name="Effutu Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+
+    <QPalXEducationalInstitution Code="CGNC" Name="Ghana National College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+    <QPalXEducationalInstitution Code="CHCS" Name="Holy Child High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+
+    <QPalXEducationalInstitution Code="CMFS" Name="Mfantsipim School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+
+    <QPalXEducationalInstitution Code="CWGS" Name="Wesley Girls High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+    <QPalXEducationalInstitution Code="CASH" Name="Apam Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+    <QPalXEducationalInstitution Code="CKSS" Name="Komenda Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+    <QPalXEducationalInstitution Code="CMKS" Name="Mankesim Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="4"  />
+
+    
+
+</dataset>

@@ -16,6 +16,7 @@ import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatusE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
+import com.quaza.solutions.qpalx.elearning.service.institutions.DefaultQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.IAdaptiveProficiencyRankingService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IStudentEnrolmentRecordService;
@@ -63,7 +64,7 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
     private IQPalxUserService iqPalxUserService;
 
     @Autowired
-    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalXEducationalInstitutionService")
+    @Qualifier(DefaultQPalXEducationalInstitutionService.SPRING_BEAN)
     private IQPalXEducationalInstitutionService iqPalXEducationalInstitutionService;
 
     @Autowired
