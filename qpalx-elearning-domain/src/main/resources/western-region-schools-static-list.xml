@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+
+    <!--
+        Populate Educational Institutions that only have SHS Eduction only
+     -->
+    <QPalXEducationalInstitution Code="TADISCO" Name="Takoradi Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="6"  />
+    <QPalXEducationalInstitution Code="SEKCO" Name="Sekondi College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="6"  />
+    <QPalXEducationalInstitution Code="SEBES" Name="Sefwi Bekwai Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="6"  />
+    <QPalXEducationalInstitution Code="WASEC" Name="Wadud Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="6"  />
+    <QPalXEducationalInstitution Code="SEWASS" Name="Sefwi Wiawso Senior High" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="6"  />
+    <QPalXEducationalInstitution Name="Asankrangwa Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="6"  />
+
+</dataset>

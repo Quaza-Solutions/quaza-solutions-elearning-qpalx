@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+
+    <!--
+        Populate Educational Institutions that only have SHS Eduction only
+     -->
+    <QPalXEducationalInstitution Code="BOGISS" Name="Bolgatanga Girls Secondary School " HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="7"  />
+    <QPalXEducationalInstitution Code="ZUSS" Name="Zuarungu Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="7"  />
+    <QPalXEducationalInstitution Code="ZAMSTECH" Name="Zamse Secondary Technical School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="7"  />
+    <QPalXEducationalInstitution Code="BOTECH" Name="Bolgatanga Technical Institute" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="7"  />
+    <QPalXEducationalInstitution Name="Bawku Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="7"  />
+    <QPalXEducationalInstitution Name="Zebilla Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="7"  />
+
+    <QPalXEducationalInstitution Name="Gowrie Secondary Technical School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="7"  />
+    <QPalXEducationalInstitution Name="Ho School of Business" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="7"  />
+    <QPalXEducationalInstitution Name="Sandema Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="7"  />
+    <QPalXEducationalInstitution Name="Navrongo Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="7"  />
+
+</dataset>

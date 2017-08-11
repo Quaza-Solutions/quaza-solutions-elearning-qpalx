@@ -25,7 +25,7 @@ public class QPalXEducationalInstitution {
 	@Column(name="ID", nullable=false)
 	private Long id;
 	
-	@Column(name="Code", nullable=false, length=6)
+	@Column(name="Code", nullable=true, length=10)
 	private String code;
 	
 	@Column(name="Name", nullable=false, length=255, unique=true)

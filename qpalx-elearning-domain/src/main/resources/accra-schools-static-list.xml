@@ -5,52 +5,52 @@
     <!--
         Populate Educational Institutions that only have SHS Eduction only
      -->
-    <QPalXEducationalInstitution Code="ACCA" Name="Accra Academy" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" SchoolLogo="images/schools/shs/Ghana/Accra/Accra-Academy.png"  />
+    <QPalXEducationalInstitution Code="ACCRACA" Name="Accra Academy" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" SchoolLogo="images/schools/shs/Ghana/Accra/Accra-Academy.png"  />
     <QPalXEducationalInstitution Code="ATTC" Name="Accra Technical Training Center" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="AGGS" Name="Accra Girls Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="AGRS" Name="Accra Grammar School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ACHS" Name="Accra High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ASSH" Name="Achimota Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ASAS" Name="St. Thomas Aquinas Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ASXH" Name="St. Francis Xavier Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ACIS" Name="Christ International Senior High Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ACMS" Name="Christian Methodist Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Code="AGIS" Name="Accra Girls Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Accra Grammar School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Accra High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Code="MOTOWN" Name="Achimota Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="St. Thomas Aquinas Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="St. Francis Xavier Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Christ International Senior High Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Christian Methodist Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
 
-    <QPalXEducationalInstitution Code="ADSS" Name="Dansoman Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1"  />
-    <QPalXEducationalInstitution Code="AGIS" Name="Ghana International School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1"  SchoolLogo="images/schools/shs/Ghana/Accra/Ghana-International-School.png" />
-    <QPalXEducationalInstitution Code="AHTS" Name="Holy Trinity Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="AKSS" Name="Kaneshie Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="AKBS" Name="Kinbu Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ALPS" Name="La Presbyterian Senior Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ALSS" Name="Labone Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="AMSS" Name="Madina Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ANSS" Name="Nungua Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="AOSS" Name="O'Reilly Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Dansoman Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1"  />
+    <QPalXEducationalInstitution Name="Ghana International School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1"  SchoolLogo="images/schools/shs/Ghana/Accra/Ghana-International-School.png" />
+    <QPalXEducationalInstitution Name="Holy Trinity Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Kaneshie Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Kinbu Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="La Presbyterian Senior Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Labone Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Madina Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Nungua Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="O'Reilly Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
 
-    <QPalXEducationalInstitution Code="AOHS" Name="Odorgonno Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="AOPS" Name="Osu Presbyterian Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ALPS" Name="Presbyterian Boys Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ASMS" Name="Saint Mary's Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ATPS" Name="Teshie Presby Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="AWGS" Name="Wesley Grammar Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="AEHS" Name="Edge Hill Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Odorgonno Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Osu Presbyterian Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Presbyterian Boys Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Saint Mary's Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Teshie Presby Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Wesley Grammar Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Edge Hill Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
 
-    <QPalXEducationalInstitution Code="AASS" Name="Ada Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ASTS" Name="Ada Secondary Technical School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="AGTS" Name="Ghanata Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ANGS" Name="Ningo Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ATIC" Name="Tema International College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Ada Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Ada Secondary Technical School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Ghanata Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Ningo Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Tema International College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
 
-
-    <!--
-        Populate Educational Institutions that have Primary/Middle, JHS and SHS
-     -->
-    <QPalXEducationalInstitution Code="AGLS" Name="Galaxy International School" HasPrimaryEducation="1" HasJuniorHighEducation="1" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
 
     <!--
         Populate Educational Institutions that have Primary/Middle, JHS and SHS
      -->
-    <QPalXEducationalInstitution Code="ABCS" Name="Alpha Beta Christian College" HasPrimaryEducation="1" HasJuniorHighEducation="1" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
-    <QPalXEducationalInstitution Code="ABCS" Name="St. Peter's Mission Schools " HasPrimaryEducation="1" HasJuniorHighEducation="1" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="Galaxy International School" HasPrimaryEducation="1" HasJuniorHighEducation="1" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+
+    <!--
+        Populate Educational Institutions that have Primary/Middle, JHS and SHS
+     -->
+    <QPalXEducationalInstitution Name="Alpha Beta Christian College" HasPrimaryEducation="1" HasJuniorHighEducation="1" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
+    <QPalXEducationalInstitution Name="St. Peter's Mission Schools " HasPrimaryEducation="1" HasJuniorHighEducation="1" HasSeniorHighEducation="1"  QPalXMunicipalityID="1" />
 
 </dataset>

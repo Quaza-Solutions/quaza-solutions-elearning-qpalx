@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+
+    <!--
+        Populate Educational Institutions that only have SHS Eduction only
+     -->
+    <QPalXEducationalInstitution Code="AKISSS" Name="Akim Swedru Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+    <QPalXEducationalInstitution Code="POJOSS" Name="Pope John Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+    <QPalXEducationalInstitution Code="KOSEC" Name="Koforidua Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+    <QPalXEducationalInstitution Code="GHANASS" Name="Ghana Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+    <QPalXEducationalInstitution Code="NJUASCO" Name="New-Juaben Secondary Commercial School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+    <QPalXEducationalInstitution Code="UNIGISS" Name="Universal Girls Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+
+    <QPalXEducationalInstitution Name="Saint Paul Technical School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+
+
+    <QPalXEducationalInstitution Name="Oda Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+    <QPalXEducationalInstitution Name="Akosombo International School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+    <QPalXEducationalInstitution Code="OKUASS" Name="Okuapeman Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+
+    <QPalXEducationalInstitution Code="NISEC" Name="Nifa Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+    <QPalXEducationalInstitution Code="ABUGISS" Name="Aburi Girls' Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+    <QPalXEducationalInstitution Code="ANSEC" Name="Anum Presbyterian Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+    <QPalXEducationalInstitution Code="SEDASS" Name="SDA Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="5"  />
+
+    
+
+</dataset>

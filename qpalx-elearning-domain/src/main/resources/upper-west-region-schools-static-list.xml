@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+
+    <!--
+        Populate Educational Institutions that only have SHS Eduction only
+     -->
+    <QPalXEducationalInstitution Name="Lassia Tuolo Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Kanton Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Pinna Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Ullo Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Wa Islamic Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+
+    <QPalXEducationalInstitution Name="Wa Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="St. Francis Girls Secondary Schoo" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="St Francis Xavier Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Jirapa Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+
+    <QPalXEducationalInstitution Name="Ahmadiyya Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Lawra Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Eremon Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Nandom Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Ko Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Lassia-Tuolu Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+    <QPalXEducationalInstitution Name="Holy Family S.H.S,Hamile" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="8"  />
+
+</dataset>

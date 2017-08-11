@@ -284,6 +284,91 @@
                         </configuration>
                     </execution>
 
+                    <!-- Insert all SHS Schools in EasternRegion -->
+                    <execution>
+                        <id>insert_eastern_region_shs_schools</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>src/main/resources/eastern-region-schools-static-list.xml</src>
+                        </configuration>
+                    </execution>
+
+                    <!-- Insert all SHS Schools in WesternRegion -->
+                    <execution>
+                        <id>insert_western_region_shs_schools</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>src/main/resources/western-region-schools-static-list.xml</src>
+                        </configuration>
+                    </execution>
+
+                    <!-- Insert all SHS Schools in UpperEastRegion -->
+                    <execution>
+                        <id>insert_upper_east_region_shs_schools</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>src/main/resources/upper-east-region-schools-static-list.xml</src>
+                        </configuration>
+                    </execution>
+
+                    <!-- Insert all SHS Schools in UpperWestRegion -->
+                    <execution>
+                        <id>insert_upper_west_region_shs_schools</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>src/main/resources/upper-west-region-schools-static-list.xml</src>
+                        </configuration>
+                    </execution>
+
+                    <!-- Insert all SHS Schools in VoltaRegion -->
+                    <execution>
+                        <id>insert_volta_region_shs_schools</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>src/main/resources/volta-region-schools-static-list.xml</src>
+                        </configuration>
+                    </execution>
+
+                    <!-- Insert all SHS Schools in NorthernRegion -->
+                    <execution>
+                        <id>insert_northern_region_shs_schools</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                        <configuration>
+                            <format>flat</format>
+                            <type>INSERT</type>
+                            <src>src/main/resources/northern-region-schools-static-list.xml</src>
+                        </configuration>
+                    </execution>
+
+
                 </executions>
             </plugin>
 

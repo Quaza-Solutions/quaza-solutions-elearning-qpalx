@@ -5,18 +5,18 @@
     <!--
         Populate Educational Institutions that only have SHS Eduction only
      -->
-    <QPalXEducationalInstitution Code="KAVS" Name="Adventist Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
-    <QPalXEducationalInstitution Code="KANS" Name="Anglican Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
-    <QPalXEducationalInstitution Code="KAMS" Name="Asanteman Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
-    <QPalXEducationalInstitution Code="KASS" Name="Kumasi Academy" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
-    <QPalXEducationalInstitution Code="KOKS" Name="Osei Kyeretwie Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2" SchoolLogo="images/schools/shs/Ghana/Ashanti/Osei-Kyeretwie.png"  />
-    <QPalXEducationalInstitution Code="KPCS" Name="Prempeh College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
+    <QPalXEducationalInstitution Name="Adventist Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
+    <QPalXEducationalInstitution Name="Anglican Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
+    <QPalXEducationalInstitution Name="Asanteman Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
+    <QPalXEducationalInstitution Name="Kumasi Academy" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
+    <QPalXEducationalInstitution Name="Osei Kyeretwie Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2" SchoolLogo="images/schools/shs/Ghana/Ashanti/Osei-Kyeretwie.png"  />
+    <QPalXEducationalInstitution Name="Prempeh College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
 
-    <QPalXEducationalInstitution Code="KOWS" Name="Opoku Ware School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
-    <QPalXEducationalInstitution Code="KSTL" Name="St. Louis Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
-    <QPalXEducationalInstitution Code="KKSS" Name="KNUST Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
-    <QPalXEducationalInstitution Code="KTIS" Name="T.I. Ahmadiyya Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
-    <QPalXEducationalInstitution Code="KGSS" Name="Kumasi Girls Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
+    <QPalXEducationalInstitution Name="Opoku Ware Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
+    <QPalXEducationalInstitution Name="St. Louis Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
+    <QPalXEducationalInstitution Name="KNUST Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
+    <QPalXEducationalInstitution Name="T.I. Ahmadiyya Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
+    <QPalXEducationalInstitution Name="Kumasi Girls Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="2"  />
 
 
 </dataset>

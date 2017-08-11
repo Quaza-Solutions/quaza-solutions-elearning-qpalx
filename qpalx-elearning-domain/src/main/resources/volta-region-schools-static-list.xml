@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+
+    <!--
+        Populate Educational Institutions that only have SHS Eduction only
+     -->
+    <QPalXEducationalInstitution Name="Akatsi Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Ave-Dakpa Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Baglo Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Bueman Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Abutia Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+
+    <QPalXEducationalInstitution Name="Adaklu Comm. Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Agotime Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Awudome Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Dzolo Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+
+    <QPalXEducationalInstitution Name="Kpedze Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Mawuli School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="OLA Girls Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Saint Prosper's College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Sedzordzi Shaker Anthony's School Complex" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Star Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Afadjato Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+
+    <QPalXEducationalInstitution Name="Keta Business College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Code="KETASCO" Name="Keta Senior High Tech.School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Code="ZICO" Name="Zion College" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Kete-Krachi Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Oti Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Ntruboman Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Nkwanta Secondary School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+
+    <QPalXEducationalInstitution Name="St. Paul's Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Some Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Klikor Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Anfoega Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Kpando Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Vakpo Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+
+    <QPalXEducationalInstitution Name="Peki Senior High School" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Dofor Comm. Agricultural Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="St. Kizito Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+    <QPalXEducationalInstitution Name="Sogakope Secondary" HasPrimaryEducation="0" HasJuniorHighEducation="0" HasSeniorHighEducation="1"  QPalXMunicipalityID="9"  />
+
+</dataset>
