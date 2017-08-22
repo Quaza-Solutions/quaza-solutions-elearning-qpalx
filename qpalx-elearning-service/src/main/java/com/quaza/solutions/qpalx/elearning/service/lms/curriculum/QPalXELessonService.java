@@ -134,7 +134,7 @@ public class QPalXELessonService implements IQPalXELessonService {
         Assert.notNull(iqPalXELessonVO, "iqPalXELessonVO cannot be null");
         Assert.notNull(iqPalXELessonVO.getELearningCourseID(), "Non null ELearningCourse ID required");
         Assert.notNull(iqPalXELessonVO.getTutorialLevelCalendarID(), "Non null valid TutorialLevelCalendar ID required");
-        Assert.notNull(iqPalXELessonVO.getELearningMediaContent(), "Non null valid ELearningMediaContent ID required");
+        //Assert.notNull(iqPalXELessonVO.getELearningMediaContent(), "Non null valid ELearningMediaContent ID required");
         LOGGER.info("Updating and saving QPalXELesson with value object iqPalXELessonVO: {}", iqPalXELessonVO);
 
         // Load up the EducationalInstitution for this course if its been selected.
