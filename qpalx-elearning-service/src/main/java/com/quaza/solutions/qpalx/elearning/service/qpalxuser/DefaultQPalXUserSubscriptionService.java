@@ -1,17 +1,17 @@
 package com.quaza.solutions.qpalx.elearning.service.qpalxuser;
 
-import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRankingVO;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.IAdaptiveProficiencyRankingVO;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.payment.electronic.repository.IEPaymentServiceTransactionRepository;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.*;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfile;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfileBuilder;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.repository.IStudentSubscriptionProfileRepository;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.repository.IQPalxUserRepository;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.SimplifiedProficiencyRankE;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatusE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
@@ -19,6 +19,8 @@ import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipali
 import com.quaza.solutions.qpalx.elearning.service.institutions.DefaultQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.IAdaptiveProficiencyRankingService;
+import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.CacheEnabledELearningCurriculumService;
+import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IStudentEnrolmentRecordService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
@@ -29,8 +31,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  *
@@ -73,6 +75,10 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
 
     @Autowired
     private IEPaymentServiceTransactionRepository iePaymentServiceTransactionRepository;
+
+    @Autowired
+    @Qualifier(CacheEnabledELearningCurriculumService.BEAN_NAME)
+    private IELearningCurriculumService ieLearningCurriculumService;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultAdaptiveProficiencyRankingService")
@@ -145,8 +151,8 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
             }
             iStudentEnrolmentRecordService.createStudentEnrolmentRecord(qPalXUser, studentTutorialGrade, qPalXEducationalInstitution);
 
-            // create default QPalX enrollment record.
-            buildAndSaveInitialAdaptiveProficiencyRaning(qPalXUser, studentTutorialGrade, iqPalXUserVO);
+            // Build and save the Student's default initial AdaptiveProficiency rankinngs
+            buildAndSaveInitialAdaptiveProficiencyRaning(qPalXUser, studentTutorialGrade);
             return Optional.of(qPalXUser);
         }
 
@@ -221,18 +227,22 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
         return Optional.empty();
     }
 
-    void buildAndSaveInitialAdaptiveProficiencyRaning(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade, IQPalXUserVO iqPalXUserVO) {
-        LOGGER.info("Building and saving all student users core curriculum initial proficiencies...");
-        Set<IAdaptiveProficiencyRankingVO> initialAdaptiveProficiencyRankingVOs =ImmutableSet.of(
-                new AdaptiveProficiencyRankingVO("English", iqPalXUserVO.getCoreEnglishProficiencyLevel()),
-                new AdaptiveProficiencyRankingVO("Mathematics", iqPalXUserVO.getCoreMathProficiencyLevel()),
-                new AdaptiveProficiencyRankingVO("Social Studies", iqPalXUserVO.getCoreSocialStudiesProficiencyLevel()),
-                new AdaptiveProficiencyRankingVO("Science", iqPalXUserVO.getCoreScienceProficiencyLevel()),
-                new AdaptiveProficiencyRankingVO("ICT", iqPalXUserVO.getCoreICTProficiencyLevel())
-                //new AdaptiveProficiencyRankingVO("Vocational Studies", iqPalXUserVO.getCoreVocationalStudiesProficiencyLevel())
-        );
+    void buildAndSaveInitialAdaptiveProficiencyRaning(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade) {
+        LOGGER.info("Building and saving all student users Core and Elective Curriculum proficiency rankings which will be defaulted to Beginner.");
 
-        iAdaptiveProficiencyRankingService.buildInitialAdaptiveProficiencyRanking(qPalXUser, studentTutorialGrade, initialAdaptiveProficiencyRankingVOs);
+        // Find all Core and Elective curriculum for the selected StudentTutorialGrade
+        List<ELearningCurriculum> coreELearningCurricula = ieLearningCurriculumService.findAllCurriculumByTutorialGradeAndType(CurriculumType.CORE, studentTutorialGrade);
+        List<ELearningCurriculum> electiveELearningCurricula = ieLearningCurriculumService.findAllCurriculumByTutorialGradeAndType(CurriculumType.ELECTIVE, studentTutorialGrade);
+
+        // Build and save all Core Curriculum proficiency rankings
+        for(ELearningCurriculum eLearningCurriculum : coreELearningCurricula) {
+            iAdaptiveProficiencyRankingService.buildAndSaveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum, SimplifiedProficiencyRankE.Beginner);
+        }
+
+        // Build and save all Elective Curriculum proficiency rankings
+        for(ELearningCurriculum eLearningCurriculum : electiveELearningCurricula) {
+            iAdaptiveProficiencyRankingService.buildAndSaveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum, SimplifiedProficiencyRankE.Beginner);
+        }
     }
 
 

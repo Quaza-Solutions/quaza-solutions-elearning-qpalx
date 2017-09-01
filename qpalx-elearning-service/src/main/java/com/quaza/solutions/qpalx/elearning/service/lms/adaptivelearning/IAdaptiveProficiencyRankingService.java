@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveP
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.IAdaptiveProficiencyRankingVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.SimplifiedProficiencyRankE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 
 import java.util.List;
@@ -41,4 +42,7 @@ public interface IAdaptiveProficiencyRankingService {
      * @param initialAdaptiveProficiencyRankingVOs
      */
     public void buildInitialAdaptiveProficiencyRanking(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade, Set<IAdaptiveProficiencyRankingVO> initialAdaptiveProficiencyRankingVOs);
+
+    // Build and save AdaptiveProficiencyRanking for an ELearningCurriculum
+    public void buildAndSaveProficiencyRankingForCurriculum(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, SimplifiedProficiencyRankE simplifiedProficiencyRankE);
 }

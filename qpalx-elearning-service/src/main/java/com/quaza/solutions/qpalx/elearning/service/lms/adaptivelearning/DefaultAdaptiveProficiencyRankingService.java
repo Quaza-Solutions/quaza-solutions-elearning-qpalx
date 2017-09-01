@@ -101,6 +101,26 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
 
     }
 
+    @Override
+    @Transactional
+    public void buildAndSaveProficiencyRankingForCurriculum(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, SimplifiedProficiencyRankE simplifiedProficiencyRankE) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
+        Assert.notNull(simplifiedProficiencyRankE, "simplifiedProficiencyRankE cannot be null");
+
+        LOGGER.info("Building and saving AdaptiveProficiencyRanking for curriculum: {} with simplifiedProficiencyRankE: {}", eLearningCurriculum, simplifiedProficiencyRankE);
+
+        ProficiencyRankingScaleE lowestProficiency = simplifiedProficiencyRankE.getProficiencyRankingScaleRange().getMinimum();
+        AdaptiveProficiencyRanking adaptiveProficiencyRanking = AdaptiveProficiencyRanking.builder()
+                .qpalxUser(qPalXUser)
+                .proficiencyRankingScaleE(lowestProficiency)
+                .eLearningCurriculum(eLearningCurriculum)
+                .proficiencyRankingEffectiveDateTime(new DateTime())
+                .proficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE.ENROLMENT)
+                .build();
+
+        iAdaptiveProficiencyRankingRepository.save(adaptiveProficiencyRanking);
+    }
 
     protected AdaptiveProficiencyRanking buildSingleAdaptiveProficiencyRanking(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade, IAdaptiveProficiencyRankingVO iAdaptiveProficiencyRankingVO) {
         LOGGER.info("Building new adaptive proficiency ranking for user: {} with proficiency details: {}", qPalXUser.getEmail(), iAdaptiveProficiencyRankingVO);
@@ -127,5 +147,7 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
         LOGGER.info("Failed to load elearningCurriculum: {} or simplifiedProficiencyRankE: {} cannot build AdaptiveProficiencyRanking", eLearningCurriculum, simplifiedProficiencyRankE);
         return null;
     }
+
+
 
 }
