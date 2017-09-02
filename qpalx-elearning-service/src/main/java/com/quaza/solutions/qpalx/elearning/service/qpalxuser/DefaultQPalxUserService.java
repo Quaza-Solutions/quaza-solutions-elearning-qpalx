@@ -25,7 +25,7 @@ import java.util.Random;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.DefaultQPalxUserService")
+@Service(DefaultQPalxUserService.BEAN_NAME)
 public class DefaultQPalxUserService implements IQPalxUserService {
 
 
@@ -52,6 +52,8 @@ public class DefaultQPalxUserService implements IQPalxUserService {
     public static final int INSTITUTION_AFFILIATED_STUDENT_ID_LENGTH = 5;
 
     public static final int STAND_ALONE_STUDENT_ID_LENGTH = 7;
+
+    public static final String BEAN_NAME = "com.quaza.solutions.qpalx.elearning.service.qpalxuser.DefaultQPalxUserService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultQPalxUserService.class);
 
