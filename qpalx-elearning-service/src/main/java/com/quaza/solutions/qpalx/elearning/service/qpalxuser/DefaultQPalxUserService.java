@@ -3,12 +3,13 @@ package com.quaza.solutions.qpalx.elearning.service.qpalxuser;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
-import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.*;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfile;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.repository.IStudentSubscriptionProfileRepository;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.repository.IQPalxUserRepository;
 import com.quaza.solutions.qpalx.elearning.service.geographical.IQPalXMunicipalityService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
@@ -47,6 +48,10 @@ public class DefaultQPalxUserService implements IQPalxUserService {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxSubscriptionService")
     private IQPalxSubscriptionService iqPalxSubscriptionService;
+
+    @Autowired
+    @Qualifier(GlobalStudentPerformanceAuditService.BEAN_NAME)
+    private IGlobalStudentPerformanceAuditService iGlobalStudentPerformanceAuditService;
 
 
     public static final int INSTITUTION_AFFILIATED_STUDENT_ID_LENGTH = 5;
@@ -137,6 +142,41 @@ public class DefaultQPalxUserService implements IQPalxUserService {
 
         Integer count = jdbcTemplate.queryForObject(query, Integer.class, args);
         return count != null && count.intValue() < 1 ? true : false;
+    }
+
+    @Override
+    @Transactional
+    public void buildAndSaveGuardianUser(IQPalXUserVO iqPalXUserVO) {
+        Assert.notNull(iqPalXUserVO, "iqPalXUserVO cannot be null");
+        Assert.notNull(iqPalXUserVO.getGlobalAuditQPalxUser(), "Student QPalxUser being globaly audited for performance cannot be null");
+        LOGGER.info("Creating and saving new guardian parent user with email: {}", iqPalXUserVO.getEmail());
+
+        // Get  user municipality
+        QPalXMunicipality municipality = iqPalXMunicipalityService.findQPalXMunicipalityByID(iqPalXUserVO.getMunicipalityID());
+        QPalxUserSexE qPalxUserSexE = QPalxUserSexE.valueOf(iqPalXUserVO.getUserSex());
+
+        // Build and save the Guardian QPalx User first
+        QPalXUser guardianQPalxUser = QPalXUser.builder()
+                .firstName(iqPalXUserVO.getFirstName())
+                .lastName(iqPalXUserVO.getLastName())
+                .email(iqPalXUserVO.getEmail())
+                .password(iqPalXUserVO.getPassword())
+                .municipality(municipality)
+                .mobilePhoneNumber(iqPalXUserVO.getMobilePhoneNumber())
+                .accountLockedStatus(false) // By default always create a new account unlocked
+                .qPalxUserSexE(qPalxUserSexE)
+                .qPalxUserTypeE(QPalxUserTypeE.PARENT_GUARDIAN)
+                .build();
+        iqPalxUserRepository.save(guardianQPalxUser);
+
+        // Build and save the global performance monitoring data event
+        GlobalStudentPerformanceAudit globalStudentPerformanceAudit = GlobalStudentPerformanceAudit.builder()
+                .auditorQPalxUser(guardianQPalxUser)
+                .studentQPalxUser(iqPalXUserVO.getGlobalAuditQPalxUser())
+                .effectiveDate(DateTime.now())
+                .enabled(true)
+                .build();
+        iGlobalStudentPerformanceAuditService.saveGlobalStudentPerformanceAudit(globalStudentPerformanceAudit);
     }
 
     @Override

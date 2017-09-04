@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.service.qpalxuser;
 
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.IQPalXUserVO;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import org.springframework.data.domain.Pageable;
 
@@ -24,6 +25,8 @@ public interface IQPalxUserService {
     public String generateQPalXUserSuccessID(QPalXUser qPalXUser);
 
     public boolean isUniqueUserMobilePhoneNumber(String mobilePhoneNumber);
+
+    public void buildAndSaveGuardianUser(IQPalXUserVO iqPalXUserVO);
 
     public List<QPalXUser> findAllQPalXUsersWithPageableResults(Pageable pageable);
 

@@ -4,6 +4,7 @@ import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXCountry;
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.IQPalXUserVO;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserSexE;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentSubscriptionProfile;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.QPalXSubscription;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.SubscriptionStatusE;
@@ -192,6 +193,11 @@ public class DefaultQPalXUserSubscriptionServiceTest {
         }
 
         @Override
+        public String getUserSex() {
+            return QPalxUserSexE.Male.name();
+        }
+
+        @Override
         public Long getMunicipalityID() {
             return 1L;
         }
@@ -232,32 +238,7 @@ public class DefaultQPalXUserSubscriptionServiceTest {
         }
 
         @Override
-        public String getCoreEnglishProficiencyLevel() {
-            return null;
-        }
-
-        @Override
-        public String getCoreMathProficiencyLevel() {
-            return null;
-        }
-
-        @Override
-        public String getCoreSocialStudiesProficiencyLevel() {
-            return null;
-        }
-
-        @Override
-        public String getCoreScienceProficiencyLevel() {
-            return null;
-        }
-
-        @Override
-        public String getCoreICTProficiencyLevel() {
-            return null;
-        }
-
-        @Override
-        public String getCoreVocationalStudiesProficiencyLevel() {
+        public QPalXUser getGlobalAuditQPalxUser() {
             return null;
         }
     }

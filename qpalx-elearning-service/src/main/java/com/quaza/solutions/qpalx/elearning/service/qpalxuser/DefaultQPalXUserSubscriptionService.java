@@ -62,7 +62,7 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
     private IQPalXTutorialService iqPalXTutorialService;
 
     @Autowired
-    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalxUserService")
+    @Qualifier(DefaultQPalxUserService.BEAN_NAME)
     private IQPalxUserService iqPalxUserService;
 
     @Autowired

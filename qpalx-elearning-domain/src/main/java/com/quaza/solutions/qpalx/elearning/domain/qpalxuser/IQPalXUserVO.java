@@ -21,47 +21,22 @@ public interface IQPalXUserVO {
 
     public String getPassword();
 
-    /**
-     * Returns User's Municipality ID.
-     *
-     * @return Long
-     */
+    public String getUserSex();
+
     public Long getMunicipalityID();
 
-    /**
-     * Returns User's subscription ID.
-     *
-     * @return
-     */
     public Long getSubscriptionID();
 
     public Long getStudentTutorialLevelID();
 
     public Long getEducationalInstitutionID();
 
-    /**
-     * @return The QPalXUser tutorial level.
-     */
     public Long getTutorialGradeID();
 
     public String getMPowerAccountAlias();
 
-    /**
-     * Returns the ID for the payment system that can be used to bill this user.
-     *
-     * @return Long.
-     */
     public Long getPaymentSystemID();
 
-    public String getCoreEnglishProficiencyLevel();
+    public QPalXUser getGlobalAuditQPalxUser();
 
-    public String getCoreMathProficiencyLevel();
-
-    public String getCoreSocialStudiesProficiencyLevel();
-
-    public String getCoreScienceProficiencyLevel();
-
-    public String getCoreICTProficiencyLevel();
-
-    public String getCoreVocationalStudiesProficiencyLevel();
 }
