@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.StudentOverallProgressStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,8 +30,13 @@ public class StudentOverallProgressStatisticsService implements IStudentOverallP
 
     private String ovearallProgressStatisticsSql;
 
+    private String globalStudentProgressSql;
+
     @Value("classpath:/sql/StudentOverallProgress.sql")
     private Resource overallStudentProgressSqlResource;
+
+    @Value("classpath:/sql/global-performance/student-curriculum-progress.sql")
+    private Resource globalStudentProgressSqlResource;
 
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentOverallProgressStatisticsService.class);
@@ -52,10 +58,29 @@ public class StudentOverallProgressStatisticsService implements IStudentOverallP
         return overallProgressStatisticsList;
     }
 
+    @Override
+    public StudentOverallProgressStatistics getGlobalStudentOverallProgressStatisticsInCurriculum(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
+
+        LOGGER.info("Calculuating student global performance progress for student: {} in curriculum: {}", qPalXUser.getEmail(), eLearningCurriculum.getCurriculumName());
+
+        Object [] params = new Object[] {
+                qPalXUser.getId(), eLearningCurriculum.getCurriculumType().toString(), eLearningCurriculum.getId(), qPalXUser.getId(), eLearningCurriculum.getCurriculumType().toString(), eLearningCurriculum.getId(),
+                qPalXUser.getId(), eLearningCurriculum.getCurriculumType().toString(), eLearningCurriculum.getId(), qPalXUser.getId(), eLearningCurriculum.getCurriculumType().toString(), eLearningCurriculum.getId(),
+                qPalXUser.getId(), eLearningCurriculum.getCurriculumType().toString(), eLearningCurriculum.getId(), qPalXUser.getId(), qPalXUser.getId(), eLearningCurriculum.getCurriculumType().toString(), eLearningCurriculum.getId(),
+                qPalXUser.getId(), eLearningCurriculum.getCurriculumType().toString(), eLearningCurriculum.getId()
+        };
+
+        StudentOverallProgressStatistics studentOverallProgressStatistics = jdbcTemplate.queryForObject(globalStudentProgressSql, params, StudentOverallProgressStatistics.newRowMapper());
+        return studentOverallProgressStatistics;
+    }
+
     @PostConstruct
     private void loadOverallProgressStatistics() throws IOException {
-        LOGGER.info("Loading lessons statistic sql from resource: {}", overallStudentProgressSqlResource);
+        LOGGER.info("Loading lessons statistic sql from ovearallProgressStatisticsSql: {} globalStudentProgressSql: {}", overallStudentProgressSqlResource, globalStudentProgressSqlResource);
         ovearallProgressStatisticsSql  = Resources.toString(overallStudentProgressSqlResource.getURL(), Charsets.UTF_8);
+        globalStudentProgressSql = Resources.toString(globalStudentProgressSqlResource.getURL(), Charsets.UTF_8);
     }
 
 }

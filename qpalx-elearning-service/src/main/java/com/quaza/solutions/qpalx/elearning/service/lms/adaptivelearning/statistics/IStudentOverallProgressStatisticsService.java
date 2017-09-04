@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statist
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.StudentOverallProgressStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.CurriculumType;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 
 import java.util.List;
@@ -13,5 +14,7 @@ public interface IStudentOverallProgressStatisticsService {
 
 
     public List<StudentOverallProgressStatistics> getStudentOverallProgressStatistics(QPalXUser qPalXUser, CurriculumType curriculumType);
+
+    public StudentOverallProgressStatistics getGlobalStudentOverallProgressStatisticsInCurriculum(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum);
 
 }
