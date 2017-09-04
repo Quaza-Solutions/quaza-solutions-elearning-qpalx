@@ -14,6 +14,16 @@ import java.util.List;
 public interface IGlobalStudentPerformanceAuditRepository extends CrudRepository<GlobalStudentPerformanceAudit, Long> {
 
 
+
+    // Find all GlobalStudentPerformanceAudit instances for the Auditor user passed in as argument
+    @Query(
+            "Select     globalStudentPerformanceAudit From GlobalStudentPerformanceAudit globalStudentPerformanceAudit " +
+            "JOIN       FETCH globalStudentPerformanceAudit.auditorQPalxUser " +
+            "Where      globalStudentPerformanceAudit.auditorQPalxUser = ?1 "
+    )
+    public List<GlobalStudentPerformanceAudit> findAllGlobalStudentPerformanceAuditForAuditUser(QPalXUser auditorQPalxUser);
+
+
     // Find all Auditor user's monitoring the performance for the studentQPalXUser passed in as argument.
     @Query(
             "Select     globalStudentPerformanceAudit From GlobalStudentPerformanceAudit globalStudentPerformanceAudit " +
@@ -22,7 +32,5 @@ public interface IGlobalStudentPerformanceAuditRepository extends CrudRepository
             "And        globalStudentPerformanceAudit.auditorQPalxUser.userType = ?2 "
     )
     public List<GlobalStudentPerformanceAudit> findGlobalStudentPerformanceAuditByAuditorUserType(QPalXUser studentQPalXUser, QPalxUserTypeE qPalxUserTypeE);
-
-
 
 }

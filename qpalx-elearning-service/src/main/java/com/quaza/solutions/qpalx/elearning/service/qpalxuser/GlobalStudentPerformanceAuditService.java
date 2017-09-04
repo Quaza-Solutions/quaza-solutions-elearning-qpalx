@@ -35,12 +35,18 @@ public class GlobalStudentPerformanceAuditService implements IGlobalStudentPerfo
     }
 
     @Override
+    public List<GlobalStudentPerformanceAudit> findAllGlobalStudentPerformanceAuditForAuditUser(QPalXUser auditorQPalxUser) {
+        Assert.notNull(auditorQPalxUser, "auditorQPalxUser cannot be null");
+        LOGGER.info("Finding all global performance monitoring instances for auditorQPalxUser: {}", auditorQPalxUser.getEmail());
+        return iGlobalStudentPerformanceAuditRepository.findAllGlobalStudentPerformanceAuditForAuditUser(auditorQPalxUser);
+    }
+
+    @Override
     public List<GlobalStudentPerformanceAudit> findGlobalStudentPerformanceAuditByAuditorUserType(QPalXUser studentQPalXUser, QPalxUserTypeE qPalxUserTypeE) {
         Assert.notNull(studentQPalXUser, "studentQPalXUser cannot be null");
         Assert.notNull(qPalxUserTypeE, "qPalxUserTypeE cannot be null");
         LOGGER.info("Finding all GlobalStudentPerformanceAudit instances where auditor userType: {} for studentQPalXUser: {}", qPalxUserTypeE, studentQPalXUser.getEmail());
         return iGlobalStudentPerformanceAuditRepository.findGlobalStudentPerformanceAuditByAuditorUserType(studentQPalXUser, qPalxUserTypeE);
     }
-
 
 }

@@ -13,6 +13,8 @@ public interface IGlobalStudentPerformanceAuditService {
 
     public void saveGlobalStudentPerformanceAudit(GlobalStudentPerformanceAudit globalStudentPerformanceAudit);
 
+    public List<GlobalStudentPerformanceAudit> findAllGlobalStudentPerformanceAuditForAuditUser(QPalXUser auditorQPalxUser);
+
     public List<GlobalStudentPerformanceAudit> findGlobalStudentPerformanceAuditByAuditorUserType(QPalXUser studentQPalXUser, QPalxUserTypeE qPalxUserTypeE);
 
 }
