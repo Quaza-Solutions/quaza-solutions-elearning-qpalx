@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.StudentOverallProgressStatisticsService")
+@Service(StudentOverallProgressStatisticsService.BEAN_NAME)
 public class StudentOverallProgressStatisticsService implements IStudentOverallProgressStatisticsService {
 
 
@@ -38,6 +38,8 @@ public class StudentOverallProgressStatisticsService implements IStudentOverallP
     @Value("classpath:/sql/global-performance/student-curriculum-progress.sql")
     private Resource globalStudentProgressSqlResource;
 
+
+    public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.StudentOverallProgressStatisticsService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentOverallProgressStatisticsService.class);
 
