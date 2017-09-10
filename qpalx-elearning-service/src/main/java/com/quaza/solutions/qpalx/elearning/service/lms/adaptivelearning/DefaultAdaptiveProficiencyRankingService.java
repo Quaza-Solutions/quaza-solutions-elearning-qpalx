@@ -98,7 +98,6 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
                 }
             }
         });
-
     }
 
     @Override
