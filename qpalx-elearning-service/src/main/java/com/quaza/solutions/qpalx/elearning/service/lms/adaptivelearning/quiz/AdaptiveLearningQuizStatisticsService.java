@@ -36,8 +36,13 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
 
     private String quizStatisticsSql;
 
+    private String lessonAllQuizzesSql;
+
     @Value("classpath:/sql/MicroLessonQuizzesStatistics.sql")
     private Resource sqlResource;
+
+    @Value("classpath:/sql/quizzes/all-lesson-quizzes-statistics.sql")
+    private Resource lessonAllQuizzesSqlResource;
 
 
     @Autowired
@@ -86,6 +91,17 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
         }
     }
 
+    @Override
+    public List<AdaptiveLessonQuizStatistics> findStudentQuizzesStatisticsForLesson(QPalXUser qPalXUser, Long eLessonID) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(eLessonID, "eLessonID cannot be null");
+
+        LOGGER.debug("Finding all Quizzes statistics for student: {} in eLessonID: {}", qPalXUser.getEmail(), eLessonID);
+
+        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), eLessonID, qPalXUser.getId()};
+        List<AdaptiveLessonQuizStatistics> results = jdbcTemplate.query(lessonAllQuizzesSql, uniqueIDs, AdaptiveLessonQuizStatistics.newRowMapper());
+        return results;
+    }
 
     @Override
     public List<AdaptiveLessonQuizStatistics> findMicroLessonStudentQuizStatistics(QPalXUser qPalXUser, Long microLessonID) {
@@ -102,7 +118,7 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
 
     @PostConstruct
     private void loadLessonStatisticsSQL() throws IOException {
-        LOGGER.info("Loading lessons statistic sql from resource: {}", sqlResource);
         quizStatisticsSql  = Resources.toString(sqlResource.getURL(), Charsets.UTF_8);
+        lessonAllQuizzesSql = Resources.toString(lessonAllQuizzesSqlResource.getURL(), Charsets.UTF_8);
     }
 }

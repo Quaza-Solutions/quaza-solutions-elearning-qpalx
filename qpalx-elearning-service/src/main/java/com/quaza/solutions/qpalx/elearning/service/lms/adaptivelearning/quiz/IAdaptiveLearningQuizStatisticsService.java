@@ -13,6 +13,8 @@ public interface IAdaptiveLearningQuizStatisticsService {
 
     public void recordAdaptiveLearningQuizProgress(Long adaptiveLearningQuizID, QPalXUser qPalXUser);
 
+    public List<AdaptiveLessonQuizStatistics> findStudentQuizzesStatisticsForLesson(QPalXUser qPalXUser, Long eLessonID);
+
     public List<AdaptiveLessonQuizStatistics> findMicroLessonStudentQuizStatistics(QPalXUser qPalXUser, Long microLessonID);
 
 }
