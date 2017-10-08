@@ -24,9 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author manyce400
@@ -113,6 +111,7 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
 
         // Find all the Quizzes missing a Learning Experience, meaning Student hasn't attempted these
         List<AdaptiveLearningQuiz> quizzesWithNoStudentAttempt = findAllQuizzesWitNoStudentAttempt(student, preRequisiteQuizzes);
+        Collections.sort(quizzesWithNoStudentAttempt, new QuizPrerequisiteComparator());
         return quizzesWithNoStudentAttempt;
     }
 
@@ -141,5 +140,15 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
         return filterList;
     }
 
+
+    private static final class QuizPrerequisiteComparator implements Comparator<AdaptiveLearningQuiz> {
+        @Override
+        public int compare(AdaptiveLearningQuiz o1, AdaptiveLearningQuiz o2) {
+            if(o1.getId().longValue() < o2.getId().longValue()) {
+                return 1;
+            }
+            return -1;
+        }
+    }
 
 }
