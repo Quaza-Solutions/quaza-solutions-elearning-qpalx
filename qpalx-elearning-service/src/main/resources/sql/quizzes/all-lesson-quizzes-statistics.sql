@@ -37,4 +37,4 @@ Left 	Outer Join (
 		Group	By QPalxUserID, ScorableActivityID
 	) 	rs on rs.MaxLearningExperienceStartDate = alz.LearningExperienceStartDate and rs.QPalxUserID = alz.QPalxUserID
 ) As StudentMostRecentQuizExperiences on StudentMostRecentQuizExperiences.ScorableActivityID = QuizzesStudentHasAccess.QuizID
-Order By QuizzesStudentHasAccess.MicroLessonID asc
+Order By QuizzesStudentHasAccess.QuizID asc
