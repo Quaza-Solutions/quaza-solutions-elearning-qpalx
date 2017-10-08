@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.AdaptiveLearningQuizStatisticsService")
+@Service(AdaptiveLearningQuizStatisticsService.BEAN_NAME)
 public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQuizStatisticsService {
 
 
@@ -50,6 +50,8 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
 
     @Autowired
     private IAdaptiveLearningQuizRepository iAdaptiveLearningQuizRepository;
+
+    public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.AdaptiveLearningQuizStatisticsService";
 
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AdaptiveLearningQuizStatisticsService.class);
