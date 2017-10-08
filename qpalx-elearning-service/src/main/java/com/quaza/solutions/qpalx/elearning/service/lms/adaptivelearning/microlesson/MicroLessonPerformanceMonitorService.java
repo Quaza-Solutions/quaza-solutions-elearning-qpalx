@@ -99,11 +99,13 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
 
         // Find all quizzes in this microlesson
         List<AdaptiveLearningQuiz> mlAdaptiveQuizzes = iAdaptiveLearningQuizService.findQuizzesForMicroLesson(microLesson);
+        LOGGER.info("Found quizzes for MicroLesson: {}", mlAdaptiveQuizzes.size());
 
         // Using order of creation logic, find all Prerequisite quizzes as quizzes with ID's less than the passed in quiz
         List<AdaptiveLearningQuiz> preRequisiteQuizzes = new ArrayList<>();
         for(AdaptiveLearningQuiz candidateQuiz : mlAdaptiveQuizzes) {
             if(candidateQuiz.getId() < adaptiveLearningQuiz.getId()) {
+                LOGGER.info("Adding quiz with ID: {} to prerequisite list", candidateQuiz.getId());
                 preRequisiteQuizzes.add(candidateQuiz);
             }
         }
@@ -130,9 +132,9 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
         List<AdaptiveLearningQuiz> filterList = new ArrayList<>(preRequisiteQuizzes);
 
         for (AdaptiveLearningQuiz preRequisiteQuiz : preRequisiteQuizzes) {
-            // Find all AdaptiveLearning Quiz Experiences IF present
             List<AdaptiveLearningExperience> adaptiveLearningExperiences = iAdaptiveLearningExperienceService.findAllWithScorableActivityID(preRequisiteQuiz.getId(), student);
-            if(CollectionUtils.isEmpty(adaptiveLearningExperiences)) {
+            if(!CollectionUtils.isEmpty(adaptiveLearningExperiences)) {
+                LOGGER.info("Removing from filter list quiz: {}", preRequisiteQuiz.getId());
                 filterList.remove(preRequisiteQuiz);
             }
         }
@@ -144,7 +146,7 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
     private static final class QuizPrerequisiteComparator implements Comparator<AdaptiveLearningQuiz> {
         @Override
         public int compare(AdaptiveLearningQuiz o1, AdaptiveLearningQuiz o2) {
-            if(o1.getId().longValue() < o2.getId().longValue()) {
+            if(o2.getId().longValue() > o1.getId().longValue()) {
                 return 1;
             }
             return -1;
