@@ -147,9 +147,9 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
         @Override
         public int compare(AdaptiveLearningQuiz o1, AdaptiveLearningQuiz o2) {
             if(o2.getId().longValue() > o1.getId().longValue()) {
-                return 1;
+                return -1;
             }
-            return -1;
+            return 1;
         }
     }
 
