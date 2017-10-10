@@ -57,7 +57,7 @@ public interface IELearningCurriculumRepository extends CrudRepository<ELearning
      * @param curriculumType
      * @return
      */
-    @Query("Select eLearningCurriculum From ELearningCurriculum eLearningCurriculum JOIN FETCH eLearningCurriculum.studentTutorialGrade Where eLearningCurriculum.curriculumType = ?1 And eLearningCurriculum.studentTutorialGrade =?2")
+    @Query("Select eLearningCurriculum From ELearningCurriculum eLearningCurriculum JOIN FETCH eLearningCurriculum.studentTutorialGrade Where eLearningCurriculum.curriculumType = ?1 And eLearningCurriculum.studentTutorialGrade =?2 And eLearningCurriculum.active = true")
     public List<ELearningCurriculum> findAllCurriculumByTutorialGradeAndType(final CurriculumType curriculumType, final StudentTutorialGrade studentTutorialGrade);
 
     /**

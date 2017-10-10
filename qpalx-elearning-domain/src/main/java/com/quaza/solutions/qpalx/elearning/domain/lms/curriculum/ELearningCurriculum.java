@@ -7,6 +7,7 @@ import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialG
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -51,6 +52,11 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "AssessmentAdaptiveLearningQuizID", nullable = true)
     private AdaptiveLearningQuiz assessmentAdaptiveLearningQuiz;
+
+    // IF set to true then this QPalXELesson is currently active
+    @Column(name="Active", nullable = true, columnDefinition = "TINYINT", length = 1)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean active;
 
 
     public static final String CLASS_ATTRIBUTE_IDENTIFIER = "ELearningCurriculum";
@@ -125,6 +131,14 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
         this.assessmentAdaptiveLearningQuiz = assessmentAdaptiveLearningQuiz;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public String getHierarchicalLMSContentName() {
         return getCurriculumName();
@@ -149,13 +163,15 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
         ELearningCurriculum that = (ELearningCurriculum) o;
 
         return new EqualsBuilder()
+                .append(active, that.active)
                 .append(id, that.id)
                 .append(curriculumType, that.curriculumType)
                 .append(curriculumName, that.curriculumName)
                 .append(curriculumDescription, that.curriculumDescription)
+                .append(studentTutorialGrade, that.studentTutorialGrade)
                 .append(curriculumIcon, that.curriculumIcon)
                 .append(curriculumBannerIcon, that.curriculumBannerIcon)
-                .append(studentTutorialGrade, that.studentTutorialGrade)
+                .append(assessmentAdaptiveLearningQuiz, that.assessmentAdaptiveLearningQuiz)
                 .isEquals();
     }
 
@@ -167,6 +183,10 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
                 .append(curriculumName)
                 .append(curriculumDescription)
                 .append(studentTutorialGrade)
+                .append(curriculumIcon)
+                .append(curriculumBannerIcon)
+                .append(assessmentAdaptiveLearningQuiz)
+                .append(active)
                 .toHashCode();
     }
 
@@ -177,10 +197,12 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
                 .append("curriculumType", curriculumType)
                 .append("curriculumName", curriculumName)
                 .append("curriculumDescription", curriculumDescription)
+                .append("studentTutorialGrade", studentTutorialGrade)
                 .append("curriculumIcon", curriculumIcon)
                 .append("curriculumBannerIcon", curriculumBannerIcon)
-                .append("studentTutorialGrade", studentTutorialGrade)
                 .append("assessmentAdaptiveLearningQuiz", assessmentAdaptiveLearningQuiz)
+                .append("active", active)
                 .toString();
     }
+
 }
