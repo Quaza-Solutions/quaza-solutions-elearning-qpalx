@@ -57,8 +57,25 @@ public interface IELearningCurriculumRepository extends CrudRepository<ELearning
      * @param curriculumType
      * @return
      */
-    @Query("Select eLearningCurriculum From ELearningCurriculum eLearningCurriculum JOIN FETCH eLearningCurriculum.studentTutorialGrade Where eLearningCurriculum.curriculumType = ?1 And eLearningCurriculum.studentTutorialGrade =?2 And eLearningCurriculum.active = true")
+    @Query("Select  eLearningCurriculum From ELearningCurriculum eLearningCurriculum " +
+            "JOIN   FETCH eLearningCurriculum.studentTutorialGrade " +
+            "Where  eLearningCurriculum.curriculumType = ?1 " +
+            "And    eLearningCurriculum.studentTutorialGrade =?2 ")
     public List<ELearningCurriculum> findAllCurriculumByTutorialGradeAndType(final CurriculumType curriculumType, final StudentTutorialGrade studentTutorialGrade);
+
+    /**
+     * Find all the ElearningCurriculum of a specific CurriculumType for a StudentTutorialLevel where the Curriculum is currently active
+     *
+     * @param curriculumType
+     * @return
+     */
+    @Query("Select  eLearningCurriculum From ELearningCurriculum eLearningCurriculum " +
+            "JOIN   FETCH eLearningCurriculum.studentTutorialGrade " +
+            "Where  eLearningCurriculum.curriculumType = ?1 " +
+            "And    eLearningCurriculum.studentTutorialGrade =?2 " +
+            "And    eLearningCurriculum.active = true"
+    )
+    public List<ELearningCurriculum> findAllCurriculumByTutorialGradeAndTypeAndActive(final CurriculumType curriculumType, final StudentTutorialGrade studentTutorialGrade);
 
     /**
      * Find all the ElearningCurriculum of a specific CurriculumType for a StudentTutorialLevel in a GeographicalRegion
@@ -66,13 +83,28 @@ public interface IELearningCurriculumRepository extends CrudRepository<ELearning
      * @param curriculumType
      * @return
      */
-    @Query("Select eLearningCurriculum From ELearningCurriculum eLearningCurriculum " +
-            "JOIN FETCH eLearningCurriculum.studentTutorialGrade as studentTutorialGrade " +
-            "JOIN FETCH studentTutorialGrade.studentTutorialLevel " +
-            "Where eLearningCurriculum.curriculumType = ?1 " +
-            "And studentTutorialGrade.studentTutorialLevel =?2"
+    @Query("Select  eLearningCurriculum From ELearningCurriculum eLearningCurriculum " +
+            "JOIN   FETCH eLearningCurriculum.studentTutorialGrade as studentTutorialGrade " +
+            "JOIN   FETCH studentTutorialGrade.studentTutorialLevel " +
+            "Where  eLearningCurriculum.curriculumType = ?1 " +
+            "And    studentTutorialGrade.studentTutorialLevel =?2"
     )
     public List<ELearningCurriculum> findAllCurriculumByTutorialTypeAndCurriculumType(final CurriculumType curriculumType, final StudentTutorialLevel studentTutorialLevel);
+
+    /**
+     * Find all the ElearningCurriculum of a specific CurriculumType for a StudentTutorialLevel in a GeographicalRegion
+     *
+     * @param curriculumType
+     * @return
+     */
+    @Query("Select  eLearningCurriculum From ELearningCurriculum eLearningCurriculum " +
+            "JOIN   FETCH eLearningCurriculum.studentTutorialGrade as studentTutorialGrade " +
+            "JOIN   FETCH studentTutorialGrade.studentTutorialLevel " +
+            "Where  eLearningCurriculum.curriculumType = ?1 " +
+            "And    studentTutorialGrade.studentTutorialLevel =?2 " +
+            "And    eLearningCurriculum.active = true"
+    )
+    public List<ELearningCurriculum> findAllCurriculumByTutorialTypeAndCurriculumTypeAndActive(final CurriculumType curriculumType, final StudentTutorialLevel studentTutorialLevel);
 
     /**
      * Find ELearningCurriculum by its name and type

@@ -24,6 +24,10 @@ public interface IELearningCurriculumService {
 
     public List<ELearningCurriculum> findAllCurriculumByTutorialGradeAndType(final CurriculumType curriculumType, final StudentTutorialGrade studentTutorialGrade);
 
+    public List<ELearningCurriculum> findAllCurriculumByTutorialGradeAndTypeAndActive(final CurriculumType curriculumType, final StudentTutorialGrade studentTutorialGrade);
+
     public List<ELearningCurriculum> findAllCurriculumByTutorialTypeAndCurriculumType(final CurriculumType curriculumType, final StudentTutorialLevel studentTutorialLevel);
+
+    public List<ELearningCurriculum> findAllCurriculumByTutorialTypeAndCurriculumTypeAndActive(final CurriculumType curriculumType, final StudentTutorialLevel studentTutorialLevel);
 
 }

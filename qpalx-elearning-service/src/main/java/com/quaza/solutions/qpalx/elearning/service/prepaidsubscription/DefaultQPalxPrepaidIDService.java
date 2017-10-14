@@ -91,22 +91,15 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
         PrepaidSubscription prepaidSubscription = iQPalxPrepaidIDRepository.findByUniqueIdRepoNotUsed(uniqueId);
         if(prepaidSubscription != null && prepaidSubscription.getAlreadyUsed() == false) {
 
-            // verify that Student municipality matches municipality created on PrepaidSubscription
-            LOGGER.info("Found valid non used prepaidSubscription: {} checking to see if municipality matches...", prepaidSubscription);
+            LOGGER.info("Checking to see if selected subscriptionID: {} matches subscriptionID on prepaid subscription", subscriptionID);
 
-            if (prepaidSubscription.getqPalXMunicipality().equals(studentMunicipality)) {
-                LOGGER.info("Checking to see if selected subscriptionID: {} matches subscriptionID on prepaid subscription", subscriptionID);
-                if (subscriptionID.equals(prepaidSubscription.getQPalXSubscription().getId())) {
-                    prepaidSubscription.setRedemptionDate(DateTime.now());
-                    prepaidSubscription.setAlreadyUsed(true);
-                    save(prepaidSubscription);
-                    return true;
-                } else {
-                    LOGGER.warn("Selected subscriptionID: {} does not match prepaid subscriptionID: {}", subscriptionID, prepaidSubscription.getQPalXSubscription().getId());
-                    return false;
-                }
+            if (subscriptionID.equals(prepaidSubscription.getQPalXSubscription().getId())) {
+                prepaidSubscription.setRedemptionDate(DateTime.now());
+                prepaidSubscription.setAlreadyUsed(true);
+                save(prepaidSubscription);
+                return true;
             } else {
-                LOGGER.warn("User QPalXMunicipality does not match redemption code");
+                LOGGER.warn("Selected subscriptionID: {} does not match prepaid subscriptionID: {}", subscriptionID, prepaidSubscription.getQPalXSubscription().getId());
                 return false;
             }
 

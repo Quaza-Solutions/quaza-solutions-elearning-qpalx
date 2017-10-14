@@ -65,16 +65,31 @@ public class CacheEnabledELearningCurriculumService implements IELearningCurricu
     public List<ELearningCurriculum> findAllCurriculumByTutorialGradeAndType(final CurriculumType curriculumType, final StudentTutorialGrade studentTutorialGrade) {
         Assert.notNull(curriculumType, "curriculumType cannot be null");
         Assert.notNull(studentTutorialGrade, "studentTutorialGrade cannot be null");
-        LOGGER.info("Finding all ELearningCurriculum by curriculumType: {} and studentTutorialGrade: {}", curriculumType, studentTutorialGrade);
+        LOGGER.debug("Finding all ELearningCurriculum by curriculumType: {} and studentTutorialGrade: {}", curriculumType, studentTutorialGrade);
         return ieLearningCurriculumRepository.findAllCurriculumByTutorialGradeAndType(curriculumType, studentTutorialGrade);
+    }
+
+    @Override
+    public List<ELearningCurriculum> findAllCurriculumByTutorialGradeAndTypeAndActive(CurriculumType curriculumType, StudentTutorialGrade studentTutorialGrade) {
+        Assert.notNull(curriculumType, "curriculumType cannot be null");
+        Assert.notNull(studentTutorialGrade, "studentTutorialGrade cannot be null");
+        LOGGER.debug("Finding all ELearningCurriculum by curriculumType: {} and studentTutorialGrade: {} where curriculum is active", curriculumType, studentTutorialGrade);
+        return ieLearningCurriculumRepository.findAllCurriculumByTutorialGradeAndTypeAndActive(curriculumType, studentTutorialGrade);
     }
 
     @Override
     public List<ELearningCurriculum> findAllCurriculumByTutorialTypeAndCurriculumType(CurriculumType curriculumType, StudentTutorialLevel studentTutorialLevel) {
         Assert.notNull(curriculumType, "curriculumType cannot be null");
         Assert.notNull(studentTutorialLevel, "studentTutorialLevel cannot be null");
-
-        LOGGER.info("Finding all ELearningCurriculum by curriculumType: {} and studentTutorialLevel: {}", curriculumType, studentTutorialLevel);
+        LOGGER.debug("Finding all ELearningCurriculum by curriculumType: {} and studentTutorialLevel: {}", curriculumType, studentTutorialLevel);
         return ieLearningCurriculumRepository.findAllCurriculumByTutorialTypeAndCurriculumType(curriculumType, studentTutorialLevel);
+    }
+
+    @Override
+    public List<ELearningCurriculum> findAllCurriculumByTutorialTypeAndCurriculumTypeAndActive(CurriculumType curriculumType, StudentTutorialLevel studentTutorialLevel) {
+        Assert.notNull(curriculumType, "curriculumType cannot be null");
+        Assert.notNull(studentTutorialLevel, "studentTutorialLevel cannot be null");
+        LOGGER.debug("Finding all ELearningCurriculum by curriculumType: {} and studentTutorialLevel: {} where curriculum is active", curriculumType, studentTutorialLevel);
+        return ieLearningCurriculumRepository.findAllCurriculumByTutorialTypeAndCurriculumTypeAndActive(curriculumType, studentTutorialLevel);
     }
 }
