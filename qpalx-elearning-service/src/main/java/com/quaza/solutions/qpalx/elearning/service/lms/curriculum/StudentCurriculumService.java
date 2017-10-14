@@ -39,7 +39,7 @@ public class StudentCurriculumService implements IStudentCurriculumService {
         StudentEnrolmentRecord studentEnrolmentRecord = getStudentEnrolmentRecord(qPalXUser);
         if(studentEnrolmentRecord != null) {
             StudentTutorialGrade studentTutorialGrade = studentEnrolmentRecord.getStudentTutorialGrade();
-            List<ELearningCurriculum> eLearningCurricula = iELearningCurriculumService.findAllCurriculumByTutorialGradeAndType(CurriculumType.CORE ,studentTutorialGrade);
+            List<ELearningCurriculum> eLearningCurricula = iELearningCurriculumService.findAllCurriculumByTutorialGradeAndTypeAndActive(CurriculumType.CORE ,studentTutorialGrade);
             LOGGER.info("Returning student user to main home page with all elearning curricula");
             return eLearningCurricula;
         }
@@ -55,7 +55,7 @@ public class StudentCurriculumService implements IStudentCurriculumService {
         StudentEnrolmentRecord studentEnrolmentRecord = getStudentEnrolmentRecord(qPalXUser);
         if(studentEnrolmentRecord != null) {
             StudentTutorialGrade studentTutorialGrade = studentEnrolmentRecord.getStudentTutorialGrade();
-            List<ELearningCurriculum> eLearningCurricula = iELearningCurriculumService.findAllCurriculumByTutorialGradeAndType(CurriculumType.ELECTIVE ,studentTutorialGrade);
+            List<ELearningCurriculum> eLearningCurricula = iELearningCurriculumService.findAllCurriculumByTutorialGradeAndTypeAndActive(CurriculumType.ELECTIVE ,studentTutorialGrade);
             LOGGER.info("Returning student user to main home page with all elearning curricula");
             return eLearningCurricula;
         }
@@ -66,7 +66,7 @@ public class StudentCurriculumService implements IStudentCurriculumService {
     @Override
     public List<ELearningCurriculum> findAllCoreELearningCurriculum(StudentTutorialGrade studentTutorialGrade) {
         Assert.notNull(studentTutorialGrade, "studentTutorialGrade cannot be null");
-        return iELearningCurriculumService.findAllCurriculumByTutorialGradeAndType(CurriculumType.CORE, studentTutorialGrade);
+        return iELearningCurriculumService.findAllCurriculumByTutorialGradeAndTypeAndActive(CurriculumType.CORE, studentTutorialGrade);
     }
 
     @Override
