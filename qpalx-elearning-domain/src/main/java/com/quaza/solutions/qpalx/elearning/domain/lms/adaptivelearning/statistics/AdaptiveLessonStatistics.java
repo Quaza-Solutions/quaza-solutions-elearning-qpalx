@@ -1,5 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics;
 
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.math3.util.Precision;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Set;
 
 /**
  * @author manyce400
@@ -21,6 +23,10 @@ public class AdaptiveLessonStatistics {
     private final String lessonName;
 
     private final String lessonMediaFile;
+
+    private final Integer proficiencyRankingScaleFloor;
+
+    private final Integer proficiencyRankingScaleCeiling;
 
     private final Integer questionBankItemsAttempted;
 
@@ -36,11 +42,14 @@ public class AdaptiveLessonStatistics {
 
 
     public AdaptiveLessonStatistics(Long lessonID, String lessonName, String lessonMediaFile,
+                                    Integer proficiencyRankingScaleFloor, Integer proficiencyRankingScaleCeiling,
                                     Integer questionBankItemsAttempted, Integer totalQuestionBankItems,
                                     Integer microLessonsAttempted, Integer totalMicroLessons, Integer uniqueQuizzesAttempted, Integer totalQuizzes) {
         LessonID = lessonID;
         this.lessonName = lessonName;
         this.lessonMediaFile = lessonMediaFile;
+        this.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
+        this.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
         this.questionBankItemsAttempted = questionBankItemsAttempted;
         this.totalQuestionBankItems = totalQuestionBankItems;
         this.microLessonsAttempted = microLessonsAttempted;
@@ -59,6 +68,14 @@ public class AdaptiveLessonStatistics {
 
     public String getLessonMediaFile() {
         return lessonMediaFile;
+    }
+
+    public Integer getProficiencyRankingScaleFloor() {
+        return proficiencyRankingScaleFloor;
+    }
+
+    public Integer getProficiencyRankingScaleCeiling() {
+        return proficiencyRankingScaleCeiling;
     }
 
     public Integer getQuestionBankItemsAttempted() {
@@ -115,12 +132,18 @@ public class AdaptiveLessonStatistics {
         return 0;
     }
 
+    public Set<ProficiencyRankingScaleE> getProficiencyRankingRangeForLesson() {
+        return ProficiencyRankingScaleE.getAllProficiencyRankingsInScope(proficiencyRankingScaleFloor, proficiencyRankingScaleCeiling);
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("LessonID", LessonID)
                 .append("lessonName", lessonName)
                 .append("lessonMediaFile", lessonMediaFile)
+                .append("proficiencyRankingScaleFloor", proficiencyRankingScaleFloor)
+                .append("proficiencyRankingScaleCeiling", proficiencyRankingScaleCeiling)
                 .append("questionBankItemsAttempted", questionBankItemsAttempted)
                 .append("totalQuestionBankItems", totalQuestionBankItems)
                 .append("microLessonsAttempted", microLessonsAttempted)
@@ -142,6 +165,9 @@ public class AdaptiveLessonStatistics {
             String lessonName = resultSet.getString("LessonName");
             String lessonMediaFile = resultSet.getString("LessonIntroVideo");
 
+            Integer proficiencyRankingScaleFloor = ProficiencyRankingScaleE.valueOf(resultSet.getString("ProficiencyRankingScaleFloor")).getProficiencyRanking();
+            Integer proficiencyRankingScaleCeiling = ProficiencyRankingScaleE.valueOf(resultSet.getString("ProficiencyRankingScaleCeiling")).getProficiencyRanking();
+
             Integer uniqueQuestionBankItemsAttempted = resultSet.getInt("UniqueQuestionBankItemsAttempted");
             Integer totalNumberOfQuestionBankItems = resultSet.getInt("TotalNumberOfQuestionBankItems");
 
@@ -149,7 +175,7 @@ public class AdaptiveLessonStatistics {
             Integer totalMicroLessons = resultSet.getInt("TotalNumberOfMicroLessons");
             Integer uniqueQuizzesAttempted = resultSet.getInt("UniqueQuizzesAttempted");
             Integer totalQuizzes = resultSet.getInt("TotalNumberOfQuizzes");
-            return new AdaptiveLessonStatistics(lessonID, lessonName, lessonMediaFile, uniqueQuestionBankItemsAttempted, totalNumberOfQuestionBankItems, microLessonsAttempted, totalMicroLessons, uniqueQuizzesAttempted, totalQuizzes);
+            return new AdaptiveLessonStatistics(lessonID, lessonName, lessonMediaFile, proficiencyRankingScaleFloor, proficiencyRankingScaleCeiling, uniqueQuestionBankItemsAttempted, totalNumberOfQuestionBankItems, microLessonsAttempted, totalMicroLessons, uniqueQuizzesAttempted, totalQuizzes);
         }
     }
 

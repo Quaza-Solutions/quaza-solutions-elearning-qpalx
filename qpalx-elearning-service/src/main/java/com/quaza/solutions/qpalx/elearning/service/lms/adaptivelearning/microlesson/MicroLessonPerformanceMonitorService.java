@@ -5,6 +5,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.Proficien
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLearningQuiz;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLessonQuizStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.scorable.AdaptiveLearningExperience;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
@@ -54,6 +55,17 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
 
 
     @Override
+    public AdaptiveProficiencyRanking calculateAdaptiveProficiencyRanking(QPalXUser student, ELearningCourse eLearningCourse) {
+        Assert.notNull(student, "student cannot be null");
+        Assert.notNull(eLearningCourse, "eLearningCourse cannot be null");
+
+        LOGGER.debug("Finding current performance information for Student: {} in ELearningCourse: {}", student.getEmail(), eLearningCourse.getCourseName());
+
+        List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatistics = iAdaptiveLearningQuizStatisticsService.findStudentQuizzesStatisticsForCourse(student, eLearningCourse.getId());
+        return caclulateAdaptiveProficiencyRanking(adaptiveLessonQuizStatistics);
+    }
+
+    @Override
     public AdaptiveProficiencyRanking calculateAdaptiveProficiencyRanking(QPalXUser student, QPalXEMicroLesson microLesson) {
         Assert.notNull(student, "student cannot be null");
         Assert.notNull(microLesson, "microLesson cannot be null");
@@ -61,32 +73,7 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
         LOGGER.debug("Finding current performance information for Student: {} in MiroLesson: {}", student.getEmail(), microLesson.getMicroLessonName());
 
         List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatistics = iAdaptiveLearningQuizStatisticsService.findMicroLessonStudentQuizStatistics(student, microLesson.getId());
-
-        if(adaptiveLessonQuizStatistics != null || adaptiveLessonQuizStatistics.size() > 0) {
-            double mlQuizStatisticsAvg = getQuizStatisticsAverage(adaptiveLessonQuizStatistics);
-
-            //  Calculate ProficiencyScoreRange using the newly calculated ML Quiz averages for this student
-            Optional<ProficiencyScoreRangeE> proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(mlQuizStatisticsAvg);
-            ProficiencyRankingScaleE proficiencyRankingScaleE = ProficiencyRankingScaleE.getProficiencyRankingScaleForRange(proficiencyScoreRangeE.get()).get();
-
-            AdaptiveProficiencyRanking adaptiveProficiencyRanking = AdaptiveProficiencyRanking.builder()
-                    .proficiencyRankingScaleE(proficiencyRankingScaleE)
-                    .proficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE.ON_DEMAND)
-                    .proficiencyRankingEffectiveDateTime(DateTime.now())
-                    .build();
-
-            return adaptiveProficiencyRanking;
-        }
-
-        // There are on quiz statistics to determine an adequate ranking so default to worst possible ranking
-        LOGGER.info("No AdaptiveLessonQuizStatistics were found for student, defaulting MicroLesson proficiency ranking to worst possible setting...");
-        AdaptiveProficiencyRanking adaptiveProficiencyRanking = AdaptiveProficiencyRanking.builder()
-                .proficiencyRankingScaleE(ProficiencyRankingScaleE.ONE)
-                .proficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE.ON_DEMAND)
-                .proficiencyRankingEffectiveDateTime(DateTime.now())
-                .build();
-
-        return adaptiveProficiencyRanking;
+        return caclulateAdaptiveProficiencyRanking(adaptiveLessonQuizStatistics);
     }
 
     @Override
@@ -117,15 +104,56 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
         return quizzesWithNoStudentAttempt;
     }
 
+
+    protected AdaptiveProficiencyRanking caclulateAdaptiveProficiencyRanking(List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatistics) {
+        if(adaptiveLessonQuizStatistics != null && adaptiveLessonQuizStatistics.size() > 0) {
+            double mlQuizStatisticsAvg = getQuizStatisticsAverage(adaptiveLessonQuizStatistics);
+
+            //  Calculate ProficiencyScoreRange using the newly calculated ML Quiz averages for this student
+            Optional<ProficiencyScoreRangeE> proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(mlQuizStatisticsAvg);
+            ProficiencyRankingScaleE proficiencyRankingScaleE = ProficiencyRankingScaleE.getProficiencyRankingScaleForRange(proficiencyScoreRangeE.get()).get();
+
+            AdaptiveProficiencyRanking adaptiveProficiencyRanking = AdaptiveProficiencyRanking.builder()
+                    .proficiencyRankingScaleE(proficiencyRankingScaleE)
+                    .proficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE.ON_DEMAND)
+                    .proficiencyRankingEffectiveDateTime(DateTime.now())
+                    .build();
+
+            LOGGER.info("Students calculated proficiency: {}", adaptiveProficiencyRanking);
+
+            return adaptiveProficiencyRanking;
+        }
+
+        // There are on quiz statistics to determine an adequate ranking so default to system default proficiency ranking of ProficiencyRankingScaleE.THREE
+        LOGGER.info("No AdaptiveLessonQuizStatistics were found for student, defaulting MicroLesson proficiency ranking to worst possible setting...");
+        AdaptiveProficiencyRanking adaptiveProficiencyRanking = AdaptiveProficiencyRanking.builder()
+                .proficiencyRankingScaleE(ProficiencyRankingScaleE.THREE)
+                .proficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE.ON_DEMAND)
+                .proficiencyRankingEffectiveDateTime(DateTime.now())
+                .build();
+
+        return adaptiveProficiencyRanking;
+    }
+
+
     protected double getQuizStatisticsAverage(List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatistics) {
         SummaryStatistics summaryStatistics = new SummaryStatistics();
 
         for(AdaptiveLessonQuizStatistics quizStatistic : adaptiveLessonQuizStatistics) {
-            summaryStatistics.addValue(quizStatistic.getProficiencyScore());
+            // Handle case where Student hasn't attempted that quiz, IF student hasn't attempted quiz, we will default their score to range for ProficiencyRankingScaleE.THREE
+            if (quizStatistic.getProficiencyScore() == null) {
+                LOGGER.info("Student hasnt attempted Quiz with ID: {} defaulting score for Quiz to default adaptive score of THREE", quizStatistic.getAdaptiveLearningQuizID());
+                double defaultAdaptiveScore = ProficiencyRankingScaleE.THREE.getProficiencyScoreRangeE().getScoreRange().getMinimum();
+                summaryStatistics.addValue(defaultAdaptiveScore);
+            } else {
+                LOGGER.info("Using student proficiency score: {} to get average", quizStatistic.getProficiencyScore());
+                summaryStatistics.addValue(quizStatistic.getProficiencyScore());
+            }
         }
 
-        double averageProficiencyScore = summaryStatistics.getMean();
-        return Precision.round(averageProficiencyScore, 2);
+        double averageProficiencyScore = Precision.round(summaryStatistics.getMean(), 2);
+        LOGGER.info("Calculated average proficiency score: {}", averageProficiencyScore);
+        return averageProficiencyScore;
     }
 
     protected List<AdaptiveLearningQuiz> findAllQuizzesWitNoStudentAttempt(QPalXUser student, List<AdaptiveLearningQuiz> preRequisiteQuizzes) {

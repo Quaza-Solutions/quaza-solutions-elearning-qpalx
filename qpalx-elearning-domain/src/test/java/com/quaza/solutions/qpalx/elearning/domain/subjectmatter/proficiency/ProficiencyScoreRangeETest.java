@@ -30,31 +30,17 @@ public class ProficiencyScoreRangeETest {
 
         proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(10.457d);
         Assert.assertEquals(ProficiencyScoreRangeE.EXTREMELY_DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
-}
-
-    @Test
-    public void testDeficientPerformerRange() {
-        Optional<ProficiencyScoreRangeE> proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(11d);
-        Assert.assertEquals(ProficiencyScoreRangeE.DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
-
-        proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(11.9876d);
-        Assert.assertEquals(ProficiencyScoreRangeE.DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
 
         proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(12d);
-        Assert.assertEquals(ProficiencyScoreRangeE.DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
+        Assert.assertEquals(ProficiencyScoreRangeE.EXTREMELY_DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
 
         proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(15d);
-        Assert.assertEquals(ProficiencyScoreRangeE.DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
-
-        proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(18.67d);
-        Assert.assertEquals(ProficiencyScoreRangeE.DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
+        Assert.assertEquals(ProficiencyScoreRangeE.EXTREMELY_DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
 
         proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(20d);
-        Assert.assertEquals(ProficiencyScoreRangeE.DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
-
-        proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(20.324d);
-        Assert.assertEquals(ProficiencyScoreRangeE.DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
+        Assert.assertEquals(ProficiencyScoreRangeE.EXTREMELY_DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
     }
+
 
     @Test
     public void testFundamentalsLackingPerformerRange() {
@@ -87,10 +73,6 @@ public class ProficiencyScoreRangeETest {
     @Test
     public void testGetNextProficiencyScoreRangeUp() {
         Optional<ProficiencyScoreRangeE> proficiencyScoreRangeE = ProficiencyScoreRangeE.EXTREMELY_DEFICIENT_PERFORMER.getNextProficiencyScoreRangeUp();
-        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
-        Assert.assertEquals(ProficiencyScoreRangeE.DEFICIENT_PERFORMER, proficiencyScoreRangeE.get());
-
-        proficiencyScoreRangeE = ProficiencyScoreRangeE.DEFICIENT_PERFORMER.getNextProficiencyScoreRangeUp();
         Assert.assertTrue(proficiencyScoreRangeE.isPresent());
         Assert.assertEquals(ProficiencyScoreRangeE.FUNDAMENTALS_LACKING_PERFORMER, proficiencyScoreRangeE.get());
 

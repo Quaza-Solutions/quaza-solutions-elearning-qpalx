@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Test of functionality defined in ProficiencyRankingScaleE
@@ -51,6 +52,12 @@ public class ProficiencyRankingScaleETest {
         Optional<ProficiencyRankingScaleE> proficiencyRankingScaleEBelow = ProficiencyRankingScaleE.getProficiencyRankingScaleEBelow(ProficiencyRankingScaleE.ONE);
         System.out.println("proficiencyRankingScaleEBelow = " + proficiencyRankingScaleEBelow);
         Assert.assertFalse("proficiencyRankingScaleEBelow should be empty", proficiencyRankingScaleEBelow.isPresent());
+    }
+
+    @Test
+    public void testgetAllProficiencyRankingsInScope() {
+        Set<ProficiencyRankingScaleE> results = ProficiencyRankingScaleE.getAllProficiencyRankingsInScope(1, 3);
+        System.out.println("results = " + results);
     }
 
 }

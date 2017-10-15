@@ -1,6 +1,8 @@
 Select	AllStudentLessons.StudentID,
 		AllStudentLessons.LessonID,
 		AllStudentLessons.LessonName,
+		AllStudentLessons.ProficiencyRankingScaleFloor,
+        AllStudentLessons.ProficiencyRankingScaleCeiling,
 		AllStudentLessons.LessonIntroVideo,
 		StudentQuestionBankItemsInLesson.TotalNumberOfQuestionBankItems,
 		IFNULL(StudentQuestionBankItemsAttempted.UniqueQuestionBankItemsAttempted, 0) As UniqueQuestionBankItemsAttempted,
@@ -12,6 +14,8 @@ From	(
 		Select	qUser.ID As StudentID,
 			qPell.ID As LessonID,
 			qPell.LessonName,
+			qPell.ProficiencyRankingScaleFloor,
+            qPell.ProficiencyRankingScaleCeiling,
 			qPell.ELearningMediaFile As LessonIntroVideo
 	From	QPalXUser qUser
 	Join	StudentEnrolmentRecord sErr on sErr.QPalxUserID = qUser.ID
@@ -76,6 +80,8 @@ Left Outer Join (
 	Select	qUser.ID As StudentID,
 			qPell.ID As LessonID,
 			qPell.LessonName,
+			qPell.ProficiencyRankingScaleFloor,
+            qPell.ProficiencyRankingScaleCeiling,
 			qPell.ELearningMediaFile As LessonIntroVideo,
 			count(qBpro.ID) as UniqueQuestionBankItemsAttempted
 	From	QPalXUser qUser
@@ -88,7 +94,7 @@ Left Outer Join (
 	Where	qUser.ID = ?
 	And		eCors.ID = ?
 	And		qBpro.QPalxUserID = ?
-	Group 	By qUser.ID, qPell.ID, qPell.LessonName, qPell.ELearningMediaFile
+	Group 	By qUser.ID, qPell.ID, qPell.LessonName, qPell.ProficiencyRankingScaleFloor, qPell.ProficiencyRankingScaleCeiling, qPell.ELearningMediaFile
 ) As StudentQuestionBankItemsAttempted on StudentQuestionBankItemsAttempted.LessonID = AllStudentLessons.LessonID
 Left	Outer Join (
 	Select 	qUser.ID As StudentID,

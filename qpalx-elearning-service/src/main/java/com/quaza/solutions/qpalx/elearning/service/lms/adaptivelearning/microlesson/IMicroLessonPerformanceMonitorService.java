@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.microle
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLearningQuiz;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 
@@ -14,6 +15,8 @@ import java.util.List;
  */
 public interface IMicroLessonPerformanceMonitorService {
 
+
+    public AdaptiveProficiencyRanking calculateAdaptiveProficiencyRanking(QPalXUser student, ELearningCourse eLearningCourse);
 
     public AdaptiveProficiencyRanking calculateAdaptiveProficiencyRanking(QPalXUser student, QPalXEMicroLesson microLesson);
 

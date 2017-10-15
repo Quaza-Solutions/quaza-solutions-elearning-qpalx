@@ -18,17 +18,17 @@ public enum ProficiencyRankingScaleE {
 
     EIGHT(8, ProficiencyScoreRangeE.STRONG_PERFORMER),
 
-    SEVEN(7, ProficiencyScoreRangeE.AVERAGE_PERFORMER),
+    SEVEN(7, ProficiencyScoreRangeE.ABOVE_AVERAGE_PERFORMER),
 
-    SIX(6, ProficiencyScoreRangeE.BELOW_AVERAGE_PERFORMER),
+    SIX(6, ProficiencyScoreRangeE.AVERAGE_PERFORMER),
 
-    FIVE(5, ProficiencyScoreRangeE.POOR_PERFORMER),
+    FIVE(5, ProficiencyScoreRangeE.BELOW_AVERAGE_PERFORMER),
 
-    FOUR(4, ProficiencyScoreRangeE.FAILING_PERFORMER),
+    FOUR(4, ProficiencyScoreRangeE.POOR_PERFORMER),
 
-    THREE(3, ProficiencyScoreRangeE.FUNDAMENTALS_LACKING_PERFORMER),
+    THREE(3, ProficiencyScoreRangeE.FAILING_PERFORMER),
 
-    TWO(2, ProficiencyScoreRangeE.DEFICIENT_PERFORMER),
+    TWO(2, ProficiencyScoreRangeE.FUNDAMENTALS_LACKING_PERFORMER),
 
     ONE(1, ProficiencyScoreRangeE.EXTREMELY_DEFICIENT_PERFORMER)
     ;
@@ -82,6 +82,27 @@ public enum ProficiencyRankingScaleE {
         }
     }
 
+    /**
+     * Gets and returns the ProficiencyRankingScaleE one level above the #proficiencyRankingScaleE passed in as argument.
+     *
+     * Will return #Optional.empty() if there is no ProficiencyRankingScaleE immediately below this.
+     *
+     * @param proficiencyRankingScaleE
+     * @return ProficiencyRankingScaleE
+     */
+    public static Optional<ProficiencyRankingScaleE> getProficiencyRankingScaleEAbove(ProficiencyRankingScaleE proficiencyRankingScaleE) {
+        Assert.notNull(proficiencyRankingScaleE, "proficiencyRankingScaleE cannot be null");
+        int proficiencyRankingAbove = proficiencyRankingScaleE.getProficiencyRanking() + 1;
+
+        switch (proficiencyRankingAbove) {
+            case 10:
+                return Optional.empty();
+            default:
+                ProficiencyRankingScaleE proficiencyRankingScaleEBelow = ProficiencyRankingScaleE.getProficiencyRankingScaleEByRanking(proficiencyRankingAbove);
+                return Optional.of(proficiencyRankingScaleEBelow);
+        }
+    }
+
     public static Optional<ProficiencyRankingScaleE> getProficiencyRankingScaleForRange(ProficiencyScoreRangeE proficiencyScoreRangeArg) {
         Assert.notNull(proficiencyScoreRangeArg, "proficiencyScoreRangeArg cannot be null");
 
@@ -93,6 +114,23 @@ public enum ProficiencyRankingScaleE {
         }
 
         return Optional.empty();
+    }
+
+    public static Set<ProficiencyRankingScaleE> getAllProficiencyRankingsInScope(int proficiencyRankingStart, int proficiencyRankingEnd) {
+        Assert.isTrue(proficiencyRankingStart < proficiencyRankingEnd, "Start ranking must be less than end");
+        Set<ProficiencyRankingScaleE> results = new LinkedHashSet<>();
+
+        ProficiencyRankingScaleE current = ProficiencyRankingScaleE.getProficiencyRankingScaleEByRanking(proficiencyRankingStart);
+        ProficiencyRankingScaleE proficiencyRankingScaleEEnd = ProficiencyRankingScaleE.getProficiencyRankingScaleEByRanking(proficiencyRankingEnd);
+        results.add(current);
+
+        while (ProficiencyRankingScaleE.getProficiencyRankingScaleEAbove(current).isPresent() && ProficiencyRankingScaleE.getProficiencyRankingScaleEAbove(current).get().getProficiencyRanking() <= proficiencyRankingEnd) {
+            ProficiencyRankingScaleE higher = ProficiencyRankingScaleE.getProficiencyRankingScaleEAbove(current).get();
+            current = higher;
+            results.add(higher);
+        }
+
+        return results;
     }
 
 

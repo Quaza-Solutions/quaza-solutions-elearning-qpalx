@@ -38,11 +38,16 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
 
     private String lessonAllQuizzesSql;
 
+    private String courseAllQuizzesSql;
+
     @Value("classpath:/sql/MicroLessonQuizzesStatistics.sql")
     private Resource sqlResource;
 
     @Value("classpath:/sql/quizzes/all-lesson-quizzes-statistics.sql")
     private Resource lessonAllQuizzesSqlResource;
+
+    @Value("classpath:/sql/quizzes/all-course-quizzes-statistics.sql")
+    private Resource allCourseQuizzesSqlResource;
 
 
     @Autowired
@@ -94,6 +99,18 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
     }
 
     @Override
+    public List<AdaptiveLessonQuizStatistics> findStudentQuizzesStatisticsForCourse(QPalXUser qPalXUser, Long courseID) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(courseID, "courseID cannot be null");
+
+        LOGGER.debug("Finding all Quizzes statistics for student: {} in courseID: {}", qPalXUser.getEmail(), courseID);
+
+        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), courseID, qPalXUser.getId()};
+        List<AdaptiveLessonQuizStatistics> results = jdbcTemplate.query(courseAllQuizzesSql, uniqueIDs, AdaptiveLessonQuizStatistics.newRowMapper());
+        return results;
+    }
+
+    @Override
     public List<AdaptiveLessonQuizStatistics> findStudentQuizzesStatisticsForLesson(QPalXUser qPalXUser, Long eLessonID) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         Assert.notNull(eLessonID, "eLessonID cannot be null");
@@ -122,5 +139,6 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
     private void loadLessonStatisticsSQL() throws IOException {
         quizStatisticsSql  = Resources.toString(sqlResource.getURL(), Charsets.UTF_8);
         lessonAllQuizzesSql = Resources.toString(lessonAllQuizzesSqlResource.getURL(), Charsets.UTF_8);
+        courseAllQuizzesSql = Resources.toString(allCourseQuizzesSqlResource.getURL(), Charsets.UTF_8);
     }
 }

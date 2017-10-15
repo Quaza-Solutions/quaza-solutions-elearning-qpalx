@@ -15,9 +15,7 @@ import java.util.Optional;
 public enum ProficiencyScoreRangeE {
 
 
-    EXTREMELY_DEFICIENT_PERFORMER(Range.between(0d, 10d)),
-
-    DEFICIENT_PERFORMER(Range.between(11d, 20d)),
+    EXTREMELY_DEFICIENT_PERFORMER(Range.between(0d, 20d)),
 
     FUNDAMENTALS_LACKING_PERFORMER(Range.between(21d, 30d)),
 
