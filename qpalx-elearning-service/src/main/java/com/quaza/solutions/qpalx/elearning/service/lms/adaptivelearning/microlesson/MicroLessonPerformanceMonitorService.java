@@ -140,14 +140,16 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
         SummaryStatistics summaryStatistics = new SummaryStatistics();
 
         for(AdaptiveLessonQuizStatistics quizStatistic : adaptiveLessonQuizStatistics) {
-            // Handle case where Student hasn't attempted that quiz, IF student hasn't attempted quiz, we will default their score to range for ProficiencyRankingScaleE.THREE
-            if (quizStatistic.getProficiencyScore() == null) {
-                LOGGER.info("Student hasnt attempted Quiz with ID: {} defaulting score for Quiz to default adaptive score of THREE", quizStatistic.getAdaptiveLearningQuizID());
+            // Handle case where there is no actual Quiz because we just picked up just a Lesson with no quiz records in case someone created a Lesson and ML with no quizzes
+            if (quizStatistic.getAdaptiveLearningQuizID() == null || quizStatistic.getAdaptiveLearningQuizID() == 0) {
+                LOGGER.info("No valid quiz information found under query result, defaulting Proficiency Ranking to THREE");
                 double defaultAdaptiveScore = ProficiencyRankingScaleE.THREE.getProficiencyScoreRangeE().getScoreRange().getMinimum();
                 summaryStatistics.addValue(defaultAdaptiveScore);
             } else {
+                // We have a real quiz here so use quiz score to caluculate.  Note Student will be penalized here because if they haven't attempted their quiz score will be 0
                 LOGGER.info("Using student proficiency score: {} to get average", quizStatistic.getProficiencyScore());
-                summaryStatistics.addValue(quizStatistic.getProficiencyScore());
+                double actualScore = quizStatistic.getProficiencyScore() == null ? 0.0 : quizStatistic.getProficiencyScore();
+                summaryStatistics.addValue(actualScore);
             }
         }
 

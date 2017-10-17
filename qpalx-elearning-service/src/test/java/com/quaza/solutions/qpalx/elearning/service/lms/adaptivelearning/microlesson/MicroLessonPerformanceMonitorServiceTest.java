@@ -41,16 +41,20 @@ public class MicroLessonPerformanceMonitorServiceTest {
         // This test simulates a situation where we find AdaptiveLessonQuizStatistics but no proficiency scores bcos student has not taken the matching ML quizzes yet, system will then default proficiency to THREE
         AdaptiveProficiencyRanking adaptiveProficiencyRanking = microLessonPerformanceMonitorService.calculateAdaptiveProficiencyRanking(QPalXUser.builder().build(), ELearningCourse.builder().build());
         Assert.assertNotNull(adaptiveProficiencyRanking);
+        System.out.println("adaptiveProficiencyRanking = " + adaptiveProficiencyRanking.getProficiencyRankingScaleE());
         Assert.assertEquals(ProficiencyRankingScaleE.THREE, adaptiveProficiencyRanking.getProficiencyRankingScaleE());
     }
 
     @Test
     public void testCalculateAdaptiveProficiencyRankingWithQuizScores() {
         // Mock ELearning course that will return AdaptiveLessonQuizStatistics with no proficiency scores.
+        // Note that we have to set QuizID on the statistics for method to trigger calculation using real scores
         AdaptiveLessonQuizStatistics adaptiveLessonQuizStatistics1 = new AdaptiveLessonQuizStatistics();
+        adaptiveLessonQuizStatistics1.setAdaptiveLearningQuizID(1L);
         adaptiveLessonQuizStatistics1.setProficiencyScore(80d);
 
         AdaptiveLessonQuizStatistics adaptiveLessonQuizStatistics2 = new AdaptiveLessonQuizStatistics();
+        adaptiveLessonQuizStatistics2.setAdaptiveLearningQuizID(2L);
         adaptiveLessonQuizStatistics2.setProficiencyScore(100d);
 
         List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatistics = ImmutableList.of(adaptiveLessonQuizStatistics1, adaptiveLessonQuizStatistics2);
@@ -59,6 +63,7 @@ public class MicroLessonPerformanceMonitorServiceTest {
         // This scenario we have 2 scores 100 and 80 with average of 90 so we expect proficiency to be EIGHT
         AdaptiveProficiencyRanking adaptiveProficiencyRanking = microLessonPerformanceMonitorService.calculateAdaptiveProficiencyRanking(QPalXUser.builder().build(), ELearningCourse.builder().build());
         Assert.assertNotNull(adaptiveProficiencyRanking);
+        System.out.println("adaptiveProficiencyRanking = " + adaptiveProficiencyRanking.getProficiencyRankingScaleE());
         Assert.assertEquals(ProficiencyRankingScaleE.EIGHT, adaptiveProficiencyRanking.getProficiencyRankingScaleE());
     }
 
@@ -66,12 +71,15 @@ public class MicroLessonPerformanceMonitorServiceTest {
     public void testCalculateAdaptiveProficiencyRankingWithQuizScores2() {
         // Mock ELearning course that will return AdaptiveLessonQuizStatistics with no proficiency scores.
         AdaptiveLessonQuizStatistics adaptiveLessonQuizStatistics1 = new AdaptiveLessonQuizStatistics();
+        adaptiveLessonQuizStatistics1.setAdaptiveLearningQuizID(1L);
         adaptiveLessonQuizStatistics1.setProficiencyScore(80d);
 
         AdaptiveLessonQuizStatistics adaptiveLessonQuizStatistics2 = new AdaptiveLessonQuizStatistics();
+        adaptiveLessonQuizStatistics2.setAdaptiveLearningQuizID(2L);
         adaptiveLessonQuizStatistics2.setProficiencyScore(100d);
 
         AdaptiveLessonQuizStatistics adaptiveLessonQuizStatistics3 = new AdaptiveLessonQuizStatistics();
+        adaptiveLessonQuizStatistics3.setAdaptiveLearningQuizID(3L);
         adaptiveLessonQuizStatistics3.setProficiencyScore(40d);
 
         List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatistics = ImmutableList.of(adaptiveLessonQuizStatistics1, adaptiveLessonQuizStatistics2, adaptiveLessonQuizStatistics3);
