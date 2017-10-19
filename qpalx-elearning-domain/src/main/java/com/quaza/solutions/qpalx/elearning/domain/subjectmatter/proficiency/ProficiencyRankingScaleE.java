@@ -117,7 +117,7 @@ public enum ProficiencyRankingScaleE {
     }
 
     public static Set<ProficiencyRankingScaleE> getAllProficiencyRankingsInScope(int proficiencyRankingStart, int proficiencyRankingEnd) {
-        Assert.isTrue(proficiencyRankingStart < proficiencyRankingEnd, "Start ranking must be less than end");
+        Assert.isTrue(proficiencyRankingStart <= proficiencyRankingEnd, "Start ranking must be less than or equal to end");
         Set<ProficiencyRankingScaleE> results = new LinkedHashSet<>();
 
         ProficiencyRankingScaleE current = ProficiencyRankingScaleE.getProficiencyRankingScaleEByRanking(proficiencyRankingStart);
