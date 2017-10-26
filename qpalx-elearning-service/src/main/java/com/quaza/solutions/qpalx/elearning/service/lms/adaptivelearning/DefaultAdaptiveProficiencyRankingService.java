@@ -9,6 +9,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurric
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCurriculumRepository;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyScoreRangeE;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.SimplifiedProficiencyRankE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import org.joda.time.DateTime;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -79,6 +81,21 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
         LOGGER.info("Finding AdaptiveProficiencyRanking in Curriculum: {} for student: {}", eLearningCurriculum.getCurriculumName(), qPalXUser.getEmail());
         return iAdaptiveProficiencyRankingRepository.findCurrentStudentAdaptiveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum);
+    }
+
+    @Override
+    public AdaptiveProficiencyRanking buildAdaptiveProficiencyRanking(double proficiencyScore, ProficiencyRankingTriggerTypeE proficiencyRankingTriggerTypeE) {
+        Assert.notNull(proficiencyRankingTriggerTypeE, "proficiencyRankingTriggerTypeE cannot be null");
+        Optional<ProficiencyScoreRangeE> proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(proficiencyScore);
+        ProficiencyRankingScaleE proficiencyRankingScaleE = ProficiencyRankingScaleE.getProficiencyRankingScaleForRange(proficiencyScoreRangeE.get()).get();
+
+        AdaptiveProficiencyRanking adaptiveProficiencyRanking = AdaptiveProficiencyRanking.builder()
+                .proficiencyRankingScaleE(proficiencyRankingScaleE)
+                .proficiencyRankingTriggerTypeE(proficiencyRankingTriggerTypeE)
+                .proficiencyRankingEffectiveDateTime(DateTime.now())
+                .build();
+
+        return adaptiveProficiencyRanking;
     }
 
     @Override

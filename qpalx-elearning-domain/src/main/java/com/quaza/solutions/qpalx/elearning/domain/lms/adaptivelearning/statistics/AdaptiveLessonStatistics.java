@@ -106,6 +106,7 @@ public class AdaptiveLessonStatistics {
         // completion rate = (unique_micro_lessons_attempt + quiz_attempts) / (total_microlessons + total_quizzes)
         BigDecimal totalAdaptiveItems = new BigDecimal(totalQuestionBankItems).add(new BigDecimal(totalMicroLessons)).add(new BigDecimal(totalQuizzes));
         BigDecimal totalAttempted = new BigDecimal(questionBankItemsAttempted).add(new BigDecimal(microLessonsAttempted)).add(new BigDecimal(uniqueQuizzesAttempted));
+
         if (totalAdaptiveItems.doubleValue() > 0.0) {
             double completionRate = totalAttempted.divide(totalAdaptiveItems, 2, RoundingMode.HALF_UP).doubleValue() * 100;
             return Precision.round(completionRate, 0);
@@ -173,6 +174,7 @@ public class AdaptiveLessonStatistics {
 
             Integer microLessonsAttempted = resultSet.getInt("UniqueMicroLessonsAttempted");
             Integer totalMicroLessons = resultSet.getInt("TotalNumberOfMicroLessons");
+
             Integer uniqueQuizzesAttempted = resultSet.getInt("UniqueQuizzesAttempted");
             Integer totalQuizzes = resultSet.getInt("TotalNumberOfQuizzes");
             return new AdaptiveLessonStatistics(lessonID, lessonName, lessonMediaFile, proficiencyRankingScaleFloor, proficiencyRankingScaleCeiling, uniqueQuestionBankItemsAttempted, totalNumberOfQuestionBankItems, microLessonsAttempted, totalMicroLessons, uniqueQuizzesAttempted, totalQuizzes);

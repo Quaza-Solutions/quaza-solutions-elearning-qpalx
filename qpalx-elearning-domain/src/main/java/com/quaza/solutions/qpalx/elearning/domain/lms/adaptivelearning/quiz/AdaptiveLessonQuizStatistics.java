@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -18,6 +19,14 @@ public class AdaptiveLessonQuizStatistics {
 
 
     private Long studentID;
+
+    private Long lessonID;
+
+    private String lessonName;
+
+    private ProficiencyRankingScaleE proficiencyRankingScaleFloor;
+
+    private ProficiencyRankingScaleE proficiencyRankingScaleCeiling;
 
     private Long microLessonID;
 
@@ -48,6 +57,38 @@ public class AdaptiveLessonQuizStatistics {
 
     public void setStudentID(Long studentID) {
         this.studentID = studentID;
+    }
+
+    public Long getLessonID() {
+        return lessonID;
+    }
+
+    public void setLessonID(Long lessonID) {
+        this.lessonID = lessonID;
+    }
+
+    public String getLessonName() {
+        return lessonName;
+    }
+
+    public void setLessonName(String lessonName) {
+        this.lessonName = lessonName;
+    }
+
+    public ProficiencyRankingScaleE getProficiencyRankingScaleFloor() {
+        return proficiencyRankingScaleFloor;
+    }
+
+    public void setProficiencyRankingScaleFloor(ProficiencyRankingScaleE proficiencyRankingScaleFloor) {
+        this.proficiencyRankingScaleFloor = proficiencyRankingScaleFloor;
+    }
+
+    public ProficiencyRankingScaleE getProficiencyRankingScaleCeiling() {
+        return proficiencyRankingScaleCeiling;
+    }
+
+    public void setProficiencyRankingScaleCeiling(ProficiencyRankingScaleE proficiencyRankingScaleCeiling) {
+        this.proficiencyRankingScaleCeiling = proficiencyRankingScaleCeiling;
     }
 
     public Long getMicroLessonID() {
@@ -140,6 +181,17 @@ public class AdaptiveLessonQuizStatistics {
         public AdaptiveLessonQuizStatistics mapRow(ResultSet resultSet, int i) throws SQLException {
             AdaptiveLessonQuizStatistics adaptiveLessonQuizStatistics = new AdaptiveLessonQuizStatistics();
             adaptiveLessonQuizStatistics.setStudentID(resultSet.getLong("StudentID"));
+
+            // Set Lesson details
+            adaptiveLessonQuizStatistics.setLessonID(resultSet.getLong("LessonID"));
+            adaptiveLessonQuizStatistics.setLessonName(resultSet.getString("LessonName"));
+
+            ProficiencyRankingScaleE floor = ProficiencyRankingScaleE.valueOf(resultSet.getString("ProficiencyRankingScaleFloor"));
+            ProficiencyRankingScaleE ceiling = ProficiencyRankingScaleE.valueOf(resultSet.getString("ProficiencyRankingScaleCeiling"));
+            adaptiveLessonQuizStatistics.setProficiencyRankingScaleFloor(floor);
+            adaptiveLessonQuizStatistics.setProficiencyRankingScaleCeiling(ceiling);
+
+
             adaptiveLessonQuizStatistics.setMicroLessonID(resultSet.getLong("MicroLessonID"));
             adaptiveLessonQuizStatistics.setMicroLessonTitle(resultSet.getString("MicroLessonName"));
             adaptiveLessonQuizStatistics.setAdaptiveLearningQuizID(resultSet.getLong("QuizID"));

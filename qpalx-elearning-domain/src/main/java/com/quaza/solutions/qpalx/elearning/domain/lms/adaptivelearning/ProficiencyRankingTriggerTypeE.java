@@ -15,6 +15,8 @@ public enum ProficiencyRankingTriggerTypeE {
 
     YEAR_END,
 
+    PROFICIENCY_CHANGE,
+
     ON_DEMAND;
 
 }

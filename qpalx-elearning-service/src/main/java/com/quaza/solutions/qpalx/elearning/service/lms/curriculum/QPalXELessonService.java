@@ -7,6 +7,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXELessonVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IQPalXELessonRepository;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.ITutorialLevelCalendarService;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.QPalXELessonService")
+@Service(QPalXELessonService.BEAN_NAME)
 public class QPalXELessonService implements IQPalXELessonService {
 
 
@@ -57,6 +58,9 @@ public class QPalXELessonService implements IQPalXELessonService {
     private IQPalXEducationalInstitutionService iqPalXEducationalInstitutionService;
 
 
+    public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.QPalXELessonService";
+
+
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXELessonService.class);
 
 
@@ -73,6 +77,25 @@ public class QPalXELessonService implements IQPalXELessonService {
         LOGGER.debug("Finding QPalXELesson with eLearningCourse:> {}", eLearningCourse);
         List<QPalXELesson> qPalXELessons = iqPalXELessonRepository.findQPalXELessonForELearningCourse(eLearningCourse);
         return qPalXELessons;
+    }
+
+    @Override
+    public List<QPalXELesson> findQPalXELessonByCourseWithProficiency(ELearningCourse eLearningCourse, ProficiencyRankingScaleE proficiencyRankingScaleE) {
+        List<QPalXELesson> courseLessons = findQPalXELessonByCourse(eLearningCourse);
+
+        for(QPalXELesson qPalXELesson : courseLessons) {
+            ProficiencyRankingScaleE floor = qPalXELesson.getProficiencyRankingScaleFloor();
+            ProficiencyRankingScaleE ceiling = qPalXELesson.getProficiencyRankingScaleCeiling();
+
+            // Check to see if the passed proficiencyRankingScaleE matches the floor and ceiling requirements of the lesson
+            boolean isBetween = proficiencyRankingScaleE.isProficiencyRankingBetweenFloorAndCeiling(floor, ceiling);
+
+            if(isBetween) {
+                courseLessons.add(qPalXELesson);
+            }
+        }
+
+        return courseLessons;
     }
 
     @Override

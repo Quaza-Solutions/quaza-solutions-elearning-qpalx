@@ -51,6 +51,19 @@ public enum ProficiencyRankingScaleE {
         return proficiencyScoreRangeE;
     }
 
+    public boolean isProficiencyRankingBetweenFloorAndCeiling(ProficiencyRankingScaleE floor, ProficiencyRankingScaleE ceiling) {
+        Assert.notNull(floor, "floor cannot be null");
+        Assert.notNull(ceiling, "ceiling cannot be null");
+        Assert.isTrue(floor.getProficiencyRanking() <= ceiling.getProficiencyRanking(), "Floor ranking must be less than or equal to Ceiling");
+
+        int floorRanking = floor.getProficiencyRanking();
+        int ceilingRanking = ceiling.getProficiencyRanking();
+
+        // Floor() <= current_ranking and (current_ranking <=  ceiling || current_ranking >=  ceiling
+        boolean isBetween = floorRanking <= this.proficiencyRanking && this.proficiencyRanking <= ceilingRanking;
+        return isBetween;
+    }
+
     public static ProficiencyRankingScaleE getProficiencyRankingScaleEByRanking(int ranking) {
         for(ProficiencyRankingScaleE proficiencyRankingScaleE : values()) {
             if(proficiencyRankingScaleE.getProficiencyRanking() == ranking) {
@@ -132,7 +145,6 @@ public enum ProficiencyRankingScaleE {
 
         return results;
     }
-
 
     public static final class ProficiencyComparator implements Comparator<ProficiencyRankingScaleE> {
         @Override
