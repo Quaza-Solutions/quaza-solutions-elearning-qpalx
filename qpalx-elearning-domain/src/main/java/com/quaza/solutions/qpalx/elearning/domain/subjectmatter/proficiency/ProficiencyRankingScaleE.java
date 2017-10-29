@@ -58,10 +58,55 @@ public enum ProficiencyRankingScaleE {
 
         int floorRanking = floor.getProficiencyRanking();
         int ceilingRanking = ceiling.getProficiencyRanking();
+        return isProficiencyRankingBetweenFloorAndCeiling(floorRanking, ceilingRanking);
+    }
 
-        // Floor() <= current_ranking and (current_ranking <=  ceiling || current_ranking >=  ceiling
+    public boolean isProficiencyRankingBetweenFloorAndCeiling(int floorRanking, int ceilingRanking) {
         boolean isBetween = floorRanking <= this.proficiencyRanking && this.proficiencyRanking <= ceilingRanking;
         return isBetween;
+    }
+
+    public boolean isAboveProficiencyRanking(ProficiencyRankingScaleE proficiencyRankingScaleE) {
+        Assert.notNull(proficiencyRankingScaleE, "proficiencyRankingScaleE cannot be null");
+        int otherProficiencyRanking = proficiencyRankingScaleE.getProficiencyRanking();
+        return isAboveProficiencyRanking(otherProficiencyRanking);
+    }
+
+    public boolean isAboveProficiencyRanking(int otherProficiencyRanking) {
+        return this.proficiencyRanking > otherProficiencyRanking;
+    }
+
+    public boolean isBelowProficiencyRanking(ProficiencyRankingScaleE proficiencyRankingScaleE) {
+        Assert.notNull(proficiencyRankingScaleE, "proficiencyRankingScaleE cannot be null");
+        int otherProficiencyRanking = proficiencyRankingScaleE.getProficiencyRanking();
+        return isBelowProficiencyRanking(otherProficiencyRanking);
+    }
+
+    public boolean isBelowProficiencyRanking(int otherProficiencyRanking) {
+        return this.proficiencyRanking < otherProficiencyRanking;
+    }
+
+    public boolean canAccessProficiencyRange(int floorRanking, int ceilingRanking) {
+        Assert.isTrue(ceilingRanking > floorRanking, "ceilingRanking has to be greater than floorRanking");
+
+        // Base case is this proficiency ranking between floor and ceiling?  IF it is then definitely good to access
+        boolean isBetween = isProficiencyRankingBetweenFloorAndCeiling(floorRanking, ceilingRanking);
+        if(isBetween) {
+            return true;
+        }
+
+        // Check to see if this proficiency ranking is less than the floor.  IF less than the floor this proficiency ranking is not compatible with this range
+        boolean isLessThanFloor = isBelowProficiencyRanking(floorRanking);
+        if(isLessThanFloor) {
+            return false;
+        }
+
+        boolean isGreaterThanCeiling = isAboveProficiencyRanking(ceilingRanking);
+        if(isGreaterThanCeiling) {
+            return true;
+        }
+
+        return false;
     }
 
     public static ProficiencyRankingScaleE getProficiencyRankingScaleEByRanking(int ranking) {
@@ -105,11 +150,17 @@ public enum ProficiencyRankingScaleE {
      */
     public static Optional<ProficiencyRankingScaleE> getProficiencyRankingScaleEAbove(ProficiencyRankingScaleE proficiencyRankingScaleE) {
         Assert.notNull(proficiencyRankingScaleE, "proficiencyRankingScaleE cannot be null");
+
+        // Handle base case, IF we are at NINE, return TEN and break recursion
+        if(proficiencyRankingScaleE == ProficiencyRankingScaleE.NINE) {
+            return Optional.of(ProficiencyRankingScaleE.TEN);
+        } else if(proficiencyRankingScaleE == ProficiencyRankingScaleE.TEN) {
+            return Optional.empty();
+        }
+
         int proficiencyRankingAbove = proficiencyRankingScaleE.getProficiencyRanking() + 1;
 
         switch (proficiencyRankingAbove) {
-            case 10:
-                return Optional.empty();
             default:
                 ProficiencyRankingScaleE proficiencyRankingScaleEBelow = ProficiencyRankingScaleE.getProficiencyRankingScaleEByRanking(proficiencyRankingAbove);
                 return Optional.of(proficiencyRankingScaleEBelow);

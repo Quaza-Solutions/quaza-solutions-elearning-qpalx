@@ -15,25 +15,25 @@ import java.util.Optional;
 public enum ProficiencyScoreRangeE {
 
 
-    EXTREMELY_DEFICIENT_PERFORMER(Range.between(0d, 20d)),
-
-    FUNDAMENTALS_LACKING_PERFORMER(Range.between(21d, 30d)),
-
-    FAILING_PERFORMER(Range.between(31d, 40d)),
-
-    POOR_PERFORMER(Range.between(41d, 50d)),
-
-    BELOW_AVERAGE_PERFORMER(Range.between(51d, 60d)),
-
-    AVERAGE_PERFORMER(Range.between(61d, 70d)),
-
-    ABOVE_AVERAGE_PERFORMER(Range.between(71d, 80d)),
-
-    STRONG_PERFORMER(Range.between(81d, 91d)),
+    EXCEPTIONALLY_OUTSTANDING_PERFORMER(Range.between(98d, 100d)),
 
     HIGH_FLYER_PERFORMER(Range.between(92d, 98d)),
 
-    EXCEPTIONALLY_OUTSTANDING_PERFORMER(Range.between(98d, 100d))
+    STRONG_PERFORMER(Range.between(81d, 91d)),
+
+    ABOVE_AVERAGE_PERFORMER(Range.between(71d, 80d)),
+
+    AVERAGE_PERFORMER(Range.between(61d, 70d)),
+
+    BELOW_AVERAGE_PERFORMER(Range.between(51d, 60d)),
+
+    POOR_PERFORMER(Range.between(41d, 50d)),
+
+    FAILING_PERFORMER(Range.between(31d, 40d)),
+
+    FUNDAMENTALS_LACKING_PERFORMER(Range.between(21d, 30d)),
+
+    EXTREMELY_DEFICIENT_PERFORMER(Range.between(0d, 20d))
     ;
 
 

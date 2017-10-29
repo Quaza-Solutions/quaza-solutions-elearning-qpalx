@@ -115,10 +115,11 @@ Left	Outer Join (
 	Group  	By mlp.QPalxUserID, qPell.ID, qPell.LessonName, qPell.ELearningMediaFile
 ) As StudentUniqueMicroLessonsAttempt on StudentUniqueMicroLessonsAttempt.LessonID = AllStudentLessons.LessonID
 Left	Outer Join (
-		Select 		qUser.ID As StudentID,
+		Select 	qUser.ID As StudentID,
 			qPell.ID As LessonID,
 			qPell.LessonName,
 			qPell.ELearningMediaFile As LessonIntroVideo,
+			quizprog.ID,
         	count(quizprog.ID) as UniqueQuizzesAttempted
 	From	QPalXUser qUser
 	Join	StudentEnrolmentRecord sErr on sErr.QPalxUserID = qUser.ID
@@ -129,8 +130,9 @@ Left	Outer Join (
 	Left   	Outer Join  AdaptiveLearningQuiz alqz on alqz.QPalXEMicroLessonID = ml.ID
 	Left   	Outer Join AdaptiveLearningQuizProgress quizprog on quizprog.MicroLessonID = ml.ID
 	Where  	qPell.ELearningCourseID = ?
+	And		qUser.ID = ?
 	And		quizprog.QPalxUserID = ?
-	Group  	By qUser.ID, qPell.ID, qPell.LessonName, qPell.ELearningMediaFile
+	Group  	By qUser.ID, qPell.ID, qPell.LessonName, qPell.ELearningMediaFile, quizprog.ID
 ) As StudentUniqueQuizAttempt on StudentUniqueQuizAttempt.LessonID = AllStudentLessons.LessonID
 Group By AllStudentLessons.StudentID,
 		AllStudentLessons.LessonID,
