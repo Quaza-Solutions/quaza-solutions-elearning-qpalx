@@ -3,14 +3,21 @@ package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.algorit
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.algorithm.ProficiencyAlgorithmExecutionInfo;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.algorithm.ProficiencyAlgorithmResult;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLessonQuizStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.service.councurrent.ApplicationConcurrencyConfig;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.microlesson.IMicroLessonPerformanceMonitorService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.microlesson.MicroLessonPerformanceMonitorService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.quiz.AdaptiveLearningQuizStatisticsService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.quiz.IAdaptiveLearningQuizStatisticsService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.AdaptiveLessonStatisticsService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.statistics.IAdaptiveLessonStatisticsService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.DefaultELearningCourseService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCourseService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IQPalXELessonService;
@@ -49,6 +56,14 @@ public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProf
     private IQPalXELessonService iqPalXELessonService;
 
     @Autowired
+    @Qualifier(AdaptiveLessonStatisticsService.BEAN_NAME)
+    private IAdaptiveLessonStatisticsService iAdaptiveLessonStatisticsService;
+
+    @Autowired
+    @Qualifier(AdaptiveLearningQuizStatisticsService.BEAN_NAME)
+    private IAdaptiveLearningQuizStatisticsService iAdaptiveLearningQuizStatisticsService;
+
+    @Autowired
     @Qualifier(MicroLessonPerformanceMonitorService.BEAN_NAME)
     private IMicroLessonPerformanceMonitorService iMicroLessonPerformanceMonitorService;
 
@@ -63,7 +78,21 @@ public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProf
 
 
     @Override
-    public ProficiencyAlgorithmExecutionInfo calculateAlgorithmScore(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, AdaptiveProficiencyRanking currentAdaptiveProficiencyRanking) {
+    public ProficiencyAlgorithmExecutionInfo executeAlgorithm(QPalXUser qPalXUser, ELearningCourse eLearningCourse, TutorialLevelCalendar selectedTutorialLevelCalendar) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(eLearningCourse, "eLearningCourse cannot be null");
+        Assert.notNull(selectedTutorialLevelCalendar, "selectedTutorialLevelCalendar cannot be null");
+
+        LOGGER.info("Executing Quiz completion analytics algorithm in eLearningCourse: {} for selectedTutorialLevelCalendar: {}", eLearningCourse.getCourseName(), selectedTutorialLevelCalendar);
+        ProficiencyAlgorithmExecutionInfo proficiencyAlgorithmExecutionInfo = ProficiencyAlgorithmExecutionInfo.newInstance("Performance On Quizzes");
+
+        List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatistics = iAdaptiveLearningQuizStatisticsService.findStudentQuizzesStatisticsForCourse(qPalXUser, eLearningCourse.getId());
+        findQuizzesBelowAndAboveAvg(adaptiveLessonQuizStatistics, proficiencyAlgorithmExecutionInfo);
+        return proficiencyAlgorithmExecutionInfo;
+    }
+
+    @Override
+    public ProficiencyAlgorithmExecutionInfo executeAlgorithm(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, AdaptiveProficiencyRanking currentAdaptiveProficiencyRanking) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
         Assert.notNull(currentAdaptiveProficiencyRanking, "currentAdaptiveProficiencyRanking cannot be null");
@@ -76,6 +105,25 @@ public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProf
         // For each course find Lessons that the Student's ProficiencyRankings will allow them to access
 
         return null;
+    }
+
+
+    protected void findQuizzesBelowAndAboveAvg(List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatisticsList, ProficiencyAlgorithmExecutionInfo proficiencyAlgorithmExecutionInfo) {
+        for(AdaptiveLessonQuizStatistics adaptiveLessonQuizStatistics : adaptiveLessonQuizStatisticsList) {
+
+            ProficiencyAlgorithmResult proficiencyAlgorithmResult = ProficiencyAlgorithmResult.newInstance(adaptiveLessonQuizStatistics.getProficiencyScore(), adaptiveLessonQuizStatistics.getAdaptiveLearningQuizTitle());
+
+            if(adaptiveLessonQuizStatistics.isPerformanceAboveAverage()) {
+                // Add positive items that is currently helping Students overall score
+                LOGGER.info("Student is currently performing above avg on quiz: {}", adaptiveLessonQuizStatistics.getAdaptiveLearningQuizTitle());
+                proficiencyAlgorithmExecutionInfo.addPositiveProgressItem(proficiencyAlgorithmResult);
+            } else {
+                if (!adaptiveLessonQuizStatistics.hasQuizAttempt()) {
+                    LOGGER.info("Student hasn't attempted quiz: {}", adaptiveLessonQuizStatistics.getAdaptiveLearningQuizTitle());
+                    proficiencyAlgorithmExecutionInfo.addNegativeProgressItem(proficiencyAlgorithmResult);
+                }
+            }
+        }
     }
 
 

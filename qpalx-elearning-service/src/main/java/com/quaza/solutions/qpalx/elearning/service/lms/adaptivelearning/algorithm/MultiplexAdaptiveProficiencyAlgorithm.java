@@ -2,8 +2,10 @@ package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.algorit
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.algorithm.ProficiencyAlgorithmExecutionInfo;
+import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -36,11 +38,21 @@ public class MultiplexAdaptiveProficiencyAlgorithm implements IMultiplexAdaptive
 
         for(IAdaptiveProficiencyAlgorithm iAdaptiveProficiencyAlgorithm : adaptiveProficiencyAlgorithmList) {
             LOGGER.info("Invoking and execution iAdaptiveProficiencyAlgorithm: {} for student: {} ", iAdaptiveProficiencyAlgorithm, qPalXUser.getEmail());
-            ProficiencyAlgorithmExecutionInfo proficiencyAlgorithmExecutionInfo = iAdaptiveProficiencyAlgorithm.calculateAlgorithmScore(qPalXUser, eLearningCurriculum, currentAdaptiveProficiencyRanking);
-            algorithmResults.add(proficiencyAlgorithmExecutionInfo);
+//            ProficiencyAlgorithmExecutionInfo proficiencyAlgorithmExecutionInfo = iAdaptiveProficiencyAlgorithm.calculateAlgorithmScore(qPalXUser, eLearningCurriculum, currentAdaptiveProficiencyRanking);
+//            algorithmResults.add(proficiencyAlgorithmExecutionInfo);
         }
 
         return algorithmResults;
+    }
+
+    @Override
+    public ProficiencyAlgorithmExecutionInfo executeAlgorithm(QPalXUser qPalXUser, ELearningCourse eLearningCourse, TutorialLevelCalendar selectedTutorialLevelCalendar) {
+        return null;
+    }
+
+    @Override
+    public ProficiencyAlgorithmExecutionInfo executeAlgorithm(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, AdaptiveProficiencyRanking currentAdaptiveProficiencyRanking) {
+        return null;
     }
 
     @Override

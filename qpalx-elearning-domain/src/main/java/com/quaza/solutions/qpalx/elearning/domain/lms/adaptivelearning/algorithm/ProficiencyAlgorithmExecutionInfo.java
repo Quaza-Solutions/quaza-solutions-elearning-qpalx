@@ -17,12 +17,16 @@ public class ProficiencyAlgorithmExecutionInfo {
 
     private String algorithm;
 
-
     private List<ProficiencyAlgorithmResult>  positiveProgressItems = new LinkedList<>();
 
     private List<ProficiencyAlgorithmResult>  negativeProgressItems = new LinkedList<>();
 
+    public static final String CLASS_ATTRIBUTE = "ProficiencyAlgorithmExecutionInfo";
+
+
+
     public ProficiencyAlgorithmExecutionInfo(String algorithm) {
+        Assert.notNull(algorithm, "algorithm cannot be null");
         this.algorithm = algorithm;
     }
 
@@ -46,6 +50,10 @@ public class ProficiencyAlgorithmExecutionInfo {
     public void addNegativeProgressItem(ProficiencyAlgorithmResult proficiencyAlgorithmResult) {
         Assert.notNull(proficiencyAlgorithmResult, "proficiencyAlgorithmResult");
         negativeProgressItems.add(proficiencyAlgorithmResult);
+    }
+
+    public static ProficiencyAlgorithmExecutionInfo newInstance(String algorithm) {
+        return new ProficiencyAlgorithmExecutionInfo(algorithm);
     }
 
 }

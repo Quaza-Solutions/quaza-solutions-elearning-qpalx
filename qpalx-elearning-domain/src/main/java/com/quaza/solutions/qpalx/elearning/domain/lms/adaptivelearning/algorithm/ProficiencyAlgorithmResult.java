@@ -3,6 +3,7 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.algorith
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.util.Assert;
 
 /**
  * @author manyce400
@@ -14,7 +15,11 @@ public class ProficiencyAlgorithmResult {
 
     private String algorithmFocusArea;
 
+    public static final String CLASS_ATTRIBUTE = "ProficiencyAlgorithmResult";
+
     public ProficiencyAlgorithmResult(Double algorithmScore, String algorithmFocusArea) {
+        Assert.notNull(algorithmScore, "algorithmScore cannot be null");
+        Assert.notNull(algorithmFocusArea, "algorithmFocusArea cannot be null");
         this.algorithmScore = algorithmScore;
         this.algorithmFocusArea = algorithmFocusArea;
     }
@@ -55,6 +60,10 @@ public class ProficiencyAlgorithmResult {
                 .append("algorithmScore", algorithmScore)
                 .append("algorithmFocusArea", algorithmFocusArea)
                 .toString();
+    }
+
+    public static ProficiencyAlgorithmResult newInstance(Double algorithmScore, String algorithmFocusArea) {
+        return new ProficiencyAlgorithmResult(algorithmScore, algorithmFocusArea);
     }
 
 }

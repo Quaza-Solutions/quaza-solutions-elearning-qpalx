@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.media.QPalXTutorialContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyScoreRangeE;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 /**
  * @author manyce400
@@ -153,6 +155,26 @@ public class AdaptiveLessonQuizStatistics {
 
     public void setQpalxTutorialContentType(QPalXTutorialContentTypeE qpalxTutorialContentType) {
         this.qpalxTutorialContentType = qpalxTutorialContentType;
+    }
+
+    public boolean hasQuizAttempt() {
+        if(learningExperienceStartDate != null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isPerformanceAboveAverage() {
+        if(hasQuizAttempt()) {
+            Optional<ProficiencyScoreRangeE> proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(proficiencyScore);
+
+            if(proficiencyScoreRangeE.isPresent()) {
+                return proficiencyScoreRangeE.get() == ProficiencyScoreRangeE.ABOVE_AVERAGE_PERFORMER || proficiencyScoreRangeE.get().isAboveScoreRange(ProficiencyScoreRangeE.ABOVE_AVERAGE_PERFORMER);
+            }
+        }
+
+        return false;
     }
 
     @Override

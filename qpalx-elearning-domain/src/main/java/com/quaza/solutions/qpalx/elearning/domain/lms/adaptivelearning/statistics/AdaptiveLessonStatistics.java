@@ -133,6 +133,10 @@ public class AdaptiveLessonStatistics {
         return 0;
     }
 
+    public boolean allQuizzesAttempted() {
+        return totalQuizzes == uniqueQuizzesAttempted;
+    }
+
     public Set<ProficiencyRankingScaleE> getProficiencyRankingRangeForLesson() {
         return ProficiencyRankingScaleE.getAllProficiencyRankingsInScope(proficiencyRankingScaleFloor, proficiencyRankingScaleCeiling);
     }

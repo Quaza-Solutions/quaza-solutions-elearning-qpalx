@@ -53,6 +53,18 @@ public enum ProficiencyScoreRangeE {
         return getProficiencyScoreRangeForScore(minScoreInHigherRange);
     }
 
+    public boolean isAboveScoreRange(ProficiencyScoreRangeE proficiencyScoreRangeE) {
+        Assert.notNull(proficiencyScoreRangeE, "proficiencyScoreRangeE cannot be null");
+        Range<Double> otherScoreRange = proficiencyScoreRangeE.getScoreRange();
+        return this.scoreRange.isAfterRange(otherScoreRange);
+    }
+
+    public boolean isBelowScoreRange(ProficiencyScoreRangeE proficiencyScoreRangeE) {
+        Assert.notNull(proficiencyScoreRangeE, "proficiencyScoreRangeE cannot be null");
+        Range<Double> otherScoreRange = proficiencyScoreRangeE.getScoreRange();
+        return this.scoreRange.isBeforeRange(otherScoreRange);
+    }
+
     /**
      * Given a QPalXUser Student score on any given Quiz/Test, figure out their proficiency performance profile based
      * off where they would fall on a score range.
@@ -75,4 +87,5 @@ public enum ProficiencyScoreRangeE {
 
         return Optional.empty();
     }
+
 }

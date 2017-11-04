@@ -47,6 +47,7 @@ public class AdaptiveLessonStatisticsService implements IAdaptiveLessonStatistic
     @Qualifier("quaza.solutions.qpalx.elearning.service.StatisticsExecutorService")
     private ListeningExecutorService listeningExecutorService;
 
+    public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.AdaptiveLessonStatisticsService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AdaptiveLessonStatisticsService.class);
 
