@@ -9,6 +9,8 @@ public enum MediaContentTypeE {
 
     jpeg,
 
+    jpg,
+
     png,
 
     mp4,
