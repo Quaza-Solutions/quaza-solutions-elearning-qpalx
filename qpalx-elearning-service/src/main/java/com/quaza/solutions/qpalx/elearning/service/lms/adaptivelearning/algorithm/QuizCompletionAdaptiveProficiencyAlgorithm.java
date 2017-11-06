@@ -111,16 +111,20 @@ public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProf
     protected void findQuizzesBelowAndAboveAvg(List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatisticsList, ProficiencyAlgorithmExecutionInfo proficiencyAlgorithmExecutionInfo) {
         for(AdaptiveLessonQuizStatistics adaptiveLessonQuizStatistics : adaptiveLessonQuizStatisticsList) {
 
-            ProficiencyAlgorithmResult proficiencyAlgorithmResult = ProficiencyAlgorithmResult.newInstance(adaptiveLessonQuizStatistics.getProficiencyScore(), adaptiveLessonQuizStatistics.getAdaptiveLearningQuizTitle());
+            // Check that there is an actual quiz here before building
+            if (adaptiveLessonQuizStatistics.getAdaptiveLearningQuizID() != null) {
 
-            if(adaptiveLessonQuizStatistics.isPerformanceAboveAverage()) {
-                // Add positive items that is currently helping Students overall score
-                LOGGER.info("Student is currently performing above avg on quiz: {}", adaptiveLessonQuizStatistics.getAdaptiveLearningQuizTitle());
-                proficiencyAlgorithmExecutionInfo.addPositiveProgressItem(proficiencyAlgorithmResult);
-            } else {
-                if (!adaptiveLessonQuizStatistics.hasQuizAttempt()) {
-                    LOGGER.info("Student hasn't attempted quiz: {}", adaptiveLessonQuizStatistics.getAdaptiveLearningQuizTitle());
-                    proficiencyAlgorithmExecutionInfo.addNegativeProgressItem(proficiencyAlgorithmResult);
+                ProficiencyAlgorithmResult proficiencyAlgorithmResult = ProficiencyAlgorithmResult.newInstance(adaptiveLessonQuizStatistics.getProficiencyScore(), adaptiveLessonQuizStatistics.getAdaptiveLearningQuizTitle());
+
+                if(adaptiveLessonQuizStatistics.isPerformanceAboveAverage()) {
+                    // Add positive items that is currently helping Students overall score
+                    LOGGER.info("Student is currently performing above avg on quiz: {}", adaptiveLessonQuizStatistics.getAdaptiveLearningQuizTitle());
+                    proficiencyAlgorithmExecutionInfo.addPositiveProgressItem(proficiencyAlgorithmResult);
+                } else {
+                    if (!adaptiveLessonQuizStatistics.hasQuizAttempt()) {
+                        LOGGER.info("Student hasn't attempted quiz: {}", adaptiveLessonQuizStatistics.getAdaptiveLearningQuizTitle());
+                        proficiencyAlgorithmExecutionInfo.addNegativeProgressItem(proficiencyAlgorithmResult);
+                    }
                 }
             }
         }

@@ -13,6 +13,8 @@ public enum MediaContentTypeE {
 
     png,
 
+    gif,
+
     mp4,
 
     swf,

@@ -18,15 +18,15 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-        <hibernate.connection.driver_class>com.mysql.jdbc.Driver</hibernate.connection.driver_class>
-        <hibernate.connection.charSet>UTF-8</hibernate.connection.charSet>
-        <hibernate.export.schema.delimiter>;</hibernate.export.schema.delimiter>
-        <hibernate.connection.url><![CDATA[jdbc:mysql://localhost/QPalx]]></hibernate.connection.url>
-        <hibernate.connection.username>manyce400</hibernate.connection.username>
-        <hibernate.connection.password>bridge15</hibernate.connection.password>
-        <project.build.outputDirectory>{project.build.outputDirectory}</project.build.outputDirectory>
-        <hibernate.export.schema.filename>${project.build.directory}/QPalx-db-schema.sql</hibernate.export.schema.filename>
+        <!--<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>-->
+        <!--<hibernate.connection.driver_class>com.mysql.jdbc.Driver</hibernate.connection.driver_class>-->
+        <!--<hibernate.connection.charSet>UTF-8</hibernate.connection.charSet>-->
+        <!--<hibernate.export.schema.delimiter>;</hibernate.export.schema.delimiter>-->
+        <!--<hibernate.connection.url><![CDATA[jdbc:mysql://localhost/QPalx]]></hibernate.connection.url>-->
+        <!--<hibernate.connection.username>manyce400</hibernate.connection.username>-->
+        <!--<hibernate.connection.password>bridge15</hibernate.connection.password>-->
+        <!--<project.build.outputDirectory>{project.build.outputDirectory}</project.build.outputDirectory>-->
+        <!--<hibernate.export.schema.filename>${project.build.directory}/QPalx-db-schema.sql</hibernate.export.schema.filename>-->
     </properties>
 
     <dependencies>
@@ -107,52 +107,67 @@
 
     </dependencies>
 
-    <build>
-        <!--
-                Using De Juplo plugin, we generate Hibernate Schema DLL's.
-                Note that this will scan all annotated classes  as defined in our persitence.xml file and generate DLL's for them.
-                As long as classes are properly annotated in the scan packaged defined in persistence.xml there will be a dll.
+    <!--<build>-->
+        <!--&lt;!&ndash;-->
+                <!--Using De Juplo plugin, we generate Hibernate Schema DLL's.-->
+                <!--Note that this will scan all annotated classes  as defined in our persitence.xml file and generate DLL's for them.-->
+                <!--As long as classes are properly annotated in the scan packaged defined in persistence.xml there will be a dll.-->
 
-                Plugin documentation is available at http://juplo.de/hibernate4-maven-plugin/
+                <!--Plugin documentation is available at http://juplo.de/hibernate4-maven-plugin/-->
 
-                De Juplo hibernate-maven-plugin only supports hiberate 5.  Enable only commented out below on updating to hibernate 5
-        -->
-        <plugins>
-            <plugin>
-                <groupId>de.juplo</groupId>
-                <artifactId>hibernate-maven-plugin</artifactId>
-                <version>2.0.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>drop</goal>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <!-- Add dependency to MySQL JDBC in order to drop and create tables -->
-                    <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
-                    <version>5.1.37</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
-
-
+                <!--De Juplo hibernate-maven-plugin only supports hiberate 5.  Enable only commented out below on updating to hibernate 5-->
+        <!--&ndash;&gt;-->
+        <!--<plugins>-->
             <!--<plugin>-->
                 <!--<groupId>de.juplo</groupId>-->
-                <!--<artifactId>hibernate4-maven-plugin</artifactId>-->
-                <!--<version>1.0.5</version>-->
+                <!--<artifactId>hibernate-maven-plugin</artifactId>-->
+                <!--<version>2.0.0</version>-->
                 <!--<executions>-->
                     <!--<execution>-->
                         <!--<goals>-->
-                            <!--<goal>export</goal>-->
+                            <!--<goal>drop</goal>-->
+                            <!--<goal>create</goal>-->
                         <!--</goals>-->
                     <!--</execution>-->
                 <!--</executions>-->
+                <!--<dependencies>-->
+                    <!--&lt;!&ndash; Add dependency to MySQL JDBC in order to drop and create tables &ndash;&gt;-->
+                    <!--<dependency>-->
+                    <!--<groupId>mysql</groupId>-->
+                    <!--<artifactId>mysql-connector-java</artifactId>-->
+                    <!--<version>5.1.37</version>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
+            <!--</plugin>-->
+
+
+
+            <!--&lt;!&ndash;<plugin>&ndash;&gt;-->
+                <!--&lt;!&ndash;<groupId>de.juplo</groupId>&ndash;&gt;-->
+                <!--&lt;!&ndash;<artifactId>hibernate4-maven-plugin</artifactId>&ndash;&gt;-->
+                <!--&lt;!&ndash;<version>1.0.5</version>&ndash;&gt;-->
+                <!--&lt;!&ndash;<executions>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<execution>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<goals>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<goal>export</goal>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</goals>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</execution>&ndash;&gt;-->
+                <!--&lt;!&ndash;</executions>&ndash;&gt;-->
+                <!--&lt;!&ndash;<dependencies>&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash; Add dependency to MySQL JDBC in order to drop and create tables &ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<groupId>mysql</groupId>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<artifactId>mysql-connector-java</artifactId>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<version>5.1.37</version>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+                <!--&lt;!&ndash;</dependencies>&ndash;&gt;-->
+            <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
+
+            <!--&lt;!&ndash; DB Unit plugin will connect to the database and create default entries specified in the qpalx-test-data.xml file &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>dbunit-maven-plugin</artifactId>-->
+                <!--<version>1.0-beta-3</version>-->
                 <!--<dependencies>-->
                     <!--&lt;!&ndash; Add dependency to MySQL JDBC in order to drop and create tables &ndash;&gt;-->
                     <!--<dependency>-->
@@ -161,219 +176,204 @@
                         <!--<version>5.1.37</version>-->
                     <!--</dependency>-->
                 <!--</dependencies>-->
+
+                <!--<configuration>-->
+                    <!--<driver>${hibernate.connection.driver_class}</driver>-->
+                    <!--<url>${hibernate.connection.url}</url>-->
+                    <!--<username>${hibernate.connection.username}</username>-->
+                    <!--<password>${hibernate.connection.password}</password>-->
+                    <!--&lt;!&ndash;<skip>${maven.test.skip}</skip>&ndash;&gt;-->
+                <!--</configuration>-->
+                <!--<executions>-->
+
+                    <!--&lt;!&ndash; Insert initial static data &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_initial</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>CLEAN_INSERT</type>-->
+                            <!--<src>../qpalx-elearning-domain/src/main/resources/qpalx-initial-static-data.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all WAF SHS ELearning Curriculum, Courses & Activities &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_jhs_curriculum</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/qpalx-waf-ecourses-shs.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all WAF JHS ELearning Curriculum, Courses & Activities &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_shs_curriculum</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>../qpalx-elearning-domain/src/main/resources/qpalx-waf-ecourses-jhs.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all SHS Schools in Accra &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_accra_shs_schools</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/accra-schools-static-list.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all SHS Schools in Ashanti &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_ashanti_shs_schools</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/ashanti-schools-static-list.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all SHS Schools in Brong Ahafo &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_brong_ahafo_shs_schools</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/brong-ahafo-schools-static-list.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all SHS Schools in CentralRegion &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_central_region_shs_schools</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/central-region-schools-static-list.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all SHS Schools in EasternRegion &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_eastern_region_shs_schools</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/eastern-region-schools-static-list.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all SHS Schools in WesternRegion &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_western_region_shs_schools</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/western-region-schools-static-list.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all SHS Schools in UpperEastRegion &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_upper_east_region_shs_schools</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/upper-east-region-schools-static-list.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all SHS Schools in UpperWestRegion &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_upper_west_region_shs_schools</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/upper-west-region-schools-static-list.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all SHS Schools in VoltaRegion &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_volta_region_shs_schools</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/volta-region-schools-static-list.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--&lt;!&ndash; Insert all SHS Schools in NorthernRegion &ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>insert_northern_region_shs_schools</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>operation</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<format>flat</format>-->
+                            <!--<type>INSERT</type>-->
+                            <!--<src>src/main/resources/northern-region-schools-static-list.xml</src>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+
+                <!--</executions>-->
             <!--</plugin>-->
 
-            <!-- DB Unit plugin will connect to the database and create default entries specified in the qpalx-test-data.xml file -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>dbunit-maven-plugin</artifactId>
-                <version>1.0-beta-3</version>
-                <dependencies>
-                    <!-- Add dependency to MySQL JDBC in order to drop and create tables -->
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.37</version>
-                    </dependency>
-                </dependencies>
+        <!--</plugins>-->
 
-                <configuration>
-                    <driver>${hibernate.connection.driver_class}</driver>
-                    <url>${hibernate.connection.url}</url>
-                    <username>${hibernate.connection.username}</username>
-                    <password>${hibernate.connection.password}</password>
-                    <!--<skip>${maven.test.skip}</skip>-->
-                </configuration>
-                <executions>
-
-                    <!-- Insert initial static data -->
-                    <execution>
-                        <id>insert_initial</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>CLEAN_INSERT</type>
-                            <src>../qpalx-elearning-domain/src/main/resources/qpalx-initial-static-data.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all WAF SHS ELearning Curriculum, Courses & Activities -->
-                    <execution>
-                        <id>insert_jhs_curriculum</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/qpalx-waf-ecourses-shs.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all WAF JHS ELearning Curriculum, Courses & Activities -->
-                    <execution>
-                        <id>insert_shs_curriculum</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>../qpalx-elearning-domain/src/main/resources/qpalx-waf-ecourses-jhs.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all SHS Schools in Accra -->
-                    <execution>
-                        <id>insert_accra_shs_schools</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/accra-schools-static-list.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all SHS Schools in Ashanti -->
-                    <execution>
-                        <id>insert_ashanti_shs_schools</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/ashanti-schools-static-list.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all SHS Schools in Brong Ahafo -->
-                    <execution>
-                        <id>insert_brong_ahafo_shs_schools</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/brong-ahafo-schools-static-list.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all SHS Schools in CentralRegion -->
-                    <execution>
-                        <id>insert_central_region_shs_schools</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/central-region-schools-static-list.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all SHS Schools in EasternRegion -->
-                    <execution>
-                        <id>insert_eastern_region_shs_schools</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/eastern-region-schools-static-list.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all SHS Schools in WesternRegion -->
-                    <execution>
-                        <id>insert_western_region_shs_schools</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/western-region-schools-static-list.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all SHS Schools in UpperEastRegion -->
-                    <execution>
-                        <id>insert_upper_east_region_shs_schools</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/upper-east-region-schools-static-list.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all SHS Schools in UpperWestRegion -->
-                    <execution>
-                        <id>insert_upper_west_region_shs_schools</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/upper-west-region-schools-static-list.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all SHS Schools in VoltaRegion -->
-                    <execution>
-                        <id>insert_volta_region_shs_schools</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/volta-region-schools-static-list.xml</src>
-                        </configuration>
-                    </execution>
-
-                    <!-- Insert all SHS Schools in NorthernRegion -->
-                    <execution>
-                        <id>insert_northern_region_shs_schools</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>operation</goal>
-                        </goals>
-                        <configuration>
-                            <format>flat</format>
-                            <type>INSERT</type>
-                            <src>src/main/resources/northern-region-schools-static-list.xml</src>
-                        </configuration>
-                    </execution>
-
-
-                </executions>
-            </plugin>
-
-        </plugins>
-
-    </build>
+    <!--</build>-->
 
 </project>
