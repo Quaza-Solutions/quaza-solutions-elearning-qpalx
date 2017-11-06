@@ -59,6 +59,41 @@ public class AdaptiveLearningExperienceService implements IAdaptiveLearningExper
         return results;
     }
 
+    @Override
+    public List<AdaptiveLearningExperience> findAllQuizLearningExperiencesForStudent(Long scorableActivityID, QPalXUser qPalXUser) {
+        Assert.notNull(scorableActivityID, "scorableActivityID cannot be null");
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+
+        LOGGER.info("Finding all Quiz AdaptiveLearningExperience for qpalXUser: {} with scorableActivityID: {}", qPalXUser.getEmail(), scorableActivityID);
+        List<AdaptiveLearningExperience> results = iAdaptiveLearningExperienceRepository.findAllQuizLearningExperiencesForStudent(scorableActivityID, qPalXUser.getId());
+        return results;
+    }
+
+    @Transactional
+    @Override
+    public void deleteAllQuizLearningExperiences(Long scorableActivityID) {
+        Assert.notNull(scorableActivityID, "scorableActivityID cannot be null");
+        LOGGER.debug("Deleting all Quiz Learning Experiences for Quiz with ID: {}", scorableActivityID);
+        List<AdaptiveLearningExperience> results = iAdaptiveLearningExperienceRepository.findAllForQuizID(scorableActivityID);
+        if (results != null && results.size() > 0) {
+            iAdaptiveLearningExperienceRepository.delete(results);
+        }
+    }
+
+    @Transactional
+    @Override
+    public void deleteAllQuizLearningExperiencesForStudent(Long scorableActivityID, QPalXUser qPalXUser) {
+        Assert.notNull(scorableActivityID, "scorableActivityID cannot be null");
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+
+        LOGGER.info("Deleting all Quiz AdaptiveLearningExperience for qpalXUser: {} with scorableActivityID: {}", qPalXUser.getEmail(), scorableActivityID);
+
+        List<AdaptiveLearningExperience> results = iAdaptiveLearningExperienceRepository.findAllQuizLearningExperiencesForStudent(scorableActivityID, qPalXUser.getId());
+        if (results != null && results.size() > 0) {
+            iAdaptiveLearningExperienceRepository.delete(results);
+        }
+    }
+
     @Transactional
     @Override
     public void buildAndSaveAdaptiveLearningExperience(QPalXUser qPalXUser, QPalXTutorialContentTypeE qPalXTutorialContentTypeE, Double proficiencyScore, Long scoreableActivityID) {

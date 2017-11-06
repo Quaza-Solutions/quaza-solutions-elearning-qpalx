@@ -19,5 +19,11 @@ public interface IAdaptiveLearningExperienceService {
 
     public List<AdaptiveLearningExperience> findAllWithScorableActivityID(Long scorableActivityID, QPalXUser qPalXUser);
 
+    public List<AdaptiveLearningExperience> findAllQuizLearningExperiencesForStudent(Long scorableActivityID, QPalXUser qPalXUser);
+
+    public void deleteAllQuizLearningExperiences(Long scorableActivityID);
+
+    public void deleteAllQuizLearningExperiencesForStudent(Long scorableActivityID, QPalXUser qPalXUser);
+
     public void buildAndSaveAdaptiveLearningExperience(QPalXUser qPalXUser, QPalXTutorialContentTypeE qPalXTutorialContentTypeE, Double proficiencyScore, Long scoreableActivityID);
 }

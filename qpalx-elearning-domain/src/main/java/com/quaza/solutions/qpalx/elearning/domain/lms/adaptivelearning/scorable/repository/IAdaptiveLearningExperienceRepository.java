@@ -34,6 +34,22 @@ public interface IAdaptiveLearningExperienceRepository extends CrudRepository<Ad
 
 
     /**
+     * Find list of all AdaptiveLearningExperience for given Quiz
+     *
+     * @return List<AdaptiveLearningExperience>
+     */
+    @Query(
+            value = "Select    alE.* "
+                    + "From    AdaptiveLearningExperience alE "
+                    + "Where   ScorableActivityID = ? "
+                    + "And     QPalXTutorialContentType = 'Quiz'  "
+                    + "Order   By LearningExperienceStartDate asc ",
+            nativeQuery = true
+    )
+    public List<AdaptiveLearningExperience> findAllForQuizID(Long scorableActivityID);
+
+
+    /**
      * Find list of all AdaptiveLearningExperience for given QPalxUser with a specific ScorableActivityID
      *
      * @return List<AdaptiveLearningExperience>
@@ -47,5 +63,22 @@ public interface IAdaptiveLearningExperienceRepository extends CrudRepository<Ad
             nativeQuery = true
     )
     public List<AdaptiveLearningExperience> findAllWithScorableActivityID(Long scorableActivityID, Long studentID);
+
+
+    /**
+     * Find list of all AdaptiveLearningExperience for given QPalxUser with a specific ScorableActivityID
+     *
+     * @return List<AdaptiveLearningExperience>
+     */
+    @Query(
+            value = "Select    alE.* "
+                    + "From    AdaptiveLearningExperience alE "
+                    + "Where   ScorableActivityID = ? "
+                    + "And     QPalxUserID  = ?  "
+                    + "And     QPalXTutorialContentType = 'Quiz'  "
+                    + "Order   By LearningExperienceStartDate asc ",
+            nativeQuery = true
+    )
+    public List<AdaptiveLearningExperience> findAllQuizLearningExperiencesForStudent(Long scorableActivityID, Long studentID);
 
 }

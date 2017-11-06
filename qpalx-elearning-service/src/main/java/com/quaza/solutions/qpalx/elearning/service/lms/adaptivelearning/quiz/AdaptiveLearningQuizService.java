@@ -1,12 +1,17 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.quiz;
 
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.progress.AdaptiveLearningQuizProgress;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.progress.repository.IAdaptiveLearningQuizProgressRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.*;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizQuestionAnswerRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizQuestionRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.AdaptiveLearningExperienceService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IAdaptiveLearningExperienceService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -29,7 +34,14 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
     private IAdaptiveLearningQuizQuestionAnswerRepository iAdaptiveLearningQuizQuestionAnswerRepository;
 
     @Autowired
+    private IAdaptiveLearningQuizProgressRepository iAdaptiveLearningQuizProgressRepository;
+
+    @Autowired
     private IAdaptiveLearningQuizRepository iAdaptiveLearningQuizRepository;
+
+    @Autowired
+    @Qualifier(AdaptiveLearningExperienceService.SPRING_BEAN_NAME)
+    private IAdaptiveLearningExperienceService iAdaptiveLearningExperienceService;
 
     public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.AdaptiveLearningQuizService2";
 
@@ -93,6 +105,23 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
     public void delete(AdaptiveLearningQuiz adaptiveLearningQuiz) {
         Assert.notNull(adaptiveLearningQuiz, "adaptiveLearningQuiz cannot be null");
         LOGGER.debug("Deleting AdaptiveLearningQuiz: {}", adaptiveLearningQuiz);
+
+        // Delete all Quiz Learning Experiences if they exist
+        iAdaptiveLearningExperienceService.deleteAllQuizLearningExperiences(adaptiveLearningQuiz.getId());
+
+        // Delete all Progress information that students have made on this Quiz since it doesnt exist anymore
+        List<AdaptiveLearningQuizProgress> adaptiveLearningQuizProgresses = iAdaptiveLearningQuizProgressRepository.findAllAdaptiveLearningQuizProgressInfo(adaptiveLearningQuiz.getId());
+        if(adaptiveLearningQuizProgresses != null && adaptiveLearningQuizProgresses.size() > 0) {
+            iAdaptiveLearningQuizProgressRepository.delete(adaptiveLearningQuizProgresses);
+        }
+
+        // Get all Quiz Questions and delete them
+        Set<AdaptiveLearningQuizQuestion> adaptiveLearningQuizQuestions = adaptiveLearningQuiz.getAdaptiveLearningQuizQuestions();
+        for(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion : adaptiveLearningQuizQuestions) {
+            delete(adaptiveLearningQuizQuestion);
+        }
+
+        // It's now safe to delete the quiz
         iAdaptiveLearningQuizRepository.delete(adaptiveLearningQuiz);
     }
 
@@ -101,7 +130,23 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
     public void delete(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion) {
         Assert.notNull(adaptiveLearningQuizQuestion, "adaptiveLearningQuizQuestion");
         LOGGER.debug("Deleting adaptiveLearningQuizQuestion: {}", adaptiveLearningQuizQuestion);
+
+        // Delete all Question answers first
+        if (adaptiveLearningQuizQuestion.getAdaptiveLearningQuizQuestionAnswers().size() > 0) {
+            LOGGER.debug("First deleting all quiz question answers.....");
+            iAdaptiveLearningQuizQuestionAnswerRepository.delete(adaptiveLearningQuizQuestion.getAdaptiveLearningQuizQuestionAnswers());
+        }
+
+        // Safe to delete Quiz Question now
         iAdaptiveLearningQuizQuestionRepository.delete(adaptiveLearningQuizQuestion);
+    }
+
+    @Transactional
+    @Override
+    public void delete(AdaptiveLearningQuizQuestionAnswer adaptiveLearningQuizQuestionAnswer) {
+        Assert.notNull(adaptiveLearningQuizQuestionAnswer, "adaptiveLearningQuizQuestionAnswer cannot be null");
+        LOGGER.debug("Deleting adaptiveLearningQuizQuestionAnswer: {}", adaptiveLearningQuizQuestionAnswer);
+        iAdaptiveLearningQuizQuestionAnswerRepository.delete(adaptiveLearningQuizQuestionAnswer);
     }
 
     @Override

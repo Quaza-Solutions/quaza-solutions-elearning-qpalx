@@ -12,7 +12,6 @@ import java.util.List;
 public interface IAdaptiveLearningQuizProgressRepository extends CrudRepository<AdaptiveLearningQuizProgress, Long> {
 
 
-
     @Query("Select               adaptiveLearningQuizProgress From AdaptiveLearningQuizProgress adaptiveLearningQuizProgress "+
             "Where               adaptiveLearningQuizProgress.qPalxUserID =?1 "+
             "And                 adaptiveLearningQuizProgress.adaptiveLearningQuizID =?2  " +
@@ -26,5 +25,10 @@ public interface IAdaptiveLearningQuizProgressRepository extends CrudRepository<
             "And                 adaptiveLearningQuizProgress.microLessonID =?2"
     )
     public List<AdaptiveLearningQuizProgress> findAdaptiveLearningQuizProgress(Long qpalxUserID, Long microLessonID);
+
+    @Query("Select               adaptiveLearningQuizProgress From AdaptiveLearningQuizProgress adaptiveLearningQuizProgress "+
+            "Where               adaptiveLearningQuizProgress.adaptiveLearningQuizID =?1 "
+    )
+    public List<AdaptiveLearningQuizProgress> findAllAdaptiveLearningQuizProgressInfo(Long quizID);
 
 }

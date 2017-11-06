@@ -1,9 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.quiz;
 
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLearningQuiz;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLearningQuizQuestion;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.IAdaptiveLearningQuizQuestionVO;
-import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.IAdaptiveLearningQuizVO;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.*;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 
 import java.util.List;
@@ -27,6 +24,8 @@ public interface IAdaptiveLearningQuizService {
     public void delete(AdaptiveLearningQuiz adaptiveLearningQuiz);
 
     public void delete(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion);
+
+    public void delete(AdaptiveLearningQuizQuestionAnswer adaptiveLearningQuizQuestionAnswer);
 
     public List<AdaptiveLearningQuiz> findQuizzesForMicroLesson(QPalXEMicroLesson qPalXEMicroLesson);
 
