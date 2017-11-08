@@ -1,5 +1,9 @@
 package com.quaza.solutions.qpalx.elearning.domain.lms.media;
 
+import com.google.common.collect.ImmutableSet;
+
+import java.util.Set;
+
 /**
  * Defines all the currently supported Elearning media content type used across the application.
  *
@@ -22,5 +26,10 @@ public enum MediaContentTypeE {
     html,
 
     text;
+
+
+    public static Set<MediaContentTypeE> getImageMediaTypes() {
+        return ImmutableSet.of(jpeg, jpg, png, gif);
+    }
 
 }
