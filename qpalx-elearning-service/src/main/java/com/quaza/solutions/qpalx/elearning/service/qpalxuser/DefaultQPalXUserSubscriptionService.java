@@ -112,12 +112,13 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
     @Transactional
     public Optional<QPalXUser> createNewQPalXUserWithTutorialSubscription(IQPalXUserVO iqPalXUserVO) {
         Assert.notNull(iqPalXUserVO, "iqPalXUserVO cannot be null");
+        Assert.notNull(iqPalXUserVO.getUserSex(), "user sex cannot be null");
         LOGGER.info("Creating new Student QPalXUser with subscription from iqPalXUserVO:> {}", iqPalXUserVO);
 
         // Get  user municipality
         QPalXMunicipality municipality = iqPalXMunicipalityService.findQPalXMunicipalityByID(iqPalXUserVO.getMunicipalityID());
 
-
+        QPalxUserSexE qPalxUserSexE = QPalxUserSexE.valueOf(iqPalXUserVO.getUserSex());
 
         QPalXUser qPalXUser = QPalXUser.builder()
                 .firstName(iqPalXUserVO.getFirstName())
@@ -127,7 +128,7 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
                 .municipality(municipality)
                 .mobilePhoneNumber(iqPalXUserVO.getMobilePhoneNumber())
                 .accountLockedStatus(false) // By default always create a new account unlocked
-                .qPalxUserSexE(QPalxUserSexE.Male)
+                .qPalxUserSexE(qPalxUserSexE)
                 .qPalxUserTypeE(QPalxUserTypeE.STUDENT)
                 .build();
 
