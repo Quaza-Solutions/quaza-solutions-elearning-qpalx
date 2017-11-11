@@ -116,20 +116,21 @@ public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionServic
     }
 
     boolean isActiveUserSubscription(StudentSubscriptionProfile studentSubscriptionProfile) {
-        DateTime now = new DateTime();
-        QPalXSubscription subscription = studentSubscriptionProfile.getqPalXSubscription();
-        DateTime purchaseDate = studentSubscriptionProfile.getSubscriptionPurchasedDate();
-
-        LOGGER.info("purchaseDate=" + purchaseDate + " now = " + now);
-        int numberOfDays = Days.daysBetween(purchaseDate, now).getDays();
-        LOGGER.info("numberOfDays since subscription was purchased = " + numberOfDays);
-        if (numberOfDays > subscription.getSubscriptionType().getNumberOfDays()) {
-            LOGGER.debug("StudentSubscriptionProfile: {} is not active", studentSubscriptionProfile);
-            return false;
-        } else {
-            LOGGER.debug("StudentSubscriptionProfile: {} is currently active", studentSubscriptionProfile);
-            return true;
-        }
+        return false; //TODO remove
+//        DateTime now = new DateTime();
+//        QPalXSubscription subscription = studentSubscriptionProfile.getqPalXSubscription();
+//        DateTime purchaseDate = studentSubscriptionProfile.getSubscriptionPurchasedDate();
+//
+//        LOGGER.info("purchaseDate=" + purchaseDate + " now = " + now);
+//        int numberOfDays = Days.daysBetween(purchaseDate, now).getDays();
+//        LOGGER.info("numberOfDays since subscription was purchased = " + numberOfDays);
+//        if (numberOfDays > subscription.getSubscriptionType().getNumberOfDays()) {
+//            LOGGER.debug("StudentSubscriptionProfile: {} is not active", studentSubscriptionProfile);
+//            return false;
+//        } else {
+//            LOGGER.debug("StudentSubscriptionProfile: {} is currently active", studentSubscriptionProfile);
+//            return true;
+//        }
     }
 
     private SubscriptionValidationResult getActiveSubscriptionValidationResult(StudentSubscriptionProfile activeStudentSubscriptionProfile) {
