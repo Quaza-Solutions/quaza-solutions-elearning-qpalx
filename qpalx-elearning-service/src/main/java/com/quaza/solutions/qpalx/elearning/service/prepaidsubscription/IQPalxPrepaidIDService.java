@@ -1,6 +1,5 @@
 package com.quaza.solutions.qpalx.elearning.service.prepaidsubscription;
 
-import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.IPrepaidSubscriptionGenVO;
 import com.quaza.solutions.qpalx.elearning.domain.subscription.PrepaidSubscription;
@@ -24,7 +23,7 @@ public interface IQPalxPrepaidIDService {
 
     public List<String> getAllUniqueIds();
 
-    public boolean redeemCode(String prepaidSubscriptionCode, Long subscriptionID, QPalXMunicipality studentMunicipality);
+    public boolean redeemCode(String prepaidSubscriptionCode, Long subscriptionID);
 
     public void updateRedemptionDetails(String uniqueId, QPalXUser qPalXUser);
 

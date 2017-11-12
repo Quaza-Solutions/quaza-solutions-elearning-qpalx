@@ -81,12 +81,11 @@ public class DefaultQPalxPrepaidIDService implements IQPalxPrepaidIDService {
 
     @Transactional
     @Override
-    public boolean redeemCode(String uniqueId, Long subscriptionID, QPalXMunicipality studentMunicipality) {
+    public boolean redeemCode(String uniqueId, Long subscriptionID) {
         Assert.notNull(uniqueId, "uniqueId cannot be null");
         Assert.notNull(subscriptionID, "subscriptionID cannot be null");
-        Assert.notNull(studentMunicipality, "studentMunicipality cannot be null");
 
-        LOGGER.info("Attempting to redeem prepaid code: {} in municipality: {}", uniqueId, studentMunicipality.getName());
+        LOGGER.info("Attempting to redeem prepaid code: {} in municipality: {}", uniqueId);
 
         PrepaidSubscription prepaidSubscription = iQPalxPrepaidIDRepository.findByUniqueIdRepoNotUsed(uniqueId);
         if(prepaidSubscription != null && prepaidSubscription.getAlreadyUsed() == false) {

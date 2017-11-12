@@ -30,8 +30,8 @@ public class DefaultQPalxPrepaidIDTest {
 
     @Test
     public void testRedeemCode(){
-        Mockito.when(iqPalxPrepaidIDService.redeemCode("uniqueId", 1L, qPalXMunicipality)).thenReturn(true);
-        Assert.assertEquals(true, iqPalxPrepaidIDService.redeemCode("uniqueId", 1L, qPalXMunicipality));
+        Mockito.when(iqPalxPrepaidIDService.redeemCode("uniqueId", 1L)).thenReturn(true);
+        Assert.assertEquals(true, iqPalxPrepaidIDService.redeemCode("uniqueId", 1L));
     }
 
     @Test

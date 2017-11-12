@@ -15,6 +15,7 @@ import java.util.Optional;
 public interface IQPalxSubscriptionService {
 
 
+    public void saveStudentSubscriptionProfile(StudentSubscriptionProfile studentSubscriptionProfile);
 
     public QPalXSubscription findQPalXSubscriptionByID(Long id);
 
@@ -23,6 +24,8 @@ public interface IQPalxSubscriptionService {
     public SubscriptionValidationResult validateUserQPalXSubscription(final QPalXUser qPalXUser);
 
     public Optional<StudentSubscriptionProfile> findActiveUserSubscriptionProfile(final QPalXUser qPalXUser);
+
+    public boolean inValidateCurrentUserSubscriptionProfile(QPalXUser qPalXUser);
 
     public List<QPalXSubscription> findAllSubscriptions();
 
