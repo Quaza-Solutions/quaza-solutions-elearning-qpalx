@@ -14,44 +14,22 @@ import java.util.Optional;
 public interface IQPalXUserSubscriptionService {
 
 
-
+    // Update QPalXUser from iqPalXUserVO passed in as argument
     public void updateQPalXUserInfo(QPalXUser qPalXUser, IQPalXUserVO iqPalXUserVO);
 
-    /**
-     * Create a brand new QPalXUser without a Tutorial Subscription.  This is generally used to create all non Student users.
-     *
-     * @param iqPalXUserVO
-     * @return Optional object, empty if implementation is unable to create QPalXUser with registration
-     */
+    // Create a brand new QPalXUser without a Tutorial Subscription.  This is generally used to create all non Student level users who have no access to content
     public Optional<QPalXUser> createNewQPalXUser(IQPalXUserVO iqPalXUserVO);
 
-
-    /**
-     * Create a brand new QPalXUser with a valid active Subscription from today given QPalXUser Value Object.
-     *
-     * This represents setting up a brand new user for the first time in the system.
-     *
-     * @param iqPalXUserVO
-     * @return Optional object, empty if implementation is unable to create QPalXUser with registration
-     */
+    // Create a brand new QPalXUser with a valid active Subscription from today given QPalXUser Value Object.
     public Optional<QPalXUser> createNewQPalXUserWithTutorialSubscription(IQPalXUserVO iqPalXUserVO);
 
+    // Renew QPalX Student user's subscription with the Subscription passed in as argument. Returns a non empty StudentSubscriptionProfile if sucessfull
+    public Optional<StudentSubscriptionProfile> renewQPalXUserSubscription(String email, QPalXSubscription subscription);
 
-    /**
-     * Renew QPalX Student user's subscription with the Subscription passed in as argument.
-     *
-     * @param qPalXUser
-     * @param subscription
-     */
-    public boolean renewQPalXUserSubscription(QPalXUser qPalXUser, QPalXSubscription subscription);
+    // Renew QPalX Student user's subscription with the Subscription passed in as argument. Returns a non empty StudentSubscriptionProfile if sucessfull
+    public Optional<StudentSubscriptionProfile> renewQPalXUserSubscription(QPalXUser qPalXUser, QPalXSubscription subscription);
 
-    /**
-     * Creates a brand new StudentSubscriptionProfile given a subscriptionID for a QPalXUser.
-     *
-     * @param subscriptionID
-     * @param qPalXUser
-     * @return
-     */
+    // Creates a brand new StudentSubscriptionProfile given a subscriptionID for a QPalXUser.
     public Optional<StudentSubscriptionProfile> addQPalXUserTutorialSubscriptionProfile(Long subscriptionID, QPalXUser qPalXUser);
 
 }

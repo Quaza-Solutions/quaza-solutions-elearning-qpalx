@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.geographical;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
@@ -32,6 +33,13 @@ public class DefaultGeographicalDateTimeFormatter implements IGeographicalDateTi
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultGeographicalDateTimeFormatter.class);
 
+
+    @Override
+    public String getUserFriendlyDateTime(DateTime dateTime, QPalXUser qPalXUser) {
+        Assert.notNull(dateTime, "dateTime cannot be null");
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        return getUserFriendlyDateTime(dateTime, qPalXUser.getQPalXMunicipality());
+    }
 
     @Override
     public String getUserFriendlyDateTime(DateTime dateTime, QPalXMunicipality qPalXMunicipality) {

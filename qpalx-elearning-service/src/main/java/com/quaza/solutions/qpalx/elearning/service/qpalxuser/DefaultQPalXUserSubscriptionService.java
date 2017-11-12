@@ -163,24 +163,31 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
 
     @Override
     @Transactional
-    public boolean renewQPalXUserSubscription(QPalXUser qPalXUser, QPalXSubscription subscription) {
+    public Optional<StudentSubscriptionProfile> renewQPalXUserSubscription(String email, QPalXSubscription subscription) {
+        Assert.notNull(email, "email cannot be null");
+        Assert.notNull(subscription, "subscription cannot be null");
+        QPalXUser qPalXUser = iqPalxUserService.findQPalXUserByEmail(email);
+        return renewQPalXUserSubscription(qPalXUser, subscription);
+    }
+
+    @Override
+    @Transactional
+    public Optional<StudentSubscriptionProfile> renewQPalXUserSubscription(QPalXUser qPalXUser, QPalXSubscription subscription) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         Assert.notNull(subscription, "subscription cannot be null");
 
         // Close out the currently Active StudentSubscriptionProfile
-        boolean invalidated = iqPalxSubscriptionService.inValidateCurrentUserSubscriptionProfile(qPalXUser);
-        if(invalidated) {
-            LOGGER.info("Renewing subscription for Student: {} with new subscription: {}", qPalXUser.getEmail(), subscription.getSubscriptionName());
+        iqPalxSubscriptionService.inValidateCurrentUserSubscriptionProfile(qPalXUser);
+        LOGGER.info("Renewing subscription for Student: {} with new subscription: {}", qPalXUser.getEmail(), subscription.getSubscriptionName());
 
-            Optional<StudentSubscriptionProfile> studentSubscriptionProfile = addQPalXUserTutorialSubscriptionProfile(subscription.getId(), qPalXUser);
-            if(studentSubscriptionProfile.isPresent()) {
-                iqPalxSubscriptionService.saveStudentSubscriptionProfile(studentSubscriptionProfile.get());
-                return true;
-            }
+        Optional<StudentSubscriptionProfile> studentSubscriptionProfile = addQPalXUserTutorialSubscriptionProfile(subscription.getId(), qPalXUser);
+        if(studentSubscriptionProfile.isPresent()) {
+            iqPalxSubscriptionService.saveStudentSubscriptionProfile(studentSubscriptionProfile.get());
+            return studentSubscriptionProfile;
         }
 
         LOGGER.warn("Failed to renew subscription for User: {} with Subscription: {}", qPalXUser.getEmail(), subscription.getSubscriptionName());
-        return false;
+        return Optional.empty();
     }
 
     @Override

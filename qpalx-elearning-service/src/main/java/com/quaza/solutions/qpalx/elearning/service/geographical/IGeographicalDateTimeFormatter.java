@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.geographical;
 
 import com.quaza.solutions.qpalx.elearning.domain.geographical.QPalXMunicipality;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import org.joda.time.DateTime;
 
 /**
@@ -10,6 +11,7 @@ import org.joda.time.DateTime;
  */
 public interface IGeographicalDateTimeFormatter {
 
+    public String getUserFriendlyDateTime(DateTime dateTime, QPalXUser qPalXUser);
 
     public String getUserFriendlyDateTime(DateTime dateTime, QPalXMunicipality qPalXMunicipality);
 
