@@ -57,6 +57,8 @@ public class StudentTutorialLevel {
 
     public static final String CLASS_ATTRIBUTE_IDENTIFIER = "StudentTutorialLevel";
 
+    public static final String CLASS_INSTANCES_IDENTIFIER = "StudentTutorialLevels";
+
 
     public StudentTutorialLevel() {
     }

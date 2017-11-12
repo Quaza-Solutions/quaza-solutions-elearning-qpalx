@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Collections;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by manyce400 on 11/27/15.
+ * @author manyce400
  */
 @Service("quaza.solutions.qpalx.elearning.service.DefaultQPalxSubscriptionService")
 public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionService {
@@ -33,6 +34,13 @@ public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionServic
     private IStudentSubscriptionProfileRepository iStudentSubscriptionProfileRepository;
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultQPalxSubscriptionService.class);
+
+    @Override
+    public void saveStudentSubscriptionProfile(StudentSubscriptionProfile studentSubscriptionProfile) {
+        Assert.notNull(studentSubscriptionProfile, "studentSubscriptionProfile cannot be null");
+        LOGGER.debug("Saving studentSubscriptionProfile: {}", studentSubscriptionProfile);
+        iStudentSubscriptionProfileRepository.save(studentSubscriptionProfile);
+    }
 
     @Override
     public QPalXSubscription findQPalXSubscriptionByID(Long id) {
@@ -86,6 +94,23 @@ public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionServic
     }
 
     @Override
+    @Transactional
+    public boolean inValidateCurrentUserSubscriptionProfile(QPalXUser qPalXUser) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        LOGGER.info("Attempting to Invalidate currenty user's: {} QPalX subscription, User will not be able to access site without renewal.", qPalXUser.getEmail());
+
+        Optional<StudentSubscriptionProfile> studentSubscriptionProfile = findActiveUserSubscriptionProfile(qPalXUser);
+        if(studentSubscriptionProfile.isPresent()) {
+            LOGGER.info("Active subscription has been found for user, completing invalidation...");
+            studentSubscriptionProfile.get().setSubscriptionStatusE(SubscriptionStatusE.EXPIRED);
+            iStudentSubscriptionProfileRepository.save(studentSubscriptionProfile.get());
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public List<QPalXSubscription> findAllSubscriptions() {
         Iterable<QPalXSubscription> iterableSubscription = iqPalXSubscriptionRepository.findAll();
         return ImmutableList.copyOf(iterableSubscription);
@@ -116,21 +141,21 @@ public class DefaultQPalxSubscriptionService implements IQPalxSubscriptionServic
     }
 
     boolean isActiveUserSubscription(StudentSubscriptionProfile studentSubscriptionProfile) {
-        return false; //TODO remove
-//        DateTime now = new DateTime();
-//        QPalXSubscription subscription = studentSubscriptionProfile.getqPalXSubscription();
-//        DateTime purchaseDate = studentSubscriptionProfile.getSubscriptionPurchasedDate();
-//
-//        LOGGER.info("purchaseDate=" + purchaseDate + " now = " + now);
-//        int numberOfDays = Days.daysBetween(purchaseDate, now).getDays();
-//        LOGGER.info("numberOfDays since subscription was purchased = " + numberOfDays);
-//        if (numberOfDays > subscription.getSubscriptionType().getNumberOfDays()) {
-//            LOGGER.debug("StudentSubscriptionProfile: {} is not active", studentSubscriptionProfile);
-//            return false;
-//        } else {
-//            LOGGER.debug("StudentSubscriptionProfile: {} is currently active", studentSubscriptionProfile);
-//            return true;
-//        }
+        DateTime now = new DateTime();
+        QPalXSubscription subscription = studentSubscriptionProfile.getqPalXSubscription();
+        DateTime purchaseDate = studentSubscriptionProfile.getSubscriptionPurchasedDate();
+
+        LOGGER.info("purchaseDate=" + purchaseDate + " now = " + now);
+        int numberOfDays = Days.daysBetween(purchaseDate, now).getDays();
+        LOGGER.info("numberOfDays since subscription was purchased = " + numberOfDays);
+
+        if (numberOfDays > subscription.getSubscriptionType().getNumberOfDays()) {
+            LOGGER.debug("StudentSubscriptionProfile: {} is not active", studentSubscriptionProfile);
+            return false;
+        } else {
+            LOGGER.debug("StudentSubscriptionProfile: {} is currently active", studentSubscriptionProfile);
+            return true;
+        }
     }
 
     private SubscriptionValidationResult getActiveSubscriptionValidationResult(StudentSubscriptionProfile activeStudentSubscriptionProfile) {
