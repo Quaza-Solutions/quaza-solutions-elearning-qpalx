@@ -53,7 +53,7 @@ public class StudentOverallProgressStatisticsService implements IStudentOverallP
         Object [] params = new Object[] {
                 qPalXUser.getId(), curriculumType.toString(), qPalXUser.getId(), curriculumType.toString(),
                 qPalXUser.getId(), curriculumType.toString(), qPalXUser.getId(), curriculumType.toString(), qPalXUser.getId(), curriculumType.toString(),
-                qPalXUser.getId(), qPalXUser.getId(), curriculumType.toString(), qPalXUser.getId(), curriculumType.toString()
+                qPalXUser.getId(), curriculumType.toString(), qPalXUser.getId(), curriculumType.toString()
         };
 
         List<StudentOverallProgressStatistics> overallProgressStatisticsList =  jdbcTemplate.query(ovearallProgressStatisticsSql, params, StudentOverallProgressStatistics.newRowMapper());

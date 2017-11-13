@@ -95,23 +95,18 @@ Left	Outer Join(
 		Group 	By qUser.ID, eCurr.ID, eCurr.CurriculumName, eCurr.CurriculumType
 ) As StudentMicroLessonAttempts ON StudentMicroLessonAttempts.CurriculumID = StudentQuestionBankStats.CurriculumID
 Left	Outer Join(	
-		Select	qUser.ID As StudentID,
-				eCurr.ID As CurriculumID,
-				eCurr.CurriculumName,
-				eCurr.CurriculumType,   
-        		count(quizprog.ID) as UniqueQuizzesAttempted   
-		From	QPalXUser qUser
-		Join	StudentEnrolmentRecord sErr on sErr.QPalxUserID = qUser.ID
-		Left 	Outer Join	ELearningCurriculum eCurr on eCurr.StudentTutorialGradeID = sErr.StudentTutorialGradeID
-		Left 	Outer Join	ELearningCourse eCors on eCors.ELearningCurriculumID = eCurr.ID
-		Left 	Outer Join	QPalXELesson qPell on qPell.ELearningCourseID = eCors.ID
-		Left   	Outer Join  QPalXEMicroLesson qMell on qMell.QPalXELessonID = qPell.ID  
-		Left   	Outer Join  AdaptiveLearningQuiz alqz on alqz.QPalXEMicroLessonID = qMell.ID     
-		Left   	Outer Join  AdaptiveLearningQuizProgress quizprog on quizprog.MicroLessonID = qMell.ID      
-		Where	qUser.ID = ?
-		And		quizprog.QPalxUserID = ?
-		And		eCurr.CurriculumType = ?
-		Group 	By qUser.ID, eCurr.ID, eCurr.CurriculumName, eCurr.CurriculumType
+		Select 	eCurr.ID as CurriculumID,
+        		eCurr.CurriculumName,
+        		count(quizprog.ID) as UniqueQuizzesAttempted
+        From	AdaptiveLearningQuizProgress quizprog
+        Join  	AdaptiveLearningQuiz alqz on alqz.ID = quizprog.AdaptiveLearningQuizID
+        Join  	QPalXEMicroLesson qMell on qMell.ID = quizprog.MicroLessonID
+        Join	QPalXELesson qPell on qPell.ID = qMell.QPalXELessonID
+        Join	ELearningCourse eCors on eCors.ID = qpell.ELearningCourseID
+        Join	ELearningCurriculum eCurr on eCurr.ID = eCors.ELearningCurriculumID
+        Where	quizprog.QPalxUserID = ?
+        And		eCurr.CurriculumType = ?
+        Group 	By eCurr.ID, eCurr.CurriculumName
 ) As StudentQuizAttempts On StudentQuizAttempts.CurriculumID = StudentMicroLessonAttempts.CurriculumID
 Left	Outer Join(
 		Select	qUser.ID As StudentID,

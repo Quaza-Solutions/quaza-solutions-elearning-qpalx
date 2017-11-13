@@ -115,24 +115,15 @@ Left	Outer Join (
 	Group  	By mlp.QPalxUserID, qPell.ID, qPell.LessonName, qPell.ELearningMediaFile
 ) As StudentUniqueMicroLessonsAttempt on StudentUniqueMicroLessonsAttempt.LessonID = AllStudentLessons.LessonID
 Left	Outer Join (
-		Select 	qUser.ID As StudentID,
-			qPell.ID As LessonID,
-			qPell.LessonName,
-			qPell.ELearningMediaFile As LessonIntroVideo,
-			quizprog.ID,
-        	count(quizprog.ID) as UniqueQuizzesAttempted
-	From	QPalXUser qUser
-	Join	StudentEnrolmentRecord sErr on sErr.QPalxUserID = qUser.ID
-	Left 	Outer Join	ELearningCurriculum eCurr on eCurr.StudentTutorialGradeID = sErr.StudentTutorialGradeID
-	Left 	Outer Join	ELearningCourse eCors on eCors.ELearningCurriculumID = eCurr.ID
-	Left 	Outer Join	QPalXELesson qPell on qPell.ELearningCourseID = eCors.ID
-	Left   	Outer Join  QPalXEMicroLesson ml on ml.QPalXELessonID = qPell.ID
-	Left   	Outer Join  AdaptiveLearningQuiz alqz on alqz.QPalXEMicroLessonID = ml.ID
-	Left   	Outer Join AdaptiveLearningQuizProgress quizprog on quizprog.MicroLessonID = ml.ID
-	Where  	qPell.ELearningCourseID = ?
-	And		qUser.ID = ?
-	And		quizprog.QPalxUserID = ?
-	Group  	By qUser.ID, qPell.ID, qPell.LessonName, qPell.ELearningMediaFile, quizprog.ID
+	Select 	qPell.ID as LessonID,
+    		qPell.LessonName,
+    		count(quizprog.ID) as UniqueQuizzesAttempted
+    From	AdaptiveLearningQuizProgress quizprog
+    Join  	AdaptiveLearningQuiz alqz on alqz.ID = quizprog.AdaptiveLearningQuizID
+    Join  	QPalXEMicroLesson qMell on qMell.ID = quizprog.MicroLessonID
+    Join	QPalXELesson qPell on qPell.ID = qMell.QPalXELessonID
+    Where	quizprog.QPalxUserID = ?
+    Group 	By qPell.ID, qPell.LessonName
 ) As StudentUniqueQuizAttempt on StudentUniqueQuizAttempt.LessonID = AllStudentLessons.LessonID
 Group By AllStudentLessons.StudentID,
 		AllStudentLessons.LessonID,

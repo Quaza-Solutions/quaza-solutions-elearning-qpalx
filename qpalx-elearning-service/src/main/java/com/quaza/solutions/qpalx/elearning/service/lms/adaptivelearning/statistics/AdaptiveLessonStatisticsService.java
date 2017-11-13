@@ -92,7 +92,7 @@ public class AdaptiveLessonStatisticsService implements IAdaptiveLessonStatistic
 
         Long [] uniqueIDs = new Long[] {
                 qPalXUser.getId(), eLearningCourse.getId(), tutorialLevelCalendar.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(),
-                qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), qPalXUser.getId()
+                qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), qPalXUser.getId(), eLearningCourse.getId(), qPalXUser.getId(), qPalXUser.getId()
         };
         List<AdaptiveLessonStatistics> results = jdbcTemplate.query(lessonStatisticsSql, uniqueIDs, AdaptiveLessonStatistics.newRowMapper());
         return results;
