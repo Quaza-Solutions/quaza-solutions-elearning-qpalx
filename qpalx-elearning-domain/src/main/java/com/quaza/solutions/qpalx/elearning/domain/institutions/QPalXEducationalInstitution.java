@@ -127,6 +127,10 @@ public class QPalXEducationalInstitution {
 		this.schoolLogo = schoolLogo;
 	}
 
+	public boolean hasSchoolLogo() {
+		return schoolLogo != null;
+	}
+
 	public boolean isHasPrimaryEducation() {
 		return hasPrimaryEducation;
 	}
