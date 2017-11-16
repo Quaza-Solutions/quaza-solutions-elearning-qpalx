@@ -26,6 +26,7 @@ From	(
 		Left 	Outer Join	QPalXELesson qPell on qPell.ELearningCourseID = eCors.ID
 		Where	qUser.ID = ?
 		And		eCurr.CurriculumType = ?
+		And     eCurr.Active = 1
 		Group 	By qUser.ID, eCurr.ID, eCurr.CurriculumName, eCurr.CurriculumDescription, eCurr.CurriculumIcon, eCurr.CurriculumType
 ) As StudentLessonsStats
 Left 	Outer Join (
@@ -42,6 +43,7 @@ Left 	Outer Join (
 		Left 	Outer Join	QPalXEMicroLesson qMell on qMell.QPalXELessonID = qPell.ID
 		Where	qUser.ID = ?
 		And		eCurr.CurriculumType = ?
+		And     eCurr.Active = 1
 		Group 	By qUser.ID, eCurr.ID, eCurr.CurriculumName, eCurr.CurriculumType
 ) As StudentMicroLessonsStats ON StudentMicroLessonsStats.CurriculumID = StudentLessonsStats.CurriculumID
 Left 	Outer Join (
@@ -59,6 +61,7 @@ Left 	Outer Join (
 		Left 	Outer Join  AdaptiveLearningQuiz alqz on alqz.QPalXEMicroLessonID = qMell.ID  
 		Where	qUser.ID = ?
 		And		eCurr.CurriculumType = ?
+		And     eCurr.Active = 1
 		Group 	By qUser.ID, eCurr.ID, eCurr.CurriculumName, eCurr.CurriculumType
 ) As StudentQuizzesStats ON StudentQuizzesStats.CurriculumID = StudentMicroLessonsStats.CurriculumID
 Left	Outer Join (
@@ -75,6 +78,7 @@ Left	Outer Join (
 		Left 	Outer Join	QuestionBankItem qBit on qBit.QPalXELessonID = qPell.ID 
 		Where	qUser.ID = ?
 		And		eCurr.CurriculumType = ?
+		And     eCurr.Active = 1
 		Group 	By qUser.ID, eCurr.ID, eCurr.CurriculumName, eCurr.CurriculumType
 ) As StudentQuestionBankStats  On StudentQuestionBankStats.CurriculumID = StudentQuizzesStats.CurriculumID
 Left	Outer Join(
@@ -92,6 +96,7 @@ Left	Outer Join(
 		Left   	Outer Join  QPalXEMicroLessonProgress mlp on mlp.MicroLessonID = qMell.ID  
 		Where	qUser.ID = ?
 		And		eCurr.CurriculumType = ?
+		And     eCurr.Active = 1
 		Group 	By qUser.ID, eCurr.ID, eCurr.CurriculumName, eCurr.CurriculumType
 ) As StudentMicroLessonAttempts ON StudentMicroLessonAttempts.CurriculumID = StudentQuestionBankStats.CurriculumID
 Left	Outer Join(	
@@ -106,6 +111,7 @@ Left	Outer Join(
         Join	ELearningCurriculum eCurr on eCurr.ID = eCors.ELearningCurriculumID
         Where	quizprog.QPalxUserID = ?
         And		eCurr.CurriculumType = ?
+        And     eCurr.Active = 1
         Group 	By eCurr.ID, eCurr.CurriculumName
 ) As StudentQuizAttempts On StudentQuizAttempts.CurriculumID = StudentMicroLessonAttempts.CurriculumID
 Left	Outer Join(
@@ -123,5 +129,6 @@ Left	Outer Join(
 		Left   	Outer Join  QuestionBankProgress qBpro on qBpro.QuestionBankItemID = qBit.ID     
 		Where	qUser.ID = ?
 		And		eCurr.CurriculumType = ?
+		And     eCurr.Active = 1
 		Group 	By qUser.ID, eCurr.ID, eCurr.CurriculumName, eCurr.CurriculumType
 ) As StudentQuestionBankAttempts ON StudentQuestionBankAttempts.CurriculumID = StudentQuizAttempts.CurriculumID
