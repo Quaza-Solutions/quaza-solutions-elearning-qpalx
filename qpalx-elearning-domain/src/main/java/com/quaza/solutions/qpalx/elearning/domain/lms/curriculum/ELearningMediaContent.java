@@ -94,6 +94,13 @@ public class ELearningMediaContent {
         return false;
     }
 
+    public String getActualFileName() {
+        // Get the actual system file seperator for the current OS that we are running on
+        String fileSystemSeperator = java.io.File.separator;
+        String [] filePathAndName = eLearningMediaFile.split(fileSystemSeperator);
+        return filePathAndName[filePathAndName.length - 1];
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
