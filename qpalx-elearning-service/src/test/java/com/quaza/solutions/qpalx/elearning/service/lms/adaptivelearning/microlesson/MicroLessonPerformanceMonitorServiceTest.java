@@ -1,11 +1,13 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.microlesson;
 
+import com.google.common.collect.ImmutableList;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLessonQuizStatistics;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyScoreRangeE;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.DefaultAdaptiveProficiencyRankingService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.quiz.IAdaptiveLearningQuizStatisticsService;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -20,6 +22,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author manyce400
@@ -48,7 +51,23 @@ public class MicroLessonPerformanceMonitorServiceTest {
     @InjectMocks
     private MicroLessonPerformanceMonitorService microLessonPerformanceMonitorService;
 
-    //@Test
+
+    @Test
+    public void testCalculateQuizAvgScoreWithMinProficiencyWithNoQuizStatistics() {
+        List<AdaptiveLessonQuizStatistics> results = ImmutableList.of();
+        double avgScore = microLessonPerformanceMonitorService.calculateQuizAvgScoreWithMinProficiency(results, ProficiencyRankingScaleE.THREE);
+        Assert.assertTrue(avgScore > 0);
+
+        Optional<ProficiencyScoreRangeE> proficiencyScoreRangeE = ProficiencyScoreRangeE.getProficiencyScoreRangeForScore(avgScore);
+        Assert.assertTrue(proficiencyScoreRangeE.isPresent());
+
+        Optional<ProficiencyRankingScaleE> computedProficiencyRankingScaleE = ProficiencyRankingScaleE.getProficiencyRankingScaleForRange(proficiencyScoreRangeE.get());
+        Assert.assertTrue(computedProficiencyRankingScaleE.isPresent());
+
+        Assert.assertEquals(ProficiencyRankingScaleE.THREE, computedProficiencyRankingScaleE.get());
+    }
+
+    @Test
     public void testCalculateAdaptiveProficiencyRankingNoQuizAttempts() {
         // Create 3 Mock AdaptiveLessonQuizStatistics for a Lesson with Proficiency From(One to Three).  Simulate a situation where we have 3 Quizzes but no Quiz attempts have been made.
         // Because we have quizzes with no attempts, Student will be penalized here and average score will be calculated using all 0's
@@ -61,7 +80,7 @@ public class MicroLessonPerformanceMonitorServiceTest {
         Assert.assertEquals(ProficiencyRankingScaleE.ONE, adaptiveProficiencyRanking.getProficiencyRankingScaleE());
     }
 
-    //@Test
+    @Test
     public void testCalculateAdaptiveProficiencyRankingWithQuizScores() {
         // Mock ELearning course that will return AdaptiveLessonQuizStatistics with no proficiency scores.
         // Note that we have to set QuizID on the statistics for method to trigger calculation using real scores
@@ -87,7 +106,7 @@ public class MicroLessonPerformanceMonitorServiceTest {
     }
 
 
-    private void mockAdaptiveLessonQuizStatisticsWithNoQuizAttempts(ProficiencyRankingScaleE floor, ProficiencyRankingScaleE ceiling, int numberToBuild) {
+    private List<AdaptiveLessonQuizStatistics> mockAdaptiveLessonQuizStatisticsWithNoQuizAttempts(ProficiencyRankingScaleE floor, ProficiencyRankingScaleE ceiling, int numberToBuild) {
         List<AdaptiveLessonQuizStatistics> results = new ArrayList<>();
         for(int i=1; i <= numberToBuild; i++) {
             AdaptiveLessonQuizStatistics adaptiveLessonQuizStatistics = buildAdaptiveLessonQuizStatistics(floor, ceiling, 0, NumberUtils.toLong(""+i));
@@ -95,6 +114,7 @@ public class MicroLessonPerformanceMonitorServiceTest {
         }
 
         Mockito.when(iAdaptiveLearningQuizStatisticsService.findStudentQuizzesStatisticsForCourse(Mockito.any(), Mockito.any())).thenReturn(results);
+        return results;
     }
 
     // Builds only 3 Quiz Attempts

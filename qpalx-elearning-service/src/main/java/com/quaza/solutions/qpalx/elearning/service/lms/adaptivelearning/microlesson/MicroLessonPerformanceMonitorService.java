@@ -168,9 +168,14 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
             }
         }
 
-        double averageProficiencyScore = Precision.round(summaryStatistics.getMean(), 2);
-        LOGGER.info("Calculated average proficiency score: {}", averageProficiencyScore);
-        return averageProficiencyScore;
+        if (adaptiveLessonQuizStatistics.size() > 0) {
+            // Only calculate average if there was quiz statistics
+            double averageProficiencyScore = Precision.round(summaryStatistics.getMean(), 2);
+            LOGGER.info("Calculated average proficiency score: {}", averageProficiencyScore);
+            return averageProficiencyScore;
+        }
+
+        return minProficiencyRankingScaleE.getProficiencyScoreRangeE().getScoreRange().getMinimum();
     }
 
 //    private boolean isStudentOutPerformingCurriculumProficiency(ProficiencyRankingScaleE curriculumProficiencyRankingScale, double computedAvgScore) {
