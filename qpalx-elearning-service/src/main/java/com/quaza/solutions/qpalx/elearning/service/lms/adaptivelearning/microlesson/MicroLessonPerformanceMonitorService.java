@@ -168,7 +168,8 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
             }
         }
 
-        if (adaptiveLessonQuizStatistics.size() > 0) {
+
+        if (!Double.isNaN(summaryStatistics.getMean())) {
             // Only calculate average if there was quiz statistics
             double averageProficiencyScore = Precision.round(summaryStatistics.getMean(), 2);
             LOGGER.info("Calculated average proficiency score: {}", averageProficiencyScore);

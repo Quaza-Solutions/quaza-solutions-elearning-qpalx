@@ -32,4 +32,8 @@ public enum MediaContentTypeE {
         return ImmutableSet.of(jpeg, jpg, png, gif);
     }
 
+    public static Set<MediaContentTypeE> getVideoMediaTypes() {
+        return ImmutableSet.of(mp4);
+    }
+
 }

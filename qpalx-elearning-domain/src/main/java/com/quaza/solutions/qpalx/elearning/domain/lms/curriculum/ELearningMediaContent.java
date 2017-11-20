@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.Set;
 
 /**
  * Elearning media content that can be associated with any ELearning course or Activity.
@@ -84,6 +85,30 @@ public class ELearningMediaContent {
 
     public boolean isMediaTypeSupported() {
         MediaContentTypeE[] mediaContentTypeEs = MediaContentTypeE.values();
+
+        for (MediaContentTypeE mType : mediaContentTypeEs) {
+            if(mType.toString().equals(eLearningMediaType)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isImageMediaType() {
+        Set<MediaContentTypeE> mediaContentTypeEs = MediaContentTypeE.getImageMediaTypes();
+
+        for (MediaContentTypeE mType : mediaContentTypeEs) {
+            if(mType.toString().equals(eLearningMediaType)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isVideoMediaType() {
+        Set<MediaContentTypeE> mediaContentTypeEs = MediaContentTypeE.getVideoMediaTypes();
 
         for (MediaContentTypeE mType : mediaContentTypeEs) {
             if(mType.toString().equals(eLearningMediaType)) {
