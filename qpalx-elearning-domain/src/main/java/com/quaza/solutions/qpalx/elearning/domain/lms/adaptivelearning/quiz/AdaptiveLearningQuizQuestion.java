@@ -65,6 +65,8 @@ public class AdaptiveLearningQuizQuestion {
     @OrderBy("QuestionAnswerOrder ASC")
     private Set<AdaptiveLearningQuizQuestionAnswer> adaptiveLearningQuizQuestionAnswers = new LinkedHashSet<>();
 
+    public static final String CLASS_ATTRIBUTE_IDENTIFIER = "AdaptiveLearningQuizQuestion";
+
 
     public Long getId() {
         return id;

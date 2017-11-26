@@ -55,6 +55,13 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         return iAdaptiveLearningQuizRepository.findOne(id);
     }
 
+    @Override
+    public AdaptiveLearningQuizQuestion findByQuizQuestionID(Long id) {
+        Assert.notNull(id, "id cannot be null");
+        LOGGER.debug("Finding AdaptiveLearningQuizQuestion with id: {}", id);
+        return iAdaptiveLearningQuizQuestionRepository.findOne(id);
+    }
+
     @Transactional
     @Override
     public void saveQuiz(AdaptiveLearningQuiz adaptiveLearningQuiz) {

@@ -85,7 +85,7 @@ public class QPalXELesson implements IHierarchicalLMSContent {
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qPalXELesson")
     private Set<QuestionBankItem> questionBankItems = new HashSet<>();
 
-    public static final String QPalXELesson = "QPalXEMicroLessonVO";
+    public static final String QPalXELesson = "QPalXELesson";
 
 
     public QPalXELesson() {

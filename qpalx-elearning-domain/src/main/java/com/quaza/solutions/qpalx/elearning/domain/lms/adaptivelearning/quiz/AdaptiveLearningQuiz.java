@@ -67,6 +67,8 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
     @OrderBy("QuestionOrder ASC")
     private Set<AdaptiveLearningQuizQuestion> adaptiveLearningQuizQuestions = new LinkedHashSet<>();
 
+    public static final String CLASS_ATTRIBUTE = "AdaptiveLearningQuiz";
+
     public AdaptiveLearningQuiz() {
     }
 
@@ -157,6 +159,20 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
 
     public Set<AdaptiveLearningQuizQuestion> getAdaptiveLearningQuizQuestions() {
         return ImmutableSet.copyOf(adaptiveLearningQuizQuestions);
+    }
+
+    public AdaptiveLearningQuizQuestion getAdaptiveLearningQuizQuestionByID(Long questionID) {
+        Assert.notNull(questionID, "questionID cannot be null");
+
+        AdaptiveLearningQuizQuestion objectFound = null;
+        for(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion : adaptiveLearningQuizQuestions) {
+            if(adaptiveLearningQuizQuestion.getId() == questionID) {
+                objectFound = adaptiveLearningQuizQuestion;
+                break;
+            }
+        }
+
+        return objectFound;
     }
 
     @Override

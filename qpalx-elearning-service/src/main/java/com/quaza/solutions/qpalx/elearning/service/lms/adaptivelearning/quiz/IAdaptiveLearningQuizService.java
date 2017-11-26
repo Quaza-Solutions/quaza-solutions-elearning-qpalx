@@ -13,6 +13,8 @@ public interface IAdaptiveLearningQuizService {
 
     public AdaptiveLearningQuiz findByID(Long id);
 
+    public AdaptiveLearningQuizQuestion findByQuizQuestionID(Long id);
+
     public void saveQuiz(AdaptiveLearningQuiz adaptiveLearningQuiz);
 
     public void saveQuizQuestion(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion);
