@@ -33,4 +33,6 @@ public interface IAdaptiveLearningQuizService {
 
     public void saveAdaptiveLearningQuizDetails(QPalXEMicroLesson qPalXEMicroLesson, IAdaptiveLearningQuizVO iAdaptiveLearningQuizVO, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO, Integer questionOrder);
 
+    public int getMaxQuestionOrder(AdaptiveLearningQuiz adaptiveLearningQuiz);
+
 }

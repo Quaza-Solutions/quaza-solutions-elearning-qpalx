@@ -30,4 +30,6 @@ public interface IEditableAdaptiveLearningQuizQuestionVO extends ILMSMediaConten
 
     public boolean isQuizEditValid();
 
+    public AdaptiveLearningQuizQuestion getAdaptiveLearningQuizQuestion();
+
 }

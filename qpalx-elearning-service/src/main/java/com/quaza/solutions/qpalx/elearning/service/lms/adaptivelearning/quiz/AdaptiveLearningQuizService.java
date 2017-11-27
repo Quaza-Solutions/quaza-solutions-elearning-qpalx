@@ -198,6 +198,24 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         }
     }
 
+    @Override
+    public int getMaxQuestionOrder(AdaptiveLearningQuiz adaptiveLearningQuiz) {
+        Assert.notNull(adaptiveLearningQuiz, "adaptiveLearningQuiz cannot be null");
+        LOGGER.debug("Finding max question order across all questions on quiz with ID: {}", adaptiveLearningQuiz.getId());
+
+        // By default all questions should naturally be sorted by Order in asc mode however loop through to be safe
+        Set<AdaptiveLearningQuizQuestion> quizQuestions = adaptiveLearningQuiz.getAdaptiveLearningQuizQuestions();
+        int maxOrder = 0;
+
+        for (AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion : quizQuestions) {
+            int questionOrder = adaptiveLearningQuizQuestion.getQuestionOrder();
+            if(questionOrder > maxOrder) {
+                maxOrder = questionOrder;
+            }
+        }
+
+        return maxOrder;
+    }
 
     void persistAdaptiveLearningQuizQuestionDetails(AdaptiveLearningQuiz adaptiveLearningQuiz, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO, Integer questionOrder) {
         LOGGER.debug("Saving and persisting Question: {} for Quiz: {}", iAdaptiveLearningQuizQuestionVO.getQuestionTitle(), adaptiveLearningQuiz.getQuizTitle());
