@@ -107,7 +107,7 @@ Left	Outer Join(
         Join  	AdaptiveLearningQuiz alqz on alqz.ID = quizprog.AdaptiveLearningQuizID
         Join  	QPalXEMicroLesson qMell on qMell.ID = quizprog.MicroLessonID
         Join	QPalXELesson qPell on qPell.ID = qMell.QPalXELessonID
-        Join	ELearningCourse eCors on eCors.ID = qpell.ELearningCourseID
+        Join	ELearningCourse eCors on eCors.ID = qPell.ELearningCourseID
         Join	ELearningCurriculum eCurr on eCurr.ID = eCors.ELearningCurriculumID
         Where	quizprog.QPalxUserID = ?
         And		eCurr.CurriculumType = ?
