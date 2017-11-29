@@ -38,7 +38,7 @@ import java.util.Optional;
  *
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.DefaultQPalXUserSubscriptionService")
+@Service(DefaultQPalXUserSubscriptionService.BEAN_NAME)
 public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscriptionService {
 
 
@@ -84,6 +84,7 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultAdaptiveProficiencyRankingService")
     private IAdaptiveProficiencyRankingService iAdaptiveProficiencyRankingService;
 
+    public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.DefaultQPalXUserSubscriptionService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultQPalXUserSubscriptionService.class);
 
@@ -102,10 +103,31 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
     }
 
     @Override
-    public Optional<QPalXUser> createNewQPalXUser(IQPalXUserVO iqPalXUserVO) {
+    @Transactional
+    public Optional<QPalXUser> createNewQPalXUser(IQPalXUserVO iqPalXUserVO, QPalxUserTypeE qPalxUserTypeE) {
         Assert.notNull(iqPalXUserVO, "iqPalXUserVO cannot be null");
-        LOGGER.info("Creating new QPalXUser without a subscription...");
-        return null;
+        Assert.notNull(qPalxUserTypeE, "qPalxUserTypeE cannot be null");
+        LOGGER.info("Creating new QPalXUser without a subscription for qPalxUserTypeE: {}", qPalxUserTypeE);
+
+        // Get  user municipality
+        QPalXMunicipality municipality = iqPalXMunicipalityService.findQPalXMunicipalityByID(iqPalXUserVO.getMunicipalityID());
+
+        QPalxUserSexE qPalxUserSexE = QPalxUserSexE.valueOf(iqPalXUserVO.getUserSex());
+
+        QPalXUser qPalXUser = QPalXUser.builder()
+                .firstName(iqPalXUserVO.getFirstName())
+                .lastName(iqPalXUserVO.getLastName())
+                .email(iqPalXUserVO.getEmail())
+                .password(iqPalXUserVO.getPassword())
+                .municipality(municipality)
+                .mobilePhoneNumber(iqPalXUserVO.getMobilePhoneNumber())
+                .accountLockedStatus(false) // By default always create a new account unlocked
+                .qPalxUserSexE(qPalxUserSexE)
+                .qPalxUserTypeE(qPalxUserTypeE)
+                .build();
+
+        iqPalxUserService.saveQPalXUser(qPalXUser);
+        return Optional.of(qPalXUser);
     }
 
     @Override
