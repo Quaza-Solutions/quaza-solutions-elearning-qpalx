@@ -12,7 +12,7 @@ import org.joda.time.DateTime;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -58,9 +58,10 @@ public class ELearningCourse implements IHierarchicalLMSContent {
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean courseActive;
 
-    // Mapping to all the E-Learning course activities created for this E
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "eLearningCourse")
-    private Set<ELearningCourseActivity> eLearningCourseActivities = new HashSet<ELearningCourseActivity>();
+    // Collection of all course lessons.  LinkedHashSet is used to maintain ordering
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "eLearningCourse")
+    @OrderBy("LessonOrder ASC")
+    private Set<QPalXELesson> qPalXELessons = new LinkedHashSet<>();
 
 
     public static final String CLASS_ATTRIBUTE_IDENTIFIER = "ELearningCourse";
@@ -123,18 +124,18 @@ public class ELearningCourse implements IHierarchicalLMSContent {
         this.courseActive = courseActive;
     }
 
-    public void addELearningCourseActivity(final ELearningCourseActivity eLearningCourseActivity) {
-        Assert.notNull(eLearningCourseActivity, "eLearningCourseActivity cannot be null");
-        eLearningCourseActivities.add(eLearningCourseActivity);
+    public void addQPalXELesson(QPalXELesson qPalXELesson) {
+        Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+        qPalXELessons.add(qPalXELesson);
     }
 
-    public void removeELearningCourseActivity(final ELearningCourseActivity eLearningCourseActivity) {
-        Assert.notNull(eLearningCourseActivity, "eLearningCourseActivity cannot be null");
-        eLearningCourseActivities.remove(eLearningCourseActivity);
+    public void removeQPalXELesson(QPalXELesson qPalXELesson) {
+        Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+        qPalXELessons.remove(qPalXELesson);
     }
 
-    public Set<ELearningCourseActivity> getELearningCourseActivities() {
-        return ImmutableSet.copyOf(eLearningCourseActivities);
+    public Set<QPalXELesson> getQPalXELessons() {
+        return ImmutableSet.copyOf(qPalXELessons);
     }
 
     @Override
@@ -233,6 +234,11 @@ public class ELearningCourse implements IHierarchicalLMSContent {
 
         public Builder entryDate(DateTime entryDate) {
             eLearningCourse.entryDate = entryDate;
+            return this;
+        }
+
+        public Builder addQPalXELesson(QPalXELesson qPalXELesson) {
+            eLearningCourse.addQPalXELesson(qPalXELesson);
             return this;
         }
 

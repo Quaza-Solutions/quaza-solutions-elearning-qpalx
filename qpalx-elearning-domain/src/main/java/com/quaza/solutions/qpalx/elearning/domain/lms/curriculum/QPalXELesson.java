@@ -77,6 +77,10 @@ public class QPalXELesson implements IHierarchicalLMSContent {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean lessonActive;
 
+    // This is used to order QPalxLessons in an ascending order
+    @Column(name="LessonOrder", nullable=false)
+    private Integer lessonOrder;
+
     // Collection of all the QPalXEMicroLesson available as part of this lesson
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "qPalXELesson")
     private Set<QPalXEMicroLesson> qPalXEMicroLessons = new HashSet<>();
@@ -180,6 +184,14 @@ public class QPalXELesson implements IHierarchicalLMSContent {
         this.lessonActive = lessonActive;
     }
 
+    public Integer getLessonOrder() {
+        return lessonOrder;
+    }
+
+    public void setLessonOrder(Integer lessonOrder) {
+        this.lessonOrder = lessonOrder;
+    }
+
     public Set<QPalXEMicroLesson> getQPalXEMicroLessons() {
         return ImmutableSet.copyOf(qPalXEMicroLessons);
     }
@@ -213,6 +225,24 @@ public class QPalXELesson implements IHierarchicalLMSContent {
         return geteLearningCourse();
     }
 
+    /**
+     * @return Returns <code>true</code> IF this instance QPalXELesson is above the passed in instance by lessonOrder
+     */
+    public boolean isQPalXELessonAbove(QPalXELesson qPalXELesson) {
+        Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+        int thatLessonOrder = qPalXELesson.getLessonOrder();
+        return this.lessonOrder == thatLessonOrder -1;
+    }
+
+    /**
+     * @return Returns <code>true</code> IF this instance QPalXELesson is below the passed in instance by lessonOrder
+     */
+    public boolean isQPalXELessonBelow(QPalXELesson qPalXELesson) {
+        Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+        int thatLessonOrder = qPalXELesson.getLessonOrder();
+        return this.lessonOrder - 1 == thatLessonOrder;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -232,6 +262,7 @@ public class QPalXELesson implements IHierarchicalLMSContent {
                 .append(eLearningCourse, that.eLearningCourse)
                 .append(qPalXEducationalInstitution, that.qPalXEducationalInstitution)
                 .append(tutorialLevelCalendar, that.tutorialLevelCalendar)
+                .append(lessonOrder, that.lessonOrder)
                 .append(entryDate, that.entryDate)
                 .isEquals();
     }
@@ -248,6 +279,7 @@ public class QPalXELesson implements IHierarchicalLMSContent {
                 .append(tutorialLevelCalendar)
                 .append(entryDate)
                 .append(lessonActive)
+                .append(lessonOrder)
                 .toHashCode();
     }
 
@@ -265,6 +297,7 @@ public class QPalXELesson implements IHierarchicalLMSContent {
                 .append("tutorialLevelCalendar", tutorialLevelCalendar)
                 .append("entryDate", entryDate)
                 .append("lessonActive", lessonActive)
+                .append("lessonOrder", lessonOrder)
                 .toString();
     }
 
@@ -328,6 +361,11 @@ public class QPalXELesson implements IHierarchicalLMSContent {
             return this;
         }
 
+        public Builder lessonOrder(Integer lessonOrder) {
+            qPalXELesson.lessonOrder = lessonOrder;
+            return this;
+        }
+
         public Builder qPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson) {
             qPalXELesson.addQPalXEMicroLesson(qPalXEMicroLesson);
             return this;
@@ -337,4 +375,5 @@ public class QPalXELesson implements IHierarchicalLMSContent {
             return qPalXELesson;
         }
     }
+
 }

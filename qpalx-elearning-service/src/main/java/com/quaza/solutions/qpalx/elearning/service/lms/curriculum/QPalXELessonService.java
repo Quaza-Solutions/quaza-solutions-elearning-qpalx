@@ -24,6 +24,8 @@ import org.springframework.util.Assert;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author manyce400
@@ -124,6 +126,13 @@ public class QPalXELessonService implements IQPalXELessonService {
 
         // Load up ELearningCourse instance
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(iqPalXELessonVO.getELearningCourseID());
+        Set<QPalXELesson> qPalXELessons = eLearningCourse.getQPalXELessons();
+
+        // Initialize LessonOrder
+        Integer lessonOrder = 0;
+        if(qPalXELessons!= null) {
+            lessonOrder = qPalXELessons.size() + 1;
+        }
 
         // Load up the EducationalInstitution for this course.  Only initialized if this course was only designed for an institution.
         QPalXEducationalInstitution qPalXEducationalInstitution = null;
@@ -144,6 +153,7 @@ public class QPalXELessonService implements IQPalXELessonService {
                 .proficiencyRankingScaleFloor(iqPalXELessonVO.getProficiencyRankingScaleFloorE())
                 .proficiencyRankingScaleCeiling(iqPalXELessonVO.getProficiencyRankingScaleCeilingE())
                 .lessonActive(iqPalXELessonVO.isActive())
+                .lessonOrder(lessonOrder)
                 .entryDate(new DateTime())
                 .build();
 
@@ -197,6 +207,87 @@ public class QPalXELessonService implements IQPalXELessonService {
         LOGGER.info("Attempting to delete qPalXELesson with ID: {}", qPalXELesson.getId());
         iqPalXELessonRepository.delete(qPalXELesson);
     }
+
+    @Override
+    @Transactional
+    public void moveQPalXELessonUp(QPalXELesson qPalXELesson) {
+        Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+        LOGGER.debug("Attempting to move lesson with ID: {} and current LessonOrder: {} up", qPalXELesson.getId(), qPalXELesson.getLessonOrder());
+
+        // Find the lesson above this lesson and swap spots
+        Optional<QPalXELesson> lessonAbove = getLessonAbove(qPalXELesson);
+        if(lessonAbove.isPresent()) {
+            int lessonAboveOrder = lessonAbove.get().getLessonOrder();
+            qPalXELesson.setLessonOrder(lessonAboveOrder - 1);
+            lessonAbove.get().setLessonOrder(lessonAboveOrder + 1);
+
+            // Update both lessons to reflect new Order and refresh the target lesson
+            iqPalXELessonRepository.save(qPalXELesson);
+            iqPalXELessonRepository.save(lessonAbove.get());
+            qPalXELesson = iqPalXELessonRepository.findOne(qPalXELesson.getId());
+        }
+    }
+
+    @Override
+    public void moveQPalXELessonDown(QPalXELesson qPalXELesson) {
+        Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+
+        LOGGER.debug("Attempting to move lesson with ID: {} and current LessonOrder: {} down", qPalXELesson.getId(), qPalXELesson.getLessonOrder());
+
+        // Find the lesson above this lesson and swap spots
+        Optional<QPalXELesson> lessonAbove = getLessonBelow(qPalXELesson);
+        if(lessonAbove.isPresent()) {
+            int lessonAboveOrder = lessonAbove.get().getLessonOrder();
+            qPalXELesson.setLessonOrder(lessonAboveOrder + 1);
+            lessonAbove.get().setLessonOrder(lessonAboveOrder - 1);
+
+            // Update both lessons to reflect new Order and refresh the target lesson
+            iqPalXELessonRepository.save(qPalXELesson);
+            iqPalXELessonRepository.save(lessonAbove.get());
+            qPalXELesson = iqPalXELessonRepository.findOne(qPalXELesson.getId());
+        }
+    }
+
+
+    private Optional<QPalXELesson> getLessonAbove(QPalXELesson targetLesson) {
+        ELearningCourse eLearningCourse = targetLesson.geteLearningCourse();
+        Set<QPalXELesson> qPalXELessons = eLearningCourse.getQPalXELessons();
+
+        if (qPalXELessons != null || qPalXELessons.size() > 0) {
+            // Use the targetLessonOrder to identify the Lesson above target given that that lesson will have a lower lessonOrder
+            int targetLessonOrder = targetLesson.getLessonOrder();
+
+            for(QPalXELesson qPalXELesson: qPalXELessons) {
+                boolean isAboveTarget = qPalXELesson.isQPalXELessonAbove(targetLesson);
+                if(isAboveTarget) {
+                    return Optional.of(qPalXELesson);
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    private Optional<QPalXELesson> getLessonBelow(QPalXELesson targetLesson) {
+        ELearningCourse eLearningCourse = targetLesson.geteLearningCourse();
+        Set<QPalXELesson> qPalXELessons = eLearningCourse.getQPalXELessons();
+
+        if (qPalXELessons != null || qPalXELessons.size() > 0) {
+            // Use the targetLessonOrder to identify the Lesson above target given that that lesson will have a lower lessonOrder
+            int targetLessonOrder = targetLesson.getLessonOrder();
+
+            for(QPalXELesson qPalXELesson: qPalXELessons) {
+                boolean isBelowTarget = qPalXELesson.isQPalXELessonBelow(targetLesson);
+                if(isBelowTarget) {
+                    return Optional.of(qPalXELesson);
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
+
+
 
     @PostConstruct
     private void constructSQL() throws IOException {

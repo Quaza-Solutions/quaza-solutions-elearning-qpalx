@@ -31,4 +31,8 @@ public interface IQPalXELessonService {
     public void deleteQPalXELesson(QPalXELesson qPalXELesson);
 
     public boolean isELessonDeletable(QPalXELesson qPalXELesson);
+
+    public void moveQPalXELessonUp(QPalXELesson qPalXELesson);
+
+    public void moveQPalXELessonDown(QPalXELesson qPalXELesson);
 }
