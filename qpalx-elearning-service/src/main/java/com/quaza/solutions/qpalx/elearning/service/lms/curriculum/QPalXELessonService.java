@@ -220,9 +220,6 @@ public class QPalXELessonService implements IQPalXELessonService {
             qPalXELesson.setLessonOrder(qPalXELesson.getLessonOrder() - 1);
             lessonAbove.get().setLessonOrder(lessonAbove.get().getLessonOrder() + 1);
 
-            System.out.println("Moving Up: "+ qPalXELesson.getLessonName() + "  Lesson Order" + qPalXELesson.getLessonOrder());
-            System.out.println("Moving Down: "+ lessonAbove.get().getLessonName() + "" + lessonAbove.get().getLessonOrder());
-
             // Update both lessons to reflect new Order and refresh the target lesson
             iqPalXELessonRepository.save(qPalXELesson);
             iqPalXELessonRepository.save(lessonAbove.get());
