@@ -210,15 +210,18 @@ public class QPalXELessonService implements IQPalXELessonService {
 
     @Override
     @Transactional
-    public void moveQPalXELessonUp(QPalXELesson qPalXELesson) {
+    public void moveQPalXELessonUp(QPalXELesson qPalXELesson, TutorialLevelCalendar tutorialLevelCalendar) {
         Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
         LOGGER.debug("Attempting to move lesson with ID: {} and current LessonOrder: {} up", qPalXELesson.getId(), qPalXELesson.getLessonOrder());
 
         // Find the lesson above this lesson and swap spots
-        Optional<QPalXELesson> lessonAbove = getLessonDirectlyAbove(qPalXELesson);
+        Optional<QPalXELesson> lessonAbove = getLessonDirectlyAbove(qPalXELesson, tutorialLevelCalendar);
         if(lessonAbove.isPresent()) {
             qPalXELesson.setLessonOrder(qPalXELesson.getLessonOrder() - 1);
             lessonAbove.get().setLessonOrder(lessonAbove.get().getLessonOrder() + 1);
+
+            System.out.println("Moving Up: "+ qPalXELesson.getLessonName() + "  Lesson Order" + qPalXELesson.getLessonOrder());
+            System.out.println("Moving Down: "+ lessonAbove.get().getLessonName() + "" + lessonAbove.get().getLessonOrder());
 
             // Update both lessons to reflect new Order and refresh the target lesson
             iqPalXELessonRepository.save(qPalXELesson);
@@ -228,13 +231,13 @@ public class QPalXELessonService implements IQPalXELessonService {
     }
 
     @Override
-    public void moveQPalXELessonDown(QPalXELesson qPalXELesson) {
+    public void moveQPalXELessonDown(QPalXELesson qPalXELesson, TutorialLevelCalendar tutorialLevelCalendar) {
         Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
 
         LOGGER.debug("Attempting to move lesson with ID: {} and current LessonOrder: {} down", qPalXELesson.getId(), qPalXELesson.getLessonOrder());
 
         // Find the lesson above this lesson and swap spots
-        Optional<QPalXELesson> lessonAbove = getLessonDirectlyBelow(qPalXELesson);
+        Optional<QPalXELesson> lessonAbove = getLessonDirectlyBelow(qPalXELesson, tutorialLevelCalendar);
         if(lessonAbove.isPresent()) {
             qPalXELesson.setLessonOrder(qPalXELesson.getLessonOrder() + 1);
             lessonAbove.get().setLessonOrder(lessonAbove.get().getLessonOrder() - 1);
@@ -247,7 +250,7 @@ public class QPalXELessonService implements IQPalXELessonService {
     }
 
 
-    private Optional<QPalXELesson> getLessonDirectlyAbove(QPalXELesson targetLesson) {
+    private Optional<QPalXELesson> getLessonDirectlyAbove(QPalXELesson targetLesson, TutorialLevelCalendar tutorialLevelCalendar) {
         ELearningCourse eLearningCourse = targetLesson.geteLearningCourse();
         Set<QPalXELesson> qPalXELessons = eLearningCourse.getQPalXELessons();
 
@@ -257,9 +260,11 @@ public class QPalXELessonService implements IQPalXELessonService {
 
             // Iterate in descending order to get the first lesson directly above this one
             for(int i= copyOfLessons.length -1; i >= 0; i--) {
-                boolean isAboveTarget = copyOfLessons[i].isQPalXELessonAbove(targetLesson);
-                if(isAboveTarget) {
-                    return Optional.of(copyOfLessons[i]);
+                if (copyOfLessons[i].getTutorialLevelCalendar().getId().equals(tutorialLevelCalendar.getId())) {
+                    boolean isAboveTarget = copyOfLessons[i].isQPalXELessonAbove(targetLesson);
+                    if(isAboveTarget) {
+                        return Optional.of(copyOfLessons[i]);
+                    }
                 }
             }
         }
@@ -267,15 +272,17 @@ public class QPalXELessonService implements IQPalXELessonService {
         return Optional.empty();
     }
 
-    private Optional<QPalXELesson> getLessonDirectlyBelow(QPalXELesson targetLesson) {
+    private Optional<QPalXELesson> getLessonDirectlyBelow(QPalXELesson targetLesson, TutorialLevelCalendar tutorialLevelCalendar) {
         ELearningCourse eLearningCourse = targetLesson.geteLearningCourse();
         Set<QPalXELesson> qPalXELessons = eLearningCourse.getQPalXELessons();
 
         if (qPalXELessons != null || qPalXELessons.size() > 0) {
             for(QPalXELesson qPalXELesson: qPalXELessons) {
-                boolean isBelowTarget = qPalXELesson.isQPalXELessonBelow(targetLesson);
-                if(isBelowTarget) {
-                    return Optional.of(qPalXELesson);
+                if (qPalXELesson.getTutorialLevelCalendar().getId().equals(tutorialLevelCalendar.getId())) {
+                    boolean isBelowTarget = qPalXELesson.isQPalXELessonBelow(targetLesson);
+                    if(isBelowTarget) {
+                        return Optional.of(qPalXELesson);
+                    }
                 }
             }
         }

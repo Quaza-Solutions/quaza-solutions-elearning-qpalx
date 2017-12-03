@@ -3,6 +3,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.curriculum;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IQPalXELessonRepository;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.ITutorialLevelCalendarService;
 import org.junit.Assert;
@@ -31,6 +32,8 @@ public class QPalXELessonServiceTest {
 
     private ELearningCourse eLearningCourse;
 
+    private TutorialLevelCalendar tutorialLevelCalendar;
+
     @Mock
     private IQPalXELessonRepository iqPalXELessonRepository;
 
@@ -49,26 +52,37 @@ public class QPalXELessonServiceTest {
 
     @Before
     public void before() {
+        tutorialLevelCalendar = new TutorialLevelCalendar();
+        tutorialLevelCalendar.setId(1L);
+
         eLearningCourse = ELearningCourse.builder()
                 .courseName("Test Course")
                 .build();
 
         lesson1 = QPalXELesson.builder()
+                .lessonName("Introduction to Sets")
+                .tutorialLevelCalendar(tutorialLevelCalendar)
                 .lessonOrder(1)
                 .eLearningCourse(eLearningCourse)
                 .build();
 
         lesson2 = QPalXELesson.builder()
+                .lessonName("Types of Sets")
+                .tutorialLevelCalendar(tutorialLevelCalendar)
                 .lessonOrder(2)
                 .eLearningCourse(eLearningCourse)
                 .build();
 
         lesson3 = QPalXELesson.builder()
+                .lessonName("Set Operations")
+                .tutorialLevelCalendar(tutorialLevelCalendar)
                 .lessonOrder(3)
                 .eLearningCourse(eLearningCourse)
                 .build();
 
         lesson4 = QPalXELesson.builder()
+                .lessonName("Properties of Sets")
+                .tutorialLevelCalendar(tutorialLevelCalendar)
                 .lessonOrder(4)
                 .eLearningCourse(eLearningCourse)
                 .build();
@@ -81,7 +95,7 @@ public class QPalXELessonServiceTest {
 
     @Test
     public void testMoveQPalXELessonUp1() {
-        qPalXELessonService.moveQPalXELessonUp(lesson1);
+        qPalXELessonService.moveQPalXELessonUp(lesson1, tutorialLevelCalendar);
 
         // In this case we cant move 1 up so expectation is noting should have changed
         Assert.assertTrue(lesson1.getLessonOrder() == 1);
@@ -92,7 +106,7 @@ public class QPalXELessonServiceTest {
 
     @Test
     public void testMoveQPalXELessonUp2() {
-        qPalXELessonService.moveQPalXELessonUp(lesson2);
+        qPalXELessonService.moveQPalXELessonUp(lesson2, tutorialLevelCalendar);
 
         // Verify that lesson2 and lesson1 now have their orders switched.
         Assert.assertTrue(lesson2.getLessonOrder() == 1);
@@ -103,7 +117,7 @@ public class QPalXELessonServiceTest {
 
     @Test
     public void testMoveQPalXELessonUp3() {
-        qPalXELessonService.moveQPalXELessonUp(lesson3);
+        qPalXELessonService.moveQPalXELessonUp(lesson3, tutorialLevelCalendar);
 
         // Verify that lesson2 and lesson1 now have their orders switched.
         Assert.assertTrue(lesson3.getLessonOrder() == 2);
@@ -114,7 +128,7 @@ public class QPalXELessonServiceTest {
 
     @Test
     public void testMoveQPalXELessonUp4() {
-        qPalXELessonService.moveQPalXELessonUp(lesson4);
+        qPalXELessonService.moveQPalXELessonUp(lesson4, tutorialLevelCalendar);
 
         // Verify that lesson2 and lesson1 now have their orders switched.
         Assert.assertTrue(lesson4.getLessonOrder() == 3);
@@ -125,7 +139,7 @@ public class QPalXELessonServiceTest {
 
     @Test
     public void moveQPalXELessonDown1() {
-        qPalXELessonService.moveQPalXELessonDown(lesson1);
+        qPalXELessonService.moveQPalXELessonDown(lesson1, tutorialLevelCalendar);
         Assert.assertTrue(lesson1.getLessonOrder() == 2);
         Assert.assertTrue(lesson2.getLessonOrder() == 1);
         Assert.assertTrue(lesson3.getLessonOrder() == 3);
@@ -134,7 +148,7 @@ public class QPalXELessonServiceTest {
 
     @Test
     public void moveQPalXELessonDown2() {
-        qPalXELessonService.moveQPalXELessonDown(lesson2);
+        qPalXELessonService.moveQPalXELessonDown(lesson2, tutorialLevelCalendar);
         Assert.assertTrue(lesson1.getLessonOrder() == 1);
         Assert.assertTrue(lesson2.getLessonOrder() == 3);
         Assert.assertTrue(lesson3.getLessonOrder() == 2);
@@ -143,7 +157,7 @@ public class QPalXELessonServiceTest {
 
     @Test
     public void moveQPalXELessonDown3() {
-        qPalXELessonService.moveQPalXELessonDown(lesson3);
+        qPalXELessonService.moveQPalXELessonDown(lesson3, tutorialLevelCalendar);
 
         // In this case we cant move 1 up so expectation is noting should have changed
         Assert.assertTrue(lesson1.getLessonOrder() == 1);
@@ -153,7 +167,7 @@ public class QPalXELessonServiceTest {
     }
     @Test
     public void moveQPalXELessonDown4() {
-        qPalXELessonService.moveQPalXELessonDown(lesson4);
+        qPalXELessonService.moveQPalXELessonDown(lesson4, tutorialLevelCalendar);
 
         // In this case we cant move down  so expectation is noting should have changed
         Assert.assertTrue(lesson1.getLessonOrder() == 1);
