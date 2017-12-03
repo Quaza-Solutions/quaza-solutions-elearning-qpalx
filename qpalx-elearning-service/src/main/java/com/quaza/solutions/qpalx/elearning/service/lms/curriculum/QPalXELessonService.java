@@ -215,11 +215,10 @@ public class QPalXELessonService implements IQPalXELessonService {
         LOGGER.debug("Attempting to move lesson with ID: {} and current LessonOrder: {} up", qPalXELesson.getId(), qPalXELesson.getLessonOrder());
 
         // Find the lesson above this lesson and swap spots
-        Optional<QPalXELesson> lessonAbove = getLessonAbove(qPalXELesson);
+        Optional<QPalXELesson> lessonAbove = getLessonDirectlyAbove(qPalXELesson);
         if(lessonAbove.isPresent()) {
-            int lessonAboveOrder = lessonAbove.get().getLessonOrder();
-            qPalXELesson.setLessonOrder(lessonAboveOrder - 1);
-            lessonAbove.get().setLessonOrder(lessonAboveOrder + 1);
+            qPalXELesson.setLessonOrder(qPalXELesson.getLessonOrder() - 1);
+            lessonAbove.get().setLessonOrder(lessonAbove.get().getLessonOrder() + 1);
 
             // Update both lessons to reflect new Order and refresh the target lesson
             iqPalXELessonRepository.save(qPalXELesson);
@@ -235,11 +234,10 @@ public class QPalXELessonService implements IQPalXELessonService {
         LOGGER.debug("Attempting to move lesson with ID: {} and current LessonOrder: {} down", qPalXELesson.getId(), qPalXELesson.getLessonOrder());
 
         // Find the lesson above this lesson and swap spots
-        Optional<QPalXELesson> lessonAbove = getLessonBelow(qPalXELesson);
+        Optional<QPalXELesson> lessonAbove = getLessonDirectlyBelow(qPalXELesson);
         if(lessonAbove.isPresent()) {
-            int lessonAboveOrder = lessonAbove.get().getLessonOrder();
-            qPalXELesson.setLessonOrder(lessonAboveOrder + 1);
-            lessonAbove.get().setLessonOrder(lessonAboveOrder - 1);
+            qPalXELesson.setLessonOrder(qPalXELesson.getLessonOrder() + 1);
+            lessonAbove.get().setLessonOrder(lessonAbove.get().getLessonOrder() - 1);
 
             // Update both lessons to reflect new Order and refresh the target lesson
             iqPalXELessonRepository.save(qPalXELesson);
@@ -249,18 +247,19 @@ public class QPalXELessonService implements IQPalXELessonService {
     }
 
 
-    private Optional<QPalXELesson> getLessonAbove(QPalXELesson targetLesson) {
+    private Optional<QPalXELesson> getLessonDirectlyAbove(QPalXELesson targetLesson) {
         ELearningCourse eLearningCourse = targetLesson.geteLearningCourse();
         Set<QPalXELesson> qPalXELessons = eLearningCourse.getQPalXELessons();
 
-        if (qPalXELessons != null || qPalXELessons.size() > 0) {
-            // Use the targetLessonOrder to identify the Lesson above target given that that lesson will have a lower lessonOrder
-            int targetLessonOrder = targetLesson.getLessonOrder();
 
-            for(QPalXELesson qPalXELesson: qPalXELessons) {
-                boolean isAboveTarget = qPalXELesson.isQPalXELessonAbove(targetLesson);
+        if (qPalXELessons != null || qPalXELessons.size() > 0) {
+            QPalXELesson[] copyOfLessons = qPalXELessons.toArray(new QPalXELesson[0]);
+
+            // Iterate in descending order to get the first lesson directly above this one
+            for(int i= copyOfLessons.length -1; i >= 0; i--) {
+                boolean isAboveTarget = copyOfLessons[i].isQPalXELessonAbove(targetLesson);
                 if(isAboveTarget) {
-                    return Optional.of(qPalXELesson);
+                    return Optional.of(copyOfLessons[i]);
                 }
             }
         }
@@ -268,14 +267,11 @@ public class QPalXELessonService implements IQPalXELessonService {
         return Optional.empty();
     }
 
-    private Optional<QPalXELesson> getLessonBelow(QPalXELesson targetLesson) {
+    private Optional<QPalXELesson> getLessonDirectlyBelow(QPalXELesson targetLesson) {
         ELearningCourse eLearningCourse = targetLesson.geteLearningCourse();
         Set<QPalXELesson> qPalXELessons = eLearningCourse.getQPalXELessons();
 
         if (qPalXELessons != null || qPalXELessons.size() > 0) {
-            // Use the targetLessonOrder to identify the Lesson above target given that that lesson will have a lower lessonOrder
-            int targetLessonOrder = targetLesson.getLessonOrder();
-
             for(QPalXELesson qPalXELesson: qPalXELessons) {
                 boolean isBelowTarget = qPalXELesson.isQPalXELessonBelow(targetLesson);
                 if(isBelowTarget) {

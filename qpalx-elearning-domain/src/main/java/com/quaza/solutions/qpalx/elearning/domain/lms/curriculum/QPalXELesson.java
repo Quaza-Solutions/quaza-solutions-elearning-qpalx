@@ -10,6 +10,7 @@ import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCal
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.springframework.util.Assert;
@@ -231,7 +232,7 @@ public class QPalXELesson implements IHierarchicalLMSContent {
     public boolean isQPalXELessonAbove(QPalXELesson qPalXELesson) {
         Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
         int thatLessonOrder = qPalXELesson.getLessonOrder();
-        return this.lessonOrder == thatLessonOrder -1;
+        return this.lessonOrder < thatLessonOrder;
     }
 
     /**
@@ -240,7 +241,7 @@ public class QPalXELesson implements IHierarchicalLMSContent {
     public boolean isQPalXELessonBelow(QPalXELesson qPalXELesson) {
         Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
         int thatLessonOrder = qPalXELesson.getLessonOrder();
-        return this.lessonOrder - 1 == thatLessonOrder;
+        return this.lessonOrder > thatLessonOrder;
     }
 
     @Override
@@ -285,7 +286,7 @@ public class QPalXELesson implements IHierarchicalLMSContent {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", id)
                 .append("lessonName", lessonName)
                 .append("lessonDescription", lessonDescription)

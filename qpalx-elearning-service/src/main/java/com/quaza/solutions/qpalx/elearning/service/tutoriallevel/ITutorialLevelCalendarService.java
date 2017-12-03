@@ -22,6 +22,8 @@ public interface ITutorialLevelCalendarService {
 
     public Optional<TutorialLevelCalendar> findCurrentCalendarByTutorialLevel(StudentTutorialLevel studentTutorialLevel);
 
+    public List<TutorialLevelCalendar> findAllForQPalXUser(QPalXUser qPalXUser);
+
     public List<TutorialLevelCalendar> findAllByStudentTutorialLevel(StudentTutorialLevel studentTutorialLevel);
 
     public Map<TutorialLevelCalendar, ELearningCourseActivity> findAllCourseELearningActivities(ELearningCourse eLearningCourse);

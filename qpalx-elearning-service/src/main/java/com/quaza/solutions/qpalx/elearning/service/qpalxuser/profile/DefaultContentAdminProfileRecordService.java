@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.DefaultContentAdminProfileRecordService")
+@Service(DefaultContentAdminProfileRecordService.SPRING_BEAN)
 public class DefaultContentAdminProfileRecordService implements IContentAdminProfileRecordService {
 
 

@@ -1,14 +1,19 @@
 package com.quaza.solutions.qpalx.elearning.service.tutoriallevel;
 
+import com.google.common.collect.ImmutableList;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourseActivity;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCourseActivityRepository;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalxUserTypeE;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.ContentAdminProfileRecord;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentEnrolmentRecord;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialCalendarMonthE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.repository.ITutorialLevelCalendarRepository;
+import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.DefaultContentAdminProfileRecordService;
+import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IContentAdminProfileRecordService;
 import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IStudentEnrolmentRecordService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +28,7 @@ import java.util.Optional;
 /**
  * @author manyce400
  */
-@Service("quaza.solutions.qpalx.elearning.service.DefaultTutorialLevelCalendarService")
+@Service(DefaultTutorialLevelCalendarService.SPRING_BEAN)
 public class DefaultTutorialLevelCalendarService implements ITutorialLevelCalendarService {
 
 
@@ -37,6 +42,12 @@ public class DefaultTutorialLevelCalendarService implements ITutorialLevelCalend
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultStudentEnrolmentRecordService")
     private IStudentEnrolmentRecordService iStudentEnrolmentRecordService;
+
+    @Autowired
+    @Qualifier(DefaultContentAdminProfileRecordService.SPRING_BEAN)
+    private IContentAdminProfileRecordService iContentAdminProfileRecordService;
+
+    public static final String SPRING_BEAN = "quaza.solutions.qpalx.elearning.service.DefaultTutorialLevelCalendarService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultTutorialLevelCalendarService.class);
 
@@ -53,15 +64,17 @@ public class DefaultTutorialLevelCalendarService implements ITutorialLevelCalend
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         LOGGER.info("finding the current tutorial level calendar for student: {}", qPalXUser.getEmail());
 
-        // Get student enrolment record to identify tutorial level
-        StudentEnrolmentRecord studentEnrolmentRecord = iStudentEnrolmentRecordService.findCurrentStudentEnrolmentRecord(qPalXUser);
-        if(studentEnrolmentRecord == null) {
-            LOGGER.warn("No enrolment recored was found for student: {}.  Investigate student signup process", qPalXUser.getEmail());
-            return Optional.empty();
+        if(qPalXUser.getUserType() == QPalxUserTypeE.STUDENT) {
+            StudentEnrolmentRecord studentEnrolmentRecord = iStudentEnrolmentRecordService.findCurrentStudentEnrolmentRecord(qPalXUser);
+            StudentTutorialLevel studentTutorialLevel = studentEnrolmentRecord.getStudentTutorialGrade().getStudentTutorialLevel();
+            return findCurrentCalendarByTutorialLevel(studentTutorialLevel);
+        } else if(qPalXUser.getUserType() == QPalxUserTypeE.CONTENT_DEVELOPER) {
+            ContentAdminProfileRecord contentAdminProfileRecord = iContentAdminProfileRecordService.findEnabledContentAdminProfileRecord(qPalXUser);
+            StudentTutorialLevel studentTutorialLevel = contentAdminProfileRecord.getStudentTutorialLevel();
+            return findCurrentCalendarByTutorialLevel(studentTutorialLevel);
         }
 
-        StudentTutorialLevel studentTutorialLevel = studentEnrolmentRecord.getStudentTutorialGrade().getStudentTutorialLevel();
-        return findCurrentCalendarByTutorialLevel(studentTutorialLevel);
+        return Optional.empty();
     }
 
     @Override
@@ -84,6 +97,24 @@ public class DefaultTutorialLevelCalendarService implements ITutorialLevelCalend
 
         LOGGER.info("Returning default student TutorialLevelCalendar: {}", defaultTutorialLevelCalendar.get());
         return defaultTutorialLevelCalendar;
+    }
+
+    @Override
+    public List<TutorialLevelCalendar> findAllForQPalXUser(QPalXUser qPalXUser) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        LOGGER.info("finding all tutorial level calendar for QPalxUser: {}", qPalXUser.getEmail());
+
+        if(qPalXUser.getUserType() == QPalxUserTypeE.STUDENT) {
+            StudentEnrolmentRecord studentEnrolmentRecord = iStudentEnrolmentRecordService.findCurrentStudentEnrolmentRecord(qPalXUser);
+            if(studentEnrolmentRecord == null) {
+                return findAllByStudentTutorialLevel(studentEnrolmentRecord.getStudentTutorialGrade().getStudentTutorialLevel());
+            }
+        } else if(qPalXUser.getUserType() == QPalxUserTypeE.CONTENT_DEVELOPER) {
+            ContentAdminProfileRecord contentAdminProfileRecord = iContentAdminProfileRecordService.findEnabledContentAdminProfileRecord(qPalXUser);
+            return findAllByStudentTutorialLevel(contentAdminProfileRecord.getStudentTutorialLevel());
+        }
+
+        return ImmutableList.of();
     }
 
     @Override
