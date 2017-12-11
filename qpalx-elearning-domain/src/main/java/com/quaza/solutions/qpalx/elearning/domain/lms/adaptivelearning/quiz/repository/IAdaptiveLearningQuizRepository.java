@@ -13,7 +13,9 @@ public interface IAdaptiveLearningQuizRepository extends CrudRepository<Adaptive
 
 
     @Query("Select               adaptiveLearningQuiz From AdaptiveLearningQuiz adaptiveLearningQuiz "+
-            "Where               adaptiveLearningQuiz.qPalXEMicroLesson.id =?1 "
+            "Where               adaptiveLearningQuiz.qPalXEMicroLesson.id =?1 " +
+            "Order By            adaptiveLearningQuiz.elementOrder ASC"
     )
     public List<AdaptiveLearningQuiz> findQuizzesForMicroLesson(Long microLessonID);
+
 }

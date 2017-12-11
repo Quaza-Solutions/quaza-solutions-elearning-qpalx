@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
+import com.quaza.solutions.qpalx.elearning.domain.util.IElementHasOrderInfo;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -20,7 +22,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="AdaptiveLearningQuiz")
-public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
+public class AdaptiveLearningQuiz implements IHierarchicalLMSContent, IElementHasOrderInfo {
 
 
     @Id
@@ -61,6 +63,9 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QPalXEMicroLessonID", nullable = true)
     private QPalXEMicroLesson qPalXEMicroLesson;
+
+    @Column(name="ElementOrder", nullable=false)
+    private Integer elementOrder;
 
     // Collection of all questions for this quiz.  LinkedHashSet used to maintain ordering
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "adaptiveLearningQuiz")
@@ -150,6 +155,21 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent {
 
     public void setQPalXEMicroLesson(QPalXEMicroLesson qPalXEMicroLesson) {
         this.qPalXEMicroLesson = qPalXEMicroLesson;
+    }
+
+    @Override
+    public Integer getElementOrder() {
+        return elementOrder;
+    }
+
+    @Override
+    public void setElementOrder(Integer elementOrder) {
+        this.elementOrder = elementOrder;
+    }
+
+    @Override
+    public Optional<Long> getOrderContextID() {
+        return Optional.of(qPalXEMicroLesson.getId());
     }
 
     public void addAdaptiveLearningQuizQuestion(AdaptiveLearningQuizQuestion adaptiveLearningQuizQuestion) {

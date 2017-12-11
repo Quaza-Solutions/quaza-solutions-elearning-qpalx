@@ -31,6 +31,10 @@ public interface IAdaptiveLearningQuizService {
 
     public List<AdaptiveLearningQuiz> findQuizzesForMicroLesson(QPalXEMicroLesson qPalXEMicroLesson);
 
+    public void moveAdaptiveLearningQuizDown(AdaptiveLearningQuiz adaptiveLearningQuiz);
+
+    public void moveAdaptiveLearningQuizUp(AdaptiveLearningQuiz adaptiveLearningQuiz);
+
     public void saveAdaptiveLearningQuizDetails(QPalXEMicroLesson qPalXEMicroLesson, IAdaptiveLearningQuizVO iAdaptiveLearningQuizVO, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO, Integer questionOrder);
 
     public int getMaxQuestionOrder(AdaptiveLearningQuiz adaptiveLearningQuiz);

@@ -7,8 +7,12 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repo
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizQuestionRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
+import com.quaza.solutions.qpalx.elearning.domain.util.ElementOrderingResult;
+import com.quaza.solutions.qpalx.elearning.domain.util.IElementHasOrderInfo;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.AdaptiveLearningExperienceService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IAdaptiveLearningExperienceService;
+import com.quaza.solutions.qpalx.elearning.service.util.ElementHasOrderInfoUtil;
+import com.quaza.solutions.qpalx.elearning.service.util.IElementHasOrderInfoUtil;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,7 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -42,6 +48,10 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
     @Autowired
     @Qualifier(AdaptiveLearningExperienceService.SPRING_BEAN_NAME)
     private IAdaptiveLearningExperienceService iAdaptiveLearningExperienceService;
+
+    @Autowired
+    @Qualifier(ElementHasOrderInfoUtil.BEAN_NAME)
+    private IElementHasOrderInfoUtil iElementHasOrderInfoUtil;
 
     public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.AdaptiveLearningQuizService2";
 
@@ -163,6 +173,42 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         return iAdaptiveLearningQuizRepository.findQuizzesForMicroLesson(qPalXEMicroLesson.getId());
     }
 
+    @Override
+    @Transactional
+    public void moveAdaptiveLearningQuizDown(AdaptiveLearningQuiz adaptiveLearningQuiz) {
+        Assert.notNull(adaptiveLearningQuiz, "qPalXEMicroLesson cannot be null");
+        LOGGER.debug("Executing move down operation for Quiz: {}", adaptiveLearningQuiz.getId());
+
+        // Find all quizzes for this MicroLesson
+        List<AdaptiveLearningQuiz> adaptiveLearningQuizList = findQuizzesForMicroLesson(adaptiveLearningQuiz.getQPalXEMicroLesson());
+
+        if(adaptiveLearningQuizList.size() > 1) {
+            // Context to move this Quiz down will be against all other Quizzes for the same MicroLesson
+            Long orderContextID = adaptiveLearningQuiz.getQPalXEMicroLesson().getId();
+            List<IElementHasOrderInfo> iElementHasOrderInfos = new ArrayList<>(adaptiveLearningQuizList);
+            Optional<ElementOrderingResult> elementOrderingResult = iElementHasOrderInfoUtil.moveElementDown(orderContextID, adaptiveLearningQuiz, iElementHasOrderInfos);
+            saveElementOrderingResult(elementOrderingResult);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void moveAdaptiveLearningQuizUp(AdaptiveLearningQuiz adaptiveLearningQuiz) {
+        Assert.notNull(adaptiveLearningQuiz, "qPalXEMicroLesson cannot be null");
+        LOGGER.debug("Executing move down operation for Quiz: {}", adaptiveLearningQuiz.getId());
+
+        // Find all quizzes for this MicroLesson
+        List<AdaptiveLearningQuiz> adaptiveLearningQuizList = findQuizzesForMicroLesson(adaptiveLearningQuiz.getQPalXEMicroLesson());
+
+        if(adaptiveLearningQuizList.size() > 1) {
+            // Context to move this Quiz down will be against all other Quizzes for the same MicroLesson
+            Long orderContextID = adaptiveLearningQuiz.getQPalXEMicroLesson().getId();
+            List<IElementHasOrderInfo> iElementHasOrderInfos = new ArrayList<>(adaptiveLearningQuizList);
+            Optional<ElementOrderingResult> elementOrderingResult = iElementHasOrderInfoUtil.moveElementUp(orderContextID, adaptiveLearningQuiz, iElementHasOrderInfos);
+            saveElementOrderingResult(elementOrderingResult);
+        }
+    }
+
 
     @Transactional
     @Override
@@ -215,6 +261,15 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         }
 
         return maxOrder;
+    }
+
+    private void saveElementOrderingResult(Optional<ElementOrderingResult> elementOrderingResult) {
+        if(elementOrderingResult.isPresent()) {
+            AdaptiveLearningQuiz adaptiveLearningQuizMoved =  (AdaptiveLearningQuiz)elementOrderingResult.get().getElementToMove();
+            AdaptiveLearningQuiz adaptiveLearningQuizImpacted =  (AdaptiveLearningQuiz)elementOrderingResult.get().getElementToMove();
+            iAdaptiveLearningQuizRepository.save(adaptiveLearningQuizMoved);
+            iAdaptiveLearningQuizRepository.save(adaptiveLearningQuizImpacted);
+        }
     }
 
     void persistAdaptiveLearningQuizQuestionDetails(AdaptiveLearningQuiz adaptiveLearningQuiz, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO, Integer questionOrder) {
