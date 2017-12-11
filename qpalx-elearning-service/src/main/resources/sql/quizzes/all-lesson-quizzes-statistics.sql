@@ -21,7 +21,8 @@ From (
 			qMell.ID As MicroLessonID,
 			qMell.MicroLessonName,
 			aLqz.ID As QuizID,
-			aLqz.QuizTitle
+			aLqz.QuizTitle,
+			alqz.ElementOrder
 	From	QPalXUser qUser
 	Join	StudentEnrolmentRecord sErr on sErr.QPalxUserID = qUser.ID
 	Left 	Outer Join	ELearningCurriculum eCurr on eCurr.StudentTutorialGradeID = sErr.StudentTutorialGradeID
@@ -45,4 +46,4 @@ Left 	Outer Join (
 		Group	By QPalxUserID, ScorableActivityID
 	) 	rs on rs.MaxLearningExperienceStartDate = alz.LearningExperienceStartDate and rs.QPalxUserID = alz.QPalxUserID
 ) As StudentMostRecentQuizExperiences on StudentMostRecentQuizExperiences.ScorableActivityID = QuizzesStudentHasAccess.QuizID
-Order By QuizzesStudentHasAccess.QuizID asc
+Order By QuizzesStudentHasAccess.ElementOrder asc
