@@ -1,15 +1,17 @@
 package com.quaza.solutions.qpalx.elearning.service.util;
 
 import com.google.common.collect.ImmutableSet;
-import com.quaza.solutions.qpalx.elearning.domain.util.BaseElementHasOrderInfo;
+import com.quaza.solutions.qpalx.elearning.domain.util.DefaultEntityHasOrderInfo;
 import com.quaza.solutions.qpalx.elearning.domain.util.ElementOrderingResult;
-import com.quaza.solutions.qpalx.elearning.domain.util.IElementHasOrderInfo;
+import com.quaza.solutions.qpalx.elearning.domain.util.IEntityHasOrderInfo;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 import java.util.Set;
@@ -21,55 +23,58 @@ import java.util.Set;
 public class ElementHasOrderInfoUtilTest {
 
 
-    private IElementHasOrderInfo iElementHasOrderInfoFirst;
+    private IEntityHasOrderInfo iEntityHasOrderInfoFirst;
 
-    private IElementHasOrderInfo iElementHasOrderInfoSecond;
+    private IEntityHasOrderInfo iEntityHasOrderInfoSecond;
 
-    private IElementHasOrderInfo iElementHasOrderInfoThird;
+    private IEntityHasOrderInfo iEntityHasOrderInfoThird;
 
-    private Set<IElementHasOrderInfo> elementHasOrderInfoSet;
+    private Set<IEntityHasOrderInfo> elementHasOrderInfoSet;
+
+    @Mock
+    private CrudRepository crudRepository;
 
     @InjectMocks
     private ElementHasOrderInfoUtil elementHasOrderInfoUtil;
 
     @Before
     public void beforeTest() {
-        iElementHasOrderInfoFirst = BaseElementHasOrderInfo.newInstance(1);
-        iElementHasOrderInfoSecond = BaseElementHasOrderInfo.newInstance(2);
-        iElementHasOrderInfoThird = BaseElementHasOrderInfo.newInstance(3);
-        elementHasOrderInfoSet = ImmutableSet.of(iElementHasOrderInfoFirst, iElementHasOrderInfoSecond, iElementHasOrderInfoThird);
+        iEntityHasOrderInfoFirst = DefaultEntityHasOrderInfo.newInstance(1);
+        iEntityHasOrderInfoSecond = DefaultEntityHasOrderInfo.newInstance(2);
+        iEntityHasOrderInfoThird = DefaultEntityHasOrderInfo.newInstance(3);
+        elementHasOrderInfoSet = ImmutableSet.of(iEntityHasOrderInfoFirst, iEntityHasOrderInfoSecond, iEntityHasOrderInfoThird);
     }
 
     @Test
     public void testMoveElementDown() {
-        Optional<ElementOrderingResult> moveResult = elementHasOrderInfoUtil.moveElementDown(iElementHasOrderInfoFirst, elementHasOrderInfoSet);
+        Optional<ElementOrderingResult> moveResult = elementHasOrderInfoUtil.moveElementDown(iEntityHasOrderInfoFirst, elementHasOrderInfoSet, crudRepository);
         Assert.assertTrue(moveResult.isPresent());
 
         // Verify ElementOrderingResult returned as expected
-        IElementHasOrderInfo elementToMove = moveResult.get().getElementToMove();
-        IElementHasOrderInfo elementImpactedByMove = moveResult.get().getElementImpactedByMove();
+        IEntityHasOrderInfo elementToMove = moveResult.get().getElementToMove();
+        IEntityHasOrderInfo elementImpactedByMove = moveResult.get().getElementImpactedByMove();
         Assert.assertNotNull(elementToMove);
         Assert.assertNotNull(elementImpactedByMove);
 
         // Verify new element order of iElementHasOrderInfoFirst and iElementHasOrderInfoSecond
-        Assert.assertEquals(new Integer(2), iElementHasOrderInfoFirst.getElementOrder());
-        Assert.assertEquals(new Integer(1), iElementHasOrderInfoSecond.getElementOrder());
+        Assert.assertEquals(new Integer(2), iEntityHasOrderInfoFirst.getElementOrder());
+        Assert.assertEquals(new Integer(1), iEntityHasOrderInfoSecond.getElementOrder());
     }
 
     @Test
     public void testMoveElementUp() {
-        Optional<ElementOrderingResult> moveResult = elementHasOrderInfoUtil.moveElementUp(iElementHasOrderInfoSecond, elementHasOrderInfoSet);
+        Optional<ElementOrderingResult> moveResult = elementHasOrderInfoUtil.moveElementUp(iEntityHasOrderInfoSecond, elementHasOrderInfoSet, crudRepository);
         Assert.assertTrue(moveResult.isPresent());
 
         // Verify ElementOrderingResult returned as expected
-        IElementHasOrderInfo elementToMove = moveResult.get().getElementToMove();
-        IElementHasOrderInfo elementImpactedByMove = moveResult.get().getElementImpactedByMove();
+        IEntityHasOrderInfo elementToMove = moveResult.get().getElementToMove();
+        IEntityHasOrderInfo elementImpactedByMove = moveResult.get().getElementImpactedByMove();
         Assert.assertNotNull(elementToMove);
         Assert.assertNotNull(elementImpactedByMove);
 
         // Verify new element order of iElementHasOrderInfoFirst and iElementHasOrderInfoSecond
-        Assert.assertEquals(new Integer(2), iElementHasOrderInfoFirst.getElementOrder());
-        Assert.assertEquals(new Integer(1), iElementHasOrderInfoSecond.getElementOrder());
+        Assert.assertEquals(new Integer(2), iEntityHasOrderInfoFirst.getElementOrder());
+        Assert.assertEquals(new Integer(1), iEntityHasOrderInfoSecond.getElementOrder());
     }
 
 }

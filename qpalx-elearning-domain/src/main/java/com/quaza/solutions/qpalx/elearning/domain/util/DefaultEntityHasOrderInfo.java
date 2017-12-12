@@ -10,17 +10,17 @@ import java.util.Optional;
 /**
  * @author manyce400
  */
-public class BaseElementHasOrderInfo implements IElementHasOrderInfo {
+public class DefaultEntityHasOrderInfo implements IEntityHasOrderInfo {
 
 
 
     private Integer elementOrder;
 
-    public BaseElementHasOrderInfo() {
+    public DefaultEntityHasOrderInfo() {
 
     }
 
-    public BaseElementHasOrderInfo(Integer elementOrder) {
+    public DefaultEntityHasOrderInfo(Integer elementOrder) {
         Assert.notNull(elementOrder, "elementOrder cannot be null");
         this.elementOrder = elementOrder;
     }
@@ -36,7 +36,7 @@ public class BaseElementHasOrderInfo implements IElementHasOrderInfo {
     }
 
     @Override
-    public Optional<Long> getOrderContextID() {
+    public Optional<Long> getOrderingDiscriminator() {
         return Optional.empty();
     }
 
@@ -53,7 +53,7 @@ public class BaseElementHasOrderInfo implements IElementHasOrderInfo {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        BaseElementHasOrderInfo that = (BaseElementHasOrderInfo) o;
+        DefaultEntityHasOrderInfo that = (DefaultEntityHasOrderInfo) o;
 
         return new EqualsBuilder()
                 .append(elementOrder, that.elementOrder)
@@ -67,8 +67,8 @@ public class BaseElementHasOrderInfo implements IElementHasOrderInfo {
                 .toString();
     }
 
-    public static BaseElementHasOrderInfo newInstance(Integer elementOrder) {
-        return new BaseElementHasOrderInfo(elementOrder);
+    public static DefaultEntityHasOrderInfo newInstance(Integer elementOrder) {
+        return new DefaultEntityHasOrderInfo(elementOrder);
     }
 
 }

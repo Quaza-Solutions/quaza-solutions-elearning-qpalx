@@ -11,24 +11,24 @@ public class ElementOrderingResult {
 
 
     // Original element for which ordering operation was executed for
-    private IElementHasOrderInfo elementToMove;
+    private IEntityHasOrderInfo elementToMove;
 
     // Element impacted as a result of the move operation
-    private IElementHasOrderInfo elementImpactedByMove;
+    private IEntityHasOrderInfo elementImpactedByMove;
 
 
-    public ElementOrderingResult(IElementHasOrderInfo elementToMove, IElementHasOrderInfo elementImpactedByMove) {
+    public ElementOrderingResult(IEntityHasOrderInfo elementToMove, IEntityHasOrderInfo elementImpactedByMove) {
         Assert.notNull(elementToMove, "elementToMove cannot be null");
         Assert.notNull(elementImpactedByMove, "elementImpactedByMove cannot be null");
         this.elementToMove = elementToMove;
         this.elementImpactedByMove = elementImpactedByMove;
     }
 
-    public IElementHasOrderInfo getElementToMove() {
+    public IEntityHasOrderInfo getElementToMove() {
         return elementToMove;
     }
 
-    public IElementHasOrderInfo getElementImpactedByMove() {
+    public IEntityHasOrderInfo getElementImpactedByMove() {
         return elementImpactedByMove;
     }
 
@@ -40,7 +40,7 @@ public class ElementOrderingResult {
                 .toString();
     }
 
-    public static final ElementOrderingResult newInstance(IElementHasOrderInfo elementToMove, IElementHasOrderInfo elementImpactedByMove) {
+    public static final ElementOrderingResult newInstance(IEntityHasOrderInfo elementToMove, IEntityHasOrderInfo elementImpactedByMove) {
         return new ElementOrderingResult(elementToMove, elementImpactedByMove);
     }
 }

@@ -8,7 +8,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repo
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import com.quaza.solutions.qpalx.elearning.domain.util.ElementOrderingResult;
-import com.quaza.solutions.qpalx.elearning.domain.util.IElementHasOrderInfo;
+import com.quaza.solutions.qpalx.elearning.domain.util.IEntityHasOrderInfo;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.AdaptiveLearningExperienceService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IAdaptiveLearningExperienceService;
 import com.quaza.solutions.qpalx.elearning.service.util.ElementHasOrderInfoUtil;
@@ -185,9 +185,9 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         if(adaptiveLearningQuizList.size() > 1) {
             // Context to move this Quiz down will be against all other Quizzes for the same MicroLesson
             Long orderContextID = adaptiveLearningQuiz.getQPalXEMicroLesson().getId();
-            List<IElementHasOrderInfo> iElementHasOrderInfos = new ArrayList<>(adaptiveLearningQuizList);
-            Optional<ElementOrderingResult> elementOrderingResult = iElementHasOrderInfoUtil.moveElementDown(orderContextID, adaptiveLearningQuiz, iElementHasOrderInfos);
-            saveElementOrderingResult(elementOrderingResult);
+            List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(adaptiveLearningQuizList);
+            Optional<ElementOrderingResult> elementOrderingResult = iElementHasOrderInfoUtil.moveElementDown(orderContextID, adaptiveLearningQuiz, iEntityHasOrderInfos, iAdaptiveLearningQuizRepository);
+            //saveElementOrderingResult(elementOrderingResult);
         }
     }
 
@@ -203,9 +203,9 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         if(adaptiveLearningQuizList.size() > 1) {
             // Context to move this Quiz down will be against all other Quizzes for the same MicroLesson
             Long orderContextID = adaptiveLearningQuiz.getQPalXEMicroLesson().getId();
-            List<IElementHasOrderInfo> iElementHasOrderInfos = new ArrayList<>(adaptiveLearningQuizList);
-            Optional<ElementOrderingResult> elementOrderingResult = iElementHasOrderInfoUtil.moveElementUp(orderContextID, adaptiveLearningQuiz, iElementHasOrderInfos);
-            saveElementOrderingResult(elementOrderingResult);
+            List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(adaptiveLearningQuizList);
+            Optional<ElementOrderingResult> elementOrderingResult = iElementHasOrderInfoUtil.moveElementUp(orderContextID, adaptiveLearningQuiz, iEntityHasOrderInfos, iAdaptiveLearningQuizRepository);
+            //saveElementOrderingResult(elementOrderingResult);
         }
     }
 

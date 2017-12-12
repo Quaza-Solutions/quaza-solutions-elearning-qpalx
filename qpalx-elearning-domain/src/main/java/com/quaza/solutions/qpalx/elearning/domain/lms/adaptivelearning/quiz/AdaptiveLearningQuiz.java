@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
-import com.quaza.solutions.qpalx.elearning.domain.util.IElementHasOrderInfo;
+import com.quaza.solutions.qpalx.elearning.domain.util.BaseEntityHasOrderInfo;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -22,7 +22,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="AdaptiveLearningQuiz")
-public class AdaptiveLearningQuiz implements IHierarchicalLMSContent, IElementHasOrderInfo {
+public class AdaptiveLearningQuiz extends BaseEntityHasOrderInfo implements IHierarchicalLMSContent {
 
 
     @Id
@@ -63,9 +63,6 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent, IElementHa
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QPalXEMicroLessonID", nullable = true)
     private QPalXEMicroLesson qPalXEMicroLesson;
-
-    @Column(name="ElementOrder", nullable=false)
-    private Integer elementOrder;
 
     // Collection of all questions for this quiz.  LinkedHashSet used to maintain ordering
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "adaptiveLearningQuiz")
@@ -158,17 +155,7 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent, IElementHa
     }
 
     @Override
-    public Integer getElementOrder() {
-        return elementOrder;
-    }
-
-    @Override
-    public void setElementOrder(Integer elementOrder) {
-        this.elementOrder = elementOrder;
-    }
-
-    @Override
-    public Optional<Long> getOrderContextID() {
+    public Optional<Long> getOrderingDiscriminator() {
         return Optional.of(qPalXEMicroLesson.getId());
     }
 
@@ -309,6 +296,11 @@ public class AdaptiveLearningQuiz implements IHierarchicalLMSContent, IElementHa
 
         public Builder active(boolean active) {
             adaptiveLearningQuiz.active = active;
+            return this;
+        }
+
+        public Builder elementOrder(Integer elementOrder) {
+            adaptiveLearningQuiz.elementOrder = elementOrder;
             return this;
         }
 
