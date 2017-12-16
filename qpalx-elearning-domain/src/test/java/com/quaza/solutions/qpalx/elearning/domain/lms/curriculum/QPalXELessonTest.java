@@ -15,17 +15,17 @@ public class QPalXELessonTest {
     @Before
     public void before() {
         qPalXELesson = QPalXELesson.builder()
-                .lessonOrder(1)
+                .elementOrder(1)
                 .build();
     }
 
     @Test
     public void testIsQPalXELessonAbove() {
         QPalXELesson lessonBelow = QPalXELesson.builder()
-                .lessonOrder(2)
+                .elementOrder(2)
                 .build();
         
-        boolean isLessonAbove = qPalXELesson.isQPalXELessonAbove(lessonBelow);
+        boolean isLessonAbove = qPalXELesson.isAbove(lessonBelow);
         System.out.println("isLessonAbove = " + isLessonAbove);
         Assert.assertTrue(isLessonAbove);
     }
@@ -33,10 +33,10 @@ public class QPalXELessonTest {
     @Test
     public void testIsQPalXELessonAbove2() {
         QPalXELesson lessonBelow = QPalXELesson.builder()
-                .lessonOrder(4)
+                .elementOrder(4)
                 .build();
 
-        boolean isLessonAbove = qPalXELesson.isQPalXELessonAbove(lessonBelow);
+        boolean isLessonAbove = qPalXELesson.isAbove(lessonBelow);
         System.out.println("isLessonAbove = " + isLessonAbove);
         Assert.assertTrue(isLessonAbove);
     }
@@ -44,10 +44,10 @@ public class QPalXELessonTest {
     @Test
     public void testIsQPalXELessonAbove3() {
         QPalXELesson lessonBelow = QPalXELesson.builder()
-                .lessonOrder(6)
+                .elementOrder(6)
                 .build();
 
-        boolean isLessonAbove = qPalXELesson.isQPalXELessonAbove(lessonBelow);
+        boolean isLessonAbove = qPalXELesson.isAbove(lessonBelow);
         System.out.println("isLessonAbove = " + isLessonAbove);
         Assert.assertTrue(isLessonAbove);
     }
@@ -55,10 +55,10 @@ public class QPalXELessonTest {
     @Test
     public void testIsQPalXELessonAboveFail() {
         QPalXELesson lessonBelow = QPalXELesson.builder()
-                .lessonOrder(1)
+                .elementOrder(1)
                 .build();
 
-        boolean isLessonAbove = qPalXELesson.isQPalXELessonAbove(lessonBelow);
+        boolean isLessonAbove = qPalXELesson.isAbove(lessonBelow);
         System.out.println("isLessonAbove = " + isLessonAbove);
         Assert.assertFalse(isLessonAbove);
     }
@@ -66,36 +66,36 @@ public class QPalXELessonTest {
 
     @Test
     public void testIsQPalXELessonBelow() {
-        qPalXELesson.setLessonOrder(6);
+        qPalXELesson.setElementOrder(6);
         QPalXELesson lessonBelow = QPalXELesson.builder()
-                .lessonOrder(5)
+                .elementOrder(5)
                 .build();
 
-        boolean isLessonBelow = qPalXELesson.isQPalXELessonBelow(lessonBelow);
+        boolean isLessonBelow = qPalXELesson.isBelow(lessonBelow);
         System.out.println("isLessonBelow = " + isLessonBelow);
         Assert.assertTrue(isLessonBelow);
     }
 
     @Test
     public void testIsQPalXELessonBelow2() {
-        qPalXELesson.setLessonOrder(6);
+        qPalXELesson.setElementOrder(6);
         QPalXELesson lessonBelow = QPalXELesson.builder()
-                .lessonOrder(4)
+                .elementOrder(4)
                 .build();
 
-        boolean isLessonBelow = qPalXELesson.isQPalXELessonBelow(lessonBelow);
+        boolean isLessonBelow = qPalXELesson.isBelow(lessonBelow);
         System.out.println("isLessonBelow = " + isLessonBelow);
         Assert.assertTrue(isLessonBelow);
     }
 
     @Test
     public void testIsQPalXELessonBelow3() {
-        qPalXELesson.setLessonOrder(6);
+        qPalXELesson.setElementOrder(6);
         QPalXELesson lessonBelow = QPalXELesson.builder()
-                .lessonOrder(3)
+                .elementOrder(3)
                 .build();
 
-        boolean isLessonBelow = qPalXELesson.isQPalXELessonBelow(lessonBelow);
+        boolean isLessonBelow = qPalXELesson.isBelow(lessonBelow);
         System.out.println("isLessonBelow = " + isLessonBelow);
         Assert.assertTrue(isLessonBelow);
     }

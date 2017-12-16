@@ -32,7 +32,7 @@ public interface IQPalXELessonService {
 
     public boolean isELessonDeletable(QPalXELesson qPalXELesson);
 
-    public void moveQPalXELessonUp(QPalXELesson qPalXELesson, TutorialLevelCalendar tutorialLevelCalendar);
+    public void moveQPalXELessonUp(QPalXELesson qPalXELesson);
 
-    public void moveQPalXELessonDown(QPalXELesson qPalXELesson, TutorialLevelCalendar tutorialLevelCalendar);
+    public void moveQPalXELessonDown(QPalXELesson qPalXELesson);
 }

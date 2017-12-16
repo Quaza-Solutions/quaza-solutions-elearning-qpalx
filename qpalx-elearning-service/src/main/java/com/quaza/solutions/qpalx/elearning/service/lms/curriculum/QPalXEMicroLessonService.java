@@ -6,6 +6,9 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.IQPalXEMicroLes
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IQPalXEMicroLessonRepository;
+import com.quaza.solutions.qpalx.elearning.domain.util.IEntityHasOrderInfo;
+import com.quaza.solutions.qpalx.elearning.service.util.ElementHasOrderInfoUtil;
+import com.quaza.solutions.qpalx.elearning.service.util.IElementHasOrderInfoUtil;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +21,7 @@ import org.springframework.util.Assert;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,6 +46,10 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.QPalXELessonService")
     private IQPalXELessonService iqPalXELessonService;
+
+    @Autowired
+    @Qualifier(ElementHasOrderInfoUtil.BEAN_NAME)
+    private IElementHasOrderInfoUtil iElementHasOrderInfoUtil;
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(QPalXEMicroLessonService.class);
 
@@ -121,6 +129,35 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
 
         // Now we can delete the MicroLesson
         iqPalXEMicroLessonRepository.delete(qPalXEMicroLesson);
+    }
+
+    @Override
+    public void moveUp(QPalXEMicroLesson qPalXEMicroLesson) {
+        Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
+        LOGGER.debug("Moving QPalx MicroLesson with ID: {} up", qPalXEMicroLesson.getId());
+
+        List<QPalXEMicroLesson> allMicroLessonList = findQPalXEMicroLessons(qPalXEMicroLesson.getQPalXELesson());
+
+        // Ordering discriminator will be the QPalx Lesson that all these MicroLessons belong to.
+        Long orderingDiscriminator = qPalXEMicroLesson.getQPalXELesson().getId();
+
+        List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(allMicroLessonList);
+        iElementHasOrderInfoUtil.moveElementUp(orderingDiscriminator, qPalXEMicroLesson, iEntityHasOrderInfos, iqPalXEMicroLessonRepository);
+    }
+
+    @Override
+    public void moveDown(QPalXEMicroLesson qPalXEMicroLesson) {
+        Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
+        LOGGER.debug("Moving QPalx MicroLesson with ID: {} down", qPalXEMicroLesson.getId());
+
+        // Find all the MicroLessons that belong to the lesson on the micro-lesson passed as argument
+        List<QPalXEMicroLesson> allMicroLessonList = findQPalXEMicroLessons(qPalXEMicroLesson.getQPalXELesson());
+
+        // Ordering discriminator will be the QPalx Lesson that all these MicroLessons belong to.
+        Long orderingDiscriminator = qPalXEMicroLesson.getQPalXELesson().getId();
+
+        List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(allMicroLessonList);
+        iElementHasOrderInfoUtil.moveElementDown(orderingDiscriminator, qPalXEMicroLesson, iEntityHasOrderInfos, iqPalXEMicroLessonRepository);
     }
 
     @PostConstruct

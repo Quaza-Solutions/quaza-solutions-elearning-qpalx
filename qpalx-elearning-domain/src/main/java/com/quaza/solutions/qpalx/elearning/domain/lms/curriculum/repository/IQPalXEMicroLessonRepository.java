@@ -20,9 +20,10 @@ public interface IQPalXEMicroLessonRepository extends CrudRepository<QPalXEMicro
     public Long countQPalXEMicroLessonByLesson(QPalXELesson qPalXELesson);
 
 
-    @Query("Select              qPalXEMicroLesson From QPalXEMicroLesson qPalXEMicroLesson "+
+    @Query("Select               qPalXEMicroLesson From QPalXEMicroLesson qPalXEMicroLesson "+
             "INNER JOIN FETCH    qPalXEMicroLesson.qPalXELesson qPalXELesson " +
-            "Where               qPalXELesson =?1 "
+            "Where               qPalXELesson =?1 " +
+            "Order By            qPalXEMicroLesson.elementOrder ASC"
     )
     public List<QPalXEMicroLesson> findAllQPalxMicroLessons(QPalXELesson qPalXELesson);
 

@@ -29,7 +29,7 @@ public class AdaptiveLearningQuizQuestion {
     @Column(name="QuestionOrder", nullable=false)
     private Integer questionOrder;
 
-    @Column(name="QuestionTitle", nullable=false, length=100)
+    @Column(name="QuestionTitle", nullable=false, length=200)
     private String questionTitle;
 
     @Column(name="QuestionFeedBack", nullable=false, length=1200)

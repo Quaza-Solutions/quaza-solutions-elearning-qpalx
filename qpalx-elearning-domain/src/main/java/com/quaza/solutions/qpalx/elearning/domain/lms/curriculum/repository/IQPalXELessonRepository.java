@@ -17,7 +17,7 @@ public interface IQPalXELessonRepository extends CrudRepository<QPalXELesson, Lo
     @Query("Select              qPalXELesson From QPalXELesson qPalXELesson "+
             "INNER JOIN FETCH    qPalXELesson.eLearningCourse eLearningCourse " +
             "Where               eLearningCourse =?1 " +
-            "Order By            qPalXELesson.lessonOrder ASC"
+            "Order By            qPalXELesson.elementOrder ASC"
     )
     public List<QPalXELesson> findQPalXELessonForELearningCourse(ELearningCourse eLearningCourse);
 
@@ -27,7 +27,7 @@ public interface IQPalXELessonRepository extends CrudRepository<QPalXELesson, Lo
             "INNER JOIN FETCH    qPalXELesson.eLearningCourse eLearningCourse " +
             "Where               tutorialLevelCalendar =?1 " +
             "And                 eLearningCourse =?2 " +
-            "Order By            qPalXELesson.lessonOrder ASC"
+            "Order By            qPalXELesson.elementOrder ASC"
     )
     public List<QPalXELesson> findQPalXELessonByTutorialCalendarELearningCourse(TutorialLevelCalendar tutorialLevelCalendar, ELearningCourse eLearningCourse);
 

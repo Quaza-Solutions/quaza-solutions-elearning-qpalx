@@ -17,7 +17,7 @@ From	(
 			qPell.ProficiencyRankingScaleFloor,
             qPell.ProficiencyRankingScaleCeiling,
 			qPell.ELearningMediaFile As LessonIntroVideo,
-			qPell.LessonOrder
+			qPell.ElementOrder
 	From	QPalXUser qUser
 	Join	StudentEnrolmentRecord sErr on sErr.QPalxUserID = qUser.ID
 	Join	ELearningCurriculum eCurr on eCurr.StudentTutorialGradeID = sErr.StudentTutorialGradeID
@@ -27,7 +27,7 @@ From	(
 	Where	qUser.ID = ?
 	And		eCors.ID = ?
 	And    	tlc.ID = ?
-	Group 	By qUser.ID, qPell.ID, qPell.LessonName, qPell.ELearningMediaFile, qPell.LessonOrder
+	Group 	By qUser.ID, qPell.ID, qPell.LessonName, qPell.ELearningMediaFile, qPell.ElementOrder
 ) As AllStudentLessons
 Left Outer Join(
 		Select	qUser.ID As StudentID,
@@ -136,5 +136,5 @@ Group By AllStudentLessons.StudentID,
 		StudentUniqueMicroLessonsAttempt.UniqueMicroLessonsAttempted,
 		StudentTotalQuizzes.TotalNumberOfQuizzes,
 		StudentUniqueQuizAttempt.UniqueQuizzesAttempted
-Order By AllStudentLessons.LessonOrder
+Order By AllStudentLessons.ElementOrder
 

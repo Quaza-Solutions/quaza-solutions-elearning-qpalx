@@ -7,7 +7,6 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repo
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizQuestionRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.repository.IAdaptiveLearningQuizRepository;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXEMicroLesson;
-import com.quaza.solutions.qpalx.elearning.domain.util.ElementOrderingResult;
 import com.quaza.solutions.qpalx.elearning.domain.util.IEntityHasOrderInfo;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.AdaptiveLearningExperienceService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.scorable.IAdaptiveLearningExperienceService;
@@ -22,7 +21,6 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -177,7 +175,7 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
     @Transactional
     public void moveAdaptiveLearningQuizDown(AdaptiveLearningQuiz adaptiveLearningQuiz) {
         Assert.notNull(adaptiveLearningQuiz, "qPalXEMicroLesson cannot be null");
-        LOGGER.debug("Executing move down operation for Quiz: {}", adaptiveLearningQuiz.getId());
+        LOGGER.info("Executing move down operation for Quiz: {}", adaptiveLearningQuiz.getId());
 
         // Find all quizzes for this MicroLesson
         List<AdaptiveLearningQuiz> adaptiveLearningQuizList = findQuizzesForMicroLesson(adaptiveLearningQuiz.getQPalXEMicroLesson());
@@ -186,8 +184,7 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
             // Context to move this Quiz down will be against all other Quizzes for the same MicroLesson
             Long orderContextID = adaptiveLearningQuiz.getQPalXEMicroLesson().getId();
             List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(adaptiveLearningQuizList);
-            Optional<ElementOrderingResult> elementOrderingResult = iElementHasOrderInfoUtil.moveElementDown(orderContextID, adaptiveLearningQuiz, iEntityHasOrderInfos, iAdaptiveLearningQuizRepository);
-            //saveElementOrderingResult(elementOrderingResult);
+            iElementHasOrderInfoUtil.moveElementDown(orderContextID, adaptiveLearningQuiz, iEntityHasOrderInfos, iAdaptiveLearningQuizRepository);
         }
     }
 
@@ -195,7 +192,7 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
     @Transactional
     public void moveAdaptiveLearningQuizUp(AdaptiveLearningQuiz adaptiveLearningQuiz) {
         Assert.notNull(adaptiveLearningQuiz, "qPalXEMicroLesson cannot be null");
-        LOGGER.debug("Executing move down operation for Quiz: {}", adaptiveLearningQuiz.getId());
+        LOGGER.info("Executing move down operation for Quiz: {}", adaptiveLearningQuiz.getId());
 
         // Find all quizzes for this MicroLesson
         List<AdaptiveLearningQuiz> adaptiveLearningQuizList = findQuizzesForMicroLesson(adaptiveLearningQuiz.getQPalXEMicroLesson());
@@ -204,8 +201,7 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
             // Context to move this Quiz down will be against all other Quizzes for the same MicroLesson
             Long orderContextID = adaptiveLearningQuiz.getQPalXEMicroLesson().getId();
             List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(adaptiveLearningQuizList);
-            Optional<ElementOrderingResult> elementOrderingResult = iElementHasOrderInfoUtil.moveElementUp(orderContextID, adaptiveLearningQuiz, iEntityHasOrderInfos, iAdaptiveLearningQuizRepository);
-            //saveElementOrderingResult(elementOrderingResult);
+            iElementHasOrderInfoUtil.moveElementUp(orderContextID, adaptiveLearningQuiz, iEntityHasOrderInfos, iAdaptiveLearningQuizRepository);
         }
     }
 
@@ -261,15 +257,6 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         }
 
         return maxOrder;
-    }
-
-    private void saveElementOrderingResult(Optional<ElementOrderingResult> elementOrderingResult) {
-        if(elementOrderingResult.isPresent()) {
-            AdaptiveLearningQuiz adaptiveLearningQuizMoved =  (AdaptiveLearningQuiz)elementOrderingResult.get().getElementToMove();
-            AdaptiveLearningQuiz adaptiveLearningQuizImpacted =  (AdaptiveLearningQuiz)elementOrderingResult.get().getElementToMove();
-            iAdaptiveLearningQuizRepository.save(adaptiveLearningQuizMoved);
-            iAdaptiveLearningQuizRepository.save(adaptiveLearningQuizImpacted);
-        }
     }
 
     void persistAdaptiveLearningQuizQuestionDetails(AdaptiveLearningQuiz adaptiveLearningQuiz, IAdaptiveLearningQuizQuestionVO iAdaptiveLearningQuizQuestionVO, Integer questionOrder) {

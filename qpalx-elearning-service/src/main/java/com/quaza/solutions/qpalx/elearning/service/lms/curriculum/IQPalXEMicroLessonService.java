@@ -25,4 +25,8 @@ public interface IQPalXEMicroLessonService {
 
     public void delete(QPalXEMicroLesson qPalXEMicroLesson);
 
+    public void moveUp(QPalXEMicroLesson qPalXEMicroLesson);
+
+    public void moveDown(QPalXEMicroLesson qPalXEMicroLesson);
+
 }

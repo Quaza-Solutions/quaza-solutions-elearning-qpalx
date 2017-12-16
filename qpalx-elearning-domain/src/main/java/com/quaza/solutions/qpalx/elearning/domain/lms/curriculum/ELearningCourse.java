@@ -60,7 +60,7 @@ public class ELearningCourse implements IHierarchicalLMSContent {
 
     // Collection of all course lessons.  LinkedHashSet is used to maintain ordering
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "eLearningCourse")
-    @OrderBy("LessonOrder ASC")
+    @OrderBy("ElementOrder ASC")
     private Set<QPalXELesson> qPalXELessons = new LinkedHashSet<>();
 
 

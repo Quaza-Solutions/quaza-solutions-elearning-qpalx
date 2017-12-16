@@ -9,8 +9,11 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IQPalXELessonRepository;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
+import com.quaza.solutions.qpalx.elearning.domain.util.IEntityHasOrderInfo;
 import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationalInstitutionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.ITutorialLevelCalendarService;
+import com.quaza.solutions.qpalx.elearning.service.util.ElementHasOrderInfoUtil;
+import com.quaza.solutions.qpalx.elearning.service.util.IElementHasOrderInfoUtil;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,6 +26,7 @@ import org.springframework.util.Assert;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -54,6 +58,10 @@ public class QPalXELessonService implements IQPalXELessonService {
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultTutorialLevelCalendarService")
     private ITutorialLevelCalendarService iTutorialLevelCalendarService;
+
+    @Autowired
+    @Qualifier(ElementHasOrderInfoUtil.BEAN_NAME)
+    private IElementHasOrderInfoUtil iElementHasOrderInfoUtil;
 
     @Autowired
     @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultQPalXEducationalInstitutionService")
@@ -116,8 +124,9 @@ public class QPalXELessonService implements IQPalXELessonService {
         iqPalXELessonRepository.save(qPalXELesson);
     }
 
-    @Transactional
+
     @Override
+    @Transactional
     public void createAndSaveQPalXELesson(IQPalXELessonVO iqPalXELessonVO) {
         Assert.notNull(iqPalXELessonVO, "iqPalXELessonVO cannot be null");
         Assert.notNull(iqPalXELessonVO.getELearningCourseID(), "Non null ELearningCourse ID required");
@@ -127,12 +136,6 @@ public class QPalXELessonService implements IQPalXELessonService {
         // Load up ELearningCourse instance
         ELearningCourse eLearningCourse = ieLearningCourseService.findByCourseID(iqPalXELessonVO.getELearningCourseID());
         Set<QPalXELesson> qPalXELessons = eLearningCourse.getQPalXELessons();
-
-        // Initialize LessonOrder
-        Integer lessonOrder = 0;
-        if(qPalXELessons!= null) {
-            lessonOrder = qPalXELessons.size() + 1;
-        }
 
         // Load up the EducationalInstitution for this course.  Only initialized if this course was only designed for an institution.
         QPalXEducationalInstitution qPalXEducationalInstitution = null;
@@ -153,15 +156,18 @@ public class QPalXELessonService implements IQPalXELessonService {
                 .proficiencyRankingScaleFloor(iqPalXELessonVO.getProficiencyRankingScaleFloorE())
                 .proficiencyRankingScaleCeiling(iqPalXELessonVO.getProficiencyRankingScaleCeilingE())
                 .lessonActive(iqPalXELessonVO.isActive())
-                .lessonOrder(lessonOrder)
                 .entryDate(new DateTime())
                 .build();
 
-        iqPalXELessonRepository.save(qPalXELesson);
+        // Build and set the ElementOrder for this new Lesson
+        Long orderingDiscriminator = iqPalXELessonVO.getTutorialLevelCalendarID();
+        List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(qPalXELessons);
+        iElementHasOrderInfoUtil.addNewEntityHasOrderInfoWithElementOrder(Optional.of(orderingDiscriminator), qPalXELesson, iEntityHasOrderInfos, iqPalXELessonRepository);
     }
 
-    @Transactional
+
     @Override
+    @Transactional
     public void updateAndSaveQPalXELesson(QPalXELesson qPalXELesson, IQPalXELessonVO iqPalXELessonVO) {
         Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
         Assert.notNull(iqPalXELessonVO, "iqPalXELessonVO cannot be null");
@@ -210,83 +216,37 @@ public class QPalXELessonService implements IQPalXELessonService {
 
     @Override
     @Transactional
-    public void moveQPalXELessonUp(QPalXELesson qPalXELesson, TutorialLevelCalendar tutorialLevelCalendar) {
+    public void moveQPalXELessonUp(QPalXELesson qPalXELesson) {
         Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
-        LOGGER.debug("Attempting to move lesson with ID: {} and current LessonOrder: {} up", qPalXELesson.getId(), qPalXELesson.getLessonOrder());
+        LOGGER.debug("Attempting to move lesson with ID: {} up", qPalXELesson.getId());
 
-        // Find the lesson above this lesson and swap spots
-        Optional<QPalXELesson> lessonAbove = getLessonDirectlyAbove(qPalXELesson, tutorialLevelCalendar);
-        if(lessonAbove.isPresent()) {
-            qPalXELesson.setLessonOrder(qPalXELesson.getLessonOrder() - 1);
-            lessonAbove.get().setLessonOrder(lessonAbove.get().getLessonOrder() + 1);
+        ELearningCourse eLearningCourse = qPalXELesson.geteLearningCourse();
+        TutorialLevelCalendar tutorialLevelCalendar = qPalXELesson.getTutorialLevelCalendar();
+        List<QPalXELesson> qPalXELessonList = findQPalXELessonByCourse(eLearningCourse);
 
-            // Update both lessons to reflect new Order and refresh the target lesson
-            iqPalXELessonRepository.save(qPalXELesson);
-            iqPalXELessonRepository.save(lessonAbove.get());
-            qPalXELesson = iqPalXELessonRepository.findOne(qPalXELesson.getId());
-        }
+        // Ordering discriminator will be the TutorialLevelCalendar that we are dealing with
+        Long orderingDiscriminator = tutorialLevelCalendar.getId();
+
+        List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(qPalXELessonList);
+        iElementHasOrderInfoUtil.moveElementUp(orderingDiscriminator, qPalXELesson, iEntityHasOrderInfos, iqPalXELessonRepository);
     }
 
     @Override
-    public void moveQPalXELessonDown(QPalXELesson qPalXELesson, TutorialLevelCalendar tutorialLevelCalendar) {
+    @Transactional
+    public void moveQPalXELessonDown(QPalXELesson qPalXELesson) {
         Assert.notNull(qPalXELesson, "qPalXELesson cannot be null");
+        LOGGER.debug("Attempting to move lesson with ID: {} down", qPalXELesson.getId());
 
-        LOGGER.debug("Attempting to move lesson with ID: {} and current LessonOrder: {} down", qPalXELesson.getId(), qPalXELesson.getLessonOrder());
+        ELearningCourse eLearningCourse = qPalXELesson.geteLearningCourse();
+        TutorialLevelCalendar tutorialLevelCalendar = qPalXELesson.getTutorialLevelCalendar();
+        List<QPalXELesson> qPalXELessonList = findQPalXELessonByCourse(eLearningCourse);
 
-        // Find the lesson above this lesson and swap spots
-        Optional<QPalXELesson> lessonAbove = getLessonDirectlyBelow(qPalXELesson, tutorialLevelCalendar);
-        if(lessonAbove.isPresent()) {
-            qPalXELesson.setLessonOrder(qPalXELesson.getLessonOrder() + 1);
-            lessonAbove.get().setLessonOrder(lessonAbove.get().getLessonOrder() - 1);
+        // Ordering discriminator will be the TutorialLevelCalendar that we are dealing with
+        Long orderingDiscriminator = tutorialLevelCalendar.getId();
 
-            // Update both lessons to reflect new Order and refresh the target lesson
-            iqPalXELessonRepository.save(qPalXELesson);
-            iqPalXELessonRepository.save(lessonAbove.get());
-            qPalXELesson = iqPalXELessonRepository.findOne(qPalXELesson.getId());
-        }
+        List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(qPalXELessonList);
+        iElementHasOrderInfoUtil.moveElementDown(orderingDiscriminator, qPalXELesson, iEntityHasOrderInfos, iqPalXELessonRepository);
     }
-
-
-    private Optional<QPalXELesson> getLessonDirectlyAbove(QPalXELesson targetLesson, TutorialLevelCalendar tutorialLevelCalendar) {
-        ELearningCourse eLearningCourse = targetLesson.geteLearningCourse();
-        Set<QPalXELesson> qPalXELessons = eLearningCourse.getQPalXELessons();
-
-
-        if (qPalXELessons != null || qPalXELessons.size() > 0) {
-            QPalXELesson[] copyOfLessons = qPalXELessons.toArray(new QPalXELesson[0]);
-
-            // Iterate in descending order to get the first lesson directly above this one
-            for(int i= copyOfLessons.length -1; i >= 0; i--) {
-                if (copyOfLessons[i].getTutorialLevelCalendar().getId().equals(tutorialLevelCalendar.getId())) {
-                    boolean isAboveTarget = copyOfLessons[i].isQPalXELessonAbove(targetLesson);
-                    if(isAboveTarget) {
-                        return Optional.of(copyOfLessons[i]);
-                    }
-                }
-            }
-        }
-
-        return Optional.empty();
-    }
-
-    private Optional<QPalXELesson> getLessonDirectlyBelow(QPalXELesson targetLesson, TutorialLevelCalendar tutorialLevelCalendar) {
-        ELearningCourse eLearningCourse = targetLesson.geteLearningCourse();
-        Set<QPalXELesson> qPalXELessons = eLearningCourse.getQPalXELessons();
-
-        if (qPalXELessons != null || qPalXELessons.size() > 0) {
-            for(QPalXELesson qPalXELesson: qPalXELessons) {
-                if (qPalXELesson.getTutorialLevelCalendar().getId().equals(tutorialLevelCalendar.getId())) {
-                    boolean isBelowTarget = qPalXELesson.isQPalXELessonBelow(targetLesson);
-                    if(isBelowTarget) {
-                        return Optional.of(qPalXELesson);
-                    }
-                }
-            }
-        }
-
-        return Optional.empty();
-    }
-
 
 
     @PostConstruct
@@ -294,6 +254,5 @@ public class QPalXELessonService implements IQPalXELessonService {
         LOGGER.info("Loading sql from resource: {}", sqlResource);
         lessonActiveItemsSQL  = Resources.toString(sqlResource.getURL(), Charsets.UTF_8);
     }
-
 
 }

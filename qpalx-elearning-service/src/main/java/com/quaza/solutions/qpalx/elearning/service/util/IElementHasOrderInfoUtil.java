@@ -59,4 +59,15 @@ public interface IElementHasOrderInfoUtil {
      */
     public Optional<ElementOrderingResult> moveElementUp(Long orderingDiscriminator, IEntityHasOrderInfo elementToMoveUp, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository);
 
+
+    /**
+     * Add and save a new instance of IEntityHasOrderInfo and set element order based on the Ordering Information of the iEntityHasOrderInfos.
+     *
+     *
+     * @param orderingDiscriminator
+     * @param newEntityHasOrderInfo
+     * @param iEntityHasOrderInfos
+     */
+    public void addNewEntityHasOrderInfoWithElementOrder(Optional<Long> orderingDiscriminator, IEntityHasOrderInfo newEntityHasOrderInfo, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository);
+
 }

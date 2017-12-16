@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.AdaptiveLearningQuiz;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
+import com.quaza.solutions.qpalx.elearning.domain.util.BaseEntityHasOrderInfo;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -20,7 +22,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="QPalXEMicroLesson")
-public class QPalXEMicroLesson implements IHierarchicalLMSContent {
+public class QPalXEMicroLesson extends BaseEntityHasOrderInfo implements IHierarchicalLMSContent {
 
 
 
@@ -182,6 +184,11 @@ public class QPalXEMicroLesson implements IHierarchicalLMSContent {
     @Override
     public IHierarchicalLMSContent getIHierarchicalLMSContentParent() {
         return getQPalXELesson();
+    }
+
+    @Override
+    public Optional<Long> getOrderingDiscriminator() {
+        return Optional.of(qPalXELesson.getId());
     }
 
     @Override

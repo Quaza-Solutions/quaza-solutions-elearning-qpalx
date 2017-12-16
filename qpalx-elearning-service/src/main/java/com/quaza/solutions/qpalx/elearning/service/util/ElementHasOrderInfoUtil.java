@@ -87,6 +87,25 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
         return Optional.empty();
     }
 
+
+    @Override
+    public void addNewEntityHasOrderInfoWithElementOrder(Optional<Long> orderingDiscriminator, IEntityHasOrderInfo newEntityHasOrderInfo, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
+        Assert.notNull(orderingDiscriminator, "orderContextID cannot be null");
+        Assert.notNull(newEntityHasOrderInfo, "newEntityHasOrderInfo cannot be null");
+        Assert.notNull(iEntityHasOrderInfos, "iElementHasOrderInfos cannot be null");
+        Assert.notNull(crudRepository, "crudRepository cannot be null");
+        Assert.isTrue(!iEntityHasOrderInfos.contains(newEntityHasOrderInfo), "newEntityHasOrderInfo should not be in the list of iEntityHasOrderInfos");
+
+        LOGGER.debug("Adding and setting new ElementOrder to newEntityHasOrderInfo: {} with orderingDiscriminator: {}", newEntityHasOrderInfo, orderingDiscriminator);
+
+        int lastElementOrder = getLastElementOrder(orderingDiscriminator, iEntityHasOrderInfos);
+
+        // With lastElementOrder increment by 1 and set the new ElementOrder.  Note this will save and update the instance to the DB.
+        int incrementedElementOrder = lastElementOrder + 1;
+        newEntityHasOrderInfo.setElementOrder(incrementedElementOrder);
+        crudRepository.save(newEntityHasOrderInfo);
+    }
+
     protected Optional<IEntityHasOrderInfo> getIElementHasOrderInfoDirectlyBelow(Optional<Long> orderContextID, IEntityHasOrderInfo elementToMove, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos) {
         for(IEntityHasOrderInfo loopElementHasOrderInfo : iEntityHasOrderInfos) {
             if(orderContextID.isPresent() && orderContextID.get().equals(loopElementHasOrderInfo.getOrderingDiscriminator())) {
@@ -121,6 +140,23 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
         }
 
         return Optional.empty();
+    }
+
+
+    protected int getLastElementOrder(Optional<Long> orderContextID, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos) {
+        LOGGER.debug("Retrieving last element order using orderContextID: {} from iEntityHasOrderInfos: {}", orderContextID, iEntityHasOrderInfos);
+
+        int lastElementOrder = 0;
+        for(IEntityHasOrderInfo iEntityHasOrderInfo : iEntityHasOrderInfos) {
+            if(orderContextID.isPresent() && orderContextID.get().equals(iEntityHasOrderInfo.getOrderingDiscriminator())) {
+                lastElementOrder = iEntityHasOrderInfo.getElementOrder();
+            } else {
+                lastElementOrder = iEntityHasOrderInfo.getElementOrder();
+            }
+        }
+
+        LOGGER.debug("Returning value of lastElementOrder: {}", lastElementOrder);
+        return lastElementOrder;
     }
 
     protected Long getNoOrderingDiscriminator() {

@@ -1,7 +1,7 @@
 Select	StudentMicroLessonQuizTotals.StudentID, StudentMicroLessonQuizTotals.MicroLessonID, StudentMicroLessonQuizTotals.MicroLessonName, StudentMicroLessonQuizTotals.ELearningMediaFile, StudentMicroLessonQuizTotals.StaticELearningMediaFile, StudentMicroLessonQuizTotals.InteractiveExerciseELearningMediaFile, StudentMicroLessonQuizTotals.TotalNumberOfQuizzes, IFNULL(StudentMicroLessonQuizAttempts.UniqueQuizzesAttempted, 0)
 		As	UniqueQuizzesAttempted
 From    (
-                                   Select    qUser.ID As StudentID, qMell.ID As MicroLessonID, qMell.MicroLessonName, qMell.ELearningMediaFile, qMell.StaticELearningMediaFile, qMell.InteractiveExerciseELearningMediaFile, count(alqz.ID) as TotalNumberOfQuizzes
+                                   Select    qUser.ID As StudentID, qMell.ID As MicroLessonID, qMell.MicroLessonName, qMell.ELearningMediaFile, qMell.StaticELearningMediaFile, qMell.InteractiveExerciseELearningMediaFile, qMell.ElementOrder, count(alqz.ID) as TotalNumberOfQuizzes
                                    From      QPalXUser qUser
                                    Join      StudentEnrolmentRecord sErr on sErr.QPalxUserID = qUser.ID
                                    Join      ELearningCurriculum eCurr on eCurr.StudentTutorialGradeID = sErr.StudentTutorialGradeID
@@ -12,7 +12,7 @@ From    (
                                    Where     qUser.ID = ?
                                    And       eCors.ID = ?
                                    And       qPell.ID = ?
-                                   Group     By qUser.ID, qMell.ID,  qMell.MicroLessonName, qMell.ELearningMediaFile, qMell.StaticELearningMediaFile, qMell.InteractiveExerciseELearningMediaFile
+                                   Group     By qUser.ID, qMell.ID,  qMell.MicroLessonName, qMell.ELearningMediaFile, qMell.StaticELearningMediaFile, qMell.InteractiveExerciseELearningMediaFile, qMell.ElementOrder
 		) As StudentMicroLessonQuizTotals
 Left 	Outer Join (
                                    Select    quizprog.QPalxUserID As StudentID, qMell.ID As MicroLessonID, qMell.MicroLessonName, qMell.ELearningMediaFile, qMell.StaticELearningMediaFile, qMell.InteractiveExerciseELearningMediaFile, count(quizprog.AdaptiveLearningQuizID) As UniqueQuizzesAttempted
@@ -25,3 +25,4 @@ Left 	Outer Join (
                                    Group     By quizprog.QPalxUserID, qMell.ID,  qMell.MicroLessonName, qMell.ELearningMediaFile, qMell.StaticELearningMediaFile, qMell.InteractiveExerciseELearningMediaFile
 ) As StudentMicroLessonQuizAttempts on StudentMicroLessonQuizAttempts.StudentID = StudentMicroLessonQuizTotals.StudentID
 Group	BY StudentMicroLessonQuizTotals.StudentID, StudentMicroLessonQuizTotals.MicroLessonID, StudentMicroLessonQuizTotals.MicroLessonName, StudentMicroLessonQuizTotals.ELearningMediaFile, StudentMicroLessonQuizTotals.StaticELearningMediaFile, StudentMicroLessonQuizTotals.InteractiveExerciseELearningMediaFile, StudentMicroLessonQuizTotals.TotalNumberOfQuizzes,  StudentMicroLessonQuizAttempts.UniqueQuizzesAttempted
+Order	By StudentMicroLessonQuizTotals.ElementOrder ASC
