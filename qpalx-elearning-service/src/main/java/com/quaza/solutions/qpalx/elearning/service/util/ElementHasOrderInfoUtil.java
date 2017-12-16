@@ -6,8 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author manyce400
@@ -22,15 +21,11 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ElementHasOrderInfoUtil.class);
 
 
-    @Override
-    public Optional<ElementOrderingResult> moveElementDown(IEntityHasOrderInfo elementToMoveDown, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
-        Long orderContextID = getNoOrderingDiscriminator();
-        return moveElementDown(orderContextID, elementToMoveDown, iEntityHasOrderInfos, crudRepository);
-    }
+
 
     @Override
-    public Optional<ElementOrderingResult> moveElementDown(Long orderingDiscriminator, IEntityHasOrderInfo elementToMoveDown, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
-        Assert.notNull(orderingDiscriminator, "orderingDiscriminator cannot be null");
+    public Optional<ElementOrderingResult> moveElementDown(IEntityHasOrderInfo elementToMoveDown, List<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
+        Assert.notNull(elementToMoveDown.getOrderingDiscriminator(), "orderingDiscriminator cannot be null");
         Assert.notNull(elementToMoveDown, "elementToMoveDown cannot be null");
         Assert.notNull(iEntityHasOrderInfos, "iElementHasOrderInfos cannot be null");
         Assert.notNull(crudRepository, "crudRepository cannot be null");
@@ -39,10 +34,8 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
 
         LOGGER.debug("Executing move down operation on element: {} with iElementHasOrderInfos: {}", elementToMoveDown, iEntityHasOrderInfos);
 
-        // Build discriminator value that will be used to enforce ordering and get the element directly below
-        Optional<Long> optionalOrderDiscriminator = getOptionalOrderingDiscriminator(orderingDiscriminator);
-        Optional<IEntityHasOrderInfo> elementDirectlyBelow = getIElementHasOrderInfoDirectlyBelow(optionalOrderDiscriminator, elementToMoveDown, iEntityHasOrderInfos);
-
+        // Get Element directly below that matches Ordering context so we can swap ElementOrder on the element to move and element found
+        Optional<IEntityHasOrderInfo> elementDirectlyBelow = getIElementHasOrderInfoDirectlyBelow(elementToMoveDown, iEntityHasOrderInfos);
         if(elementDirectlyBelow.isPresent()) {
             elementToMoveDown.setElementOrder(elementToMoveDown.getElementOrder() + 1);
             elementDirectlyBelow.get().setElementOrder(elementDirectlyBelow.get().getElementOrder() - 1);
@@ -54,27 +47,20 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
         return Optional.empty();
     }
 
-    @Override
-    public Optional<ElementOrderingResult> moveElementUp(IEntityHasOrderInfo elementToMoveUp, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
-        Long orderContextID = getNoOrderingDiscriminator();
-        return moveElementUp(orderContextID, elementToMoveUp, iEntityHasOrderInfos, crudRepository);
-    }
 
     @Override
-    public Optional<ElementOrderingResult> moveElementUp(Long orderingDiscriminator, IEntityHasOrderInfo elementToMoveUp, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
-        Assert.notNull(orderingDiscriminator, "orderContextID cannot be null");
+    public Optional<ElementOrderingResult> moveElementUp(IEntityHasOrderInfo elementToMoveUp, List<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
+        Assert.notNull(elementToMoveUp.getOrderingDiscriminator(), "orderingDiscriminator cannot be null");
         Assert.notNull(elementToMoveUp, "elementToMoveUp cannot be null");
         Assert.notNull(iEntityHasOrderInfos, "iElementHasOrderInfos cannot be null");
         Assert.notNull(crudRepository, "crudRepository cannot be null");
         Assert.isTrue(iEntityHasOrderInfos.size() > 0, "iElementHasOrderInfos cannot be empty");
         Assert.isTrue(iEntityHasOrderInfos.contains(elementToMoveUp), "iElementHasOrderInfos cannot be empty");
 
+
         LOGGER.debug("Executing move up operation on element: {} with iElementHasOrderInfos: {}", elementToMoveUp, iEntityHasOrderInfos);
 
-        // Build discriminator value that will be used to enforce ordering and get the element directly above
-        Optional<Long> optionalOrderDiscriminator = getOptionalOrderingDiscriminator(orderingDiscriminator);
-        Optional<IEntityHasOrderInfo> elementDirectlyAbove = getIElementHasOrderInfoDirectlyAbove(optionalOrderDiscriminator, elementToMoveUp, iEntityHasOrderInfos);
-
+        Optional<IEntityHasOrderInfo> elementDirectlyAbove = getIElementHasOrderInfoDirectlyAbove(elementToMoveUp, iEntityHasOrderInfos);
         if(elementDirectlyAbove.isPresent()) {
             // move below the element directly below and move that element up
             elementToMoveUp.setElementOrder(elementToMoveUp.getElementOrder() - 1);
@@ -89,7 +75,7 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
 
 
     @Override
-    public void addNewEntityHasOrderInfoWithElementOrder(Optional<Long> orderingDiscriminator, IEntityHasOrderInfo newEntityHasOrderInfo, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
+    public void addNewEntityHasOrderInfoWithElementOrder(Optional<Long> orderingDiscriminator, IEntityHasOrderInfo newEntityHasOrderInfo, List<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
         Assert.notNull(orderingDiscriminator, "orderContextID cannot be null");
         Assert.notNull(newEntityHasOrderInfo, "newEntityHasOrderInfo cannot be null");
         Assert.notNull(iEntityHasOrderInfos, "iElementHasOrderInfos cannot be null");
@@ -106,44 +92,68 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
         crudRepository.save(newEntityHasOrderInfo);
     }
 
-    protected Optional<IEntityHasOrderInfo> getIElementHasOrderInfoDirectlyBelow(Optional<Long> orderContextID, IEntityHasOrderInfo elementToMove, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos) {
-        for(IEntityHasOrderInfo loopElementHasOrderInfo : iEntityHasOrderInfos) {
-            if(orderContextID.isPresent() && orderContextID.get().equals(loopElementHasOrderInfo.getOrderingDiscriminator())) {
-                boolean isBelow = loopElementHasOrderInfo.isBelow(elementToMove);
-                if(isBelow) {
-                    return Optional.of(loopElementHasOrderInfo);
-                }
-            } else {
-                boolean isBelow = loopElementHasOrderInfo.isBelow(elementToMove);
-                if(isBelow) {
-                    return Optional.of(loopElementHasOrderInfo);
+    protected Optional<IEntityHasOrderInfo> getIElementHasOrderInfoDirectlyBelow(IEntityHasOrderInfo elementToMove, List<IEntityHasOrderInfo> iEntityHasOrderInfos) {
+        // Sort this collection using Element Order DESC compartor
+        Collections.sort(iEntityHasOrderInfos, IEntityHasOrderInfo.DEFAULT_ASC_COMPARATOR);
+
+        Optional<Long> orderingDiscriminator = elementToMove.getOrderingDiscriminator();
+
+        boolean foundElementToMoveInList = false;
+        IEntityHasOrderInfo elementDirectlyBelow = null;
+        Iterator<IEntityHasOrderInfo> iterator = iEntityHasOrderInfos.iterator();
+        while (iterator.hasNext()) {
+            IEntityHasOrderInfo currentEntityHasOrderInfo = iterator.next();
+            System.out.println("previous.getElementOrder() = " + currentEntityHasOrderInfo.getElementOrder() + " discriminator = " + currentEntityHasOrderInfo.getOrderingDiscriminator());
+
+            // IF Element To Move in List has been found then break out and return current element
+            if(foundElementToMoveInList && currentEntityHasOrderInfo.matchesOrderingDiscriminator(orderingDiscriminator)) {
+                elementDirectlyBelow = currentEntityHasOrderInfo;
+                break;
+            }
+
+            // Comparing within the same context using the same Ordering Discriminator
+            if(currentEntityHasOrderInfo.matchesOrderingDiscriminator(orderingDiscriminator)) {
+                if(elementToMove.equals(currentEntityHasOrderInfo)) {
+                    foundElementToMoveInList = true;
                 }
             }
         }
 
-        return Optional.empty();
+        return elementDirectlyBelow != null ? Optional.of(elementDirectlyBelow) : Optional.empty();
     }
 
-    protected Optional<IEntityHasOrderInfo> getIElementHasOrderInfoDirectlyAbove(Optional<Long> orderContextID, IEntityHasOrderInfo elementToMove, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos) {
-        for(IEntityHasOrderInfo loopElementHasOrderInfo : iEntityHasOrderInfos) {
-            if(orderContextID.isPresent() && orderContextID.get().equals(loopElementHasOrderInfo.getOrderingDiscriminator())) {
-                boolean isAbove = loopElementHasOrderInfo.isAbove(elementToMove);
-                if(isAbove) {
-                    return Optional.of(loopElementHasOrderInfo);
-                }
-            } else {
-                boolean isAbove = loopElementHasOrderInfo.isAbove(elementToMove);
-                if(isAbove) {
-                    return Optional.of(loopElementHasOrderInfo);
+    protected Optional<IEntityHasOrderInfo> getIElementHasOrderInfoDirectlyAbove(IEntityHasOrderInfo elementToMove, List<IEntityHasOrderInfo> iEntityHasOrderInfos) {
+        // Sort this List using Element Order ASC compartor.  This allows us to quickly find the element in order
+        Collections.sort(iEntityHasOrderInfos, IEntityHasOrderInfo.DEFAULT_ASC_COMPARATOR);
+
+        Optional<Long> orderingDiscriminator = elementToMove.getOrderingDiscriminator();
+
+        boolean foundElementToMoveInList = false;
+        IEntityHasOrderInfo elementDirectlyAbove = null;
+        ListIterator<IEntityHasOrderInfo> iterator = iEntityHasOrderInfos.listIterator(iEntityHasOrderInfos.size());
+        while (iterator.hasPrevious()) {
+            IEntityHasOrderInfo currentEntityHasOrderInfo = iterator.previous();
+            //System.out.println("previous.getElementOrder() = " + currentEntityHasOrderInfo.getElementOrder() + " discriminator = " + currentEntityHasOrderInfo.getOrderingDiscriminator());
+
+            // IF Element To Move in List has been found then break out and return current element
+            if(foundElementToMoveInList && currentEntityHasOrderInfo.matchesOrderingDiscriminator(orderingDiscriminator)) {
+                elementDirectlyAbove = currentEntityHasOrderInfo;
+                break;
+            }
+
+            // Comparing within the same context using the same Ordering Discriminator
+            if(currentEntityHasOrderInfo.matchesOrderingDiscriminator(orderingDiscriminator)) {
+                if(elementToMove.equals(currentEntityHasOrderInfo)) {
+                    foundElementToMoveInList = true;
                 }
             }
         }
 
-        return Optional.empty();
+        return elementDirectlyAbove != null ? Optional.of(elementDirectlyAbove) : Optional.empty();
     }
 
 
-    protected int getLastElementOrder(Optional<Long> orderContextID, Collection<IEntityHasOrderInfo> iEntityHasOrderInfos) {
+    protected int getLastElementOrder(Optional<Long> orderContextID, List<IEntityHasOrderInfo> iEntityHasOrderInfos) {
         LOGGER.debug("Retrieving last element order using orderContextID: {} from iEntityHasOrderInfos: {}", orderContextID, iEntityHasOrderInfos);
 
         int lastElementOrder = 0;
@@ -157,16 +167,6 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
 
         LOGGER.debug("Returning value of lastElementOrder: {}", lastElementOrder);
         return lastElementOrder;
-    }
-
-    protected Long getNoOrderingDiscriminator() {
-        // This will signal that no Order Context ID is to be used
-        return Long.MIN_VALUE;
-    }
-
-    protected Optional<Long> getOptionalOrderingDiscriminator(Long orderingDiscriminator) {
-        Optional<Long> optionalOrderingDiscriminator = orderingDiscriminator == Long.MIN_VALUE ? Optional.empty() : Optional.of(orderingDiscriminator);
-        return optionalOrderingDiscriminator;
     }
 
     private void saveElementOrderingResult(ElementOrderingResult elementOrderingResult, CrudRepository crudRepository) {

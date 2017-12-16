@@ -181,10 +181,8 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         List<AdaptiveLearningQuiz> adaptiveLearningQuizList = findQuizzesForMicroLesson(adaptiveLearningQuiz.getQPalXEMicroLesson());
 
         if(adaptiveLearningQuizList.size() > 1) {
-            // Context to move this Quiz down will be against all other Quizzes for the same MicroLesson
-            Long orderContextID = adaptiveLearningQuiz.getQPalXEMicroLesson().getId();
             List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(adaptiveLearningQuizList);
-            iElementHasOrderInfoUtil.moveElementDown(orderContextID, adaptiveLearningQuiz, iEntityHasOrderInfos, iAdaptiveLearningQuizRepository);
+            iElementHasOrderInfoUtil.moveElementDown(adaptiveLearningQuiz, iEntityHasOrderInfos, iAdaptiveLearningQuizRepository);
         }
     }
 
@@ -198,10 +196,8 @@ public class AdaptiveLearningQuizService implements IAdaptiveLearningQuizService
         List<AdaptiveLearningQuiz> adaptiveLearningQuizList = findQuizzesForMicroLesson(adaptiveLearningQuiz.getQPalXEMicroLesson());
 
         if(adaptiveLearningQuizList.size() > 1) {
-            // Context to move this Quiz down will be against all other Quizzes for the same MicroLesson
-            Long orderContextID = adaptiveLearningQuiz.getQPalXEMicroLesson().getId();
             List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(adaptiveLearningQuizList);
-            iElementHasOrderInfoUtil.moveElementUp(orderContextID, adaptiveLearningQuiz, iEntityHasOrderInfos, iAdaptiveLearningQuizRepository);
+            iElementHasOrderInfoUtil.moveElementUp(adaptiveLearningQuiz, iEntityHasOrderInfos, iAdaptiveLearningQuizRepository);
         }
     }
 

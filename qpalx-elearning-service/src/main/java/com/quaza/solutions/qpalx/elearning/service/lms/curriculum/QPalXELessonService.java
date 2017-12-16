@@ -223,12 +223,13 @@ public class QPalXELessonService implements IQPalXELessonService {
         ELearningCourse eLearningCourse = qPalXELesson.geteLearningCourse();
         TutorialLevelCalendar tutorialLevelCalendar = qPalXELesson.getTutorialLevelCalendar();
         List<QPalXELesson> qPalXELessonList = findQPalXELessonByCourse(eLearningCourse);
+        System.out.println("qPalXELessonList = " + qPalXELessonList);
 
         // Ordering discriminator will be the TutorialLevelCalendar that we are dealing with
         Long orderingDiscriminator = tutorialLevelCalendar.getId();
 
         List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(qPalXELessonList);
-        iElementHasOrderInfoUtil.moveElementUp(orderingDiscriminator, qPalXELesson, iEntityHasOrderInfos, iqPalXELessonRepository);
+        iElementHasOrderInfoUtil.moveElementUp(qPalXELesson, iEntityHasOrderInfos, iqPalXELessonRepository);
     }
 
     @Override
@@ -241,11 +242,8 @@ public class QPalXELessonService implements IQPalXELessonService {
         TutorialLevelCalendar tutorialLevelCalendar = qPalXELesson.getTutorialLevelCalendar();
         List<QPalXELesson> qPalXELessonList = findQPalXELessonByCourse(eLearningCourse);
 
-        // Ordering discriminator will be the TutorialLevelCalendar that we are dealing with
-        Long orderingDiscriminator = tutorialLevelCalendar.getId();
-
         List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(qPalXELessonList);
-        iElementHasOrderInfoUtil.moveElementDown(orderingDiscriminator, qPalXELesson, iEntityHasOrderInfos, iqPalXELessonRepository);
+        iElementHasOrderInfoUtil.moveElementDown(qPalXELesson, iEntityHasOrderInfos, iqPalXELessonRepository);
     }
 
 

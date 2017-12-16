@@ -16,7 +16,9 @@ public interface IEntityHasOrderInfo {
 
     public Optional<Long> getOrderingDiscriminator();
 
-    public ElementOrderCompartor DEFAULT_COMPARATOR = new ElementOrderCompartor();
+    public ElementOrderCompartorAsc DEFAULT_ASC_COMPARATOR = new ElementOrderCompartorAsc();
+
+    public ElementOrderCompartorDesc DEFAULT_DESC_COMPARATOR = new ElementOrderCompartorDesc();
 
     public default boolean isBelow(IEntityHasOrderInfo iEntityHasOrderInfo) {
         Assert.notNull(iEntityHasOrderInfo, "iElementHasOrderInfo cannot be null");
@@ -30,11 +32,41 @@ public interface IEntityHasOrderInfo {
         return this.getElementOrder() < thatElementOrder;
     }
 
+    public default boolean matchesOrderingDiscriminator(IEntityHasOrderInfo iEntityHasOrderInfo) {
+        Assert.notNull(iEntityHasOrderInfo, "iElementHasOrderInfo cannot be null");
+        Optional<Long> otherDiscriminator = iEntityHasOrderInfo.getOrderingDiscriminator();
+        return matchesOrderingDiscriminator(otherDiscriminator);
+    }
+
+    public default boolean matchesOrderingDiscriminator(Optional<Long> orderingDiscriminator) {
+        Assert.notNull(orderingDiscriminator, "orderingDiscriminator cannot be null");
+        Optional<Long> thisDiscriminator = getOrderingDiscriminator();
+
+        if(!thisDiscriminator.isPresent() && !orderingDiscriminator.isPresent()) {
+            // Both have no Ordering Discriminator
+            return true;
+        }
+
+        if(thisDiscriminator.isPresent() && orderingDiscriminator.isPresent()) {
+            // Both present so compare both
+            return orderingDiscriminator.isPresent() ? thisDiscriminator.get().equals(orderingDiscriminator.get()) : false;
+        }
+
+        return false;
+    }
+
     // Comparator implementation to maintain any collection by EelementOrder
-    public class ElementOrderCompartor implements Comparator<IEntityHasOrderInfo> {
+    public class ElementOrderCompartorAsc implements Comparator<IEntityHasOrderInfo> {
         @Override
         public int compare(IEntityHasOrderInfo o1, IEntityHasOrderInfo o2) {
             return o1.getElementOrder().compareTo(o2.getElementOrder());
+        }
+    }
+
+    public class ElementOrderCompartorDesc implements Comparator<IEntityHasOrderInfo> {
+        @Override
+        public int compare(IEntityHasOrderInfo o1, IEntityHasOrderInfo o2) {
+            return o2.getElementOrder().compareTo(o1.getElementOrder());
         }
     }
 

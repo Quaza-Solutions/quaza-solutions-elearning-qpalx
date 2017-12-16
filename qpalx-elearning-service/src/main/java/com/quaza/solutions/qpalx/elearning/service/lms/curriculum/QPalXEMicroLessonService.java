@@ -142,7 +142,7 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
         Long orderingDiscriminator = qPalXEMicroLesson.getQPalXELesson().getId();
 
         List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(allMicroLessonList);
-        iElementHasOrderInfoUtil.moveElementUp(orderingDiscriminator, qPalXEMicroLesson, iEntityHasOrderInfos, iqPalXEMicroLessonRepository);
+        iElementHasOrderInfoUtil.moveElementUp(qPalXEMicroLesson, iEntityHasOrderInfos, iqPalXEMicroLessonRepository);
     }
 
     @Override
@@ -153,11 +153,8 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
         // Find all the MicroLessons that belong to the lesson on the micro-lesson passed as argument
         List<QPalXEMicroLesson> allMicroLessonList = findQPalXEMicroLessons(qPalXEMicroLesson.getQPalXELesson());
 
-        // Ordering discriminator will be the QPalx Lesson that all these MicroLessons belong to.
-        Long orderingDiscriminator = qPalXEMicroLesson.getQPalXELesson().getId();
-
         List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(allMicroLessonList);
-        iElementHasOrderInfoUtil.moveElementDown(orderingDiscriminator, qPalXEMicroLesson, iEntityHasOrderInfos, iqPalXEMicroLessonRepository);
+        iElementHasOrderInfoUtil.moveElementDown(qPalXEMicroLesson, iEntityHasOrderInfos, iqPalXEMicroLessonRepository);
     }
 
     @PostConstruct

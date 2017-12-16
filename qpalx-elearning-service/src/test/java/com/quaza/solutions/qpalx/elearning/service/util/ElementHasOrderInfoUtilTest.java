@@ -1,6 +1,6 @@
 package com.quaza.solutions.qpalx.elearning.service.util;
 
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableList;
 import com.quaza.solutions.qpalx.elearning.domain.util.DefaultEntityHasOrderInfo;
 import com.quaza.solutions.qpalx.elearning.domain.util.ElementOrderingResult;
 import com.quaza.solutions.qpalx.elearning.domain.util.IEntityHasOrderInfo;
@@ -13,8 +13,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * @author manyce400
@@ -29,7 +30,7 @@ public class ElementHasOrderInfoUtilTest {
 
     private IEntityHasOrderInfo iEntityHasOrderInfoThird;
 
-    private Set<IEntityHasOrderInfo> elementHasOrderInfoSet;
+    private List<IEntityHasOrderInfo> elementHasOrderInfoList;
 
     @Mock
     private CrudRepository crudRepository;
@@ -39,15 +40,17 @@ public class ElementHasOrderInfoUtilTest {
 
     @Before
     public void beforeTest() {
+        elementHasOrderInfoList = new ArrayList<>();
         iEntityHasOrderInfoFirst = DefaultEntityHasOrderInfo.newInstance(1);
         iEntityHasOrderInfoSecond = DefaultEntityHasOrderInfo.newInstance(2);
         iEntityHasOrderInfoThird = DefaultEntityHasOrderInfo.newInstance(3);
-        elementHasOrderInfoSet = ImmutableSet.of(iEntityHasOrderInfoFirst, iEntityHasOrderInfoSecond, iEntityHasOrderInfoThird);
+        List<IEntityHasOrderInfo> tempList = ImmutableList.of(iEntityHasOrderInfoFirst, iEntityHasOrderInfoSecond, iEntityHasOrderInfoThird);
+        elementHasOrderInfoList.addAll(tempList);
     }
 
     @Test
     public void testMoveElementDown() {
-        Optional<ElementOrderingResult> moveResult = elementHasOrderInfoUtil.moveElementDown(iEntityHasOrderInfoFirst, elementHasOrderInfoSet, crudRepository);
+        Optional<ElementOrderingResult> moveResult = elementHasOrderInfoUtil.moveElementDown(iEntityHasOrderInfoFirst, elementHasOrderInfoList, crudRepository);
         Assert.assertTrue(moveResult.isPresent());
 
         // Verify ElementOrderingResult returned as expected
@@ -63,7 +66,7 @@ public class ElementHasOrderInfoUtilTest {
 
     @Test
     public void testMoveElementUp() {
-        Optional<ElementOrderingResult> moveResult = elementHasOrderInfoUtil.moveElementUp(iEntityHasOrderInfoSecond, elementHasOrderInfoSet, crudRepository);
+        Optional<ElementOrderingResult> moveResult = elementHasOrderInfoUtil.moveElementUp(iEntityHasOrderInfoSecond, elementHasOrderInfoList, crudRepository);
         Assert.assertTrue(moveResult.isPresent());
 
         // Verify ElementOrderingResult returned as expected
