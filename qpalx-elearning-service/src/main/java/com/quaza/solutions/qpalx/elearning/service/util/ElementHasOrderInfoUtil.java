@@ -75,12 +75,14 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
 
 
     @Override
-    public void addNewEntityHasOrderInfoWithElementOrder(Optional<Long> orderingDiscriminator, IEntityHasOrderInfo newEntityHasOrderInfo, List<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
-        Assert.notNull(orderingDiscriminator, "orderContextID cannot be null");
+    public void addNewEntityHasOrderInfoWithElementOrder(IEntityHasOrderInfo newEntityHasOrderInfo, List<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {
+        Assert.notNull(newEntityHasOrderInfo.getOrderingDiscriminator(), "orderingDiscriminator cannot be null");
         Assert.notNull(newEntityHasOrderInfo, "newEntityHasOrderInfo cannot be null");
         Assert.notNull(iEntityHasOrderInfos, "iElementHasOrderInfos cannot be null");
         Assert.notNull(crudRepository, "crudRepository cannot be null");
         Assert.isTrue(!iEntityHasOrderInfos.contains(newEntityHasOrderInfo), "newEntityHasOrderInfo should not be in the list of iEntityHasOrderInfos");
+
+        Optional<Long> orderingDiscriminator = newEntityHasOrderInfo.getOrderingDiscriminator();
 
         LOGGER.debug("Adding and setting new ElementOrder to newEntityHasOrderInfo: {} with orderingDiscriminator: {}", newEntityHasOrderInfo, orderingDiscriminator);
 
@@ -153,14 +155,13 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
     }
 
 
-    protected int getLastElementOrder(Optional<Long> orderContextID, List<IEntityHasOrderInfo> iEntityHasOrderInfos) {
-        LOGGER.debug("Retrieving last element order using orderContextID: {} from iEntityHasOrderInfos: {}", orderContextID, iEntityHasOrderInfos);
+    protected int getLastElementOrder(Optional<Long> orderingDiscriminator, List<IEntityHasOrderInfo> iEntityHasOrderInfos) {
+        LOGGER.debug("Retrieving last element order using orderContextID: {} from iEntityHasOrderInfos: {}", orderingDiscriminator, iEntityHasOrderInfos);
+        Collections.sort(iEntityHasOrderInfos, IEntityHasOrderInfo.DEFAULT_ASC_COMPARATOR);
 
         int lastElementOrder = 0;
         for(IEntityHasOrderInfo iEntityHasOrderInfo : iEntityHasOrderInfos) {
-            if(orderContextID.isPresent() && orderContextID.get().equals(iEntityHasOrderInfo.getOrderingDiscriminator())) {
-                lastElementOrder = iEntityHasOrderInfo.getElementOrder();
-            } else {
+            if(iEntityHasOrderInfo.matchesOrderingDiscriminator(orderingDiscriminator)) {
                 lastElementOrder = iEntityHasOrderInfo.getElementOrder();
             }
         }

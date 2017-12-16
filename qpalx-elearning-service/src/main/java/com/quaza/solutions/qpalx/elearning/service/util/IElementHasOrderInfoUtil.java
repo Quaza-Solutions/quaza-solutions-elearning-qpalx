@@ -42,11 +42,9 @@ public interface IElementHasOrderInfoUtil {
     /**
      * Add and save a new instance of IEntityHasOrderInfo and set element order based on the Ordering Information of the iEntityHasOrderInfos.
      *
-     *
-     * @param orderingDiscriminator
      * @param newEntityHasOrderInfo
      * @param iEntityHasOrderInfos
      */
-    public void addNewEntityHasOrderInfoWithElementOrder(Optional<Long> orderingDiscriminator, IEntityHasOrderInfo newEntityHasOrderInfo, List<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository);
+    public void addNewEntityHasOrderInfoWithElementOrder(IEntityHasOrderInfo newEntityHasOrderInfo, List<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository);
 
 }

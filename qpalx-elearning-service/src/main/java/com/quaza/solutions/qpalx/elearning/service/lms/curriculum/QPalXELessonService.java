@@ -28,7 +28,6 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -160,9 +159,8 @@ public class QPalXELessonService implements IQPalXELessonService {
                 .build();
 
         // Build and set the ElementOrder for this new Lesson
-        Long orderingDiscriminator = iqPalXELessonVO.getTutorialLevelCalendarID();
         List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(qPalXELessons);
-        iElementHasOrderInfoUtil.addNewEntityHasOrderInfoWithElementOrder(Optional.of(orderingDiscriminator), qPalXELesson, iEntityHasOrderInfos, iqPalXELessonRepository);
+        iElementHasOrderInfoUtil.addNewEntityHasOrderInfoWithElementOrder(qPalXELesson, iEntityHasOrderInfos, iqPalXELessonRepository);
     }
 
 
