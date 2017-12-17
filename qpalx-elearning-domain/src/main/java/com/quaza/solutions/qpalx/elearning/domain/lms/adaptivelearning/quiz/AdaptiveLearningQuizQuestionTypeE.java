@@ -18,7 +18,9 @@ public enum AdaptiveLearningQuizQuestionTypeE {
 
     Video(Optional.of(ImmutableSet.of(MediaContentTypeE.mp4)), Optional.empty()),
 
-    Image(Optional.of(ImmutableSet.of(MediaContentTypeE.jpeg, MediaContentTypeE.png)), Optional.empty())
+    Image(Optional.of(ImmutableSet.of(MediaContentTypeE.jpeg, MediaContentTypeE.png)), Optional.empty()),
+
+    True_False(Optional.empty(), Optional.empty())
     ;
 
 
