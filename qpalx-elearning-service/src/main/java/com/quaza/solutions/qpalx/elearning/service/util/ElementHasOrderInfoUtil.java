@@ -21,7 +21,71 @@ public class ElementHasOrderInfoUtil implements IElementHasOrderInfoUtil {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ElementHasOrderInfoUtil.class);
 
 
-
+//    @Override
+//    public <K extends IEntityHasOrderInfo> Optional<ElementOrderingResult> moveElementDown(K elementToMove, IEntityHasOrderInfoRepository<K> iEntityHasOrderInfoRepository) {
+//        Assert.notNull(elementToMove, "elementToMoveDown cannot be null");
+//        Assert.notNull(elementToMove.getOrderingDiscriminator(), "orderingDiscriminator cannot be null");
+//        Assert.notNull(iEntityHasOrderInfoRepository, "iEntityHasOrderInfoRepository cannot be null");
+//
+//        // Find all the instances containing this elementToMoveDown
+//        List<K> allInstancesContainingEntity =  iEntityHasOrderInfoRepository.findAllInstancesContainingEntity(elementToMove);
+//        return executeMove(elementToMove, allInstancesContainingEntity, null);
+//    }
+//
+//    protected <K extends IEntityHasOrderInfo> Optional<ElementOrderingResult> executeMove(K elementToMoveDown, List<K> iEntityHasOrderInfos, IEntityHasOrderInfoRepository<K> iEntityHasOrderInfoRepository) {
+//        Assert.notNull(elementToMoveDown.getOrderingDiscriminator(), "orderingDiscriminator cannot be null");
+//        Assert.notNull(elementToMoveDown, "elementToMoveDown cannot be null");
+//        Assert.notNull(iEntityHasOrderInfos, "iElementHasOrderInfos cannot be null");
+//        Assert.notNull(iEntityHasOrderInfoRepository, "crudRepository cannot be null");
+//        Assert.isTrue(iEntityHasOrderInfos.size() > 0, "iElementHasOrderInfos cannot be empty");
+//        Assert.isTrue(iEntityHasOrderInfos.contains(elementToMoveDown), "iElementHasOrderInfos cannot be empty");
+//
+//        LOGGER.debug("Executing move down operation on element: {} with iElementHasOrderInfos: {}", elementToMoveDown, iEntityHasOrderInfos);
+//
+//        // Get Element directly below that matches Ordering context so we can swap ElementOrder on the element to move and element found
+//        Optional<K> elementDirectlyBelow = getElementHasOrderInfoDirectlyBelow(elementToMoveDown, iEntityHasOrderInfos);
+//        if(elementDirectlyBelow.isPresent()) {
+//            elementToMoveDown.setElementOrder(elementToMoveDown.getElementOrder() + 1);
+//            elementDirectlyBelow.get().setElementOrder(elementDirectlyBelow.get().getElementOrder() - 1);
+//            ElementOrderingResult elementOrderingResult = ElementOrderingResult.newInstance(elementToMoveDown, elementDirectlyBelow.get());
+//            iEntityHasOrderInfoRepository.saveIEntityHasOrderInfo(elementToMoveDown);
+//            iEntityHasOrderInfoRepository.saveIEntityHasOrderInfo(elementDirectlyBelow.get());
+//            //saveElementOrderingResult(elementOrderingResult, crudRepository);
+//            return Optional.of(elementOrderingResult);
+//        }
+//
+//        return Optional.empty();
+//    }
+//
+//    private <K extends IEntityHasOrderInfo> Optional<K> getElementHasOrderInfoDirectlyBelow(K elementToMove, List<K> iEntityHasOrderInfos) {
+//        // Sort this collection using Element Order DESC compartor
+//        Collections.sort(iEntityHasOrderInfos, IEntityHasOrderInfo.DEFAULT_ASC_COMPARATOR);
+//
+//        Optional<Long> orderingDiscriminator = elementToMove.getOrderingDiscriminator();
+//
+//        boolean foundElementToMoveInList = false;
+//        K elementDirectlyBelow = null;
+//        Iterator<K> iterator = iEntityHasOrderInfos.iterator();
+//        while (iterator.hasNext()) {
+//            K currentEntityHasOrderInfo = iterator.next();
+//            System.out.println("previous.getElementOrder() = " + currentEntityHasOrderInfo.getElementOrder() + " discriminator = " + currentEntityHasOrderInfo.getOrderingDiscriminator());
+//
+//            // IF Element To Move in List has been found then break out and return current element
+//            if(foundElementToMoveInList && currentEntityHasOrderInfo.matchesOrderingDiscriminator(orderingDiscriminator)) {
+//                elementDirectlyBelow = currentEntityHasOrderInfo;
+//                break;
+//            }
+//
+//            // Comparing within the same context using the same Ordering Discriminator
+//            if(currentEntityHasOrderInfo.matchesOrderingDiscriminator(orderingDiscriminator)) {
+//                if(elementToMove.equals(currentEntityHasOrderInfo)) {
+//                    foundElementToMoveInList = true;
+//                }
+//            }
+//        }
+//
+//        return elementDirectlyBelow != null ? Optional.of(elementDirectlyBelow) : Optional.empty();
+//    }
 
     @Override
     public Optional<ElementOrderingResult> moveElementDown(IEntityHasOrderInfo elementToMoveDown, List<IEntityHasOrderInfo> iEntityHasOrderInfos, CrudRepository crudRepository) {

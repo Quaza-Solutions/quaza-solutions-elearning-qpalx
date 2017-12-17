@@ -17,6 +17,16 @@ import java.util.Optional;
  */
 public interface IElementHasOrderInfoUtil {
 
+
+    /**
+     * Moves the #elementToMoveDown to move instance down in the Set of IElementHasOrderInfo.
+     * Note that this algorithm expects #elementToMoveDown instance to actually be in the iElementHasOrderInfos
+     *
+     * @param elementToMove
+     * @return Returns Optional.empty() IF move operation was not executed
+     */
+    //public <K extends IEntityHasOrderInfo> Optional<ElementOrderingResult>  moveElementDown(K elementToMove, IEntityHasOrderInfoRepository<K> iEntityHasOrderInfoRepository);
+
     /**
      * Moves the #elementToMoveDown to move instance down in the Set of IElementHasOrderInfo.
      * Note that this algorithm expects #elementToMoveDown instance to actually be in the iElementHasOrderInfos
