@@ -117,7 +117,7 @@ public class AdaptiveLearningQuizStatisticsService implements IAdaptiveLearningQ
 
         LOGGER.debug("Finding all Quizzes statistics for student: {} in eLessonID: {}", qPalXUser.getEmail(), eLessonID);
 
-        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), eLessonID, qPalXUser.getId()};
+        Long [] uniqueIDs = new Long[] {eLessonID, qPalXUser.getId()};
         List<AdaptiveLessonQuizStatistics> results = jdbcTemplate.query(lessonAllQuizzesSql, uniqueIDs, AdaptiveLessonQuizStatistics.newRowMapper());
         return results;
     }

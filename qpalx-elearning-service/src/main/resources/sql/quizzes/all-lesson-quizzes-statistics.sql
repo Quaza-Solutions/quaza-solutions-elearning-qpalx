@@ -1,5 +1,5 @@
-Select	QuizzesStudentHasAccess.StudentID,
-        QuizzesStudentHasAccess.LessonID,
+-- Micro lesson Quizzes statistics
+Select	QuizzesStudentHasAccess.LessonID,
         QuizzesStudentHasAccess.LessonName,
         QuizzesStudentHasAccess.ProficiencyRankingScaleFloor,
         QuizzesStudentHasAccess.ProficiencyRankingScaleCeiling,
@@ -12,9 +12,8 @@ Select	QuizzesStudentHasAccess.StudentID,
 		StudentMostRecentQuizExperiences.LearningExperienceStartDate,
 		StudentMostRecentQuizExperiences.LearningExperienceCompletedDate
 From (
-	-- Find all quizzes that user is entitled to
-	Select	qUser.ID As StudentID,
-	        qPell.ID As LessonID,
+	-- Find all quizzes across all MicroLessons in the Lesson
+	Select	qPell.ID As LessonID,
             qPell.LessonName,
             qPell.ProficiencyRankingScaleFloor,
             qPell.ProficiencyRankingScaleCeiling,
@@ -22,20 +21,20 @@ From (
 			qMell.MicroLessonName,
 			aLqz.ID As QuizID,
 			aLqz.QuizTitle,
-			aLqz.ElementOrder
-	From	QPalXUser qUser
-	Join	StudentEnrolmentRecord sErr on sErr.QPalxUserID = qUser.ID
-	Left 	Outer Join	ELearningCurriculum eCurr on eCurr.StudentTutorialGradeID = sErr.StudentTutorialGradeID
-	Left 	Outer Join	ELearningCourse eCors on eCors.ELearningCurriculumID = eCurr.ID
-	Left 	Outer Join	QPalXELesson qPell on qPell.ELearningCourseID = eCors.ID
-	Left 	Outer Join	QPalXEMicroLesson qMell on qMell.QPalXELessonID = qPell.ID
-	Left	Outer Join  AdaptiveLearningQuiz aLqz on aLqz.QPalXEMicroLessonID = qMell.id
-	Where	qUser.ID = ?
-	And		qPell.ID = ?
+			qMell.ElementOrder
+	From	QPalXELesson qPell
+	Join	QPalXEMicroLesson qMell on qMell.QPalXELessonID = qPell.ID
+	Join  AdaptiveLearningQuiz aLqz on aLqz.QPalXEMicroLessonID = qMell.id -- Dont need left outter join on Quiz here bcos if A quiz doesnt exist there will be no Quiz score
+	Where	qPell.ID = ?
 ) As QuizzesStudentHasAccess
 Left 	Outer Join (
 	--  Find performance data for quizzes for student
-	Select	alz.ID, alz.ScorableActivityID, alz.ProficiencyScore, alz.QPalXTutorialContentType, alz.LearningExperienceStartDate, alz.LearningExperienceCompletedDate
+	Select	alz.ID,
+			alz.ScorableActivityID,
+			alz.ProficiencyScore,
+			alz.QPalXTutorialContentType,
+			alz.LearningExperienceStartDate,
+			alz.LearningExperienceCompletedDate
 	From	AdaptiveLearningExperience alz
 	Inner  Join (
 		Select 	QPalxUserID,

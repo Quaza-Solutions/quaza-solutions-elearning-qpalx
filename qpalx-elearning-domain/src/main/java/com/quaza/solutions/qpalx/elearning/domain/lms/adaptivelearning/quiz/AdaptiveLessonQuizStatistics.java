@@ -20,8 +20,6 @@ public class AdaptiveLessonQuizStatistics {
 
 
 
-    private Long studentID;
-
     private Long lessonID;
 
     private String lessonName;
@@ -51,14 +49,6 @@ public class AdaptiveLessonQuizStatistics {
 
     public AdaptiveLessonQuizStatistics() {
 
-    }
-
-    public Long getStudentID() {
-        return studentID;
-    }
-
-    public void setStudentID(Long studentID) {
-        this.studentID = studentID;
     }
 
     public Long getLessonID() {
@@ -180,7 +170,6 @@ public class AdaptiveLessonQuizStatistics {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("studentID", studentID)
                 .append("microLessonID", microLessonID)
                 .append("microLessonTitle", microLessonTitle)
                 .append("adaptiveLearningQuizID", adaptiveLearningQuizID)
@@ -202,7 +191,6 @@ public class AdaptiveLessonQuizStatistics {
         @Override
         public AdaptiveLessonQuizStatistics mapRow(ResultSet resultSet, int i) throws SQLException {
             AdaptiveLessonQuizStatistics adaptiveLessonQuizStatistics = new AdaptiveLessonQuizStatistics();
-            adaptiveLessonQuizStatistics.setStudentID(resultSet.getLong("StudentID"));
 
             // Set Lesson details
             adaptiveLessonQuizStatistics.setLessonID(resultSet.getLong("LessonID"));
