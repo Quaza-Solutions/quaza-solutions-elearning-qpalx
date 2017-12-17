@@ -73,8 +73,8 @@ public class AdaptiveMicroLessonStatistics {
     }
 
     public double getQuizzesCompletionRate() {
-        if (uniqueQuizzesAttempted > 0 && totalQuizzes > 0) {
-            double completion = (uniqueQuizzesAttempted / totalQuizzes) * 100;
+        if (uniqueQuizzesAttempted.intValue() > 0 && totalQuizzes.intValue() > 0) {
+            double completion = ((double)uniqueQuizzesAttempted.intValue() / (double) totalQuizzes.intValue()) * 100;
             return Precision.round(completion, 0);
         }
 

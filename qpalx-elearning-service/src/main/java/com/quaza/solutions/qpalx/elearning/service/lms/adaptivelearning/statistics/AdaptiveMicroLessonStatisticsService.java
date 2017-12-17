@@ -54,7 +54,7 @@ public class AdaptiveMicroLessonStatisticsService implements IAdaptiveMicroLesso
 
         LOGGER.info("Finding all AdaptiveMicroLessonStatistics for qPalXELesson: {} and eLearningCourse: {}", qPalXELesson.getLessonName(), eLearningCourse.getCourseName());
 
-        Long [] uniqueIDs = new Long[] {qPalXUser.getId(), eLearningCourse.getId(),  qPalXELesson.getId(), qPalXELesson.getId(), qPalXUser.getId()};
+        Long [] uniqueIDs = new Long[] {qPalXELesson.getId(), qPalXELesson.getId(), qPalXUser.getId()};
         List<AdaptiveMicroLessonStatistics> results = jdbcTemplate.query(statisticsSQL, uniqueIDs, AdaptiveMicroLessonStatistics.newRowMapper());
         return results;
     }

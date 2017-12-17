@@ -23,6 +23,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author manyce400
@@ -89,7 +90,10 @@ public class QPalXEMicroLessonService implements IQPalXEMicroLessonService {
                 .entryDate(new DateTime())
                 .build();
 
-        iqPalXEMicroLessonRepository.save(qPalXEMicroLesson);
+        // Get list of all Current MicroLessons
+        Set<QPalXEMicroLesson> qPalXEMicroLessonSet = qPalXELesson.getQPalXEMicroLessons();
+        List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(qPalXEMicroLessonSet);
+        iElementHasOrderInfoUtil.addNewEntityHasOrderInfoWithElementOrder(qPalXEMicroLesson, iEntityHasOrderInfos, iqPalXEMicroLessonRepository);
     }
 
     @Transactional
