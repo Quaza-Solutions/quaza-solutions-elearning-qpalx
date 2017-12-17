@@ -22,7 +22,7 @@ From (
 			qMell.MicroLessonName,
 			aLqz.ID As QuizID,
 			aLqz.QuizTitle,
-			alqz.ElementOrder
+			aLqz.ElementOrder
 	From	QPalXUser qUser
 	Join	StudentEnrolmentRecord sErr on sErr.QPalxUserID = qUser.ID
 	Left 	Outer Join	ELearningCurriculum eCurr on eCurr.StudentTutorialGradeID = sErr.StudentTutorialGradeID
