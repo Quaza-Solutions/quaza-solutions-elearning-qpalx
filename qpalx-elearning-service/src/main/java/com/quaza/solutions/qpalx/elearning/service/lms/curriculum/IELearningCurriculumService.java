@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface IELearningCurriculumService {
 
+    public void moveCurriculumUp(ELearningCurriculum eLearningCurriculum);
+
+    public void moveCurriculumDown(ELearningCurriculum eLearningCurriculum);
+
     public ELearningCurriculum findByELearningCurriculumID(final Long curriculumID);
 
     public ELearningCurriculum findByELearningCurriculumName(final String curriculumName);

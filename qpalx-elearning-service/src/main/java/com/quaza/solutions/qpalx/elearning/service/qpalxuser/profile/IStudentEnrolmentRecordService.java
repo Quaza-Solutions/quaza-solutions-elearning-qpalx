@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile;
 
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.EnrollmentDecision;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentEnrolmentRecord;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 
@@ -18,5 +19,7 @@ public interface IStudentEnrolmentRecordService {
     public StudentEnrolmentRecord findCurrentStudentEnrolmentRecord(QPalXUser qPalXUser);
 
     public List<StudentEnrolmentRecord> findCurrentStudentsEnrolmentRecordForEducationalInstitution(final QPalXEducationalInstitution educationalInstitution);
+
+    public EnrollmentDecision enrollStudentTutorialGrade(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade);
 
 }

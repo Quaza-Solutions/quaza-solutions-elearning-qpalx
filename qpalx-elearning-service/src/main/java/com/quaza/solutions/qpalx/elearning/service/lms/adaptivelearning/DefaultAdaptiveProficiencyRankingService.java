@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -73,6 +74,27 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         LOGGER.info("Finding all adaptive proficiency rankings for qPalxUser: {}", qPalXUser.getEmail());
         return iAdaptiveProficiencyRankingRepository.findStudentAdaptiveProficiencyRankings(qPalXUser);
+    }
+
+    @Override
+    public List<AdaptiveProficiencyRanking> findBelowAverageAdaptiveProficiencyRankings(QPalXUser qPalXUser) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        LOGGER.info("Finding all Adaptive performance areas where student: {} is currently performing below average", qPalXUser.getEmail());
+
+        List<AdaptiveProficiencyRanking> areasBelowAverage = new ArrayList<>();
+        List<AdaptiveProficiencyRanking> currentAdaptiveProficiencyRankings = findStudentAdaptiveProficiencyRankings(qPalXUser);
+
+        for (AdaptiveProficiencyRanking currentAdaptiveProficiencyRanking : currentAdaptiveProficiencyRankings) {
+            ELearningCurriculum eLearningCurriculum = currentAdaptiveProficiencyRanking.geteLearningCurriculum();
+            ProficiencyRankingScaleE curriculumProficiencyRanking = currentAdaptiveProficiencyRanking.getProficiencyRankingScaleE();
+
+            if(curriculumProficiencyRanking.isBelowProficiencyRanking(ProficiencyRankingScaleE.SEVEN)) {
+                LOGGER.debug("Student is currently performing below average in eLearningCurriculum: {}", eLearningCurriculum.getCurriculumName());
+                areasBelowAverage.add(currentAdaptiveProficiencyRanking);
+            }
+        }
+
+        return areasBelowAverage;
     }
 
     @Override

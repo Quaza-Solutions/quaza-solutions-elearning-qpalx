@@ -5,10 +5,15 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurric
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.repository.IELearningCurriculumRepository;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialLevel;
+import com.quaza.solutions.qpalx.elearning.domain.util.IEntityHasOrderInfo;
+import com.quaza.solutions.qpalx.elearning.service.util.ElementHasOrderInfoUtil;
+import com.quaza.solutions.qpalx.elearning.service.util.IElementHasOrderInfoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,12 +23,45 @@ import java.util.List;
 public class CacheEnabledELearningCurriculumService implements IELearningCurriculumService {
 
 
+
+
     @Autowired
     private IELearningCurriculumRepository ieLearningCurriculumRepository;
+
+    @Autowired
+    @Qualifier(ElementHasOrderInfoUtil.BEAN_NAME)
+    private IElementHasOrderInfoUtil iElementHasOrderInfoUtil;
 
     public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.CacheEnabledELearningCurriculumService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(CacheEnabledELearningCurriculumService.class);
+
+
+    @Override
+    public void moveCurriculumUp(ELearningCurriculum eLearningCurriculum) {
+        Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
+        LOGGER.debug("Attempting to move up eLearningCurriculum with id: {} and name: {}", eLearningCurriculum.getId(), eLearningCurriculum.getCurriculumName());
+
+        CurriculumType curriculumType = eLearningCurriculum.getCurriculumType();
+        StudentTutorialGrade studentTutorialGrade = eLearningCurriculum.getStudentTutorialGrade();
+
+        List<ELearningCurriculum> eLearningCurricula = findAllCurriculumByTutorialGradeAndType(curriculumType, studentTutorialGrade);
+        List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(eLearningCurricula);
+        iElementHasOrderInfoUtil.moveElementUp(eLearningCurriculum, iEntityHasOrderInfos, ieLearningCurriculumRepository);
+    }
+
+    @Override
+    public void moveCurriculumDown(ELearningCurriculum eLearningCurriculum) {
+        Assert.notNull(eLearningCurriculum, "curriculumID cannot be null");
+        LOGGER.debug("Attempting to move up eLearningCurriculum with id: {} and name: {}", eLearningCurriculum.getId(), eLearningCurriculum.getCurriculumName());
+
+        CurriculumType curriculumType = eLearningCurriculum.getCurriculumType();
+        StudentTutorialGrade studentTutorialGrade = eLearningCurriculum.getStudentTutorialGrade();
+
+        List<ELearningCurriculum> eLearningCurricula = findAllCurriculumByTutorialGradeAndType(curriculumType, studentTutorialGrade);
+        List<IEntityHasOrderInfo> iEntityHasOrderInfos = new ArrayList<>(eLearningCurricula);
+        iElementHasOrderInfoUtil.moveElementDown(eLearningCurriculum, iEntityHasOrderInfos, ieLearningCurriculumRepository);
+    }
 
     @Override
     public ELearningCurriculum findByELearningCurriculumID(Long curriculumID) {

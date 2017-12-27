@@ -4,12 +4,14 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.quiz.Adap
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.HierarchicalLMSContentTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.content.hierarchy.IHierarchicalLMSContent;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
+import com.quaza.solutions.qpalx.elearning.domain.util.BaseEntityHasOrderInfo;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 /**
  *
@@ -17,7 +19,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="ELearningCurriculum")
-public class ELearningCurriculum implements IHierarchicalLMSContent {
+public class ELearningCurriculum extends BaseEntityHasOrderInfo implements IHierarchicalLMSContent {
 
 
     @Id
@@ -152,6 +154,11 @@ public class ELearningCurriculum implements IHierarchicalLMSContent {
     @Override
     public IHierarchicalLMSContent getIHierarchicalLMSContentParent() {
         return null;
+    }
+
+    @Override
+    public Optional<Long> getOrderingDiscriminator() {
+        return Optional.of(studentTutorialGrade.getId());
     }
 
     @Override

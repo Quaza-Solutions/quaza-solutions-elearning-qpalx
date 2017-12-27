@@ -23,29 +23,15 @@ public interface IAdaptiveProficiencyRankingService {
 
     public double getAdaptiveProficiencyRankingMinScore(AdaptiveProficiencyRanking adaptiveProficiencyRanking);
 
-
-    /**
-     * Loads and returns all the currently valid and active proficiency rankings for the given student.
-     *
-     * @param qPalXUser
-     * @return
-     */
     public List<AdaptiveProficiencyRanking> findStudentAdaptiveProficiencyRankings(QPalXUser qPalXUser);
+
+    public List<AdaptiveProficiencyRanking> findBelowAverageAdaptiveProficiencyRankings(QPalXUser qPalXUser);
 
     public AdaptiveProficiencyRanking findCurrentStudentAdaptiveProficiencyRankingForCurriculum(final QPalXUser qPalXUser, final ELearningCurriculum eLearningCurriculum);
 
     public AdaptiveProficiencyRanking buildAdaptiveProficiencyRanking(double proficiencyScore, ProficiencyRankingTriggerTypeE proficiencyRankingTriggerTypeE);
 
-
-    /**
-     * Build's initial AdaptiveProficiencyRanking for a QPalXUser.  This is done as part of initial platform sign up.
-     *
-     * @param qPalXUser
-     * @param studentTutorialGrade
-     * @param initialAdaptiveProficiencyRankingVOs
-     */
     public void buildInitialAdaptiveProficiencyRanking(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade, Set<IAdaptiveProficiencyRankingVO> initialAdaptiveProficiencyRankingVOs);
 
-    // Build and save AdaptiveProficiencyRanking for an ELearningCurriculum
     public void buildAndSaveProficiencyRankingForCurriculum(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, SimplifiedProficiencyRankE simplifiedProficiencyRankE);
 }
