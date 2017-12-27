@@ -101,11 +101,11 @@ public class DefaultStudentEnrolmentRecordService implements IStudentEnrolmentRe
         QPalXUser qPalXUser = studentEnrolmentRecord.getQpalxUser();
         StudentTutorialGrade currentStudentTutorialGrade = studentEnrolmentRecord.getStudentTutorialGrade();
 
-        if(currentStudentTutorialGrade.getId() < targetStudentTutorialGrade.getId()) {
-            // IF Student is switching to a lower StudentTutorialGrade then allow switch, we will ignore their current performance at their current level
-            LOGGER.info("Student is switching to a new StudentTutorialGrade which is lesser than their current, allowing switch");
-            return ImmutableList.of();
-        }
+//        if(currentStudentTutorialGrade.getId() < targetStudentTutorialGrade.getId()) {
+//            // IF Student is switching to a lower StudentTutorialGrade then allow switch, we will ignore their current performance at their current level
+//            LOGGER.info("Student is switching to a new StudentTutorialGrade which is lesser than their current, allowing switch");
+//            return ImmutableList.of();
+//        }
 
         // Validate that this user is performing as expected on this current level in order to approve them being enrolled in a higher tutorial grade
         LOGGER.info("Analyzing Students current AdaptiveProficiencyRankings to determine IF student is performing below average on any curriculum...");
