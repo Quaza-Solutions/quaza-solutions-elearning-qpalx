@@ -24,7 +24,8 @@ public interface IAdaptiveProficiencyRankingRepository extends CrudRepository<Ad
             "INNER JOIN FETCH    adaptiveProficiencyRanking.qpalxUser qpalxUser " +
             "Where               qpalxUser =?1 " +
             "And                 adaptiveProficiencyRanking.proficiencyRankingEffectiveDateTime is not null " +
-            "And                 adaptiveProficiencyRanking.proficiencyRankingEndDateTime is null"
+            "And                 adaptiveProficiencyRanking.proficiencyRankingEndDateTime is null " +
+            "And                 adaptiveProficiencyRanking.eLearningCurriculum.active = true "
     )
     public List<AdaptiveProficiencyRanking> findStudentAdaptiveProficiencyRankings(final QPalXUser qPalXUser);
 

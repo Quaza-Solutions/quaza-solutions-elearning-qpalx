@@ -79,7 +79,7 @@ public class DefaultStudentEnrollmentRecordService implements IStudentEnrollment
         EnrollmentDecision enrollmentDeniedDecision = iEnrollmentMasterService.authorizeEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
 
         if (!enrollmentDeniedDecision.isEnrollmentDenied()) {
-            LOGGER.info("Completing succesfull enrollment of studen to  StudentTutorialGrade: {}", targetStudentTutorialGrade);
+            LOGGER.info("Completing succesfull enrollment of student to  StudentTutorialGrade: {}", targetStudentTutorialGrade);
             studentEnrolmentRecord.setStudentTutorialGrade(targetStudentTutorialGrade);
             iStudentEnrolmentRecordRepository.save(studentEnrolmentRecord);
         }
