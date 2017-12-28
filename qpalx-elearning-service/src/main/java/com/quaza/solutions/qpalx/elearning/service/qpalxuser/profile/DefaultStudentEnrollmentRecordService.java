@@ -22,8 +22,8 @@ import java.util.List;
 /**
  * @author manyce400
  */
-@Service(DefaultStudentEnrolmentRecordService.SPRING_BEAN)
-public class DefaultStudentEnrolmentRecordService implements IStudentEnrolmentRecordService {
+@Service(DefaultStudentEnrollmentRecordService.SPRING_BEAN)
+public class DefaultStudentEnrollmentRecordService implements IStudentEnrollmentRecordService {
 
 
 
@@ -35,9 +35,9 @@ public class DefaultStudentEnrolmentRecordService implements IStudentEnrolmentRe
     @Autowired
     private IStudentEnrolmentRecordRepository iStudentEnrolmentRecordRepository;
 
-    public static final String SPRING_BEAN = "quaza.solutions.qpalx.elearning.service.DefaultStudentEnrolmentRecordService";
+    public static final String SPRING_BEAN = "quaza.solutions.qpalx.elearning.service.DefaultStudentEnrollmentRecordService";
 
-    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultStudentEnrolmentRecordService.class);
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DefaultStudentEnrollmentRecordService.class);
 
 
     @Override

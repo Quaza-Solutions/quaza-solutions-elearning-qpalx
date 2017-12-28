@@ -28,7 +28,7 @@ public class DefaultStudentEnrolmentRecordServiceTest {
 
     @Spy
     @InjectMocks
-    private DefaultStudentEnrolmentRecordService iStudentEnrolmentRecordService;
+    private DefaultStudentEnrollmentRecordService iStudentEnrolmentRecordService;
 
 
     @Test

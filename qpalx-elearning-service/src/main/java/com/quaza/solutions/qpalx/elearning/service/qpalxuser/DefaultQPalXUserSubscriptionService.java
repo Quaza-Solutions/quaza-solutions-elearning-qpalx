@@ -21,7 +21,7 @@ import com.quaza.solutions.qpalx.elearning.service.institutions.IQPalXEducationa
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.IAdaptiveProficiencyRankingService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.CacheEnabledELearningCurriculumService;
 import com.quaza.solutions.qpalx.elearning.service.lms.curriculum.IELearningCurriculumService;
-import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IStudentEnrolmentRecordService;
+import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IStudentEnrollmentRecordService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
 import org.joda.time.DateTime;
@@ -70,8 +70,8 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
     private IQPalXEducationalInstitutionService iqPalXEducationalInstitutionService;
 
     @Autowired
-    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultStudentEnrolmentRecordService")
-    private IStudentEnrolmentRecordService iStudentEnrolmentRecordService;
+    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultStudentEnrollmentRecordService")
+    private IStudentEnrollmentRecordService iStudentEnrollmentRecordService;
 
     @Autowired
     private IEPaymentServiceTransactionRepository iePaymentServiceTransactionRepository;
@@ -172,7 +172,7 @@ public class DefaultQPalXUserSubscriptionService implements IQPalXUserSubscripti
             if (iqPalXUserVO.getEducationalInstitutionID() != null) {
                 qPalXEducationalInstitution = iqPalXEducationalInstitutionService.findByID(iqPalXUserVO.getEducationalInstitutionID());
             }
-            iStudentEnrolmentRecordService.createStudentEnrolmentRecord(qPalXUser, studentTutorialGrade, qPalXEducationalInstitution);
+            iStudentEnrollmentRecordService.createStudentEnrolmentRecord(qPalXUser, studentTutorialGrade, qPalXEducationalInstitution);
 
             // Build and save the Student's default initial AdaptiveProficiency rankinngs
             buildAndSaveInitialAdaptiveProficiencyRaning(qPalXUser, studentTutorialGrade);

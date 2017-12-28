@@ -17,7 +17,7 @@ import com.quaza.solutions.qpalx.elearning.service.mock.MockQPalXCountryBuilder;
 import com.quaza.solutions.qpalx.elearning.service.mock.MockQPalXMunicipalityBuilder;
 import com.quaza.solutions.qpalx.elearning.service.mock.MockQPalXSubscriptionBuilder;
 import com.quaza.solutions.qpalx.elearning.service.mock.MockQPalXUserBuilder;
-import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IStudentEnrolmentRecordService;
+import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IStudentEnrollmentRecordService;
 import com.quaza.solutions.qpalx.elearning.service.subscription.IQPalxSubscriptionService;
 import com.quaza.solutions.qpalx.elearning.service.tutoriallevel.IQPalXTutorialService;
 import org.junit.Assert;
@@ -58,7 +58,7 @@ public class DefaultQPalXUserSubscriptionServiceTest {
     private IQPalXEducationalInstitutionService iqPalXEducationalInstitutionService;
 
     @Mock
-    private IStudentEnrolmentRecordService iStudentEnrolmentRecordService;
+    private IStudentEnrollmentRecordService iStudentEnrollmentRecordService;
 
     @Mock
     private IELearningCurriculumService ieLearningCurriculumService;

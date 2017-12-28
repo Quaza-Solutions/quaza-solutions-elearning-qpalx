@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author manyce400
  */
-public interface IStudentEnrolmentRecordService {
+public interface IStudentEnrollmentRecordService {
 
 
     public void createStudentEnrolmentRecord(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade, QPalXEducationalInstitution educationalInstitution);

@@ -5,7 +5,7 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurric
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentEnrolmentRecord;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
-import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IStudentEnrolmentRecordService;
+import com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile.IStudentEnrollmentRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -25,8 +25,8 @@ public class StudentCurriculumService implements IStudentCurriculumService {
     private IELearningCurriculumService iELearningCurriculumService;
 
     @Autowired
-    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultStudentEnrolmentRecordService")
-    private IStudentEnrolmentRecordService iStudentEnrolmentRecordService;
+    @Qualifier("quaza.solutions.qpalx.elearning.service.DefaultStudentEnrollmentRecordService")
+    private IStudentEnrollmentRecordService iStudentEnrollmentRecordService;
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(StudentCurriculumService.class);
 
@@ -76,6 +76,6 @@ public class StudentCurriculumService implements IStudentCurriculumService {
     }
 
     private StudentEnrolmentRecord getStudentEnrolmentRecord(QPalXUser qPalXUser) {
-        return iStudentEnrolmentRecordService.findCurrentStudentEnrolmentRecord(qPalXUser);
+        return iStudentEnrollmentRecordService.findCurrentStudentEnrolmentRecord(qPalXUser);
     }
 }
