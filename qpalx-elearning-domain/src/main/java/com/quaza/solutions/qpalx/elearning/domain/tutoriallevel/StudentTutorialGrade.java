@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 
@@ -89,6 +90,32 @@ public class StudentTutorialGrade {
 
     public void setStudentTutorialLevel(StudentTutorialLevel studentTutorialLevel) {
         this.studentTutorialLevel = studentTutorialLevel;
+    }
+
+    public boolean isHigherStudentTutorialGrade(StudentTutorialGrade targetStudentTutorialGrade) {
+        Assert.notNull(targetStudentTutorialGrade, "targetStudentTutorialGrade cannot be null");
+        Long otherID = targetStudentTutorialGrade.getId();
+        return this.id > otherID;
+    }
+
+    public boolean isLowerStudentTutorialGrade(StudentTutorialGrade targetStudentTutorialGrade) {
+        Assert.notNull(targetStudentTutorialGrade, "targetStudentTutorialGrade cannot be null");
+        Long otherID = targetStudentTutorialGrade.getId();
+        return this.id < otherID;
+    }
+
+    public Long getLevelsBetweenStudentTutorialGrades(StudentTutorialGrade targetStudentTutorialGrade) {
+        Assert.notNull(targetStudentTutorialGrade, "studentTutorialGrade cannot be null");
+        Long otherID = targetStudentTutorialGrade.getId();
+
+        // Indicates if this StudentTutorialGrade is higher than the targetStudentTutorialGrade
+        boolean isHigherStudentTutorialGrade = isHigherStudentTutorialGrade(targetStudentTutorialGrade);
+
+        if(isHigherStudentTutorialGrade) {
+            return this.id.longValue() - otherID.longValue();
+        }
+
+        return otherID.longValue() - this.id.longValue();
     }
 
     @Override

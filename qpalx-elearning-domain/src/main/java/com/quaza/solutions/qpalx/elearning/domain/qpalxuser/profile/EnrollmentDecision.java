@@ -6,6 +6,7 @@ import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialG
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
@@ -83,10 +84,26 @@ public class EnrollmentDecision {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("requestedStudentTutorialGrade", requestedStudentTutorialGrade)
                 .append("adaptiveProficiencyRankingAnalysis", adaptiveProficiencyRankingAnalysis)
                 .append("enrollmentDenied", enrollmentDenied)
                 .toString();
     }
+
+    public static EnrollmentDecision approvedInstance(StudentTutorialGrade requestedStudentTutorialGrade) {
+        EnrollmentDecision enrollmentDecision = new EnrollmentDecision(requestedStudentTutorialGrade, false);
+        return enrollmentDecision;
+    }
+
+    public static EnrollmentDecision deniedInstance(StudentTutorialGrade requestedStudentTutorialGrade) {
+        EnrollmentDecision enrollmentDecision = new EnrollmentDecision(requestedStudentTutorialGrade, true);
+        return enrollmentDecision;
+    }
+
+    public static EnrollmentDecision deniedInstance(StudentTutorialGrade requestedStudentTutorialGrade, List<AdaptiveProficiencyRanking> adaptiveProficiencyRankingAnalysis) {
+        EnrollmentDecision enrollmentDecision = new EnrollmentDecision(requestedStudentTutorialGrade, adaptiveProficiencyRankingAnalysis, true);
+        return enrollmentDecision;
+    }
+
 }
