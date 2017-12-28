@@ -49,6 +49,10 @@ public class EnrollmentDecision {
         return ImmutableList.copyOf(adaptiveProficiencyRankingAnalysis);
     }
 
+    public boolean hasAdaptiveProficiencyRankingAnalysis() {
+        return !adaptiveProficiencyRankingAnalysis.isEmpty();
+    }
+
     public boolean isEnrollmentDenied() {
         return enrollmentDenied;
     }

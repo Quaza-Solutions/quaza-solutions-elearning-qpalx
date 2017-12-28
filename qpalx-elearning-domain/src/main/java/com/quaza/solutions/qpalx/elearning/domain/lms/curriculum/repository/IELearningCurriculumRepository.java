@@ -75,7 +75,8 @@ public interface IELearningCurriculumRepository extends CrudRepository<ELearning
             "JOIN   FETCH eLearningCurriculum.studentTutorialGrade " +
             "Where  eLearningCurriculum.curriculumType = ?1 " +
             "And    eLearningCurriculum.studentTutorialGrade =?2 " +
-            "And    eLearningCurriculum.active = true"
+            "And    eLearningCurriculum.active = true " +
+            "Order  By eLearningCurriculum.elementOrder ASC "
     )
     public List<ELearningCurriculum> findAllCurriculumByTutorialGradeAndTypeAndActive(final CurriculumType curriculumType, final StudentTutorialGrade studentTutorialGrade);
 

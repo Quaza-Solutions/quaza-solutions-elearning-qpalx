@@ -18,6 +18,7 @@ From	(
 				eCurr.CurriculumDescription,
 				eCurr.CurriculumIcon,
 				eCurr.CurriculumType,
+				eCurr.ElementOrder,
 				count(qPell.ID) As TotalNumberOfLessons
 		From	QPalXUser qUser
 		Join	StudentEnrolmentRecord sErr on sErr.QPalxUserID = qUser.ID
@@ -27,7 +28,7 @@ From	(
 		Where	qUser.ID = ?
 		And		eCurr.CurriculumType = ?
 		And     eCurr.Active = 1
-		Group 	By qUser.ID, eCurr.ID, eCurr.CurriculumName, eCurr.CurriculumDescription, eCurr.CurriculumIcon, eCurr.CurriculumType
+		Group 	By qUser.ID, eCurr.ID, eCurr.CurriculumName, eCurr.CurriculumDescription, eCurr.CurriculumIcon, eCurr.CurriculumType, eCurr.ElementOrder
 ) As StudentLessonsStats
 Left 	Outer Join (
 		Select	qUser.ID As StudentID,
