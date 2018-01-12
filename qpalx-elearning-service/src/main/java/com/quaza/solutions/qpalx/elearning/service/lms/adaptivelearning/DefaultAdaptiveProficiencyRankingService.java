@@ -1,6 +1,7 @@
 package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning;
 
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRankingVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.IAdaptiveProficiencyRankingVO;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.ProficiencyRankingTriggerTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.repository.IAdaptiveProficiencyRankingRepository;
@@ -18,10 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author manyce400
@@ -77,6 +75,15 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
     }
 
     @Override
+    public List<AdaptiveProficiencyRanking> findStudentAdaptiveProficiencyRankings(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(studentTutorialGrade, "studentTutorialGrade cannot be null");
+        LOGGER.debug("Finding all adaptive proficiency rankings for student: {} in studentTutorialGrade: {}", qPalXUser.getEmail(), studentTutorialGrade.getTutorialGrade());
+        List<AdaptiveProficiencyRanking> adaptiveProficiencyRankings = iAdaptiveProficiencyRankingRepository.findStudentAdaptiveProficiencyRankingInStudentTutorialGrade(qPalXUser, studentTutorialGrade);
+        return adaptiveProficiencyRankings;
+    }
+
+    @Override
     public List<AdaptiveProficiencyRanking> findBelowAverageAdaptiveProficiencyRankings(QPalXUser qPalXUser) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         LOGGER.info("Finding all Adaptive performance areas where student: {} is currently performing below average", qPalXUser.getEmail());
@@ -118,6 +125,33 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
                 .build();
 
         return adaptiveProficiencyRanking;
+    }
+
+    @Override
+    @Transactional
+    public void buildInitialAdaptiveProficiencyRanking(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(studentTutorialGrade, "studentTutorialGrade cannot be null");
+
+        LOGGER.debug("Building initial AdaptiveProficiencyRankings for student: {} in studentTutorialGrade: {}", qPalXUser.getEmail(), studentTutorialGrade.getTutorialGrade());
+
+        // Find all ELearningCurriculum for this StudentTutorialGrade
+        List<ELearningCurriculum> coreELearningCurriculumList = ieLearningCurriculumRepository.findAllCurriculumByTutorialGradeAndType(CurriculumType.CORE, studentTutorialGrade);
+        List<ELearningCurriculum> electiveELearningCurriculumList = ieLearningCurriculumRepository.findAllCurriculumByTutorialGradeAndType(CurriculumType.ELECTIVE, studentTutorialGrade);
+
+        List<ELearningCurriculum> allELearningCurriculumList = new LinkedList<>();
+        allELearningCurriculumList.addAll(coreELearningCurriculumList);
+        allELearningCurriculumList.addAll(electiveELearningCurriculumList);
+
+        Set<IAdaptiveProficiencyRankingVO> initialAdaptiveProficiencyRankingVOs = new HashSet<>();
+
+        for(ELearningCurriculum eLearningCurriculum : allELearningCurriculumList) {
+            AdaptiveProficiencyRankingVO adaptiveProficiencyRankingVO = AdaptiveProficiencyRankingVO
+                    .newInstance(eLearningCurriculum.getCurriculumName(), SimplifiedProficiencyRankE.Beginner.toString());
+            initialAdaptiveProficiencyRankingVOs.add(adaptiveProficiencyRankingVO);
+        }
+
+        buildInitialAdaptiveProficiencyRanking(qPalXUser, studentTutorialGrade, initialAdaptiveProficiencyRankingVOs);
     }
 
     @Override
@@ -187,5 +221,17 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
     }
 
 
+    @Override
+    @Transactional
+    public void closeOutAdaptiveProficiencyRanking(List<AdaptiveProficiencyRanking> adaptiveProficiencyRankingList) {
+        Assert.notNull(adaptiveProficiencyRankingList, "adaptiveProficiencyRankingList cannot be null");
+        Assert.isTrue(!adaptiveProficiencyRankingList.isEmpty(), "adaptiveProficiencyRankingList cannot be empty");
 
+        LOGGER.debug("Closing out all AdaptiveProficiencyRankings in adaptiveProficiencyRankingList: {}", adaptiveProficiencyRankingList);
+
+        for(AdaptiveProficiencyRanking adaptiveProficiencyRanking : adaptiveProficiencyRankingList) {
+            adaptiveProficiencyRanking.setProficiencyRankingEndDateTime(DateTime.now());
+            iAdaptiveProficiencyRankingRepository.save(adaptiveProficiencyRanking);
+        }
+    }
 }

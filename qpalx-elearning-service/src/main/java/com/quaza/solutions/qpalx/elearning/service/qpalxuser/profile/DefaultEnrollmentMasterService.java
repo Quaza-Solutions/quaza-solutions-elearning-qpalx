@@ -41,38 +41,38 @@ public class DefaultEnrollmentMasterService implements IEnrollmentMasterService 
 
         LOGGER.info("Attempting to authorize and approve enrollment reques for student: {} to tutorialGrade: {}", studentEnrolmentRecord.getQpalxUser().getEmail(), targetStudentTutorialGrade.getTutorialGrade());
 
-        boolean isAuthorizedEnrollmentRequest = isAuthorizedEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
-        if(isAuthorizedEnrollmentRequest) {
+        EnrollmentDecision enrollmentDecision = isAuthorizedEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
+        if(!enrollmentDecision.isEnrollmentDenied()) {
+            // IF student is enrolling for a lower level than where they currently at then allow.  We will execute no checks
             boolean enrollmentForLowerTutorialGrade = targetStudentTutorialGrade.isLowerStudentTutorialGrade(currentStudentTutorialGrade);
 
             if(enrollmentForLowerTutorialGrade) {
                 LOGGER.info("Enrollment request is for a lower StudentTutorialGrade, completed enrollment analysis, returning enrollment allowed decision");
-                EnrollmentDecision enrollmentDecision = EnrollmentDecision.approvedInstance(targetStudentTutorialGrade);
+                enrollmentDecision = EnrollmentDecision.approvedInstance(targetStudentTutorialGrade);
                 return enrollmentDecision;
             } else {
+                // To Enroll in a higher StudentTutorialGrade expectation is Student needs to performing above average in all Curriculum areas.  IF not enrollment will be denied
                 LOGGER.info("Enrollment request is for a higher StudentTutorialGrade, analyzing weaknesses in Students Curriculum performance as part of approval process.  Enrollment will be denied IF Student is currently below average in any Curriculum.");
                 List<AdaptiveProficiencyRanking> currentAdaptiveProficiencyRankingsBelowAverage = iAdaptiveProficiencyRankingService.findBelowAverageAdaptiveProficiencyRankings(qPalXUser);
 
                 if(currentAdaptiveProficiencyRankingsBelowAverage.isEmpty()) {
                     LOGGER.warn("Enrollment request has been approved, no Curriculum performances below average found");
-                    EnrollmentDecision enrollmentDecision = EnrollmentDecision.approvedInstance(targetStudentTutorialGrade);
+                    enrollmentDecision = EnrollmentDecision.approvedInstance(targetStudentTutorialGrade);
                     return enrollmentDecision;
                 } else {
                     LOGGER.warn("Enrollment request has been denied, found count of: {} Curriculum performances below average for this user", currentAdaptiveProficiencyRankingsBelowAverage.size());
-                    EnrollmentDecision enrollmentDecision = EnrollmentDecision.deniedInstance(targetStudentTutorialGrade, currentAdaptiveProficiencyRankingsBelowAverage);
+                    enrollmentDecision = EnrollmentDecision.deniedInstance(targetStudentTutorialGrade, currentAdaptiveProficiencyRankingsBelowAverage);
                     return enrollmentDecision;
                 }
             }
         }
 
-        LOGGER.info("Student enrollment request cannot be authorized, returning denial EnrollmentDecision");
-        EnrollmentDecision enrollmentDecision = EnrollmentDecision.deniedInstance(targetStudentTutorialGrade);
+        LOGGER.info("Student enrollment request cannot be authorized at this time, returning denial EnrollmentDecision");
         return enrollmentDecision;
     }
 
-    protected boolean isAuthorizedEnrollmentRequest(StudentEnrolmentRecord studentEnrolmentRecord, StudentTutorialGrade targetStudentTutorialGrade) {
+    protected EnrollmentDecision isAuthorizedEnrollmentRequest(StudentEnrolmentRecord studentEnrolmentRecord, StudentTutorialGrade targetStudentTutorialGrade) {
         // Request is only valid IF this user is enrolling for a TutorialGrade only 1 Level higher than their current grade, and they have never been previously enrolled in that grade before.
-        QPalXUser qPalXUser = studentEnrolmentRecord.getQpalxUser();
         StudentTutorialGrade currentStudentTutorialGrade = studentEnrolmentRecord.getStudentTutorialGrade();
 
         // Check IF this enrollment is for a higher StudentTutorialGrade than what the Student is currently on.
@@ -83,14 +83,15 @@ public class DefaultEnrollmentMasterService implements IEnrollmentMasterService 
 
             if(levelsBetween < 2) {
                 LOGGER.info("Student is switching to a new StudentTutorialGrade which 1 level higher than their current level, enrollment is authorized");
-                return true;
+                return EnrollmentDecision.approvedInstance(targetStudentTutorialGrade);
             } else {
                 LOGGER.info("Student is switching to a new StudentTutorialGrade which 2 or more levels higher than their current level, enrollment is not authorized");
-                return false;
+                String customMessage = "Your Current Enrollment: " + currentStudentTutorialGrade.getTutorialGrade() + ".  Skipping Tutorial Grades Is Not Allowed!!";
+                return EnrollmentDecision.deniedInstance(targetStudentTutorialGrade, customMessage);
             }
         } else {
             LOGGER.info("Enrollment is for a lower StudentTutorialGrade than what Student currently has, enrollment is authorized...");
-            return true;
+            return EnrollmentDecision.approvedInstance(targetStudentTutorialGrade);
         }
     }
 

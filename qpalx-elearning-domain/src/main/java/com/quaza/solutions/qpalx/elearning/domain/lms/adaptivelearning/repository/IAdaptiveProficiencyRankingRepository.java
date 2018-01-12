@@ -3,6 +3,7 @@ package com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.reposito
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
+import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -45,4 +46,15 @@ public interface IAdaptiveProficiencyRankingRepository extends CrudRepository<Ad
             "And                 adaptiveProficiencyRanking.proficiencyRankingEndDateTime is null"
     )
     public AdaptiveProficiencyRanking findCurrentStudentAdaptiveProficiencyRankingForCurriculum(final QPalXUser qPalXUser, final ELearningCurriculum eLearningCurriculum);
+
+    // Find the current Student's proficiency ranking across the given StudentTutorialGrade
+    @Query("Select               adaptiveProficiencyRanking From AdaptiveProficiencyRanking adaptiveProficiencyRanking "+
+            "INNER JOIN FETCH    adaptiveProficiencyRanking.qpalxUser qpalxUser " +
+            "INNER JOIN FETCH    adaptiveProficiencyRanking.eLearningCurriculum eLearningCurriculum " +
+            "Where               qpalxUser =?1 " +
+            "And                 eLearningCurriculum.studentTutorialGrade =?2 " +
+            "And                 adaptiveProficiencyRanking.proficiencyRankingEffectiveDateTime is not null " +
+            "And                 adaptiveProficiencyRanking.proficiencyRankingEndDateTime is null"
+    )
+    public List<AdaptiveProficiencyRanking> findStudentAdaptiveProficiencyRankingInStudentTutorialGrade(final QPalXUser qPalXUser, final StudentTutorialGrade studentTutorialGrade);
 }

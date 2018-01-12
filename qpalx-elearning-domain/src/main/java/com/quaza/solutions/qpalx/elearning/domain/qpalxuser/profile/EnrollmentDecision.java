@@ -11,12 +11,17 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author manyce400
  */
 public class EnrollmentDecision {
 
+
+
+    // Optional Enrollment decision to provide more context on why and how decision was made
+    private Optional<String> enrolmentDecisionMessage = Optional.empty();
 
     // The StudentTutorialGrade that Student requested to enroll in
     private StudentTutorialGrade requestedStudentTutorialGrade;
@@ -29,6 +34,15 @@ public class EnrollmentDecision {
 
 
     public EnrollmentDecision(StudentTutorialGrade requestedStudentTutorialGrade, boolean enrollmentDenied) {
+        Assert.notNull(requestedStudentTutorialGrade, "requestedStudentTutorialGrade cannot be null");
+        this.requestedStudentTutorialGrade = requestedStudentTutorialGrade;
+        this.enrollmentDenied = enrollmentDenied;
+    }
+
+    public EnrollmentDecision(StudentTutorialGrade requestedStudentTutorialGrade, String enrolmentDecisionMessageString, boolean enrollmentDenied) {
+        Assert.notNull(requestedStudentTutorialGrade, "requestedStudentTutorialGrade cannot be null");
+        Assert.notNull(enrolmentDecisionMessageString, "enrolmentDecisionMessageString cannot be null");
+        this.enrolmentDecisionMessage = enrolmentDecisionMessageString == null ? Optional.empty() : Optional.of(enrolmentDecisionMessageString);
         this.requestedStudentTutorialGrade = requestedStudentTutorialGrade;
         this.enrollmentDenied = enrollmentDenied;
     }
@@ -40,6 +54,25 @@ public class EnrollmentDecision {
         this.requestedStudentTutorialGrade = requestedStudentTutorialGrade;
         this.adaptiveProficiencyRankingAnalysis.addAll(adaptiveProficiencyRankingAnalysis);
         this.enrollmentDenied = enrollmentDenied;
+    }
+
+
+    public EnrollmentDecision(StudentTutorialGrade requestedStudentTutorialGrade, List<AdaptiveProficiencyRanking> adaptiveProficiencyRankingAnalysis, String enrolmentDecisionMessageString, boolean enrollmentDenied) {
+        Assert.notNull(requestedStudentTutorialGrade, "requestedStudentTutorialGrade cannot be null");
+        Assert.notNull(adaptiveProficiencyRankingAnalysis, "requestedStudentTutorialGrade cannot be null");
+        Assert.notNull(enrolmentDecisionMessageString, "enrolmentDecisionMessageString cannot be null");
+        this.enrolmentDecisionMessage = enrolmentDecisionMessageString == null ? Optional.empty() : Optional.of(enrolmentDecisionMessageString);
+        this.requestedStudentTutorialGrade = requestedStudentTutorialGrade;
+        this.adaptiveProficiencyRankingAnalysis.addAll(adaptiveProficiencyRankingAnalysis);
+        this.enrollmentDenied = enrollmentDenied;
+    }
+
+    public boolean hasEnrolmentDecisionMessage() {
+        return enrolmentDecisionMessage.isPresent();
+    }
+
+    public Optional<String> getEnrolmentDecisionMessage() {
+        return enrolmentDecisionMessage;
     }
 
     public StudentTutorialGrade getRequestedStudentTutorialGrade() {
@@ -98,6 +131,11 @@ public class EnrollmentDecision {
 
     public static EnrollmentDecision deniedInstance(StudentTutorialGrade requestedStudentTutorialGrade) {
         EnrollmentDecision enrollmentDecision = new EnrollmentDecision(requestedStudentTutorialGrade, true);
+        return enrollmentDecision;
+    }
+
+    public static EnrollmentDecision deniedInstance(StudentTutorialGrade requestedStudentTutorialGrade, String enrolmentDecisionMessageString) {
+        EnrollmentDecision enrollmentDecision = new EnrollmentDecision(requestedStudentTutorialGrade, enrolmentDecisionMessageString,true);
         return enrollmentDecision;
     }
 

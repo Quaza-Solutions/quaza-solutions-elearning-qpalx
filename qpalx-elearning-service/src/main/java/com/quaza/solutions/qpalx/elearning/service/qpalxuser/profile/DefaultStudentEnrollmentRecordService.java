@@ -1,11 +1,14 @@
 package com.quaza.solutions.qpalx.elearning.service.qpalxuser.profile;
 
 import com.quaza.solutions.qpalx.elearning.domain.institutions.QPalXEducationalInstitution;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.EnrollmentDecision;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.StudentEnrolmentRecord;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.profile.repository.IStudentEnrolmentRecordRepository;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.StudentTutorialGrade;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.DefaultAdaptiveProficiencyRankingService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.IAdaptiveProficiencyRankingService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +33,11 @@ public class DefaultStudentEnrollmentRecordService implements IStudentEnrollment
 
     @Autowired
     private IStudentEnrolmentRecordRepository iStudentEnrolmentRecordRepository;
+
+
+    @Autowired
+    @Qualifier(DefaultAdaptiveProficiencyRankingService.SPRING_BEAN_NAME)
+    private IAdaptiveProficiencyRankingService iAdaptiveProficiencyRankingService;
 
     public static final String SPRING_BEAN = "quaza.solutions.qpalx.elearning.service.DefaultStudentEnrollmentRecordService";
 
@@ -69,17 +77,30 @@ public class DefaultStudentEnrollmentRecordService implements IStudentEnrollment
     }
 
     @Override
+    @Transactional
     public EnrollmentDecision enrollStudentTutorialGrade(QPalXUser qPalXUser, StudentTutorialGrade targetStudentTutorialGrade) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         Assert.notNull(targetStudentTutorialGrade, "targetStudentTutorialGrade cannot be null");
 
-        LOGGER.info("Attempting to switch StudentTutorialGrade on enrolment record for user: {} to: {}", qPalXUser.getEmail(), targetStudentTutorialGrade.getTutorialGrade());
+        LOGGER.info("Attempting to enrol Student in a different StudentTutorialGrade Student: {} To: {}", qPalXUser.getEmail(), targetStudentTutorialGrade.getTutorialGrade());
 
         StudentEnrolmentRecord studentEnrolmentRecord = findCurrentStudentEnrolmentRecord(qPalXUser);
         EnrollmentDecision enrollmentDeniedDecision = iEnrollmentMasterService.authorizeEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
 
         if (!enrollmentDeniedDecision.isEnrollmentDenied()) {
-            LOGGER.info("Completing succesfull enrollment of student to  StudentTutorialGrade: {}", targetStudentTutorialGrade);
+            LOGGER.info("Completing successful enrollment of student to  StudentTutorialGrade: {}", targetStudentTutorialGrade);
+
+            // Check to see IF the student has any experience on the target StudentTutorialGrade already, if not build enrollment AdaptiveProficiencyRankings
+            List<AdaptiveProficiencyRanking> previousAdaptiveProficiencyRankings = iAdaptiveProficiencyRankingService.findStudentAdaptiveProficiencyRankings(qPalXUser, targetStudentTutorialGrade);
+
+            if (previousAdaptiveProficiencyRankings != null && previousAdaptiveProficiencyRankings.size() > 0) {
+                iAdaptiveProficiencyRankingService.closeOutAdaptiveProficiencyRanking(previousAdaptiveProficiencyRankings);
+            }
+
+            // Now we need to save the new AdaptiveProficiencyRankings from enrollment to targetStudentTutorialGrade
+            iAdaptiveProficiencyRankingService.buildInitialAdaptiveProficiencyRanking(qPalXUser, targetStudentTutorialGrade);
+
+            // Next update the Student tutorial grade to the new target tutorial grade
             studentEnrolmentRecord.setStudentTutorialGrade(targetStudentTutorialGrade);
             iStudentEnrolmentRecordRepository.save(studentEnrolmentRecord);
         }

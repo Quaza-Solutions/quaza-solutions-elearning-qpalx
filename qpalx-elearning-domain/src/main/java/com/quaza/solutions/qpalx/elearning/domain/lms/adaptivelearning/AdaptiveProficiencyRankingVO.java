@@ -35,4 +35,8 @@ public class AdaptiveProficiencyRankingVO implements IAdaptiveProficiencyRanking
                 .toString();
     }
 
+    public static AdaptiveProficiencyRankingVO newInstance(String eLearningCurriculumName, String simplifiedProficiencyRank) {
+        return new AdaptiveProficiencyRankingVO(eLearningCurriculumName, simplifiedProficiencyRank);
+    }
+
 }

@@ -59,9 +59,9 @@ public class DefaultEnrollmentMasterServiceTest {
                 .build();
 
         // This should be an authorized enrollment, Student is enrolling for JHS2 from JHS1.  This is one level directly above.
-        boolean isAuthorized = defaultEnrollmentMasterService.isAuthorizedEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
-        Assert.assertTrue(isAuthorized);
-        System.out.println("isAuthorized = " + isAuthorized);
+        EnrollmentDecision enrollmentDecision = defaultEnrollmentMasterService.isAuthorizedEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
+        Assert.assertFalse(enrollmentDecision.isEnrollmentDenied());
+        System.out.println("isAuthorized = " + enrollmentDecision.isEnrollmentDenied());
     }
 
 
@@ -91,13 +91,13 @@ public class DefaultEnrollmentMasterServiceTest {
                 .build();
 
         // This should be an authorized enrollment, Student is enrolling for JHS1 from JHS2.  This is below their current enrollment level.  Student can always move down to reinforce concepts they are weak on
-        boolean isAuthorized = defaultEnrollmentMasterService.isAuthorizedEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
-        Assert.assertTrue(isAuthorized);
-        System.out.println("isAuthorized = " + isAuthorized);
+        EnrollmentDecision enrollmentDecision = defaultEnrollmentMasterService.isAuthorizedEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
+        Assert.assertFalse(enrollmentDecision.isEnrollmentDenied());
+        System.out.println("isAuthorized = " + enrollmentDecision.isEnrollmentDenied());
     }
 
     @Test
-    public void isAuthorizedEnrollmentRequestForTowLowerLevelTest() {
+    public void isAuthorizedEnrollmentRequestForTwoLowerLevelTest() {
         // Build the target StudentTutorialGrade which Student wants to upgrade to
         StudentTutorialGrade targetStudentTutorialGrade = StudentTutorialGrade.builder()
                 .tutorialGrade("JHS 3")
@@ -122,9 +122,9 @@ public class DefaultEnrollmentMasterServiceTest {
                 .build();
 
         // This should not be authorized enrollment, Student is enrolling for JHS3 from JHS1.  This 2 levels above their current enrollment.
-        boolean isAuthorized = defaultEnrollmentMasterService.isAuthorizedEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
-        Assert.assertFalse(isAuthorized);
-        System.out.println("isAuthorized = " + isAuthorized);
+        EnrollmentDecision enrollmentDecision = defaultEnrollmentMasterService.isAuthorizedEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
+        Assert.assertTrue(enrollmentDecision.isEnrollmentDenied());
+        System.out.println("isAuthorized = " + enrollmentDecision.isEnrollmentDenied());
     }
 
     @Test
