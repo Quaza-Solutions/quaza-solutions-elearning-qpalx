@@ -17,6 +17,9 @@ public enum ProficiencyRankingTriggerTypeE {
 
     PROFICIENCY_CHANGE,
 
-    ON_DEMAND;
+    ON_DEMAND,
+
+    COMPLETION_THRESH_HOLD
+    ;
 
 }

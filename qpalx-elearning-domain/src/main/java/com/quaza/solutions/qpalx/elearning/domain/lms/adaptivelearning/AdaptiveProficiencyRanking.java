@@ -46,6 +46,10 @@ public class AdaptiveProficiencyRanking {
     @JoinColumn(name = "ELearningCurriculumID", nullable = false)
     private ELearningCurriculum eLearningCurriculum;
 
+    // Student's completion percentage of the curriculum when the AdaptiveProficiencyRanking was calculated
+    @Column(name="CurriculumCompletionPercentage", nullable=true)
+    private Double curriculumCompletionPercentage;
+
     // Record of QPalxUser Proficiency Ranking for ELearningCurriculum at the recorded date
     @Column(name="ProficiencyRankingScale", nullable=false, length=10)
     @Enumerated(EnumType.STRING)
@@ -96,6 +100,14 @@ public class AdaptiveProficiencyRanking {
 
     public void seteLearningCurriculum(ELearningCurriculum eLearningCurriculum) {
         this.eLearningCurriculum = eLearningCurriculum;
+    }
+
+    public Double getCurriculumCompletionPercentage() {
+        return curriculumCompletionPercentage;
+    }
+
+    public void setCurriculumCompletionPercentage(Double curriculumCompletionPercentage) {
+        this.curriculumCompletionPercentage = curriculumCompletionPercentage;
     }
 
     public ProficiencyRankingScaleE getProficiencyRankingScaleE() {
@@ -163,6 +175,7 @@ public class AdaptiveProficiencyRanking {
                 .append(id, that.id)
                 .append(qpalxUser, that.qpalxUser)
                 .append(eLearningCurriculum, that.eLearningCurriculum)
+                .append(curriculumCompletionPercentage, that.curriculumCompletionPercentage)
                 .append(proficiencyRankingScaleE, that.proficiencyRankingScaleE)
                 .append(proficiencyRankingEffectiveDateTime, that.proficiencyRankingEffectiveDateTime)
                 .append(proficiencyRankingEndDateTime, that.proficiencyRankingEndDateTime)
@@ -176,6 +189,7 @@ public class AdaptiveProficiencyRanking {
                 .append(id)
                 .append(qpalxUser)
                 .append(eLearningCurriculum)
+                .append(curriculumCompletionPercentage)
                 .append(proficiencyRankingScaleE)
                 .append(proficiencyRankingEffectiveDateTime)
                 .append(proficiencyRankingEndDateTime)
@@ -189,6 +203,7 @@ public class AdaptiveProficiencyRanking {
                 .append("id", id)
                 .append("qpalxUser", qpalxUser)
                 .append("eLearningCurriculum", eLearningCurriculum)
+                .append("curriculumCompletionPercentage", curriculumCompletionPercentage)
                 .append("proficiencyRankingScaleE", proficiencyRankingScaleE)
                 .append("proficiencyRankingEffectiveDateTime", proficiencyRankingEffectiveDateTime)
                 .append("proficiencyRankingEndDateTime", proficiencyRankingEndDateTime)
@@ -215,6 +230,11 @@ public class AdaptiveProficiencyRanking {
 
         public Builder eLearningCurriculum(final ELearningCurriculum eLearningCurriculum) {
             adaptiveProficiencyRanking.eLearningCurriculum = eLearningCurriculum;
+            return this;
+        }
+
+        public Builder curriculumCompletionPercentage(final Double curriculumCompletionPercentage) {
+            adaptiveProficiencyRanking.curriculumCompletionPercentage = curriculumCompletionPercentage;
             return this;
         }
 

@@ -2,6 +2,7 @@ package com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.global;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.AdaptiveProficiencyRanking;
+import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.CurriculumCompletionThresholdE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.ProficiencyRankingTriggerTypeE;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.algorithm.ProficiencyAlgorithmExecutionInfo;
 import com.quaza.solutions.qpalx.elearning.domain.lms.adaptivelearning.statistics.StudentOverallProgressStatistics;
@@ -69,38 +70,74 @@ public class GlobalAdaptiveLearningService implements IGlobalAdaptiveLearningSer
         Assert.notNull(proficiencyRankingTriggerTypeE, "proficiencyRankingTriggerTypeE cannot be null");
 
         Runnable runnable = () -> {
-            // Check the students overall completion percent.  IF it falls within completion % thresholds then calculate new curriculum proficiency
-            StudentOverallProgressStatistics studentOverallProgressStatistics = iStudentCurriculumProgressService.getStudentOverallProgressStatisticsInCurriculum(qPalXUser, eLearningCurriculum);
-            double curriculumCompletionPercent = studentOverallProgressStatistics.getTotalCurriculumCompletionPercent();
-            LOGGER.info("Student has currently Completed: {}% of Curriculum", curriculumCompletionPercent, eLearningCurriculum);
+            LOGGER.info("Running global curriculum tracking statistics task for Student: {} across ELearningCurriculum: {}", qPalXUser.getEmail(), eLearningCurriculum.getCurriculumName());
 
-            if (curriculumCompletionPercent > 50.0) {
-                LOGGER.info("Computing new AdaptiveProficiencyRanking for Student: {} in Curriculum: {} with proficiencyRankingTriggerTypeE: {}", qPalXUser.getEmail(), eLearningCurriculum.getCurriculumName(), proficiencyRankingTriggerTypeE);
+            // Get the current AdaptiveProficiencyRanking for this user in this Curriculum and then copy over users current proficiency ranking
+            AdaptiveProficiencyRanking currentProficiencyRanking = iAdaptiveProficiencyRankingService.findCurrentStudentAdaptiveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum);
 
-                // Get the current AdaptiveProficiencyRanking for this user in this Curriculum and then copy over users current proficiency ranking
-                AdaptiveProficiencyRanking currentProficiencyRanking = iAdaptiveProficiencyRankingService.findCurrentStudentAdaptiveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum);
-                AdaptiveProficiencyRanking globalCurriculumProficiencyRanking =  buildAdaptiveProficiencyRanking(qPalXUser, eLearningCurriculum, proficiencyRankingTriggerTypeE);
+            double curriculumCompletionPercent = calculateStudentCurriculumCompletion(qPalXUser, eLearningCurriculum);
+            boolean hasStudentMetCompletionThresholdRequirements = hasStudentMetCompletionThresholdRequirements(curriculumCompletionPercent, currentProficiencyRanking);
+
+            if (hasStudentMetCompletionThresholdRequirements) {
+                AdaptiveProficiencyRanking globalCurriculumProficiencyRanking =  buildAdaptiveProficiencyRanking(curriculumCompletionPercent, qPalXUser, eLearningCurriculum, proficiencyRankingTriggerTypeE);
                 globalCurriculumProficiencyRanking.setProficiencyRankingScaleE(currentProficiencyRanking.getProficiencyRankingScaleE());
 
                 List<ProficiencyAlgorithmExecutionInfo> proficiencyAlgorithmExecutionInfoList =  iMultiplexAdaptiveProficiencyAlgorithm.calculateAllAlgorithmScore(qPalXUser, eLearningCurriculum, globalCurriculumProficiencyRanking);
                 LOGGER.info("Post Close Out:  After all computations new value of AdaptiveProficiencyRanking  proficiencyRankingScale: {}", globalCurriculumProficiencyRanking.getProficiencyRankingScaleE());
                 iAdaptiveProficiencyRankingService.recordNew(globalCurriculumProficiencyRanking, currentProficiencyRanking);
+            } else {
+                LOGGER.info("Student has not met curriculum completion threshold percent targets to compute and calculate AdaptiveProficiencyRanking");
             }
         };
 
         listeningExecutorService.submit(runnable);
     }
 
-    protected AdaptiveProficiencyRanking buildAdaptiveProficiencyRanking(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, ProficiencyRankingTriggerTypeE proficiencyRankingTriggerTypeE) {
+    protected AdaptiveProficiencyRanking buildAdaptiveProficiencyRanking(double curriculumCompletionPercent, QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum, ProficiencyRankingTriggerTypeE proficiencyRankingTriggerTypeE) {
         AdaptiveProficiencyRanking adaptiveProficiencyRanking = AdaptiveProficiencyRanking.builder()
                 .proficiencyRankingEffectiveDateTime(new DateTime())
                 .proficiencyRankingEndDateTime(null) // null as this is just recorded new
-                .proficiencyRankingTriggerTypeE(proficiencyRankingTriggerTypeE)
+                .proficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE.COMPLETION_THRESH_HOLD)
                 .eLearningCurriculum(eLearningCurriculum)
+                .curriculumCompletionPercentage(curriculumCompletionPercent)
                 .qpalxUser(qPalXUser)
                 .build();
         return adaptiveProficiencyRanking;
     }
+
+    double calculateStudentCurriculumCompletion(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum) {
+        StudentOverallProgressStatistics studentOverallProgressStatistics = iStudentCurriculumProgressService.getStudentOverallProgressStatisticsInCurriculum(qPalXUser, eLearningCurriculum);
+        double curriculumCompletionPercent = studentOverallProgressStatistics.getTotalCurriculumCompletionPercent();
+        LOGGER.info("Student has currently completed {}% of ELearningCurriculum: {}", curriculumCompletionPercent, eLearningCurriculum.getCurriculumName());
+        return curriculumCompletionPercent;
+    }
+
+    boolean hasStudentMetCompletionThresholdRequirements(double computedCurriculumCompletionPercent, AdaptiveProficiencyRanking currentProficiencyRanking) {
+        double lastRecordedCompletion = currentProficiencyRanking.getCurriculumCompletionPercentage().doubleValue();
+        boolean hasCompletedMoreItems = computedCurriculumCompletionPercent > lastRecordedCompletion;
+
+        if(hasCompletedMoreItems) {
+            // Get the next target rate completion based on the last recorded completion percentage
+            CurriculumCompletionThresholdE curriculumCompletionThresholdE = CurriculumCompletionThresholdE.getTargetCurriculumCompletionThresholdE(lastRecordedCompletion);
+            LOGGER.info("Student's computedCurriculumCompletionPercent: {}  curriculumCompletionThresholdE: {}", computedCurriculumCompletionPercent, curriculumCompletionThresholdE);
+            boolean hasMetOrCrossedCurriculumCompletionThresholdE = hasMetOrCrossedCurriculumCompletionThresholdE(computedCurriculumCompletionPercent, curriculumCompletionThresholdE);
+            return hasMetOrCrossedCurriculumCompletionThresholdE;
+        }
+
+        return false;
+    }
+
+
+    boolean hasMetOrCrossedCurriculumCompletionThresholdE(double computedCurriculumCompletionPercent, CurriculumCompletionThresholdE curriculumCompletionThresholdE) {
+        double thresholdPercent = curriculumCompletionThresholdE.getCompletionThreshold();
+
+        if(computedCurriculumCompletionPercent >= thresholdPercent) {
+            return true;
+        }
+
+        return false;
+    }
+
 
 
 }
