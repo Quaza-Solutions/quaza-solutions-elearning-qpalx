@@ -112,4 +112,16 @@ public class ProficiencyScoreRangeETest {
         Assert.assertFalse(proficiencyScoreRangeE.isPresent());
     }
 
+    @Test
+    public void testAverageProficiencyScoreRangeE() {
+        ProficiencyScoreRangeE avg = ProficiencyScoreRangeE.averageProficiencyScoreRangeE(ProficiencyScoreRangeE.EXTREMELY_DEFICIENT_PERFORMER, ProficiencyScoreRangeE.FUNDAMENTALS_LACKING_PERFORMER);
+        Assert.assertEquals(ProficiencyScoreRangeE.EXTREMELY_DEFICIENT_PERFORMER, avg);
+
+        avg = ProficiencyScoreRangeE.averageProficiencyScoreRangeE(ProficiencyScoreRangeE.FUNDAMENTALS_LACKING_PERFORMER, ProficiencyScoreRangeE.FAILING_PERFORMER);
+        Assert.assertEquals(ProficiencyScoreRangeE.FUNDAMENTALS_LACKING_PERFORMER, avg);
+
+        avg = ProficiencyScoreRangeE.averageProficiencyScoreRangeE(ProficiencyScoreRangeE.FAILING_PERFORMER, ProficiencyScoreRangeE.POOR_PERFORMER);
+        Assert.assertEquals(ProficiencyScoreRangeE.FAILING_PERFORMER, avg);
+    }
+
 }

@@ -53,6 +53,10 @@ public enum ProficiencyScoreRangeE {
         return getProficiencyScoreRangeForScore(minScoreInHigherRange);
     }
 
+    public boolean isBelowAverageScoreRange() {
+        return isBelowScoreRange(ProficiencyScoreRangeE.AVERAGE_PERFORMER);
+    }
+
     public boolean isAboveScoreRange(ProficiencyScoreRangeE proficiencyScoreRangeE) {
         Assert.notNull(proficiencyScoreRangeE, "proficiencyScoreRangeE cannot be null");
         Range<Double> otherScoreRange = proficiencyScoreRangeE.getScoreRange();
@@ -86,6 +90,19 @@ public enum ProficiencyScoreRangeE {
         }
 
         return Optional.empty();
+    }
+
+    public static ProficiencyScoreRangeE averageProficiencyScoreRangeE(ProficiencyScoreRangeE scoreRangeE1, ProficiencyScoreRangeE scoreRangeE2) {
+        Assert.notNull(scoreRangeE1, "scoreRangeE1 cannot be null");
+        Assert.notNull(scoreRangeE2, "scoreRangeE2 cannot be null");
+
+        // Score range will be calculated using the minimum range
+        Double minScore1 = scoreRangeE1.getScoreRange().getMinimum();
+        Double minScore2 = scoreRangeE2.getScoreRange().getMinimum();
+
+        double avgScore = (minScore1.doubleValue() + minScore2.doubleValue()) / 2;
+        Optional<ProficiencyScoreRangeE> avgProficiencyScoreRangeE = getProficiencyScoreRangeForScore(avgScore);
+        return avgProficiencyScoreRangeE.get();
     }
 
 }

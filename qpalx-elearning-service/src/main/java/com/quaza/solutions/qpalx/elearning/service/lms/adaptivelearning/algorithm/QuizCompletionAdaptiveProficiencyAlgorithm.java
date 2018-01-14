@@ -10,8 +10,11 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurric
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.QPalXELesson;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyRankingScaleE;
+import com.quaza.solutions.qpalx.elearning.domain.subjectmatter.proficiency.ProficiencyScoreRangeE;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
 import com.quaza.solutions.qpalx.elearning.service.councurrent.ApplicationConcurrencyConfig;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.DefaultAdaptiveProficiencyRankingService;
+import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.IAdaptiveProficiencyRankingService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.microlesson.IMicroLessonPerformanceMonitorService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.microlesson.MicroLessonPerformanceMonitorService;
 import com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.quiz.AdaptiveLearningQuizStatisticsService;
@@ -47,6 +50,7 @@ import java.util.Map;
 public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProficiencyAlgorithm {
 
 
+
     @Autowired
     @Qualifier(DefaultELearningCourseService.BEAN_NAME)
     private IELearningCourseService ieLearningCourseService;
@@ -62,6 +66,10 @@ public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProf
     @Autowired
     @Qualifier(AdaptiveLearningQuizStatisticsService.BEAN_NAME)
     private IAdaptiveLearningQuizStatisticsService iAdaptiveLearningQuizStatisticsService;
+
+    @Autowired
+    @Qualifier(DefaultAdaptiveProficiencyRankingService.SPRING_BEAN_NAME)
+    private IAdaptiveProficiencyRankingService iAdaptiveProficiencyRankingService;
 
     @Autowired
     @Qualifier(MicroLessonPerformanceMonitorService.BEAN_NAME)
@@ -97,14 +105,41 @@ public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProf
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
         Assert.notNull(currentAdaptiveProficiencyRanking, "currentAdaptiveProficiencyRanking cannot be null");
 
-        LOGGER.info("Invoking algorithm for student: {} in curriculum: {}", qPalXUser.getEmail(), eLearningCurriculum.getCurriculumName());
+        ProficiencyAlgorithmExecutionInfo proficiencyAlgorithmExecutionInfo = ProficiencyAlgorithmExecutionInfo.newInstance("Performance On Curriculum");
 
-        // Find Current proficiency ranking for all Courses under this ELearningCurriculum
+        LOGGER.info("Invoking Quiz completion algorithm for Student: {} across Curriculum: {}", qPalXUser.getEmail(), eLearningCurriculum.getCurriculumName());
+
+        // Find Current AdaptiveProficiencyRanking for all Courses under this ELearningCurriculum
+        // Map will contain ELearningCourse and the students current Proficiency ranking on that course.  From this we can calculate overall proficiency in Curriculum
         Map<ELearningCourse, AdaptiveProficiencyRanking> courseRankings = findAllCoursesProficiencyRanking(qPalXUser, eLearningCurriculum);
+        System.out.println("courseRankings = " + courseRankings);
 
         // For each course find Lessons that the Student's ProficiencyRankings will allow them to access
+        AdaptiveProficiencyRanking calculatedProficiencyRanking = currentAdaptiveProficiencyRanking;
+        for(Map.Entry<ELearningCourse, AdaptiveProficiencyRanking> entry : courseRankings.entrySet()) {
+            ELearningCourse eLearningCourse = entry.getKey();
+            AdaptiveProficiencyRanking courseProficiencyRanking = entry.getValue();
 
-        return null;
+            // Average out current proficiency ranking with the proficiency ranking on the course
+            calculatedProficiencyRanking = iAdaptiveProficiencyRankingService.averageAdaptiveProficiencyRanking(calculatedProficiencyRanking, courseProficiencyRanking);
+            ProficiencyScoreRangeE calculatedProficiencyScoreRangeE = calculatedProficiencyRanking.getProficiencyRankingScaleE().getProficiencyScoreRangeE();
+            double calculatedProficiencyScore = calculatedProficiencyScoreRangeE.getScoreRange().getMinimum();
+            LOGGER.info("Currently averaged proficiency ranking on Course: {} calculatedProficiencyScore: {}", eLearningCourse, calculatedProficiencyScore);
+
+            ProficiencyAlgorithmResult proficiencyAlgorithmResult = ProficiencyAlgorithmResult.newInstance(calculatedProficiencyScore, eLearningCourse.getCourseName());
+
+            if(calculatedProficiencyScoreRangeE.isBelowAverageScoreRange()) {
+                proficiencyAlgorithmExecutionInfo.addNegativeProgressItem(proficiencyAlgorithmResult);
+            } else {
+                proficiencyAlgorithmExecutionInfo.addPositiveProgressItem(proficiencyAlgorithmResult);
+            }
+
+        }
+
+        currentAdaptiveProficiencyRanking.setProficiencyRankingScaleE(calculatedProficiencyRanking.getProficiencyRankingScaleE());
+
+        LOGGER.info("Returning new proficiencyAlgorithmExecutionInfo");
+        return proficiencyAlgorithmExecutionInfo;
     }
 
 
@@ -137,6 +172,7 @@ public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProf
 
         for(ELearningCourse eLearningCourse : eLearningCourses) {
             AdaptiveProficiencyRanking adaptiveProficiencyRanking = iMicroLessonPerformanceMonitorService.calculateAdaptiveProficiencyRanking(qPalXUser, eLearningCourse);
+            LOGGER.info("Course: {} newly computed ProficiencyRankingScaleE: {}", adaptiveProficiencyRanking.getProficiencyRankingScaleE());
             courseRankings.put(eLearningCourse, adaptiveProficiencyRanking);
         }
 

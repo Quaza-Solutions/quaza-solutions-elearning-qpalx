@@ -19,6 +19,8 @@ public interface IAdaptiveProficiencyRankingService {
 
     public void save(AdaptiveProficiencyRanking adaptiveProficiencyRanking);
 
+    public void recordNew(AdaptiveProficiencyRanking newAdaptiveProficiencyRanking);
+
     public void defaultToLowestProficiencyRanking(AdaptiveProficiencyRanking adaptiveProficiencyRanking);
 
     public double getAdaptiveProficiencyRankingMinScore(AdaptiveProficiencyRanking adaptiveProficiencyRanking);
@@ -32,6 +34,8 @@ public interface IAdaptiveProficiencyRankingService {
     public AdaptiveProficiencyRanking findCurrentStudentAdaptiveProficiencyRankingForCurriculum(final QPalXUser qPalXUser, final ELearningCurriculum eLearningCurriculum);
 
     public AdaptiveProficiencyRanking buildAdaptiveProficiencyRanking(double proficiencyScore, ProficiencyRankingTriggerTypeE proficiencyRankingTriggerTypeE);
+
+    public AdaptiveProficiencyRanking averageAdaptiveProficiencyRanking(AdaptiveProficiencyRanking adaptiveProficiencyRanking1, AdaptiveProficiencyRanking adaptiveProficiencyRanking2);
 
     public void buildInitialAdaptiveProficiencyRanking(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade);
 

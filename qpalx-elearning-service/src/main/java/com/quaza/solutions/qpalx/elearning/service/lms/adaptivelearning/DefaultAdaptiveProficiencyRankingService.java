@@ -43,12 +43,31 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
 
 
 
-    @Transactional
     @Override
+    @Transactional
     public void save(AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
         Assert.notNull(adaptiveProficiencyRanking, "adaptiveProficiencyRanking");
         LOGGER.info("Saving adaptiveProficiencyRanking: {}", adaptiveProficiencyRanking);
         iAdaptiveProficiencyRankingRepository.save(adaptiveProficiencyRanking);
+    }
+
+    @Override
+    @Transactional
+    public void recordNew(AdaptiveProficiencyRanking newAdaptiveProficiencyRanking) {
+        Assert.notNull(newAdaptiveProficiencyRanking, "adaptiveProficiencyRanking");
+        LOGGER.debug("Recording new adaptiveProficiencyRanking: {}", newAdaptiveProficiencyRanking);
+
+        QPalXUser qPalXUser = newAdaptiveProficiencyRanking.getQPalXUser();
+        ELearningCurriculum eLearningCurriculum = newAdaptiveProficiencyRanking.geteLearningCurriculum();
+
+        // We need to close out the current AdaptiveProficiencyRanking before recording new one
+        AdaptiveProficiencyRanking currentAdaptiveProficiencyRanking = findCurrentStudentAdaptiveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum);
+        if(currentAdaptiveProficiencyRanking != null) {
+            currentAdaptiveProficiencyRanking.setProficiencyRankingEndDateTime(DateTime.now());
+            save(currentAdaptiveProficiencyRanking);
+        }
+
+        save(newAdaptiveProficiencyRanking);
     }
 
     @Override
@@ -125,6 +144,27 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
                 .build();
 
         return adaptiveProficiencyRanking;
+    }
+
+    @Override
+    public AdaptiveProficiencyRanking averageAdaptiveProficiencyRanking(AdaptiveProficiencyRanking adaptiveProficiencyRanking1, AdaptiveProficiencyRanking adaptiveProficiencyRanking2) {
+        Assert.notNull(adaptiveProficiencyRanking1, "adaptiveProficiencyRanking1 cannot be null");
+        Assert.notNull(adaptiveProficiencyRanking2, "adaptiveProficiencyRanking2 cannot be null");
+
+        LOGGER.debug("Averaging proficiency ranking for adaptiveProficiencyRanking1: {} and adaptiveProficiencyRanking2: {}", adaptiveProficiencyRanking1, adaptiveProficiencyRanking2);
+
+        // Calculate the average
+        ProficiencyRankingScaleE proficiencyRankingScaleE1 = adaptiveProficiencyRanking1.getProficiencyRankingScaleE();
+        ProficiencyRankingScaleE proficiencyRankingScaleE2 = adaptiveProficiencyRanking2.getProficiencyRankingScaleE();
+        ProficiencyRankingScaleE avgProficiencyRankingScaleE = ProficiencyRankingScaleE.averageProficiencyRankingScale(proficiencyRankingScaleE1, proficiencyRankingScaleE2);
+
+        AdaptiveProficiencyRanking avgAdaptiveProficiencyRanking = AdaptiveProficiencyRanking.builder()
+                .proficiencyRankingScaleE(avgProficiencyRankingScaleE)
+                .proficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE.ON_DEMAND)
+                .proficiencyRankingEffectiveDateTime(DateTime.now())
+                .build();
+
+        return avgAdaptiveProficiencyRanking;
     }
 
     @Override

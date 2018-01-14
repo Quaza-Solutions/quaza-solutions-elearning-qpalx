@@ -17,7 +17,7 @@ public class ApplicationConcurrencyConfig {
     public static final String BEAN_NAME = "quaza.solutions.qpalx.elearning.service.StatisticsExecutorService";
 
 
-    @Bean(name = "quaza.solutions.qpalx.elearning.service.StatisticsExecutorService")
+    @Bean(name = ApplicationConcurrencyConfig.BEAN_NAME)
     public ListeningExecutorService configureApplicationExecutorService() {
         ListeningExecutorService executorService = MoreExecutors.listeningDecorator(
                 Executors.newFixedThreadPool(5, ApplicationThreadFactoryBuilder.buildThreadFactory("STATISTICS-QPalX-ThreadPool-%d"))

@@ -211,4 +211,18 @@ public enum ProficiencyRankingScaleE {
         proficiencyRankingScaleEs.sort((ProficiencyRankingScaleE o1, ProficiencyRankingScaleE o2) -> o1.getProficiencyRanking() - o2.getProficiencyRanking());
         return proficiencyRankingScaleEs;
     }
+
+    public static ProficiencyRankingScaleE averageProficiencyRankingScale(ProficiencyRankingScaleE proficiencyRankingScaleE1, ProficiencyRankingScaleE proficiencyRankingScaleE2) {
+        Assert.notNull(proficiencyRankingScaleE1, "proficiencyRankingScaleE1 cannot be null");
+        Assert.notNull(proficiencyRankingScaleE2, "proficiencyRankingScaleE2 cannot be null");
+
+        ProficiencyScoreRangeE scoreRangeE1 = proficiencyRankingScaleE1.getProficiencyScoreRangeE();
+        ProficiencyScoreRangeE scoreRangeE2 = proficiencyRankingScaleE2.getProficiencyScoreRangeE();
+
+        // Average the score ranges
+        ProficiencyScoreRangeE avgProficiencyScoreRangeE = ProficiencyScoreRangeE.averageProficiencyScoreRangeE(scoreRangeE1, scoreRangeE2);
+        Optional<ProficiencyRankingScaleE> avgProficiencyRankingScaleE = ProficiencyRankingScaleE.getProficiencyRankingScaleForRange(avgProficiencyScoreRangeE);
+        return avgProficiencyRankingScaleE.get();
+    }
+
 }

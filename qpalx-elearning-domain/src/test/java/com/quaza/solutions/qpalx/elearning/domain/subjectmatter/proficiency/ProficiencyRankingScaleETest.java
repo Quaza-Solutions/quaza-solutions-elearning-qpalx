@@ -328,4 +328,25 @@ public class ProficiencyRankingScaleETest {
         System.out.println("canAccessProficiencyRange = " + canAccessProficiencyRange);
     }
 
+    @Test
+    public void testAverageProficiencyRankingScale() {
+        ProficiencyRankingScaleE avg = ProficiencyRankingScaleE.averageProficiencyRankingScale(ProficiencyRankingScaleE.ONE, ProficiencyRankingScaleE.TWO);
+        Assert.assertEquals(ProficiencyRankingScaleE.ONE, avg);
+
+        avg = ProficiencyRankingScaleE.averageProficiencyRankingScale(ProficiencyRankingScaleE.ONE, ProficiencyRankingScaleE.ONE);
+        Assert.assertEquals(ProficiencyRankingScaleE.ONE, avg);
+
+        avg = ProficiencyRankingScaleE.averageProficiencyRankingScale(ProficiencyRankingScaleE.TWO, ProficiencyRankingScaleE.THREE);
+        Assert.assertEquals(ProficiencyRankingScaleE.TWO, avg);
+
+        avg = ProficiencyRankingScaleE.averageProficiencyRankingScale(ProficiencyRankingScaleE.THREE, ProficiencyRankingScaleE.FOUR);
+        Assert.assertEquals(ProficiencyRankingScaleE.THREE, avg);
+
+        avg = ProficiencyRankingScaleE.averageProficiencyRankingScale(ProficiencyRankingScaleE.FOUR, ProficiencyRankingScaleE.FIVE);
+        Assert.assertEquals(ProficiencyRankingScaleE.FOUR, avg);
+
+        avg = ProficiencyRankingScaleE.averageProficiencyRankingScale(ProficiencyRankingScaleE.FOUR, ProficiencyRankingScaleE.FOUR);
+        Assert.assertEquals(ProficiencyRankingScaleE.FOUR, avg);
+    }
+
 }

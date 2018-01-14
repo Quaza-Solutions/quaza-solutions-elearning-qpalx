@@ -6,9 +6,11 @@ import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCourse
 import com.quaza.solutions.qpalx.elearning.domain.lms.curriculum.ELearningCurriculum;
 import com.quaza.solutions.qpalx.elearning.domain.qpalxuser.QPalXUser;
 import com.quaza.solutions.qpalx.elearning.domain.tutoriallevel.TutorialLevelCalendar;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,12 +22,16 @@ public class MultiplexAdaptiveProficiencyAlgorithm implements IMultiplexAdaptive
 
 
 
-    private List<IAdaptiveProficiencyAlgorithm> adaptiveProficiencyAlgorithmList = new LinkedList<>();
+
+    // Inject all IAdaptiveProficiencyAlgorithm implementations
+    @Autowired
+    private List<IAdaptiveProficiencyAlgorithm> adaptiveProficiencyAlgorithmList; //= new LinkedList<>();
 
 
     public static final String BEAN_NAME = "com.quaza.solutions.qpalx.elearning.service.lms.adaptivelearning.algorithm.MultiplexAdaptiveProficiencyAlgorithm";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(MultiplexAdaptiveProficiencyAlgorithm.class);
+
 
 
     @Override
@@ -38,8 +44,8 @@ public class MultiplexAdaptiveProficiencyAlgorithm implements IMultiplexAdaptive
 
         for(IAdaptiveProficiencyAlgorithm iAdaptiveProficiencyAlgorithm : adaptiveProficiencyAlgorithmList) {
             LOGGER.info("Invoking and execution iAdaptiveProficiencyAlgorithm: {} for student: {} ", iAdaptiveProficiencyAlgorithm, qPalXUser.getEmail());
-//            ProficiencyAlgorithmExecutionInfo proficiencyAlgorithmExecutionInfo = iAdaptiveProficiencyAlgorithm.calculateAlgorithmScore(qPalXUser, eLearningCurriculum, currentAdaptiveProficiencyRanking);
-//            algorithmResults.add(proficiencyAlgorithmExecutionInfo);
+            ProficiencyAlgorithmExecutionInfo proficiencyAlgorithmExecutionInfo = iAdaptiveProficiencyAlgorithm.executeAlgorithm(qPalXUser, eLearningCurriculum, currentAdaptiveProficiencyRanking);
+            algorithmResults.add(proficiencyAlgorithmExecutionInfo);
         }
 
         return algorithmResults;
@@ -67,6 +73,11 @@ public class MultiplexAdaptiveProficiencyAlgorithm implements IMultiplexAdaptive
         Assert.notNull(iAdaptiveProficiencyAlgorithm, "iAdaptiveProficiencyAlgorithm cannot be null");
         LOGGER.debug("Removing iAdaptiveProficiencyAlgorithm: {} from internal list", iAdaptiveProficiencyAlgorithm);
         adaptiveProficiencyAlgorithmList.remove(iAdaptiveProficiencyAlgorithm);
+    }
+
+    @PostConstruct
+    public void displayAllProficiencyRan() {
+        System.out.println("adaptiveProficiencyAlgorithmList = " + adaptiveProficiencyAlgorithmList);
     }
 
 }

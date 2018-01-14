@@ -73,7 +73,7 @@ public class MicroLessonPerformanceMonitorService implements IMicroLessonPerform
         Assert.notNull(student, "student cannot be null");
         Assert.notNull(eLearningCourse, "eLearningCourse cannot be null");
 
-        LOGGER.debug("Finding current performance information for Student: {} in ELearningCourse: {}", student.getEmail(), eLearningCourse.getCourseName());
+        LOGGER.info("Finding current performance information for Student: {} in ELearningCourse: {}", student.getEmail(), eLearningCourse.getCourseName());
 
         List<AdaptiveLessonQuizStatistics> adaptiveLessonQuizStatistics = iAdaptiveLearningQuizStatisticsService.findStudentQuizzesStatisticsForCourse(student, eLearningCourse.getId());
 
