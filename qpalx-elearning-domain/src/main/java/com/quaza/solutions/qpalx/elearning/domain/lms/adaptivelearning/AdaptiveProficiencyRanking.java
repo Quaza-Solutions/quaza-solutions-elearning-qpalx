@@ -65,7 +65,7 @@ public class AdaptiveProficiencyRanking {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime proficiencyRankingEndDateTime;
 
-    @Column(name="ProficiencyRankingTriggerType", nullable=false, length=20)
+    @Column(name="ProficiencyRankingTriggerType", nullable=false, length=40)
     @Enumerated(EnumType.STRING)
     private ProficiencyRankingTriggerTypeE proficiencyRankingTriggerTypeE;
 

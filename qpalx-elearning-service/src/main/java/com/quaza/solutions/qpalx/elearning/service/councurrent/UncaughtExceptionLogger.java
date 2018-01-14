@@ -20,6 +20,7 @@ public class UncaughtExceptionLogger implements Thread.UncaughtExceptionHandler 
         String threadName = t.getName();
         String threadGroupName = t.getThreadGroup().getName();
         LOGGER.warn("Thread: {} from Group: {} threw an UncaughtException: {}", threadName, threadGroupName, e);
+        e.printStackTrace();
     }
 
 }

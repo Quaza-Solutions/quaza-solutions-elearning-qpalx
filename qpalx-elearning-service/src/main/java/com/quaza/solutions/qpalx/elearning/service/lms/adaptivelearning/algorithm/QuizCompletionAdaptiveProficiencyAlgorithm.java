@@ -123,7 +123,7 @@ public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProf
             AdaptiveProficiencyRanking averageProficiencyRanking = iAdaptiveProficiencyRankingService.averageAdaptiveProficiencyRanking(calculatedProficiencyRanking, courseProficiencyRanking);
             ProficiencyScoreRangeE calculatedProficiencyScoreRangeE = calculatedProficiencyRanking.getProficiencyRankingScaleE().getProficiencyScoreRangeE();
             double calculatedProficiencyScore = calculatedProficiencyScoreRangeE.getScoreRange().getMinimum();
-            LOGGER.info("Currently averaged proficiency ranking on Course: {} calculatedProficiencyScore: {}", eLearningCourse, calculatedProficiencyScore);
+            LOGGER.info("Currently averaged proficiency ranking on Course: {} calculatedProficiencyScore: {}", eLearningCourse.getCourseName(), calculatedProficiencyScore);
 
             ProficiencyAlgorithmResult proficiencyAlgorithmResult = ProficiencyAlgorithmResult.newInstance(calculatedProficiencyScore, eLearningCourse.getCourseName());
 

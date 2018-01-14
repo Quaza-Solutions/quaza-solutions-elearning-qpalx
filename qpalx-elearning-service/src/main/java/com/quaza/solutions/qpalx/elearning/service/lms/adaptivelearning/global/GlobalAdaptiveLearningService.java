@@ -76,6 +76,17 @@ public class GlobalAdaptiveLearningService implements IGlobalAdaptiveLearningSer
             AdaptiveProficiencyRanking currentProficiencyRanking = iAdaptiveProficiencyRankingService.findCurrentStudentAdaptiveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum);
 
             double curriculumCompletionPercent = calculateStudentCurriculumCompletion(qPalXUser, eLearningCurriculum);
+
+            // Edge case:  It is possible that the calculated competion percent could be lower than what was previously recorded.
+            // This is possible because we could have added more lessons and quizzes in the system forcing their completion numbers to be lower on recalculation.
+            // In this case update their currently recorded with what we just calculated and exit.  On next global tracking the system will auto correct and update if all conditions match
+            if(curriculumCompletionPercent < currentProficiencyRanking.getCurriculumCompletionPercentage()) {
+                LOGGER.info("Handling edge case where the student has now completed less than what was previously tracked.  This signifies that more ELearning content has been added....");
+                currentProficiencyRanking.setCurriculumCompletionPercentage(curriculumCompletionPercent);
+                iAdaptiveProficiencyRankingService.save(currentProficiencyRanking);
+                return;
+            }
+
             boolean hasStudentMetCompletionThresholdRequirements = hasStudentMetCompletionThresholdRequirements(curriculumCompletionPercent, currentProficiencyRanking);
 
             if (hasStudentMetCompletionThresholdRequirements) {

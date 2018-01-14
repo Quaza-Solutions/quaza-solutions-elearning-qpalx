@@ -47,7 +47,7 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
     @Transactional
     public void save(AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
         Assert.notNull(adaptiveProficiencyRanking, "adaptiveProficiencyRanking");
-        LOGGER.info("Saving adaptiveProficiencyRanking: {}", adaptiveProficiencyRanking);
+        LOGGER.debug("Saving adaptiveProficiencyRanking: {}", adaptiveProficiencyRanking);
         iAdaptiveProficiencyRankingRepository.save(adaptiveProficiencyRanking);
     }
 
