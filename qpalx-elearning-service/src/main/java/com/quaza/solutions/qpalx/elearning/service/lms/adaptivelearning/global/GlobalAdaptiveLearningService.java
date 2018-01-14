@@ -77,10 +77,14 @@ public class GlobalAdaptiveLearningService implements IGlobalAdaptiveLearningSer
             if (curriculumCompletionPercent > 50.0) {
                 LOGGER.info("Computing new AdaptiveProficiencyRanking for Student: {} in Curriculum: {} with proficiencyRankingTriggerTypeE: {}", qPalXUser.getEmail(), eLearningCurriculum.getCurriculumName(), proficiencyRankingTriggerTypeE);
 
-                AdaptiveProficiencyRanking adaptiveProficiencyRanking = buildAdaptiveProficiencyRanking(qPalXUser, eLearningCurriculum, proficiencyRankingTriggerTypeE);
-                List<ProficiencyAlgorithmExecutionInfo> proficiencyAlgorithmExecutionInfoList =  iMultiplexAdaptiveProficiencyAlgorithm.calculateAllAlgorithmScore(qPalXUser, eLearningCurriculum, adaptiveProficiencyRanking);
-                LOGGER.info("Post Close Out:  After all computations new value of adaptiveProficiencyRanking: {}", adaptiveProficiencyRanking);
-                iAdaptiveProficiencyRankingService.recordNew(adaptiveProficiencyRanking);
+                // Get the current AdaptiveProficiencyRanking for this user in this Curriculum and then copy over users current proficiency ranking
+                AdaptiveProficiencyRanking currentProficiencyRanking = iAdaptiveProficiencyRankingService.findCurrentStudentAdaptiveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum);
+                AdaptiveProficiencyRanking globalCurriculumProficiencyRanking =  buildAdaptiveProficiencyRanking(qPalXUser, eLearningCurriculum, proficiencyRankingTriggerTypeE);
+                globalCurriculumProficiencyRanking.setProficiencyRankingScaleE(currentProficiencyRanking.getProficiencyRankingScaleE());
+
+                List<ProficiencyAlgorithmExecutionInfo> proficiencyAlgorithmExecutionInfoList =  iMultiplexAdaptiveProficiencyAlgorithm.calculateAllAlgorithmScore(qPalXUser, eLearningCurriculum, globalCurriculumProficiencyRanking);
+                LOGGER.info("Post Close Out:  After all computations new value of AdaptiveProficiencyRanking  proficiencyRankingScale: {}", globalCurriculumProficiencyRanking.getProficiencyRankingScaleE());
+                iAdaptiveProficiencyRankingService.recordNew(globalCurriculumProficiencyRanking, currentProficiencyRanking);
             }
         };
 

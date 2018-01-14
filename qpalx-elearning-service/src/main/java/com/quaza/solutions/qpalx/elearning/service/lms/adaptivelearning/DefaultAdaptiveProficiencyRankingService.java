@@ -52,25 +52,6 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
     }
 
     @Override
-    @Transactional
-    public void recordNew(AdaptiveProficiencyRanking newAdaptiveProficiencyRanking) {
-        Assert.notNull(newAdaptiveProficiencyRanking, "adaptiveProficiencyRanking");
-        LOGGER.debug("Recording new adaptiveProficiencyRanking: {}", newAdaptiveProficiencyRanking);
-
-        QPalXUser qPalXUser = newAdaptiveProficiencyRanking.getQPalXUser();
-        ELearningCurriculum eLearningCurriculum = newAdaptiveProficiencyRanking.geteLearningCurriculum();
-
-        // We need to close out the current AdaptiveProficiencyRanking before recording new one
-        AdaptiveProficiencyRanking currentAdaptiveProficiencyRanking = findCurrentStudentAdaptiveProficiencyRankingForCurriculum(qPalXUser, eLearningCurriculum);
-        if(currentAdaptiveProficiencyRanking != null) {
-            currentAdaptiveProficiencyRanking.setProficiencyRankingEndDateTime(DateTime.now());
-            save(currentAdaptiveProficiencyRanking);
-        }
-
-        save(newAdaptiveProficiencyRanking);
-    }
-
-    @Override
     public void defaultToLowestProficiencyRanking(AdaptiveProficiencyRanking adaptiveProficiencyRanking) {
         Assert.notNull(adaptiveProficiencyRanking, "adaptiveProficiencyRanking");
         LOGGER.debug("Defaulting proficiency ranking to lowest minimum possible value");
@@ -274,4 +255,26 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
             iAdaptiveProficiencyRankingRepository.save(adaptiveProficiencyRanking);
         }
     }
+
+    @Override
+    @Transactional
+    public void recordNew(AdaptiveProficiencyRanking newAdaptiveProficiencyRanking, AdaptiveProficiencyRanking currentAdaptiveProficiencyRanking) {
+        Assert.notNull(newAdaptiveProficiencyRanking, "adaptiveProficiencyRanking");
+        Assert.notNull(newAdaptiveProficiencyRanking.getQPalXUser(), "QPalxUser cannot be null");
+        Assert.notNull(newAdaptiveProficiencyRanking.geteLearningCurriculum(), "ELearningCurriculum cannot be null");
+
+        Assert.notNull(currentAdaptiveProficiencyRanking, "currentAdaptiveProficiencyRanking");
+        Assert.notNull(currentAdaptiveProficiencyRanking.getQPalXUser(), "Current ProficiencyRanking QPalxUser cannot be null");
+        Assert.notNull(currentAdaptiveProficiencyRanking.geteLearningCurriculum(), "Current ELearningCurriculum cannot be null");
+
+        LOGGER.debug("Recording new adaptiveProficiencyRanking: {}", newAdaptiveProficiencyRanking);
+
+        // We need to close out the current AdaptiveProficiencyRanking before recording new one
+        currentAdaptiveProficiencyRanking.setProficiencyRankingEndDateTime(DateTime.now());
+        save(currentAdaptiveProficiencyRanking);
+
+        // Save the new AdaptiveProficiencyRanking
+        save(newAdaptiveProficiencyRanking);
+    }
+
 }

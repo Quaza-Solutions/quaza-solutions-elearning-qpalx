@@ -111,17 +111,16 @@ public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProf
 
         // Find Current AdaptiveProficiencyRanking for all Courses under this ELearningCurriculum
         // Map will contain ELearningCourse and the students current Proficiency ranking on that course.  From this we can calculate overall proficiency in Curriculum
-        Map<ELearningCourse, AdaptiveProficiencyRanking> courseRankings = findAllCoursesProficiencyRanking(qPalXUser, eLearningCurriculum);
-        System.out.println("courseRankings = " + courseRankings);
+        Map<ELearningCourse, AdaptiveProficiencyRanking> courseRankingsMap = findAllCoursesProficiencyRanking(qPalXUser, eLearningCurriculum);
 
         // For each course find Lessons that the Student's ProficiencyRankings will allow them to access
         AdaptiveProficiencyRanking calculatedProficiencyRanking = currentAdaptiveProficiencyRanking;
-        for(Map.Entry<ELearningCourse, AdaptiveProficiencyRanking> entry : courseRankings.entrySet()) {
+        for(Map.Entry<ELearningCourse, AdaptiveProficiencyRanking> entry : courseRankingsMap.entrySet()) {
             ELearningCourse eLearningCourse = entry.getKey();
             AdaptiveProficiencyRanking courseProficiencyRanking = entry.getValue();
 
             // Average out current proficiency ranking with the proficiency ranking on the course
-            calculatedProficiencyRanking = iAdaptiveProficiencyRankingService.averageAdaptiveProficiencyRanking(calculatedProficiencyRanking, courseProficiencyRanking);
+            AdaptiveProficiencyRanking averageProficiencyRanking = iAdaptiveProficiencyRankingService.averageAdaptiveProficiencyRanking(calculatedProficiencyRanking, courseProficiencyRanking);
             ProficiencyScoreRangeE calculatedProficiencyScoreRangeE = calculatedProficiencyRanking.getProficiencyRankingScaleE().getProficiencyScoreRangeE();
             double calculatedProficiencyScore = calculatedProficiencyScoreRangeE.getScoreRange().getMinimum();
             LOGGER.info("Currently averaged proficiency ranking on Course: {} calculatedProficiencyScore: {}", eLearningCourse, calculatedProficiencyScore);
@@ -134,6 +133,7 @@ public class QuizCompletionAdaptiveProficiencyAlgorithm implements IAdaptiveProf
                 proficiencyAlgorithmExecutionInfo.addPositiveProgressItem(proficiencyAlgorithmResult);
             }
 
+            calculatedProficiencyRanking = averageProficiencyRanking;
         }
 
         currentAdaptiveProficiencyRanking.setProficiencyRankingScaleE(calculatedProficiencyRanking.getProficiencyRankingScaleE());
