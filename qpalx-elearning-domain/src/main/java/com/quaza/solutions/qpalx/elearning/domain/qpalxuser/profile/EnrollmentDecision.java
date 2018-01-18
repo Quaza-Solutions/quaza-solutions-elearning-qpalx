@@ -91,6 +91,10 @@ public class EnrollmentDecision {
         return enrollmentDenied;
     }
 
+    public boolean isEnrollmentApproved() {
+        return !enrollmentDenied;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

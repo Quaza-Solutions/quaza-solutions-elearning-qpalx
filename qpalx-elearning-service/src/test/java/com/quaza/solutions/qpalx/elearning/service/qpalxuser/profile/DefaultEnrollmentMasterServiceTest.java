@@ -185,7 +185,7 @@ public class DefaultEnrollmentMasterServiceTest {
         // Simulate call for below average AdaptiveProficiencyRanking returning no results
         List<AdaptiveProficiencyRanking> currentAdaptiveProficiencyRankingsBelowAverage = buildMockBelowAverageAdaptiveProficiencyRanking(student);
 
-        Mockito.when(iAdaptiveProficiencyRankingService.findBelowAverageAdaptiveProficiencyRankings(student)).thenReturn(currentAdaptiveProficiencyRankingsBelowAverage);
+        Mockito.when(iAdaptiveProficiencyRankingService.findBelowAverageAdaptiveProficiencyRankings(student, currentStudentTutorialGrade)).thenReturn(currentAdaptiveProficiencyRankingsBelowAverage);
         EnrollmentDecision enrollmentDecision = defaultEnrollmentMasterService.authorizeEnrollmentRequest(studentEnrolmentRecord, targetStudentTutorialGrade);
         Assert.assertTrue(enrollmentDecision.isEnrollmentDenied());
         Assert.assertTrue(enrollmentDecision.getAdaptiveProficiencyRankingAnalysis().size() >= 1);

@@ -53,7 +53,7 @@ public class DefaultEnrollmentMasterService implements IEnrollmentMasterService 
             } else {
                 // To Enroll in a higher StudentTutorialGrade expectation is Student needs to performing above average in all Curriculum areas.  IF not enrollment will be denied
                 LOGGER.info("Enrollment request is for a higher StudentTutorialGrade, analyzing weaknesses in Students Curriculum performance as part of approval process.  Enrollment will be denied IF Student is currently below average in any Curriculum.");
-                List<AdaptiveProficiencyRanking> currentAdaptiveProficiencyRankingsBelowAverage = iAdaptiveProficiencyRankingService.findBelowAverageAdaptiveProficiencyRankings(qPalXUser);
+                List<AdaptiveProficiencyRanking> currentAdaptiveProficiencyRankingsBelowAverage = iAdaptiveProficiencyRankingService.findBelowAverageAdaptiveProficiencyRankings(qPalXUser, currentStudentTutorialGrade);
 
                 if(currentAdaptiveProficiencyRankingsBelowAverage.isEmpty()) {
                     LOGGER.warn("Enrollment request has been approved, no Curriculum performances below average found");

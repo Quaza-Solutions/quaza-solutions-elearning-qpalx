@@ -57,4 +57,16 @@ public interface IAdaptiveProficiencyRankingRepository extends CrudRepository<Ad
             "And                 adaptiveProficiencyRanking.proficiencyRankingEndDateTime is null"
     )
     public List<AdaptiveProficiencyRanking> findStudentAdaptiveProficiencyRankingInStudentTutorialGrade(final QPalXUser qPalXUser, final StudentTutorialGrade studentTutorialGrade);
+
+    // Find the current Student's proficiency ranking across the given StudentTutorialGrade where Curriculum is active
+    @Query("Select               adaptiveProficiencyRanking From AdaptiveProficiencyRanking adaptiveProficiencyRanking "+
+            "INNER JOIN FETCH    adaptiveProficiencyRanking.qpalxUser qpalxUser " +
+            "INNER JOIN FETCH    adaptiveProficiencyRanking.eLearningCurriculum eLearningCurriculum " +
+            "Where               qpalxUser =?1 " +
+            "And                 eLearningCurriculum.studentTutorialGrade =?2 " +
+            "And                 adaptiveProficiencyRanking.proficiencyRankingEffectiveDateTime is not null " +
+            "And                 adaptiveProficiencyRanking.proficiencyRankingEndDateTime is null " +
+            "And                 adaptiveProficiencyRanking.eLearningCurriculum.active = true "
+    )
+    public List<AdaptiveProficiencyRanking> findStudentAdaptiveProficiencyRankingInStudentTutorialGradeAndActive(final QPalXUser qPalXUser, final StudentTutorialGrade studentTutorialGrade);
 }

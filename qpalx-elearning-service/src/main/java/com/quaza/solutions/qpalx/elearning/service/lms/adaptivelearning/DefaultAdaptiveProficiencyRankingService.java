@@ -105,6 +105,29 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
     }
 
     @Override
+    public List<AdaptiveProficiencyRanking> findBelowAverageAdaptiveProficiencyRankings(QPalXUser qPalXUser, StudentTutorialGrade studentTutorialGrade) {
+        Assert.notNull(qPalXUser, "qPalXUser cannot be null");
+        Assert.notNull(studentTutorialGrade, "studentTutorialGrade cannot be null");
+
+        LOGGER.info("Finding all Adaptive performance areas where student: {} is currently performing below average in studentTutorialGrade: {}", qPalXUser.getEmail(), studentTutorialGrade.getTutorialGrade());
+
+        List<AdaptiveProficiencyRanking> currentAdaptiveProficiencyRankings = iAdaptiveProficiencyRankingRepository.findStudentAdaptiveProficiencyRankingInStudentTutorialGradeAndActive(qPalXUser, studentTutorialGrade);
+        List<AdaptiveProficiencyRanking> areasBelowAverage = new ArrayList<>();
+
+        for (AdaptiveProficiencyRanking currentAdaptiveProficiencyRanking : currentAdaptiveProficiencyRankings) {
+            ELearningCurriculum eLearningCurriculum = currentAdaptiveProficiencyRanking.geteLearningCurriculum();
+            ProficiencyRankingScaleE curriculumProficiencyRanking = currentAdaptiveProficiencyRanking.getProficiencyRankingScaleE();
+
+            if(curriculumProficiencyRanking.isBelowProficiencyRanking(ProficiencyRankingScaleE.SEVEN)) {
+                LOGGER.debug("Student is currently performing below average in eLearningCurriculum: {}", eLearningCurriculum.getCurriculumName());
+                areasBelowAverage.add(currentAdaptiveProficiencyRanking);
+            }
+        }
+
+        return areasBelowAverage;
+    }
+
+    @Override
     public AdaptiveProficiencyRanking findCurrentStudentAdaptiveProficiencyRankingForCurriculum(QPalXUser qPalXUser, ELearningCurriculum eLearningCurriculum) {
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
         Assert.notNull(eLearningCurriculum, "eLearningCurriculum cannot be null");
