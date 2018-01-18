@@ -232,6 +232,7 @@ public class DefaultAdaptiveProficiencyRankingService  implements IAdaptiveProfi
                     .eLearningCurriculum(eLearningCurriculum)
                     .proficiencyRankingEffectiveDateTime(new DateTime())
                     .proficiencyRankingTriggerTypeE(ProficiencyRankingTriggerTypeE.ENROLMENT)
+                    .curriculumCompletionPercentage(0d)
                     .build();
 
             return adaptiveProficiencyRanking;

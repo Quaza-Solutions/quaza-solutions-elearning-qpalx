@@ -90,15 +90,13 @@ public class DefaultStudentEnrollmentRecordService implements IStudentEnrollment
         if (!enrollmentDeniedDecision.isEnrollmentDenied()) {
             LOGGER.info("Completing successful enrollment of student to  StudentTutorialGrade: {}", targetStudentTutorialGrade);
 
-            // Check to see IF the student has any experience on the target StudentTutorialGrade already, if not build enrollment AdaptiveProficiencyRankings
+            // Check to see IF the student has any experience on the target StudentTutorialGrade already, if not build new enrollment AdaptiveProficiencyRankings
             List<AdaptiveProficiencyRanking> previousAdaptiveProficiencyRankings = iAdaptiveProficiencyRankingService.findStudentAdaptiveProficiencyRankings(qPalXUser, targetStudentTutorialGrade);
 
-            if (previousAdaptiveProficiencyRankings != null && previousAdaptiveProficiencyRankings.size() > 0) {
-                iAdaptiveProficiencyRankingService.closeOutAdaptiveProficiencyRanking(previousAdaptiveProficiencyRankings);
+            if (previousAdaptiveProficiencyRankings == null || previousAdaptiveProficiencyRankings.size() == 0) {
+                LOGGER.info("Building new AdaptiveProficiencyRankings for targetStudentTutorialGrade: {}", targetStudentTutorialGrade.getTutorialGrade());
+                iAdaptiveProficiencyRankingService.buildInitialAdaptiveProficiencyRanking(qPalXUser, targetStudentTutorialGrade);
             }
-
-            // Now we need to save the new AdaptiveProficiencyRankings from enrollment to targetStudentTutorialGrade
-            iAdaptiveProficiencyRankingService.buildInitialAdaptiveProficiencyRanking(qPalXUser, targetStudentTutorialGrade);
 
             // Next update the Student tutorial grade to the new target tutorial grade
             studentEnrolmentRecord.setStudentTutorialGrade(targetStudentTutorialGrade);
