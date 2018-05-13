@@ -50,7 +50,7 @@ public class DefaultQPalxUserService implements IQPalxUserService {
     private IQPalxSubscriptionService iqPalxSubscriptionService;
 
     @Autowired
-    @Qualifier(GlobalStudentPerformanceAuditService.BEAN_NAME)
+    @Qualifier(GlobalStudentPerformanceAuditService.SPRING_BEAN)
     private IGlobalStudentPerformanceAuditService iGlobalStudentPerformanceAuditService;
 
 

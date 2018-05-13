@@ -74,6 +74,15 @@ public class QPalXEducationalInstitution {
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean hasCollegeEducation;
 
+
+	// Determines IF this institution is a private school
+	@JsonIgnore
+	@Column(name="IsPrivateSchool", nullable = false, columnDefinition = "TINYINT", length = 1)
+	@ColumnDefault("0")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean isPrivateSchool;
+
+
 	// Fetch this eagerly.  This is the Academic Level that this School teaches at
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "QPalXMunicipalityID", nullable =  true)
@@ -155,6 +164,22 @@ public class QPalXEducationalInstitution {
 		this.hasSeniorHighEducation = hasSeniorHighEducation;
 	}
 
+	public boolean isHasCollegeEducation() {
+		return hasCollegeEducation;
+	}
+
+	public void setHasCollegeEducation(boolean hasCollegeEducation) {
+		this.hasCollegeEducation = hasCollegeEducation;
+	}
+
+	public boolean isPrivateSchool() {
+		return isPrivateSchool;
+	}
+
+	public void setPrivateSchool(boolean privateSchool) {
+		isPrivateSchool = privateSchool;
+	}
+
 	public QPalXMunicipality getQPalXMunicipality() {
 		return qPalXMunicipality;
 	}
@@ -187,6 +212,8 @@ public class QPalXEducationalInstitution {
 				.append(hasPrimaryEducation, that.hasPrimaryEducation)
 				.append(hasJuniorHighEducation, that.hasJuniorHighEducation)
 				.append(hasSeniorHighEducation, that.hasSeniorHighEducation)
+				.append(hasCollegeEducation, that.hasCollegeEducation)
+				.append(isPrivateSchool, that.isPrivateSchool)
 				.append(id, that.id)
 				.append(code, that.code)
 				.append(name, that.name)
@@ -211,6 +238,8 @@ public class QPalXEducationalInstitution {
 				.append(hasPrimaryEducation)
 				.append(hasJuniorHighEducation)
 				.append(hasSeniorHighEducation)
+				.append(hasCollegeEducation)
+				.append(isPrivateSchool)
 				.append(qPalXMunicipality)
 				.toHashCode();
 	}
@@ -228,6 +257,8 @@ public class QPalXEducationalInstitution {
 				.append("hasPrimaryEducation", hasPrimaryEducation)
 				.append("hasJuniorHighEducation", hasJuniorHighEducation)
 				.append("hasSeniorHighEducation", hasSeniorHighEducation)
+				.append("hasCollegeEducation", hasCollegeEducation)
+				.append("isPrivateSchool", isPrivateSchool)
 				.append("qPalXMunicipality", qPalXMunicipality)
 				.toString();
 	}
@@ -256,6 +287,11 @@ public class QPalXEducationalInstitution {
 
 		public Builder webSiteAddress(String webSiteAddress) {
 			educationalInstitution.webSiteAddress = webSiteAddress;
+			return this;
+		}
+
+		public Builder isPrivateSchool(boolean isPrivateSchool) {
+			educationalInstitution.isPrivateSchool = isPrivateSchool;
 			return this;
 		}
 

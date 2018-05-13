@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author manyce400
  */
-@Service(GlobalStudentPerformanceAuditService.BEAN_NAME)
+@Service(GlobalStudentPerformanceAuditService.SPRING_BEAN)
 public class GlobalStudentPerformanceAuditService implements IGlobalStudentPerformanceAuditService {
 
 
@@ -22,7 +22,7 @@ public class GlobalStudentPerformanceAuditService implements IGlobalStudentPerfo
     private IGlobalStudentPerformanceAuditRepository iGlobalStudentPerformanceAuditRepository;
 
 
-    public static final String BEAN_NAME = "com.quaza.solutions.qpalx.elearning.service.qpalxuser.GlobalStudentPerformanceAuditService";
+    public static final String SPRING_BEAN = "com.quaza.solutions.qpalx.elearning.service.qpalxuser.GlobalStudentPerformanceAuditService";
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(GlobalStudentPerformanceAuditService.class);
 

@@ -52,8 +52,8 @@ public class AdaptiveLessonStatisticsService implements IAdaptiveLessonStatistic
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AdaptiveLessonStatisticsService.class);
 
 
-    @Transactional
     @Override
+    @Transactional
     public void recordAdaptiveLessonStatistics(QPalXEMicroLesson qPalXEMicroLesson, QPalXUser qPalXUser) {
         Assert.notNull(qPalXEMicroLesson, "qPalXEMicroLesson cannot be null");
         Assert.notNull(qPalXUser, "qPalXUser cannot be null");
